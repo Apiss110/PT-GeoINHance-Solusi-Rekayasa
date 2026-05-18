@@ -6,8 +6,8 @@
     <title>Profil Interaktif - PT GeoINHance Solusi Rekayasa</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
-
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
@@ -62,14 +62,14 @@
                 <div class="bg-red-800 p-1.5 rounded-md mr-3">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
-                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='{{ route('home') }}'">
+                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='/'">
                     <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span>
                     <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">Engineering Solutions</span>
                 </div>
             </div>
 
             <div class="hidden lg:flex items-center space-x-10 text-[12px] font-bold uppercase tracking-widest text-slate-600">
-                <a href="/profil" class="nav-link text-red-800 transition">Profil Perusahaan</a>
+                <a href="#" class="nav-link text-red-800 active transition">Profil Perusahaan</a>
                 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
@@ -93,6 +93,7 @@
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
                         <span>PRODUK</span>
@@ -115,6 +116,7 @@
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
                         <span>PROYEK</span>
@@ -137,6 +139,7 @@
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
                         <span>RESOURCES</span>
@@ -159,12 +162,57 @@
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
-                <a href="#" class="nav-link hover:text-red-800 transition">Karir</a>
+                <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
                 <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
                 
-                <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
-                    Client Area
-                </a>
+                @auth
+                    <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
+                        <button @click="userOpen = !userOpen" class="flex items-center space-x-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 py-1.5 px-3.5 rounded-xl transition duration-200 focus:outline-none normal-case tracking-normal">
+                            <div class="w-6 h-6 bg-red-800 text-white rounded-full flex items-center justify-center font-bold text-[10px] uppercase shadow-sm shrink-0">
+                                {{ substr(Auth::user()->name, 0, 2) }}
+                            </div>
+                            
+                            <div class="text-left leading-none">
+                                <span class="block text-xs font-black text-slate-800 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
+                                <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ Auth::user()->role ?? 'Client' }}</span>
+                            </div>
+
+                            <svg class="w-3 h-3 text-slate-400 transition-transform duration-200 shadow-none" :class="userOpen ? 'transform rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <div x-show="userOpen" 
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden py-1 z-50 normal-case font-semibold text-slate-700 tracking-normal" 
+                             x-cloak>
+                            
+                            <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="flex items-center space-x-2 px-4 py-2.5 text-xs hover:bg-slate-50 hover:text-red-800 transition">
+                                <span class="material-symbols-outlined text-slate-400 text-sm">dashboard</span>
+                                <span>Dasbor Panel</span>
+                            </a>
+
+                            <hr class="border-slate-100 my-1">
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center space-x-2 px-4 py-2.5 text-xs text-red-700 font-bold hover:bg-red-50 text-left transition">
+                                    <span class="material-symbols-outlined text-red-600 text-sm">logout</span>
+                                    <span>Keluar Sistem</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Client Area
+                    </a>
+                @endauth
             </div>
 
             <div class="lg:hidden">
@@ -197,7 +245,7 @@
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
                     </svg>
                 </button>
-                <div x-show="mobileDropdownOpen" x-collapse class="pl-4 border-l border-slate-200 space-y-2.5 py-1.5 normal-case font-semibold text-slate-500 text-[11px]" x-cloak>
+                <div x-show="mobileDropdownOpen" class="pl-4 border-l border-slate-200 space-y-2.5 py-1.5 normal-case font-semibold text-slate-500 text-[11px]" x-cloak>
                     <a href="#" @click="mobileMenuOpen = false" class="block hover:text-red-800">Profil Perusahaan</a>
                     <a href="#visi-misi" @click="mobileMenuOpen = false" class="block hover:text-red-800">Visi & Misi</a>
                     <a href="#alamat-kantor" @click="mobileMenuOpen = false" class="block hover:text-red-800">Lokasi Kantor</a>
@@ -206,7 +254,16 @@
             
             <a href="/#services" class="block text-slate-600 hover:text-red-800 py-1">Layanan</a>
             <a href="/#portfolio" class="block text-slate-600 hover:text-red-800 py-1">Proyek</a>
-            <a href="{{ route('login') }}" class="block bg-slate-900 text-white text-center py-2.5 rounded shadow">Client Area</a>
+
+            @auth
+                <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="block bg-slate-100 text-slate-800 text-center py-2.5 rounded font-black">Dasbor Panel</a>
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+                    <button type="submit" class="w-full bg-red-50 text-red-700 text-center py-2.5 rounded font-bold">Keluar Sistem</button>
+                </form>
+            @else
+                <a href="{{ route('login') }}" class="block bg-slate-900 text-white text-center py-2.5 rounded shadow">Client Area</a>
+            @endauth
         </div>
     </nav>
 
@@ -285,7 +342,6 @@
                 </div>
 
                 <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-200 min-h-[220px] flex items-center relative overflow-hidden">
-                    
                     <div x-show="activeTab === 'visi'" 
                          x-transition:enter="transition ease-out duration-500"
                          x-transition:enter-start="opacity-0 translate-x-8"
@@ -320,7 +376,6 @@
                             </p>
                         </div>
                     </div>
-
                 </div>
             </div>
         </section>
@@ -356,30 +411,16 @@
                                 </p>
                             </div>
                         </div>
-
-                        <div class="flex items-start space-x-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition duration-300 cursor-pointer group">
-                            <div class="text-red-800 mt-1 group-hover:scale-110 transition duration-300">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 group-hover:text-red-800 transition">Hubungi Kami langsung</h4>
-                                <p class="text-slate-600 text-sm mt-1">P: +62 21 2788 1958</p>
-                                <p class="text-red-800 font-bold text-sm">E: info@geoinhance.com</p>
-                            </div>
-                        </div>
                     </div>
                 </div>
-
-                <div class="w-full h-[380px] bg-slate-200 rounded-3xl overflow-hidden shadow-xl border border-slate-300 relative group" data-aos="fade-left">
-                    <iframe 
-                        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.3074543124296!2d107.6191223!3d-6.8909!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNsKwNTMnMjcuMiJTIDEwN8KwMzcnMDguOCJF!5e0!3m2!1sid!2sid!4v1715600000000!5m2!1sid!2sid" 
-                        class="w-full h-full border-0 filter grayscale contract-125 group-hover:grayscale-0 transition-all duration-700" 
-                        allowfullscreen="" 
-                        loading="lazy">
-                    </iframe>
+                
+                <div class="h-96 rounded-3xl overflow-hidden shadow-xl border border-slate-200" data-aos="fade-left">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2736184581457!2d106.80164807603417!3d-6.22761356098628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14fc2ff6113%3A0xc6c7674681643cb0!2sMenara%20Sentraya!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                            class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                 </div>
             </div>
         </section>
+    </div>
 
         <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
@@ -406,7 +447,8 @@
                         <li><a href="/" class="hover:text-white transition">Beranda</a></li>
                         <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
                         <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
-                        <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
+                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
+                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
                     </ul>
                 </div>
 
@@ -429,24 +471,32 @@
                 </div>
             </div>
         </footer>
-    </div>
-
-    <a href="https://wa.me/622127881958" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
-    </a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({ duration: 800, once: true });
-        window.onscroll = function() {
-            const nav = document.querySelector('nav');
-            if (window.pageYOffset > 50) {
-                nav.classList.add('shadow-md');
-            } else {
-                nav.classList.remove('shadow-md');
-            }
-        };
+        // Inisialisasi library animasi AOS
+        AOS.init({
+            duration: 800,
+            once: true
+        });
+
+        // Handler Smooth Scroll Murni untuk navigasi hash internal (#visi-misi, #alamat-kantor)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                const targetId = this.getAttribute('href');
+                if(targetId !== '#') {
+                    e.preventDefault();
+                    const targetElement = document.querySelector(targetId);
+                    if(targetElement) {
+                        // Offset dikurangi 100 agar pas dengan sticky navbar tinggi
+                        window.scrollTo({
+                            top: targetElement.offsetTop - 100,
+                            behavior: 'smooth'
+                        });
+                    }
+                }
+            });
+        });
     </script>
-    @livewireScripts
 </body>
 </html>

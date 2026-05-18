@@ -6,8 +6,8 @@
     <title>PT GeoINHance Solusi Rekayasa</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-<link rel="stylesheet"
-href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
@@ -38,11 +38,12 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
         .card-shadow {
             box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.05);
         }
+        [x-cloak] { display: none !important; }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900">
+<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
 
-    <nav class="fixed w-full z-[100] transition-all duration-300">
+    <nav class="fixed w-full z-[100] transition-all duration-300 ">
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
                 <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> Bandung, West Java</span>
@@ -60,7 +61,7 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
                 <div class="bg-red-800 p-1.5 rounded-md mr-3">
                     <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
-                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='{{ route('home') }}'">
+                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='/'">
                     <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span>
                     <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">Engineering Solutions</span>
                 </div>
@@ -91,6 +92,7 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
                         <span>PRODUK</span>
@@ -113,6 +115,7 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
                         <span>PROYEK</span>
@@ -135,6 +138,7 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
                         <span>RESOURCES</span>
@@ -157,11 +161,58 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
-                <a href="#" class="nav-link hover:text-red-800 transition">Karir</a>
+
+                <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
                 <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
-                <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
-                    Client Area
-                </a>
+
+                @auth
+                    <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
+                        <button @click="userOpen = !userOpen" class="flex items-center space-x-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 py-1.5 px-3.5 rounded-xl transition duration-200 focus:outline-none normal-case tracking-normal">
+                            <div class="w-6 h-6 bg-red-800 text-white rounded-full flex items-center justify-center font-bold text-[10px] uppercase shadow-sm shrink-0">
+                                {{ substr(Auth::user()->name, 0, 2) }}
+                            </div>
+                            
+                            <div class="text-left leading-none">
+                                <span class="block text-xs font-black text-slate-800 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
+                                <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ Auth::user()->role ?? 'Client' }}</span>
+                            </div>
+
+                            <svg class="w-3 h-3 text-slate-400 transition-transform duration-200 shadow-none" :class="userOpen ? 'transform rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <div x-show="userOpen" 
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden py-1 z-50 normal-case font-semibold text-slate-700 tracking-normal" 
+                             x-cloak>
+                            
+                            <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="flex items-center space-x-2 px-4 py-2.5 text-xs hover:bg-slate-50 hover:text-red-800 transition">
+                                <span class="material-symbols-outlined text-slate-400 text-sm">dashboard</span>
+                                <span>Dasbor Panel</span>
+                            </a>
+
+                            <hr class="border-slate-100 my-1">
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center space-x-2 px-4 py-2.5 text-xs text-red-700 font-bold hover:bg-red-50 text-left transition">
+                                    <span class="material-symbols-outlined text-red-600 text-sm">logout</span>
+                                    <span>Keluar Sistem</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Client Area
+                    </a>
+                @endauth
             </div>
         </div>
     </nav>
@@ -197,14 +248,107 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
             </div>
         </section>
 
-        <section id="services" class="max-w-7xl mx-auto py-20 px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Our Expertise</span>
-                <h2 class="text-4xl font-black text-slate-900 uppercase">Layanan Unggulan</h2>
-                <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
+<section id="services" class="max-w-7xl mx-auto py-24 px-6">
+
+    <!-- HEADER -->
+    <div class="text-center mb-20" data-aos="fade-up">
+
+        <span class="inline-block px-5 py-2 rounded-full border border-red-100 bg-red-50 text-red-800 text-xs font-extrabold uppercase tracking-[0.35em] shadow-sm">
+            Our Expertise
+        </span>
+
+        <h2 class="mt-6 text-4xl md:text-5xl font-black uppercase text-slate-900 leading-tight">
+            Layanan
+            <span class="text-red-800">
+                Unggulan
+            </span>
+        </h2>
+
+        <p class="max-w-2xl mx-auto mt-6 text-lg leading-8 text-slate-500">
+            Solusi engineering profesional dengan pendekatan modern,
+            presisi tinggi, dan standar kualitas industri terbaik.
+        </p>
+
+        <div class="mt-8 flex items-center justify-center gap-3">
+            <div class="h-[3px] w-12 rounded-full bg-red-200"></div>
+            <div class="h-4 w-4 rounded-full bg-red-800"></div>
+            <div class="h-[3px] w-12 rounded-full bg-red-200"></div>
+        </div>
+
+    </div>
+
+    <!-- SERVICES -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <!-- CARD -->
+        <div class="rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+            <!-- ICON -->
+            <div class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+
+                <span class="material-symbols-outlined text-[60px] text-white">
+                    engineering
+                </span>
+
             </div>
-            <livewire:service-list />
-        </section>
+
+            <h3 class="mb-4 text-2xl font-black text-slate-900">
+                Geotechnical Engineering
+            </h3>
+
+            <p class="leading-8 text-slate-500">
+                Analisis stabilitas tanah dan fondasi untuk keamanan konstruksi.
+            </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+            <!-- ICON -->
+            <div class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+
+                <span class="material-symbols-outlined text-[60px] text-white">
+                    architecture
+                </span>
+
+            </div>
+
+            <h3 class="mb-4 text-2xl font-black text-slate-900">
+                Structural Analysis
+            </h3>
+
+            <p class="leading-8 text-slate-500">
+                Perhitungan kekuatan struktur bangunan modern dan efisien.
+            </p>
+
+        </div>
+
+        <!-- CARD -->
+        <div class="rounded-3xl border border-slate-200 bg-white p-10 text-center shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+            <!-- ICON -->
+            <div class="mx-auto mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+
+                <span class="material-symbols-outlined text-[60px] text-white">
+                    map
+                </span>
+
+            </div>
+
+            <h3 class="mb-4 text-2xl font-black text-slate-900">
+                Land Surveying
+            </h3>
+
+            <p class="leading-8 text-slate-500">
+                Pemetaan lahan presisi tinggi menggunakan GPS modern.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
 
         <section id="portfolio" class="bg-slate-100 py-24 px-6 border-t border-slate-200">
             <div class="max-w-7xl mx-auto">
@@ -293,10 +437,11 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
                 <div>
                     <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Navigasi</h4>
                     <ul class="space-y-4 text-slate-400 text-sm">
-                        <li><a href="#" class="hover:text-white transition">Beranda</a></li>
-                        <li><a href="#services" class="hover:text-white transition">Layanan Kami</a></li>
-                        <li><a href="#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
-                        <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
+                        <li><a href="/" class="hover:text-white transition">Beranda</a></li>
+                        <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
+                        <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
+                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
+                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
                     </ul>
                 </div>
 
@@ -312,7 +457,7 @@ href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
             </div>
             
             <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
-                <p>&copy; 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
+                <p>© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
                 <div class="flex space-x-6 mt-4 md:mt-0">
                     <a href="#">Privacy Policy</a>
                     <a href="#">Terms of Service</a>

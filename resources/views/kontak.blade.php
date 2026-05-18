@@ -6,6 +6,7 @@
     <title>Kontak & Tim - PT GeoINHance Solusi Rekayasa</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -159,11 +160,57 @@
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
                     </div>
                 </div>
-                <a href="#" class="nav-link hover:text-red-800 transition">Karir</a>
-                <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
-                <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
-                    Client Area
-                </a>
+                <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
+                <a href="#" class="nav-link text-red-800 transition">Kontak</a>
+
+                                @auth
+                    <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
+                        <button @click="userOpen = !userOpen" class="flex items-center space-x-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 py-1.5 px-3.5 rounded-xl transition duration-200 focus:outline-none normal-case tracking-normal">
+                            <div class="w-6 h-6 bg-red-800 text-white rounded-full flex items-center justify-center font-bold text-[10px] uppercase shadow-sm shrink-0">
+                                {{ substr(Auth::user()->name, 0, 2) }}
+                            </div>
+                            
+                            <div class="text-left leading-none">
+                                <span class="block text-xs font-black text-slate-800 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
+                                <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ Auth::user()->role ?? 'Client' }}</span>
+                            </div>
+
+                            <svg class="w-3 h-3 text-slate-400 transition-transform duration-200 shadow-none" :class="userOpen ? 'transform rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </button>
+
+                        <div x-show="userOpen" 
+                             x-transition:enter="transition ease-out duration-100"
+                             x-transition:enter-start="opacity-0 scale-95"
+                             x-transition:enter-end="opacity-100 scale-100"
+                             x-transition:leave="transition ease-in duration-75"
+                             x-transition:leave-start="opacity-100 scale-100"
+                             x-transition:leave-end="opacity-0 scale-95"
+                             class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden py-1 z-50 normal-case font-semibold text-slate-700 tracking-normal" 
+                             x-cloak>
+                            
+                            <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="flex items-center space-x-2 px-4 py-2.5 text-xs hover:bg-slate-50 hover:text-red-800 transition">
+                                <span class="material-symbols-outlined text-slate-400 text-sm">dashboard</span>
+                                <span>Dasbor Panel</span>
+                            </a>
+
+                            <hr class="border-slate-100 my-1">
+
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
+                                <button type="submit" class="w-full flex items-center space-x-2 px-4 py-2.5 text-xs text-red-700 font-bold hover:bg-red-50 text-left transition">
+                                    <span class="material-symbols-outlined text-red-600 text-sm">logout</span>
+                                    <span>Keluar Sistem</span>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                @else
+                    <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
+                        Client Area
+                    </a>
+                @endauth
             </div>
         </div>
 
@@ -451,7 +498,8 @@
                         <li><a href="/" class="hover:text-white transition">Beranda</a></li>
                         <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
                         <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
-                        <li><a href="#" class="hover:text-white transition">Hubungi Kami</a></li>
+                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
+                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
                     </ul>
                 </div>
 
