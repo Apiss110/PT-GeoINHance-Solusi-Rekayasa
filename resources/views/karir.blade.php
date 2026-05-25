@@ -164,6 +164,7 @@
                     </div>
                 </div>
 
+                <a href="/karir" class="nav-link hover:text-red-800 transition">Legalitas</a>
                 <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
                 <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
 
@@ -484,9 +485,9 @@
             
             <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
                 <p>© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                <div class="flex gap-4">
+                    <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
+                    <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
                 </div>
             </div>
         </footer>

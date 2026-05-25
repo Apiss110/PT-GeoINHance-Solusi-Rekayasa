@@ -7,6 +7,8 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -162,6 +164,7 @@
                     </div>
                 </div>
 
+                <a href="/karir" class="nav-link hover:text-red-800 transition">Legalitas</a>
                 <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
                 <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
 
@@ -350,6 +353,201 @@
 
 </section>
 
+<section class="bg-white py-24 px-6 border-t border-b border-slate-100" x-data="{ 
+    activeBranch: 'bandung',
+    branches: {
+        jakarta: {
+            title: 'Kantor Perwakilan - Jakarta',
+            desc: 'Hub operasional strategis untuk koordinasi regulasi, kemitraan BUMN, dan manajemen proyek skala nasional.',
+            img: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=600&auto=format&fit=crop',
+            coords: 'top-[75%] left-[26%]'
+        },
+        bandung: {
+            title: 'Kantor Pusat - Bandung',
+            desc: 'Pusat komputasi data geoteknik, studio analisis pemodelan struktural, dan laboratorium pengujian mekanika tanah utama.',
+            img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop',
+            coords: 'top-[79.5%] left-[28%]'
+        },
+        surabaya: {
+            title: 'Kantor Cabang - Surabaya',
+            desc: 'Layanan investigasi lapangan wilayah Indonesia Timur, mencakup survei hidrografi dan pemetaan geofisika maritim.',
+            img: 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=600&auto=format&fit=crop',
+            coords: 'top-[82%] left-[39.5%]'
+        },
+        Bali: {
+            title: 'Studio Pusat - Bali',
+            desc: 'Pos komando taktis penanganan survei UAV, pemetaan udara koridor infrastruktur, dan monitoring geoteknik real-time IKN.',
+            img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=600&auto=format&fit=crop',
+            coords: 'top-[89%] left-[45.5%]'
+        }
+    }
+}">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Operational Network</span>
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Cakupan Wilayah & Jaringan Cabang</h2>
+            <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
+            <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">Sinergi multi-kantor untuk memastikan mobilitas tim teknis yang cepat dan efisien di seluruh koridor infrastruktur Indonesia.</p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
+            
+            <div class="lg:col-span-9 relative bg-slate-50/60 p-2 md:p-6 rounded-3xl border border-slate-100 flex items-center justify-center min-h-[400px]" data-aos="fade-right">
+                <div class="w-full relative select-none">
+                    
+                    <img src="https://marketplace.canva.com/O3kyc/MAHFD_O3kyc/1/tl/canva-map-of-indonesia-MAHFD_O3kyc.png" 
+                         class="w-full h-auto opacity-40 grayscale hover:grayscale-0 transition-all duration-700" 
+                         alt="GeoINHance Operational Map">
+                    
+                    <div class="absolute inset-0 w-full h-full">
+                        <template x-for="(branch, key) in branches" :key="key">
+                            <div class="absolute transform -translate-x-1/2 -translate-y-full transition-all duration-300" 
+                                 :class="[branch.coords, activeBranch === key ? 'z-30 scale-110' : 'z-10 hover:z-20']">
+                                
+                                <button @mouseenter="activeBranch = key" 
+                                        @click="activeBranch = key" 
+                                        class="relative flex flex-col items-center justify-center focus:outline-none transition-transform duration-300 hover:-translate-y-1.5 group">
+                                    
+                                    <span class="absolute inline-flex h-6 w-6 rounded-full opacity-60 animate-ping bottom-[-3px]" 
+                                          :class="activeBranch === key ? 'bg-red-500' : 'bg-[#002d62]/30'"></span>
+                                    
+                                    <svg class="w-7 h-7 filter drop-shadow-md transition-colors duration-300" 
+                                         viewBox="0 0 24 24" 
+                                         fill="currentColor">
+                                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" 
+                                              :class="activeBranch === key ? 'text-red-800' : 'text-[#002d62]'"/>
+                                    </svg>
+                                    
+                                    <span class="absolute bottom-full mb-1.5 bg-slate-900 text-white text-[9px] font-black px-2 py-1 rounded shadow-xl opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap uppercase tracking-widest pointer-events-none" x-text="key"></span>
+                                </button>
+                            </div>
+                        </template>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="lg:col-span-3 flex" data-aos="fade-left">
+                <div class="bg-white rounded-3xl border border-slate-200 shadow-xl overflow-hidden w-full flex flex-col justify-between transition-all duration-300">
+                    <div class="h-44 w-full overflow-hidden bg-slate-100 relative">
+                        <img :src="branches[activeBranch].img" class="w-full h-full object-cover transition-all duration-500" :alt="branches[activeBranch].title" :key="activeBranch">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent"></div>
+                        <span class="absolute bottom-3 left-3 bg-red-800 text-white text-[8px] font-black uppercase tracking-widest px-2.5 py-1 rounded shadow-md">GeoINHance Unit</span>
+                    </div>
+
+                    <div class="p-5 flex-grow flex flex-col justify-start">
+                        <h3 class="text-base font-black text-slate-900 uppercase tracking-tight mb-2 leading-tight" x-text="branches[activeBranch].title"></h3>
+                        <p class="text-slate-500 text-[11px] leading-relaxed" x-text="branches[activeBranch].desc"></p>
+                    </div>
+
+                    <div class="p-5 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-[9px] font-bold text-slate-400 uppercase tracking-wider mt-auto">
+                        <span class="flex items-center gap-1.5 text-emerald-600">
+                            <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Aktif
+                        </span>
+                        <a href="/kontak" class="text-red-800 hover:text-slate-900 transition flex items-center gap-0.5 font-extrabold">
+                            Hubungi <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<section class="bg-slate-50 py-24 px-6 border-b border-slate-100 overflow-hidden" x-data="{
+    categories: [
+        { name: 'Kementerian & BUMN', count: '12+ Instansi' },
+        { name: 'Kontraktor Utama', count: '20+ Perusahaan' },
+        { name: 'Sektor Swasta', count: '15+ Kemitraan' }
+    ]
+}">
+    <div class="max-w-7xl mx-auto">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Trusted Partners</span>
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Klien & Kemitraan Strategis</h2>
+            <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
+            <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">Telah dipercaya oleh berbagai instansi pemerintah, BUMN, dan korporasi swasta nasional dalam menyelesaikan proyek infrastruktur strategis.</p>
+        </div>
+
+        <div class="w-full relative py-4 mb-16 select-none" data-aos="fade-up" data-aos-delay="100">
+            <div class="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+            <div class="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+
+            <div class="flex w-max animate-marquee whitespace-nowrap items-center hover:[animation-play-state:paused]">
+                
+                <div class="flex gap-16 items-center shrink-0 pr-16">
+                    <img src="https://i.pinimg.com/originals/bf/b4/78/bfb4785acb3aa81935470bbf6cca8aa0.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Kementerian PUPR">
+                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/7/73/Waskita_Karya.svg/1280px-Waskita_Karya.svg.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Waskita">
+                    <img src="https://ridergalau.id/wp-content/uploads/2026/01/Logo-Wijaya-Karya-WIKA.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="WIKA">
+                    <img src="https://www.rukamen.com/uploads/logo_developer/1548844165_9766489.jpeg" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Adhi Karya">
+                    <img src="https://www.hutamakarya.com/storage/logo-site.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Hutama Karya">
+                    <img src="https://www.ptpp.co.id/_nuxt/img/site-logo.0b5b997.webp" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PT PP">
+                </div>
+                
+                <div class="flex gap-16 items-center shrink-0 pr-16" aria-hidden="true">
+                    <img src="https://i.pinimg.com/originals/bf/b4/78/bfb4785acb3aa81935470bbf6cca8aa0.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Kementerian PUPR">
+                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/7/73/Waskita_Karya.svg/1280px-Waskita_Karya.svg.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Waskita">
+                    <img src="https://ridergalau.id/wp-content/uploads/2026/01/Logo-Wijaya-Karya-WIKA.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="WIKA">
+                    <img src="https://www.rukamen.com/uploads/logo_developer/1548844165_9766489.jpeg" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Adhi Karya">
+                    <img src="https://www.hutamakarya.com/storage/logo-site.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Hutama Karya">
+                    <img src="https://www.ptpp.co.id/_nuxt/img/site-logo.0b5b997.webp" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PT PP">
+                </div>
+
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6" data-aos="fade-up" data-aos-delay="200">
+            <template x-for="cat in categories">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm flex items-center justify-between group hover:border-red-800/40 hover:shadow-md transition-all duration-300">
+                    <div class="flex flex-col">
+                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1" x-text="cat.count"></span>
+                        <h4 class="text-sm font-black text-slate-800 uppercase tracking-tight group-hover:text-red-800 transition-colors" x-text="cat.name"></h4>
+                    </div>
+                    <div class="h-10 w-10 rounded-full bg-slate-50 group-hover:bg-red-50 text-slate-400 group-hover:text-red-800 flex items-center justify-center transition-colors">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                        </svg>
+                    </div>
+                </div>
+            </template>
+        </div>
+    </div>
+</section>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+    }
+</style>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        animation: marquee 30s linear infinite;
+    }
+</style>
+
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0%); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        animation: marquee 25s linear infinite;
+    }
+    /* Pause jalan logo saat kursor user menempel di atasnya */
+    .animate-marquee:hover {
+        animation-play-state: paused;
+    }
+</style>
         <section id="portfolio" class="bg-slate-100 py-24 px-6 border-t border-slate-200">
             <div class="max-w-7xl mx-auto">
                 <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
@@ -457,10 +655,10 @@
             </div>
             
             <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
-                <p>© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
-                <div class="flex space-x-6 mt-4 md:mt-0">
-                    <a href="#">Privacy Policy</a>
-                    <a href="#">Terms of Service</a>
+                <p>© 1945 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
+                <div class="flex gap-4">
+                    <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
+                    <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
                 </div>
             </div>
         </footer>
