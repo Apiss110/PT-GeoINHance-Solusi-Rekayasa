@@ -52,6 +52,36 @@ Route::get('/product/plaxis-3d', function () {
     return view('products.plaxis-3d');
 })->name('product.plaxis3d');
 
+// SEKTOR
+Route::prefix('sektor')->group(function () {
+
+    Route::view('/infrastruktur-transportasi', 
+        'sektor.infrastruktur-transportasi'
+    )->name('sektor.infrastruktur');
+
+});
+
+/*
+|--------------------------------------------------------------------------
+| PROYEK
+|--------------------------------------------------------------------------
+*/
+
+Route::view(
+    '/proyek/geotechnical-analysis',
+    'proyek.geotechnical-analysis'
+)->name('project.geotechnical-analysis');
+
+/*
+|--------------------------------------------------------------------------
+| RESOURCES
+|--------------------------------------------------------------------------
+*/
+
+Route::view(
+    '/resources/articles',
+    'resources.articles'
+)->name('resources.articles');
 
 /*
 |--------------------------------------------------------------------------

@@ -121,7 +121,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Oil & Gas</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Energi</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Agriculture</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur & Transportasi</a>
+                        <a href="{{ route('sektor.infrastruktur') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur & Transportasi</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Jalur Kereta Api</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Bandar Udara</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pelabuhan</a>
@@ -154,9 +154,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-cloak>
                         <a href="{{ route('product.plaxis2d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 2D</a>
                         <a href="{{ route('product.plaxis3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 3D</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detail Program Plaxis</a>
-
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Produk</a>
+                        <a href="https://www.bentley.com/software/plaxis-2d/" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detail Program Plaxis</a>
                     </div>
                 </div>
 
@@ -177,15 +175,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar TriAx GeoGrid</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Biaxial GeoGrid</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Uniaxial GeoGrid</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrane</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">MultiBlock Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Sierrascape Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
+                        <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lombok GECC Power Plant </a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Design & Build of Kalibaru</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Design of Red Mud Stockyard</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Using Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis </a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
@@ -208,7 +208,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
                         <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multibangun Engineering Hub</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
+                        <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
@@ -644,6 +644,112 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     </div>
         </section>
+        <section class="bg-slate-50 py-24 px-6 md:px-16 border-t border-slate-200" data-aos="fade-up">
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row md:justify-between md:items-end mb-12 gap-6">
+            <div>
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Our Blog</span>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
+                    Latest Blog <span class="text-[#002d62]">& News</span>
+                </h2>
+                <div class="w-12 h-1 bg-red-800 mt-3 rounded-full"></div>
+            </div>
+            
+            <div class="flex space-x-3">
+                <button class="w-12 h-12 rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-red-800 hover:text-white hover:border-red-800 flex items-center justify-center transition-all duration-300 shadow-sm focus:outline-none group">
+                    <svg class="w-5 h-5 transform group-hover:-translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
+                    </svg>
+                </button>
+                <button class="w-12 h-12 rounded-full border border-slate-300 bg-white text-slate-700 hover:bg-red-800 hover:text-white hover:border-red-800 flex items-center justify-center transition-all duration-300 shadow-sm focus:outline-none group">
+                    <svg class="w-5 h-5 transform group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+            
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full cursor-pointer">
+                <div class="relative overflow-hidden aspect-[4/3] bg-slate-900">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=600" alt="Embankment Kereta Api" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100">
+                    <div class="absolute top-4 left-4 bg-red-800 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-md shadow">
+                        Geoteknik
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="flex items-center space-x-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+                        <span>03 Juni 2026</span>
+                        <span>•</span>
+                        <span>Sipil</span>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-900 group-hover:text-red-800 transition-colors duration-300 leading-snug uppercase tracking-tight line-clamp-2">
+                        Panduan Embankment Kereta Api: Standar & Perkuatan
+                    </h3>
+                    <p class="text-slate-500 text-xs mt-3 leading-relaxed line-clamp-3">
+                        Analisis komprehensif penanganan stabilitas timbunan jalur rel logistik kecepatan tinggi di atas tanah lunak menggunakan skema instrumen geosintetik.
+                    </p>
+                    <div class="mt-auto pt-6 border-t border-slate-100 flex items-center text-[11px] font-extrabold text-[#002d62] uppercase tracking-wider group-hover:text-red-800 transition-colors">
+                        Baca Selengkapnya <i class="fas fa-arrow-right ml-2 text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full cursor-pointer">
+                <div class="relative overflow-hidden aspect-[4/3] bg-slate-900">
+                    <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=600" alt="Monitoring Jarak Jauh AI" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100">
+                    <div class="absolute top-4 left-4 bg-red-800 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-md shadow">
+                        Teknologi
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="flex items-center space-x-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+                        <span>01 Juni 2026</span>
+                        <span>•</span>
+                        <span>Inovasi</span>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-900 group-hover:text-red-800 transition-colors duration-300 leading-snug uppercase tracking-tight line-clamp-2">
+                        Panduan AI dalam Monitoring Jarak Jauh: Integrasi AIoT dan InSAR
+                    </h3>
+                    <p class="text-slate-500 text-xs mt-3 leading-relaxed line-clamp-3">
+                        Memanfaatkan kecerdasan buatan berbasis spasial radar inter-ferometri satelit guna mendeteksi deformasi laju penurunan tanah secara real-time.
+                    </p>
+                    <div class="mt-auto pt-6 border-t border-slate-100 flex items-center text-[11px] font-extrabold text-[#002d62] uppercase tracking-wider group-hover:text-red-800 transition-colors">
+                        Baca Selengkapnya <i class="fas fa-arrow-right ml-2 text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-3xl overflow-hidden border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-500 group flex flex-col h-full cursor-pointer">
+                <div class="relative overflow-hidden aspect-[4/3] bg-slate-900">
+                    <img src="https://images.unsplash.com/photo-1578328819058-b69f3a3b0f6s?w=600" alt="Stabilitas Waste Rock Dump" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90 group-hover:opacity-100">
+                    <div class="absolute top-4 left-4 bg-red-800 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded-md shadow">
+                        Pertambangan
+                    </div>
+                </div>
+                <div class="p-8 flex flex-col flex-grow">
+                    <div class="flex items-center space-x-3 text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-3">
+                        <span>28 Mei 2026</span>
+                        <span>•</span>
+                        <span>Mining</span>
+                    </div>
+                    <h3 class="text-lg font-black text-slate-900 group-hover:text-red-800 transition-colors duration-300 leading-snug uppercase tracking-tight line-clamp-2">
+                        Panduan Lengkap Stabilitas Waste Rock Dump: Praktik Geoteknik
+                    </h3>
+                    <p class="text-slate-500 text-xs mt-3 leading-relaxed line-clamp-3">
+                        Metodologi mitigasi risiko longsoran material buangan tambang terbuka lewat pemodelan angka aman (Safety Factor) yang presisi.
+                    </p>
+                    <div class="mt-auto pt-6 border-t border-slate-100 flex items-center text-[11px] font-extrabold text-[#002d62] uppercase tracking-wider group-hover:text-red-800 transition-colors">
+                        Baca Selengkapnya <i class="fas fa-arrow-right ml-2 text-[9px] transform group-hover:translate-x-1 transition-transform"></i>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
 
         <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
