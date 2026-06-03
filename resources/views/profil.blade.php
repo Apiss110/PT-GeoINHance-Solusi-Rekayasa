@@ -6,6 +6,8 @@
     <title>Profil Interaktif - PT GeoINHance Solusi Rekayasa</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+        <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
@@ -88,9 +90,21 @@
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pertambangan</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Oil & Gas</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Energi</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Agriculture</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrakstruktur & Transportasi</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Jalur Kereta Api</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Bandar Udara</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pelabuhan</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Industri</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pariwisata</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Area Perumahan</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pusat Pendidikan</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pusat Olahraga</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Daerah Aliran Sungai</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Sektor</a>
                     </div>
                 </div>
 
@@ -111,9 +125,22 @@
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid InterAx</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid TriAx</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid Biaxial</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid Uniaxial</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multiblock Retaining Wall System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">SierraScape Retaining Wall System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geocell</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrance</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Zipdram</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Stripdram</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Monitoring Jarak Jauh (InSAR)</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Produk</a>
                     </div>
                 </div>
 
@@ -134,9 +161,16 @@
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar TriAx GeoGrid</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Biaxial GeoGrid</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Uniaxial GeoGrid</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrane</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">MultiBlock Retaining Wall System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Sierrascape Retaining Wall System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
 
@@ -157,9 +191,13 @@
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multibangun Engineering Hub</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">New & Event</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Document Library</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Resources</a>
                     </div>
                 </div>
                 <a href="/karir" class="nav-link hover:text-red-800 transition">Legalitas</a>
@@ -286,10 +324,10 @@
                     Mengenal Lebih Dekat <br><span class="text-red-800">GeoINHance</span>
                 </h2>
                 <p class="text-slate-600 mb-6 leading-relaxed">
-                    PT GeoINHance Solusi Rekayasa adalah perusahaan konsultan rekayasa teknik terkemuka yang berfokus pada penyediaan solusi geoteknik, survei pemetaan, dan analisis struktural tanah yang presisi. Melalui platform web GeoINHance, kami mengintegrasikan teknologi pemantauan data terkini untuk memberikan efisiensi maksimal bagi klien kami di sektor infrastruktur dan konstruksi.
+                    PT Geoinhance Solusi Rekayasa adalah perusahaan profesional yang berspesialisasi dalam teknik geoteknik dan teknologi teknik sipil, menyediakan solusi teknik yang akurat, andal, dan berbasis sains untuk mendukung pembangunan infrastruktur yang aman dan berkelanjutan.
                 </p>
                 <p class="text-slate-600 mb-8 leading-relaxed">
-                    Kami percaya bahwa fondasi yang kuat adalah awal dari infrastruktur yang berkelanjutan. Didukung oleh tim insinyur berlisensi dan laboratorium berstandar internasional, kami siap memitigasi risiko konstruksi di seluruh penjuru Indonesia.
+                    Kami memulai bisnis ini pada tahun 2019 dan secara resmi mendirikan perusahaan pada tahun 2025. Kami bertindak sebagai mitra teknis strategis dalam mengatasi tantangan tanah dan struktural yang kompleks. Dengan mengintegrasikan pengalaman lapangan, analisis numerik tingkat lanjut, serta kepatuhan terhadap standar nasional dan internasional, Geoinhance memastikan bahwa setiap keputusan teknik yang diambil tepat secara teknis, efisien, dan dapat dipertanggungjawabkan.
                 </p>
 
                 <div class="grid grid-cols-3 gap-4 border-t border-slate-200 pt-6">
@@ -354,7 +392,7 @@
                         <div>
                             <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-3">Menjadi yang Terdepan di Asia Tenggara</h3>
                             <p class="text-slate-600 text-base leading-relaxed">
-                                Menjadi mitra konsultan rekayasa teknik dan geoteknik global terpercaya yang mengutamakan inovasi teknologi, keselamatan kerja, serta akurasi data demi kemajuan pembangunan infrastruktur berkelanjutan yang aman dan kokoh.
+                                Menjadi penyedia solusi teknik geoteknik dan teknologi sipil paling tepercaya, yang menghadirkan infrastruktur aman, inovatif, dan berkelanjutan serta memenuhi standar nasional maupun internasional.
                             </p>
                         </div>
                     </div>
@@ -367,13 +405,37 @@
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">1</div>
                             <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Menyediakan layanan analisis geoteknik dan pemetaan tanah berpresisi tinggi dengan standar keselamatan internasional menggunakan ekosistem perangkat lunak terintegrasi yang transparan bagi seluruh klien.
+                                Menyediakan layanan konsultasi geoteknik yang akurat dan andal
                             </p>
                         </div>
                         <div class="flex items-start space-x-4">
                             <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">2</div>
                             <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Mengembangkan kompetensi tim ahli secara berkala dan konsisten mengadopsi kemajuan digitalisasi pemetaan udara demi efisiensi konstruksi proyek strategis nasional.
+                                Menyediakan solusi teknik & perangkat lunak (software) berbasis teknologi
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">3</div>
+                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
+                                Mengembangkan sumber daya manusia yang kompeten melalui pelatihan
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">4</div>
+                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
+                                Melakukan penyelidikan geoteknik & pengujian laboratorium yang berkualitas tinggi
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">5</div>
+                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
+                                Membangun kemitraan jangka panjang dengan klien dan pemangku kepentingan (stakeholders)
+                            </p>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">6</div>
+                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
+                                Menerapkan sistem manajemen K3 (Keselamatan dan Kesehatan Kerja), lingkungan, serta anti-penyuapan
                             </p>
                         </div>
                     </div>

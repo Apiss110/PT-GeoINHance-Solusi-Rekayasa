@@ -41,6 +41,34 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.05);
         }
         [x-cloak] { display: none !important; }
+
+            @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+        /* Pause jalan logo saat kursor user menempel di atasnya */
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
 <body class="bg-slate-50 font-sans antialiased text-slate-900 ">
@@ -69,7 +97,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 </div>
             </div>
 
-            <div class="hidden lg:flex items-center space-x-10 text-[12px] font-bold uppercase tracking-widest text-slate-600">
+            <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-slate-600">
                 <a href="/profil" class="nav-link hover:text-red-800 transition">Profil Perusahaan</a>
                 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
@@ -89,9 +117,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pertambangan</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Oil & Gas</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Energi</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Agriculture</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur & Transportasi</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Jalur Kereta Api</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Bandar Udara</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pelabuhan</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Industri</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pariwisata</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Area Perumahan</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pusat Pendidikan</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pusat Olahraga</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Daerah Aliran Sungai</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Sektor</a>
                     </div>
                 </div>
 
@@ -112,9 +152,11 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="{{ route('product.plaxis2d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 2D</a>
+                        <a href="{{ route('product.plaxis3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detail Program Plaxis</a>
+
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Produk</a>
                     </div>
                 </div>
 
@@ -135,9 +177,16 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar TriAx GeoGrid</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Biaxial GeoGrid</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Uniaxial GeoGrid</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrane</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">MultiBlock Retaining Wall System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Sierrascape Retaining Wall System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
 
@@ -158,9 +207,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Profil Perusahaan</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Visi & Misi</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lokasi Kantor</a>
+                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multibangun Engineering Hub</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Document Library</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Resources</a>
                     </div>
                 </div>
 
@@ -470,147 +523,126 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">Telah dipercaya oleh berbagai instansi pemerintah, BUMN, dan korporasi swasta nasional dalam menyelesaikan proyek infrastruktur strategis.</p>
         </div>
 
-        <div class="w-full relative py-4 mb-16 select-none" data-aos="fade-up" data-aos-delay="100">
-            <div class="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
-            <div class="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
+<div class="w-full relative py-4 mb-16 select-none" data-aos="fade-up" data-aos-delay="100">
+    <div class="absolute inset-y-0 left-0 w-20 md:w-40 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none"></div>
+    <div class="absolute inset-y-0 right-0 w-20 md:w-40 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none"></div>
 
-            <div class="flex w-max animate-marquee whitespace-nowrap items-center hover:[animation-play-state:paused]">
-                
-                <div class="flex gap-16 items-center shrink-0 pr-16">
-                    <img src="https://i.pinimg.com/originals/bf/b4/78/bfb4785acb3aa81935470bbf6cca8aa0.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Kementerian PUPR">
-                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/7/73/Waskita_Karya.svg/1280px-Waskita_Karya.svg.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Waskita">
-                    <img src="https://ridergalau.id/wp-content/uploads/2026/01/Logo-Wijaya-Karya-WIKA.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="WIKA">
-                    <img src="https://www.rukamen.com/uploads/logo_developer/1548844165_9766489.jpeg" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Adhi Karya">
-                    <img src="https://www.hutamakarya.com/storage/logo-site.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Hutama Karya">
-                    <img src="https://www.ptpp.co.id/_nuxt/img/site-logo.0b5b997.webp" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PT PP">
-                </div>
-                
-                <div class="flex gap-16 items-center shrink-0 pr-16" aria-hidden="true">
-                    <img src="https://i.pinimg.com/originals/bf/b4/78/bfb4785acb3aa81935470bbf6cca8aa0.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Kementerian PUPR">
-                    <img src="https://upload.wikimedia.org/wikipedia/id/thumb/7/73/Waskita_Karya.svg/1280px-Waskita_Karya.svg.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Waskita">
-                    <img src="https://ridergalau.id/wp-content/uploads/2026/01/Logo-Wijaya-Karya-WIKA.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="WIKA">
-                    <img src="https://www.rukamen.com/uploads/logo_developer/1548844165_9766489.jpeg" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Adhi Karya">
-                    <img src="https://www.hutamakarya.com/storage/logo-site.png" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Hutama Karya">
-                    <img src="https://www.ptpp.co.id/_nuxt/img/site-logo.0b5b997.webp" class="h-12 w-32 object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PT PP">
-                </div>
+    <div class="flex w-max animate-marquee whitespace-nowrap items-center hover:[animation-play-state:paused]">
+        
+        <div class="flex gap-12 md:gap-16 items-center shrink-0 pr-12 md:pr-16">
+            <img src="https://i.pinimg.com/originals/bf/b4/78/bfb4785acb3aa81935470bbf6cca8aa0.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Kementerian PUPR">
+            <img src="https://upload.wikimedia.org/wikipedia/id/thumb/7/73/Waskita_Karya.svg/1280px-Waskita_Karya.svg.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Waskita">
+            <img src="https://ridergalau.id/wp-content/uploads/2026/01/Logo-Wijaya-Karya-WIKA.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="WIKA">
+            <img src="https://www.rukamen.com/uploads/logo_developer/1548844165_9766489.jpeg" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Adhi Karya">
+            <img src="https://www.hutamakarya.com/storage/logo-site.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Hutama Karya">
+            <img src="https://www.ptpp.co.id/_nuxt/img/site-logo.0b5b997.webp" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PT PP">
+            <img src="https://yeka-agribisnis.com/assets/images/logo-sgu.webp" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="LAPI Ganesha Utama">
+            <img src="https://upload.wikimedia.org/wikipedia/en/3/3c/PT_KCIC_logo.png?_=20230714001837" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="KCIC">
+            <img src="https://archiindonesia.com/wp-content/uploads/2024/11/logo-msm.jpg" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="MSM">
+            <img src="https://archiindonesia.com/wp-content/uploads/2024/11/logo-ttn.jpg" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="TTN">
+            <img src="https://erp.brantas-abipraya.co.id/web/image/website/1/logo/ERP%20Brantas%20Abipraya?unique=4d25e81" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Abipraya">
+            <img src="https://www.abadicon.com/wp-content/uploads/2024/07/LOGO-Agung-Sedayu-REVI.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Agung Sedayu Group">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="KAI">
+            <img src="https://jjb.co.id/wp-content/uploads/2023/12/Logo-Jasa-Marga-Jogja-Bawen-3-05.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="JASAMARGA Jogja-Bawen">
+            <img src="https://companieslogo.com/img/orig/JSMR.JK-b8d01527.png?t=1720244492" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="JASAMARGA">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Logo_MedcoEnergi.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Medco Energi">
+            <img src="https://astabumi.com/wp-content/uploads/2023/10/Offshore-work-indonesia.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Java Offshore">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_PLN.png/960px-Logo_PLN.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PLN">
+            <img src="https://suitmedia.com/_ipx/f_webp/https://suitmedia.static-assets.id/strapi/nindy-59514d4038.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="NINDYA">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Keller_Group_logo.svg/960px-Keller_Group_logo.svg.png?_=20180221041352" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Keller">
+            <img src="https://media.licdn.com/dms/image/v2/D560BAQFzirAL7A5B-Q/company-logo_200_200/B56ZuQ9vdJJgAM-/0/1767663663364/pt_sungai_tabuk_industri_logo?e=2147483647&v=beta&t=FPyv2Qh2B_4SSQhER4wPMqOoxSHkoi_eOTJ2phSofVE" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Sungai Tabuk Industri">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUTUrncf4T9v6GWW_5ncakOz6s3kijc1w8vA&s" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Cipta Graha Abadi">
+            <img src="https://d1hbpr09pwz0sk.cloudfront.net/logo_url/pt-indec-internusa-b23056e0" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Indec Internusa">
+            <img src="https://media.licdn.com/dms/image/v2/D560BAQHb99veC2XeIw/company-logo_200_200/company-logo_200_200/0/1709136202119?e=2147483647&v=beta&t=EAOPoH7uK1AetVkcIc0ENgQSduUqARs4lar-y16SJXA" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="MCM">
+            <img src="https://geoforce-indonesia.com/images/logo/logo-geoforce.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="GeoForce">
+            <img src="{{ asset('images/logo1.jpg') }}" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Mátra Bumi Blambangan">
+        </div>
+        
+        <div class="flex gap-12 md:gap-16 items-center shrink-0 pr-12 md:pr-16" aria-hidden="true">
+            <img src="https://i.pinimg.com/originals/bf/b4/78/bfb4785acb3aa81935470bbf6cca8aa0.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Kementerian PUPR">
+            <img src="https://upload.wikimedia.org/wikipedia/id/thumb/7/73/Waskita_Karya.svg/1280px-Waskita_Karya.svg.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Waskita">
+            <img src="https://ridergalau.id/wp-content/uploads/2026/01/Logo-Wijaya-Karya-WIKA.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="WIKA">
+            <img src="https://www.rukamen.com/uploads/logo_developer/1548844165_9766489.jpeg" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Adhi Karya">
+            <img src="https://www.hutamakarya.com/storage/logo-site.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Hutama Karya">
+            <img src="https://www.ptpp.co.id/_nuxt/img/site-logo.0b5b997.webp" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PT PP">
+            <img src="https://yeka-agribisnis.com/assets/images/logo-sgu.webp" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="LAPI Ganesha Utama">
+            <img src="https://upload.wikimedia.org/wikipedia/en/3/3c/PT_KCIC_logo.png?_=20230714001837" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="KCIC">
+            <img src="https://archiindonesia.com/wp-content/uploads/2024/11/logo-msm.jpg" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="MSM">
+            <img src="https://archiindonesia.com/wp-content/uploads/2024/11/logo-ttn.jpg" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="TTN">
+            <img src="https://erp.brantas-abipraya.co.id/web/image/website/1/logo/ERP%20Brantas%20Abipraya?unique=4d25e81" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Abipraya">
+            <img src="https://www.abadicon.com/wp-content/uploads/2024/07/LOGO-Agung-Sedayu-REVI.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Agung Sedayu Group">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg/1280px-Logo_PT_Kereta_Api_Indonesia_%28Persero%29_2020.svg.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="KAI">
+            <img src="https://jjb.co.id/wp-content/uploads/2023/12/Logo-Jasa-Marga-Jogja-Bawen-3-05.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="JASAMARGA Jogja-Bawen">
+            <img src="https://companieslogo.com/img/orig/JSMR.JK-b8d01527.png?t=1720244492" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="JASAMARGA">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/d/d8/Logo_MedcoEnergi.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Medco Energi">
+            <img src="https://astabumi.com/wp-content/uploads/2023/10/Offshore-work-indonesia.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Java Offshore">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/97/Logo_PLN.png/960px-Logo_PLN.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="PLN">
+            <img src="https://suitmedia.com/_ipx/f_webp/https://suitmedia.static-assets.id/strapi/nindy-59514d4038.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="NINDYA">
+            <img src="https://upload.wikimedia.org/wikipedia/en/thumb/1/15/Keller_Group_logo.svg/960px-Keller_Group_logo.svg.png?_=20180221041352" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Keller">
+            <img src="https://media.licdn.com/dms/image/v2/D560BAQFzirAL7A5B-Q/company-logo_200_200/B56ZuQ9vdJJgAM-/0/1767663663364/pt_sungai_tabuk_industri_logo?e=2147483647&v=beta&t=FPyv2Qh2B_4SSQhER4wPMqOoxSHkoi_eOTJ2phSofVE" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Sungai Tabuk Industri">
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRUTUrncf4T9v6GWW_5ncakOz6s3kijc1w8vA&s" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Cipta Graha Abadi">
+            <img src="https://d1hbpr09pwz0sk.cloudfront.net/logo_url/pt-indec-internusa-b23056e0" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Indec Internusa">
+            <img src="https://media.licdn.com/dms/image/v2/D560BAQHb99veC2XeIw/company-logo_200_200/company-logo_200_200/0/1709136202119?e=2147483647&v=beta&t=EAOPoH7uK1AetVkcIc0ENgQSduUqARs4lar-y16SJXA" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="MCM">
+            <img src="https://geoforce-indonesia.com/images/logo/logo-geoforce.png" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="GeoForce">
+            <img src="{{ asset('images/logo1.jpg') }}" class="h-10 md:h-12 max-w-[110px] md:max-w-[140px] object-contain grayscale opacity-40 hover:grayscale-0 hover:opacity-100 transition duration-300" alt="Mátra Bumi Blambangan">
+        </div>
 
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6" data-aos="fade-up" data-aos-delay="200">
+    <template x-for="cat in categories">
+        <div class="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm flex items-center justify-between group hover:border-red-800/40 hover:shadow-md transition-all duration-300">
+            <div class="flex flex-col">
+                <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1" x-text="cat.count"></span>
+                <h4 class="text-sm font-black text-slate-800 uppercase tracking-tight group-hover:text-red-800 transition-colors" x-text="cat.name"></h4>
+            </div>
+            <div class="h-10 w-10 rounded-full bg-slate-50 group-hover:bg-red-50 text-slate-400 group-hover:text-red-800 flex items-center justify-center transition-colors">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+                </svg>
             </div>
         </div>
+    </template>
+</div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6" data-aos="fade-up" data-aos-delay="200">
-            <template x-for="cat in categories">
-                <div class="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm flex items-center justify-between group hover:border-red-800/40 hover:shadow-md transition-all duration-300">
-                    <div class="flex flex-col">
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1" x-text="cat.count"></span>
-                        <h4 class="text-sm font-black text-slate-800 uppercase tracking-tight group-hover:text-red-800 transition-colors" x-text="cat.name"></h4>
-                    </div>
-                    <div class="h-10 w-10 rounded-full bg-slate-50 group-hover:bg-red-50 text-slate-400 group-hover:text-red-800 flex items-center justify-center transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-            </template>
-        </div>
+<style>
+    @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+    }
+    .animate-marquee {
+        /* Menggunakan durasi 90s (90 detik) karena jumlah logo Anda banyak (24 pasang), 
+           sehingga pergerakannya menjadi sangat smooth, lambat, dan nyaman dilihat */
+        animation: marquee 90s linear infinite;
+    }
+</style>
     </div>
 </section>
 
 <style>
-    @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-        animation: marquee 30s linear infinite;
-    }
-</style>
 
-<style>
-    @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-        animation: marquee 30s linear infinite;
-    }
-</style>
-
-<style>
-    @keyframes marquee {
-        0% { transform: translateX(0%); }
-        100% { transform: translateX(-50%); }
-    }
-    .animate-marquee {
-        animation: marquee 25s linear infinite;
-    }
-    /* Pause jalan logo saat kursor user menempel di atasnya */
-    .animate-marquee:hover {
-        animation-play-state: paused;
-    }
 </style>
         <section id="portfolio" class="bg-slate-100 py-24 px-6 border-t border-slate-200">
-            <div class="max-w-7xl mx-auto">
-                <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
-                    <div class="mb-6 md:mb-0">
-                        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Success Stories</span>
-                        <h2 class="text-5xl font-black text-slate-900 uppercase tracking-tighter">Proyek Strategis</h2>
-                    </div>
-                    <a href="#" class="text-red-800 font-bold text-sm border-b-2 border-red-800 pb-1 hover:text-slate-900 hover:border-slate-900 transition-all">
-                        Lihat Semua Portofolio &rarr;
-                    </a>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-                    <div class="group bg-white rounded-2xl overflow-hidden card-shadow hover:shadow-2xl transition-all duration-500" data-aos="fade-up">
-                        <div class="relative overflow-hidden aspect-[4/3]">
-                            <img src="https://images.unsplash.com/photo-1590348697170-717bdc85414f?w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-red-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-widest">Geoteknik</span>
-                            </div>
-                        </div>
-                        <div class="p-8 border-b-8 border-transparent group-hover:border-red-800 transition-all duration-500">
-                            <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-800 transition-colors">Analisis Bendungan X</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">Analisis stabilitas struktur tanah dan fondasi untuk bendungan kapasitas besar.</p>
-                            <div class="flex justify-between items-center pt-4 border-t border-slate-50">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Jawa Tengah</span>
-                                <span class="text-[10px] font-black text-red-800 uppercase tracking-widest">2024</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group bg-white rounded-2xl overflow-hidden card-shadow hover:shadow-2xl transition-all duration-500" data-aos="fade-up" data-aos-delay="100">
-                        <div class="relative overflow-hidden aspect-[4/3]">
-                            <img src="https://images.unsplash.com/photo-1541888946425-d81bb19480c5?w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-red-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-widest">Infrastruktur</span>
-                            </div>
-                        </div>
-                        <div class="p-8 border-b-8 border-transparent group-hover:border-red-800 transition-all duration-500">
-                            <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-800 transition-colors">Jalan Tol Lintas Z</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">Perencanaan struktur jembatan layang menggunakan teknologi MSE Wall terbaru.</p>
-                            <div class="flex justify-between items-center pt-4 border-t border-slate-50">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Sumatera</span>
-                                <span class="text-[10px] font-black text-red-800 uppercase tracking-widest">2025</span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="group bg-white rounded-2xl overflow-hidden card-shadow hover:shadow-2xl transition-all duration-500" data-aos="fade-up" data-aos-delay="200">
-                        <div class="relative overflow-hidden aspect-[4/3]">
-                            <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-4 left-4">
-                                <span class="bg-red-800 text-white text-[10px] font-bold px-4 py-1.5 rounded-full shadow-lg uppercase tracking-widest">Survey</span>
-                            </div>
-                        </div>
-                        <div class="p-8 border-b-8 border-transparent group-hover:border-red-800 transition-all duration-500">
-                            <h4 class="text-xl font-bold text-slate-900 mb-3 group-hover:text-red-800 transition-colors">Kawasan Industri Global</h4>
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6 line-clamp-2">Pemetaan lahan seluas 200 hektar menggunakan LiDAR presisi tinggi.</p>
-                            <div class="flex justify-between items-center pt-4 border-t border-slate-50">
-                                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Kalimantan</span>
-                                <span class="text-[10px] font-black text-red-800 uppercase tracking-widest">2026</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <div class="max-w-7xl mx-auto">
+        
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
+            <div class="mb-6 md:mb-0">
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Success Stories</span>
+                <h2 class="text-5xl font-black text-slate-900 uppercase tracking-tighter">Proyek Strategis</h2>
             </div>
+            <a href="#" class="text-red-800 font-bold text-sm border-b-2 border-red-800 pb-1 hover:text-slate-900 hover:border-slate-900 transition-all">
+                Lihat Semua Portofolio &rarr;
+            </a>
+        </div>
+
+        <div data-aos="fade-up" data-aos-delay="100">
+            <div data-aos="fade-up" data-aos-delay="100">
+        <livewire:project-slider />
+    </div>
+        </div>
+
+    </div>
         </section>
 
         <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">

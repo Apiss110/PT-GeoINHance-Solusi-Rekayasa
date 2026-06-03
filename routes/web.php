@@ -1,7 +1,8 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\Admin\SliderController; // Import Controller Admin
+use App\Http\Controllers\Admin\SliderController; // Import Controller Admin Slider
+use App\Http\Controllers\Admin\ProjectController; // Import Controller Admin Project
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -43,6 +44,14 @@ Route::get('/terms-of-service', function () {
     return view('terms');
 });
 
+Route::get('/product/plaxis-2d', function () {
+    return view('products.plaxis-2d'); // 'products.' merujuk ke folder products
+})->name('product.plaxis2d');
+
+Route::get('/product/plaxis-3d', function () {
+    return view('products.plaxis-3d');
+})->name('product.plaxis3d');
+
 
 /*
 |--------------------------------------------------------------------------
@@ -50,7 +59,7 @@ Route::get('/terms-of-service', function () {
 |--------------------------------------------------------------------------
 */
 
-// PERBAIKAN DI SINI: Mengarahkan ke pages.admin.dashboard agar tidak error
+// Mengarahkan ke pages.admin.dashboard agar tidak error
 Route::get('/dashboard', function () {
     return view('pages.admin.dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
@@ -73,15 +82,20 @@ Route::get('logout', function () {
 |--------------------------------------------------------------------------
 | Admin Routes (Manajemen Konten Website)
 |--------------------------------------------------------------------------
-| Kelompok route ini digunakan oleh admin untuk mengelola foto/banner.
-| URL otomatis menjadi /admin/slider
+| Kelompok route ini digunakan oleh admin untuk mengelola konten website.
+| Semua route di dalam group ini otomatis menggunakan prefix /admin/
 */
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     
-    // Fitur Manajemen Foto / Slider Banner
+    // 1. Fitur Manajemen Foto / Slider Banner
     Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');     
     Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');    
     Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('slider.destroy'); 
+
+    // 2. Fitur Manajemen Proyek Strategis (CRUD Slider Proyek)
+    Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
+    Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
+    Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
 });
 
