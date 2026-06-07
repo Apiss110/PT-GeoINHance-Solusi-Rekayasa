@@ -51,7 +51,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
                 <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> Bandung, West Java</span>
-                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 21 2788 1958</span>
+                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 851-9044-1744</span>
             </div>
             <div class="flex items-center space-x-4 font-bold">
                 <a href="#" class="hover:text-yellow-500 transition">ID</a>
@@ -204,7 +204,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
                 <a href="/karir" class="nav-link hover:text-red-800 transition">Legalitas</a>
                 <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
-                <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
+                <a href="/kontak" class="nav-link text-red-800 active transition">Kontak</a>
 
                 @auth
                     <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
@@ -299,109 +299,120 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </div>
         </section>
 
-        <section class="max-w-7xl mx-auto py-20 px-6">
-            <div class="text-center mb-16" data-aos="fade-up">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Key People</span>
-                <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Struktur Tim Manajemen</h2>
-                <p class="text-slate-500 text-sm max-w-xl mx-auto mt-2">Para profesional berlisensi dan berpengalaman yang siap mengawal presisi serta akurasi teknis setiap proyek Anda.</p>
+<!-- SECTION: OUR TEAM (CLEAN MODERN TREE DIAGRAM) -->
+<section class="bg-white py-20 px-4 overflow-x-auto">
+    <div class="max-w-6xl mx-auto min-w-[1000px]">
+        
+        <div class="text-center max-w-3xl mx-auto mb-16">
+            <h2 class="text-3xl font-black text-[#002d62] uppercase tracking-tight mb-3">Our Team</h2>
+            <p class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto">
+                Our team consists of qualified geotechnical engineers and technical specialists with extensive experience across diverse projects.
+            </p>
+        </div>
+
+        <div class="flex flex-col items-center">
+            
+            <div class="relative pb-10">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden w-[240px] flex flex-col hover:shadow-md transition duration-300">
+                    <div class="w-full h-44 bg-slate-100 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" alt="Dr.techn. Indra Noer Hamdhan" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
+                        <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">Technical Advisor</span>
+                        <h3 class="text-[#002d62] font-extrabold text-xs leading-snug">Dr.techn. Indra Noer Hamdhan, S.T., M.T.</h3>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-10 bg-[#002d62]/30"></div>
             </div>
 
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div class="relative pt-6 pb-12">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden w-[240px] flex flex-col hover:shadow-md transition duration-300">
+                    <div class="w-full h-44 bg-slate-100 overflow-hidden relative">
+                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400" alt="Rinaldi Alamsyah" class="w-full h-full object-cover object-top">
+                    </div>
+                    <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
+                        <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">Board of Director</span>
+                        <h3 class="text-[#002d62] font-extrabold text-xs leading-snug">Rinaldi Alamsyah, S.T.</h3>
+                    </div>
+                </div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-12 bg-[#002d62]/30"></div>
+            </div>
+
+            <div class="w-full relative flex flex-col items-center">
                 
-                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 card-shadow group" data-aos="fade-up" data-aos-delay="100">
-                    <div class="h-72 bg-slate-200 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=500&auto=format&fit=crop&q=80" alt="Direktur Utama" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute top-4 right-4 bg-[#002d62] text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                            Management
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-red-800 font-bold text-[10px] uppercase tracking-wider block mb-1">Direktur Utama</span>
-                        <h4 class="font-black text-base text-slate-900 tracking-tight mb-4">Ir. H. Hendra Wijaya, M.T.</h4>
-                        <div class="space-y-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                <span class="truncate">h.wijaya@geoinhance.com</span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                                <span>+62 811-2234-556</span>
+                <div class="absolute top-0 left-[7.14%] right-[7.14%] h-[2px] bg-[#002d62]/30"></div>
+                
+                <div class="w-full flex justify-between text-center items-start pt-0">
+                    
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Engineering Division</h4>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 card-shadow group" data-aos="fade-up" data-aos-delay="200">
-                    <div class="h-72 bg-slate-200 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=500&auto=format&fit=crop&q=80" alt="Kepala Teknik Geoteknik" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute top-4 right-4 bg-red-800 text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                            Engineering
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-red-800 font-bold text-[10px] uppercase tracking-wider block mb-1">Kepala Divisi Geoteknik</span>
-                        <h4 class="font-black text-base text-slate-900 tracking-tight mb-4">Dr. Amanda S., S.T., M.T.</h4>
-                        <div class="space-y-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 00-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                <span class="truncate">amanda.s@geoinhance.com</span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                                <span>+62 812-9988-112</span>
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Survey<br>Division</h4>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 card-shadow group" data-aos="fade-up" data-aos-delay="300">
-                    <div class="h-72 bg-slate-200 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=500&auto=format&fit=crop&q=80" alt="Manajer Pemetaan Udara" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute top-4 right-4 bg-red-800 text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                            Surveys
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-red-800 font-bold text-[10px] uppercase tracking-wider block mb-1">Manajer Survei & Pemetaan</span>
-                        <h4 class="font-black text-base text-slate-900 tracking-tight mb-4">Rian Kusuma, S.T.</h4>
-                        <div class="space-y-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 00-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                <span class="truncate">rian.k@geoinhance.com</span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                                <span>+62 813-4455-778</span>
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">QHSE<br>Division</h4>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <div class="bg-white rounded-2xl overflow-hidden border border-slate-200 card-shadow group" data-aos="fade-up" data-aos-delay="400">
-                    <div class="h-72 bg-slate-200 overflow-hidden relative">
-                        <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=500&auto=format&fit=crop&q=80" alt="Client Relations" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute top-4 right-4 bg-[#002d62] text-white text-[9px] font-bold uppercase tracking-wider px-3 py-1 rounded-full shadow-md">
-                            Relations
-                        </div>
-                    </div>
-                    <div class="p-6">
-                        <span class="text-red-800 font-bold text-[10px] uppercase tracking-wider block mb-1">Hubungan Klien & Kemitraan</span>
-                        <h4 class="font-black text-base text-slate-900 tracking-tight mb-4">Citra Lestari, S.I.Kom.</h4>
-                        <div class="space-y-2 border-t border-slate-100 pt-4 text-xs text-slate-600">
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 00-2-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                <span class="truncate">citra.l@geoinhance.com</span>
-                            </div>
-                            <div class="flex items-center">
-                                <svg class="w-3.5 h-3.5 text-slate-400 mr-2 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.94.725l.548 2.2a1 1 0 01-.321.988l-1.305.98a10.582 10.582 0 004.872 4.872l.98-1.305a1 1 0 01.988-.321l2.2.548a1 1 0 01.725.94V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
-                                <span>+62 21-2788-1958</span>
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Finance & Accounting</h4>
                             </div>
                         </div>
                     </div>
-                </div>
 
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Marketing Division</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Project<br>Admin</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-2 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Procurement / HRGA</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
-        </section>
+
+        </div>
+    </div>
+</section>
 
         <section id="alamat-kantor" class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200">
             <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
@@ -541,7 +552,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         Menara Sentraya Lt. 11 Unit A4, <br>
                         Jl. Iskandarsyah Raya, Jakarta Selatan.
                     </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 21 2788 1958</p>
+                    <p class="text-slate-400 text-sm mb-2">P: +62 851-9044-1744</p>
                     <p class="text-slate-400 text-sm text-red-500 font-bold">E: info@geoinhance.com</p>
                 </div>
             </div>
@@ -556,7 +567,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </footer>
     </div>
 
-    <a href="https://wa.me/622127881958" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+    <a href="https://wa.me/085190441744" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
     </a>
 

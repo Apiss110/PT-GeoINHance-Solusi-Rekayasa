@@ -77,7 +77,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
                 <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> Bandung, West Java</span>
-                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 21 2788 1958</span>
+                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 851-9044-1744</span>
             </div>
             <div class="flex items-center space-x-4 font-bold">
                 <a href="#" class="hover:text-yellow-500 transition">ID</a>
@@ -217,7 +217,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                     </div>
                 </div>
 
-                <a href="/karir" class="nav-link hover:text-red-800 transition">Legalitas</a>
+                <a href="/legalitas" class="nav-link hover:text-red-800 transition">Legalitas</a>
                 <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
                 <a href="/kontak" class="nav-link hover:text-red-800 transition">Kontak</a>
 
@@ -404,6 +404,161 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
     </div>
 
+</section>
+
+<!-- CORE VALUES -->
+<section class="bg-white py-24 px-6 border-t border-b border-slate-200">
+    <div class="max-w-7xl mx-auto">
+
+        <!-- Heading -->
+        <div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
+                Company Principles
+            </span>
+
+            <h2 class="text-4xl md:text-5xl font-black uppercase tracking-tight text-slate-900">
+                Core Values
+            </h2>
+
+            <div class="w-16 h-1 bg-red-800 mx-auto mt-5 rounded-full"></div>
+
+            <p class="max-w-3xl mx-auto mt-6 text-slate-500 leading-relaxed">
+                Nilai inti perusahaan yang menjadi fondasi budaya kerja,
+                profesionalisme, serta pendekatan rekayasa PT GeoINHance Solusi Rekayasa.
+            </p>
+        </div>
+
+        <!-- 2 SIDE LAYOUT -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+
+            <!-- LEFT CARD -->
+            <div class="bg-slate-50 border border-slate-200 rounded-3xl p-10 shadow-sm">
+
+                <div class="flex items-center mb-8">
+                    <div class="w-14 h-14 rounded-2xl bg-red-800 flex items-center justify-center text-white font-black text-2xl mr-4">
+                        GEO
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-black uppercase text-slate-900">
+                            Professional Culture
+                        </h3>
+                        <p class="text-slate-500 text-sm">
+                            Core mindset for engineering excellence.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-7">
+
+                    <div>
+                        <h4 class="font-black text-red-800 uppercase text-sm mb-1">
+                            G • Growth
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Berkomitmen terhadap pengembangan kompetensi,
+                            inovasi teknologi, dan pertumbuhan berkelanjutan.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-black text-red-800 uppercase text-sm mb-1">
+                            E • Excellence
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Memberikan kualitas layanan dan hasil rekayasa terbaik
+                            dengan standar profesional tinggi.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-black text-red-800 uppercase text-sm mb-1">
+                            O • Ownership
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Memiliki rasa tanggung jawab penuh terhadap setiap
+                            pekerjaan dan keputusan teknis.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-black text-red-800 uppercase text-sm mb-1">
+                            I • Integrity
+                        </h4>
+                        <p class="text-slate-600 text-sm leading-relaxed">
+                            Menjunjung tinggi etika, transparansi,
+                            dan profesionalisme dalam seluruh aktivitas perusahaan.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- RIGHT CARD -->
+            <div class="bg-[#002d62] border border-slate-800 rounded-3xl p-10 shadow-sm text-white">
+
+                <div class="flex items-center mb-8">
+                    <div class="w-14 h-14 rounded-2xl bg-red-800 flex items-center justify-center text-white font-black text-2xl mr-4">
+                        INH
+                    </div>
+
+                    <div>
+                        <h3 class="text-2xl font-black uppercase">
+                            Engineering Principles
+                        </h3>
+                        <p class="text-slate-300 text-sm">
+                            Technical values in every project execution.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="space-y-7">
+
+                    <div>
+                        <h4 class="font-black text-red-400 uppercase text-sm mb-1">
+                            N • Numerical-Based Analysis
+                        </h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Mengutamakan pendekatan berbasis data dan pemodelan numerik
+                            untuk menghasilkan analisis yang akurat.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-black text-red-400 uppercase text-sm mb-1">
+                            H • High Safety Standard
+                        </h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Memastikan keselamatan kerja, stabilitas struktur,
+                            dan keberlanjutan lingkungan.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-black text-red-400 uppercase text-sm mb-1">
+                            A • Accountability
+                        </h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Bertanggung jawab secara profesional terhadap hasil,
+                            kualitas, dan integritas pekerjaan.
+                        </p>
+                    </div>
+
+                    <div>
+                        <h4 class="font-black text-red-400 uppercase text-sm mb-1">
+                            N • Networking & Collaboration
+                        </h4>
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            Membangun hubungan kerja yang kuat dan kolaboratif
+                            bersama klien serta stakeholder proyek.
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
 </section>
 
 <section class="bg-white py-24 px-6 border-t border-b border-slate-100" x-data="{ 
@@ -788,7 +943,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         Menara Sentraya Lt. 11 Unit A4, <br>
                         Jl. Iskandarsyah Raya, Jakarta Selatan.
                     </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 21 2788 1958</p>
+                    <p class="text-slate-400 text-sm mb-2">P: +62 851-9044-1744</p>
                     <p class="text-slate-400 text-sm text-red-500 font-bold">E: info@geoinhance.com</p>
                 </div>
             </div>
@@ -803,7 +958,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </footer>
     </div>
 
-    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+    <a href="https://wa.me/085190441744" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
         <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
     </a>
 

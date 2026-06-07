@@ -3,12 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PLAXIS 3D - PT GeoINHance Solusi Rekayasa</title>
+    <title>PT GeoINHance Solusi Rekayasa</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    
+    <link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
@@ -32,25 +33,51 @@
             background-color: #991b1b;
             transition: width 0.3s ease;
         }
-        .nav-link:hover::after, .nav-link.active::after {
+        .nav-link:hover::after {
             width: 100%;
         }
         /* Custom Shadow for clean look */
         .card-shadow {
             box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.05);
         }
-        /* Anti-flicker utility for Alpine */
         [x-cloak] { display: none !important; }
+
+            @keyframes marquee {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+
+        @keyframes marquee {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            animation: marquee 25s linear infinite;
+        }
+        /* Pause jalan logo saat kursor user menempel di atasnya */
+        .animate-marquee:hover {
+            animation-play-state: paused;
+        }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900" x-data="{ mobileMenuOpen: false, mobileDropdownOpen: false, mobileProductDropdownOpen: false }">
+<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
 
-    <!-- TOPBAR & NAVBAR -->
     <nav class="fixed w-full z-[100] transition-all duration-300 ">
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
                 <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> Bandung, West Java</span>
-                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 851-9044-1744</span>
+                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 21 2788 1958</span>
             </div>
             <div class="flex items-center space-x-4 font-bold">
                 <a href="#" class="hover:text-yellow-500 transition">ID</a>
@@ -148,15 +175,17 @@
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar TriAx GeoGrid</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Biaxial GeoGrid</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Uniaxial GeoGrid</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrane</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">MultiBlock Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Sierrascape Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
+                        <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lombok GECC Power Plant </a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Design & Build of Kalibaru</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Design of Red Mud Stockyard</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Using Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis </a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
@@ -179,7 +208,7 @@
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
                         <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multibangun Engineering Hub</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
+                        <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
@@ -244,187 +273,111 @@
         </div>
     </nav>
 
-    <!-- CONTENT WRAPPER -->
     <div class="pt-[95px]">
-        
-        <!-- HEADER SECTION (TEMA GELAP BIRU BERADU MERAH) -->
-        <section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
+
+        <section class="bg-[#002d62] text-white py-20 px-6 relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            <div class="relative z-10" data-aos="zoom-in">
-                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3 animate-pulse">Ultimate 3D Geotechnical Analysis</span>
-                <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">PLAXIS 3D</h1>
-                <p class="text-slate-300 text-sm md:text-base mt-3 max-w-xl mx-auto leading-relaxed">
-                    Sistem Komputasi Elemen Hingga Tiga Dimensi Komprehensif untuk Pemodelan Geometri Tanah dan Struktur Volume Penuh.
-                </p>
-                <div class="w-16 h-1 bg-red-800 mx-auto mt-5 rounded-full"></div>
-
-                <div class="mt-8 flex justify-center" data-aos="fade-up" data-aos-delay="200">
-                    <a href="{{ route('kontak', ['product' => 'plaxis-2d']) }}" 
-                       class="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-red-800 to-red-700 hover:from-red-700 hover:to-red-600 text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-[0_10px_30px_-5px_rgba(153,27,27,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(153,27,27,0.6)] transition-all duration-300 transform hover:-translate-y-1 group">
-                        <span class="material-symbols-outlined mr-2.5 text-lg transition-transform group-hover:scale-110">monetization_on</span> 
-                        Minta Penawaran Harga
-                    </a>
-                </div>
-            </div>
-        </section>
-
-        <!-- PENGERTIAN & GAMBAR PRODUK -->
-        <section class="max-w-7xl mx-auto py-20 px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-            <div data-aos="fade-right">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">3D Spatial Technology</span>
-                <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
-                    Presisi Tanpa Batas <br><span class="text-red-800">Dalam Ruang Tiga Dimensi</span>
-                </h2>
-                <p class="text-slate-600 mb-6 leading-relaxed">
-                    PLAXIS 3D membawa analisis rekayasa tanah ke tingkat akurasi tertinggi dengan menyertakan efek spasial tiga dimensi penuh. Ketika penyederhanaan potongan melintang 2D tidak lagi memadai, PLAXIS 3D hadir menangani kompleksitas geometri melengkung, interaksi beban sudut, serta anisotropi formasi batuan/tanah.
-                </p>
-                <p class="text-slate-600 mb-8 leading-relaxed">
-                    Melalui kemitraan dengan **PT GeoINHance Solusi Rekayasa**, tim Anda akan dipandu untuk memaksimalkan seluruh potensi fitur CAD-in, manajemen parameter tanah berlapis, hingga interpretasi grafik luaran visualisasi deformasi volumetrik yang rumit menjadi wawasan desain yang matang.
-                </p>
-
-                <div class="grid grid-cols-2 gap-6 border-t border-slate-200 pt-6">
-                    <div class="group cursor-pointer">
-                        <span class="block text-2xl font-black text-[#002d62] group-hover:text-red-800 transition duration-300">Full Volumetric</span>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Analisis Tegangan 3 Sumbu</span>
-                    </div>
-                    <div class="group cursor-pointer">
-                        <span class="block text-2xl font-black text-[#002d62] group-hover:text-red-800 transition duration-300">CAD Interoperability</span>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">Import Geometri Eksternal</span>
-                    </div>
-                </div>
-            </div>
             
-            <div class="relative group" data-aos="fade-left">
-                <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-200 bg-slate-900">
-                    <!-- Placeholder Ilustrasi Workspace PLAXIS 3D -->
-                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800" alt="Plaxis 3D Modeling Work" class="w-full h-[450px] object-cover group-hover:scale-110 group-hover:opacity-40 transition duration-700">
-                    
-                    <div class="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent">
-                        <span class="text-red-500 font-bold uppercase text-[10px] tracking-widest mb-1">3D Mesh Generation</span>
-                        <h4 class="text-white font-black text-xl uppercase tracking-wide">Elemen Tetrahedron Otomatis</h4>
-                        <p class="text-slate-300 text-xs mt-2 leading-relaxed">Pembuatan jaring elemen volume segitiga bernoda jamak (10-node) demi menghasilkan hitungan konvergensi yang tangguh.</p>
-                    </div>
-                </div>
-                <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-red-800/10 rounded-full blur-2xl -z-10"></div>
-            </div>
-        </section>
-
-        <!-- INTERAKTIF TAB: KEUNGGULAN / MODUL TEKNIS -->
-        <section class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200" x-data="{ activeTab: 'capabilities3d' }">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Advanced 3D Capabilities</span>
-                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Kelebihan Komputasi 3D</h2>
-                </div>
-
-                <!-- Tab Buttons -->
-                <div class="flex justify-center space-x-4 mb-8">
-                    <button @click="activeTab = 'capabilities3d'" 
-                            :class="activeTab === 'capabilities3d' ? 'bg-red-800 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-200'"
-                            class="px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 border border-slate-200">
-                        Workflow & Geometri
-                    </button>
-                    <button @click="activeTab = 'extensions3d'" 
-                            :class="activeTab === 'extensions3d' ? 'bg-red-800 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-200'"
-                            class="px-6 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 border border-slate-200">
-                        Analisis Lanjutan
-                    </button>
-                </div>
-
-                <!-- Tab Content Box -->
-                <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-200 min-h-[220px] flex items-center relative overflow-hidden">
-                    
-                    <!-- Content 1 -->
-                    <div x-show="activeTab === 'capabilities3d'" x-transition:enter="transition ease-out duration-500" class="w-full grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div>
-                            <h3 class="text-lg font-black text-[#002d62] uppercase mb-2">BIM Integration & CAD</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Impor file topografi lapangan langsung dari ekstensi DXF, STEP, atau skrip IFC, meminimalkan rekonstruksi ulang geometri struktur tanah manual.</p>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-black text-[#002d62] uppercase mb-2">Tunnel Designer</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Modul khusus perancangan terowongan lengkung lengkap dengan sekat pendorong (shield), perkuatan payung batuan (*rockbolts*), dan lapisan dinding beton sekunder.</p>
-                        </div>
-                    </div>
-
-                    <!-- Content 2 -->
-                    <div x-show="activeTab === 'extensions3d'" x-transition:enter="transition ease-out duration-500" class="w-full grid grid-cols-1 md:grid-cols-2 gap-6" x-cloak>
-                        <div>
-                            <h3 class="text-lg font-black text-red-800 uppercase mb-2">Dynamic & Consolidation</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Mampu mensimulasikan getaran gempa berulang, perambatan gelombang mekanis beban kereta cepat, serta penurunan konsolidasi tanah dalam fungsi waktu.</p>
-                        </div>
-                        <div>
-                            <h3 class="text-lg font-black text-red-800 uppercase mb-2">Coupled Flow Analysis</h3>
-                            <p class="text-slate-600 text-sm leading-relaxed">Menghubungkan deformasi mekanis tanah secara simultan dengan fluktuasi tekanan hidrolik air tanah tidak konstan (*unsaturated fluid flow*).</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-
-        <!-- LAYOUT SPESIFIKASI DAN APLIKASI -->
-        <section class="max-w-7xl mx-auto py-24 px-6">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
-                
-                <!-- Kolom Kiri - Sektor Aplikasi -->
-                <div class="lg:col-span-2 space-y-8" data-aos="fade-right">
-                    <div>
-                        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Implementation</span>
-                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Bidang Aplikasi Proyek 3D</h2>
-                        <div class="w-12 h-1 bg-red-800 mt-3 rounded-full"></div>
-                    </div>
-                    
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-                            <span class="material-symbols-outlined text-red-800 text-3xl mb-3">domain</span>
-                            <h4 class="font-bold text-slate-900 uppercase text-sm mb-1">Grup Tiang Fondasi & Raft (Piled-Raft)</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">Evaluasi distribusi beban aksial-lateral antar baris tiang pancang gedung pencakar langit.</p>
-                        </div>
-                        <div class="bg-white p-6 rounded-2xl border border-slate-200/80 shadow-sm">
-                            <span class="material-symbols-outlined text-red-800 text-3xl mb-3">architecture</span>
-                            <h4 class="font-bold text-slate-900 uppercase text-sm mb-1">Interaksi Terowongan Silang</h4>
-                            <p class="text-xs text-slate-500 leading-relaxed">Perhitungan efek simpangan tegangan tanah akibat jalur *underpass* baru yang memotong jalur pipa bawah tanah eksisting.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Kolom Kanan - Spesifikasi Teknis Sistem -->
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm h-fit" data-aos="fade-left">
-                    <h3 class="text-sm font-black text-slate-900 uppercase tracking-wider mb-4 border-b border-slate-100 pb-3">Informasi Sistem & Lisensi</h3>
-                    <table class="w-full text-left text-xs border-collapse">
-                        <tbody>
-                            <tr class="border-b border-slate-100"><td class="py-3 font-bold text-slate-400 uppercase">Developer</td><td class="py-3 text-[#002d62] font-bold">Bentley Systems</td></tr>
-                            <tr class="border-b border-slate-100"><td class="py-3 font-bold text-slate-400 uppercase">OS</td><td class="py-3 text-slate-700 font-medium">Windows 10, 11 (64-bit)</td></tr>
-                            <tr class="border-b border-slate-100"><td class="py-3 font-bold text-slate-400 uppercase">Komputasi</td><td class="py-3 text-slate-700 font-medium">Multicore CPU & GPU Accelerated</td></tr>
-                        </tbody>
-                    </table>
-                </div>
-
-            </div>
-        </section>
-
-        <!-- CALL TO ACTION (CTA) -->
-        <section class="bg-[#002d62] text-white py-16 px-6 text-center relative overflow-hidden">
-            <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-red-800 rounded-full blur-3xl opacity-20"></div>
-            <div class="relative z-10 max-w-2xl mx-auto" data-aos="fade-up">
-                <h3 class="text-2xl md:text-3xl font-black uppercase mb-4 tracking-tight">Implementasikan Pemodelan PLAXIS 3D Sekarang</h3>
-                <p class="text-slate-300 text-xs md:text-sm mb-8 leading-relaxed">
-                    Tingkatkan keandalan analisis spasial infrastruktur Anda. Sediakan lisensi resmi korporasi, program edukasi bersertifikat, atau kolaborasi pengerjaan pemodelan 3D bersama tim teknis senior kami.
+            <div class="max-w-6xl mx-auto text-center relative z-10" data-aos="fade-up">
+                <span class="text-red-400 font-bold uppercase text-xs tracking-[0.3em] block mb-3">Transparansi & Kepatuhan</span>
+                <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight mb-4">Legalitas Perusahaan</h1>
+                <div class="w-16 h-1 bg-red-800 mx-auto mb-6 rounded-full"></div>
+                <p class="text-slate-300 text-sm md:text-base max-w-2xl mx-auto leading-relaxed">
+                    PT GeoINHance Solusi Rekayasa berkomitmen penuh terhadap seluruh regulasi hukum dan aspek legalitas formal yang berlaku di Indonesia guna menjamin keamanan kerja sama profesional.
                 </p>
-                <div class="flex flex-wrap justify-center gap-4">
-                    <a href="https://wa.me/622127881958" target="_blank" 
-                       class="w-full sm:w-auto inline-flex items-center justify-center bg-slate-900/60 hover:bg-slate-900 border border-slate-700 hover:border-emerald-500 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 group">
-                        <i class="fab fa-whatsapp mr-2.5 text-base text-emerald-500 group-hover:animate-bounce"></i> 
-                        Hubungi via WhatsApp
+            </div>
+        </section>
+
+        <section class="bg-slate-50 py-20 px-6">
+            <div class="max-w-6xl mx-auto">
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" data-aos="fade-up" data-aos-delay="100">
+                    
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-red-800 transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-10 h-10 bg-slate-100 text-[#002d62] rounded-xl flex items-center justify-center mb-5 group-hover:bg-red-50 group-hover:text-red-800 transition duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-slate-900 font-extrabold text-base mb-1 uppercase tracking-wide">Akta Pendirian</h3>
+                            <p class="text-slate-500 text-xs font-medium mb-4">Notaris: [Nama Notaris, S.H.]</p>
+                            
+                            <div class="space-y-2 border-t border-slate-100 pt-4 text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Nomor SK:</span>
+                                    <span class="text-slate-700 font-bold">AHU-XXXXXXX.AH.XX.XX</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Tanggal Resmi:</span>
+                                    <span class="text-slate-700 font-bold">01 Januari 2026</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-red-800 transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-10 h-10 bg-slate-100 text-[#002d62] rounded-xl flex items-center justify-center mb-5 group-hover:bg-red-50 group-hover:text-red-800 transition duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-slate-900 font-extrabold text-base mb-1 uppercase tracking-wide">NIB (Nomor Induk Berusaha)</h3>
+                            <p class="text-slate-500 text-xs font-medium mb-4">Penerbit: Lembaga OSS / BKPM</p>
+                            
+                            <div class="space-y-2 border-t border-slate-100 pt-4 text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Nomor Dokumen:</span>
+                                    <span class="text-slate-700 font-bold">XXXXXXXXXXXXXXXX</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">KBLI Utama:</span>
+                                    <span class="text-slate-700 font-bold">71102 (Aktivitas Keinsinyuran)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-white border border-slate-200 rounded-2xl p-6 shadow-sm hover:shadow-md hover:border-red-800 transition duration-300 flex flex-col justify-between group">
+                        <div>
+                            <div class="w-10 h-10 bg-slate-100 text-[#002d62] rounded-xl flex items-center justify-center mb-5 group-hover:bg-red-50 group-hover:text-red-800 transition duration-300">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z"></path>
+                                </svg>
+                            </div>
+                            <h3 class="text-slate-900 font-extrabold text-base mb-1 uppercase tracking-wide">NPWP Perusahaan</h3>
+                            <p class="text-slate-500 text-xs font-medium mb-4">Penerbit: Direktorat Jenderal Pajak</p>
+                            
+                            <div class="space-y-2 border-t border-slate-100 pt-4 text-xs">
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Nomor NPWP:</span>
+                                    <span class="text-slate-700 font-bold">XX.XXX.XXX.X-XXX.XXX</span>
+                                </div>
+                                <div class="flex justify-between">
+                                    <span class="text-slate-400">Status Pajak:</span>
+                                    <span class="text-slate-700 font-bold text-green-700">PKP (Pengusaha Kena Pajak)</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="mt-16 bg-white border border-slate-200 rounded-2xl p-8 flex flex-col md:flex-row justify-between items-center gap-6" data-aos="fade-up">
+                    <div class="space-y-1 text-center md:text-left">
+                        <h4 class="text-slate-900 font-extrabold text-lg">Butuh Berkas Dokumen Fisik / PDF?</h4>
+                        <p class="text-slate-500 text-sm">Untuk keperluan proses administrasi vendor, kualifikasi tender, atau kemitraan strategis.</p>
+                    </div>
+                    <a href="/kontak" class="bg-[#002d62] hover:bg-red-800 text-white font-bold uppercase text-xs tracking-widest px-6 py-3.5 rounded-xl shadow-sm transition duration-300 whitespace-nowrap">
+                        Hubungi Tim Admin
                     </a>
                 </div>
+
             </div>
         </section>
 
-    </div>
-
-    <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 md:px-16 border-t border-slate-800">
+        <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
                 <div class="col-span-1 md:col-span-2">
                     <div class="flex items-center mb-6">
@@ -437,27 +390,31 @@
                         Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
 
-            <div>
-                <h4 class="text-white font-bold uppercase tracking-wider mb-3">Produk Utama</h4>
-                <ul class="space-y-2">
-                    <li><a href="{{ route('product.plaxis2d') }}" class="hover:text-red-500 transition">PLAXIS 2D</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">PLAXIS 3D</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Geogrid Systems</a></li>
-                </ul>
-            </div>
-            <div>
+                <div>
+                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Navigasi</h4>
+                    <ul class="space-y-4 text-slate-400 text-sm">
+                        <li><a href="/" class="hover:text-white transition">Beranda</a></li>
+                        <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
+                        <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
+                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
+                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
+                    </ul>
+                </div>
+
+                <div>
                     <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Kantor Pusat</h4>
                     <p class="text-slate-400 text-sm leading-relaxed mb-4">
                         Menara Sentraya Lt. 11 Unit A4, <br>
                         Jl. Iskandarsyah Raya, Jakarta Selatan.
                     </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 851-9044-1744</p>
+                    <p class="text-slate-400 text-sm mb-2">P: +62 21 2788 1958</p>
                     <p class="text-slate-400 text-sm text-red-500 font-bold">E: info@geoinhance.com</p>
                 </div>
             </div>
@@ -469,15 +426,24 @@
                     <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
                 </div>
             </div>
-    </footer>
+        </footer>
+    </div>
 
-    <!-- SCRIPT AKTIVASI -->
+    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+    </a>
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        AOS.init({
-            duration: 800,
-            once: true,
-        });
+        AOS.init({ duration: 800, once: true });
+        window.onscroll = function() {
+            const nav = document.querySelector('nav');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        };
     </script>
     @livewireScripts
 </body>
