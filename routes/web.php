@@ -4,12 +4,18 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\SliderController; // Import Controller Admin Slider
 use App\Http\Controllers\Admin\ProjectController; // Import Controller Admin Project
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Auth\SocialiteController;
 
 /*
 |--------------------------------------------------------------------------
 | Web Routes (Sisi User / Public)
 |--------------------------------------------------------------------------
 */
+// Rute untuk mengarahkan pengguna ke halaman login provider (Google, Facebook, dll)
+Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
+
+// Rute untuk menerima balasan data dari provider setelah pengguna berhasil login
+Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
 Route::get('/', function () {
     // Ambil semua foto banner dari database

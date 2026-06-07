@@ -306,18 +306,21 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         </div>
     </nav>
 
-    <div class="pt-[95px]">
-        
-        <section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            <div class="relative z-10" data-aos="zoom-in">
-                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3 animate-pulse">Platform Solusi Geoteknik</span>
-                <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Profil Perusahaan</h1>
-                <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
-            </div>
-        </section>
+<div class="pt-[95px]">
+    
+    <!-- 1. SECTION: HERO / JUMBOTRON (DARK CENTERED) -->
+    <section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="relative z-10" data-aos="zoom-in">
+            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3 animate-pulse">Platform Solusi Geoteknik</span>
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Profil Perusahaan</h1>
+            <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
+        </div>
+    </section>
 
-        <section class="max-w-7xl mx-auto py-20 px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+    <!-- 2. SECTION: WHO WE ARE (SPLIT GRID) -->
+    <section class="bg-white py-20 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div data-aos="fade-right">
                 <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Who We Are</span>
                 <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
@@ -327,7 +330,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                     PT Geoinhance Solusi Rekayasa adalah perusahaan profesional yang berspesialisasi dalam teknik geoteknik dan teknologi teknik sipil, menyediakan solusi teknik yang akurat, andal, dan berbasis sains untuk mendukung pembangunan infrastruktur yang aman dan berkelanjutan.
                 </p>
                 <p class="text-slate-600 mb-8 leading-relaxed">
-                    Kami memulai bisnis ini pada tahun 2019 dan secara resmi mendirikan perusahaan pada tahun 2025. Kami bertindak sebagai mitra teknis strategis dalam mengatasi tantangan tanah dan struktural yang kompleks. Dengan mengintegrasikan pengalaman lapangan, analisis numerik tingkat lanjut, serta kepatuhan terhadap standar nasional dan internasional, Geoinhance memastikan bahwa setiap keputusan teknik yang diambil tepat secara teknis, efisien, dan dapat dipertanggungjawabkan.
+                    Kami memulai bisnis ini pada tahun 2019 dan secara resmi mendirikan perusahaan pada tahun 2025. Kami bertindak sebagai mitra teknis strategis dalam mengatasi tantangan tanah dan struktural yang kompleks. Dengan mengintegrasikan pengalaman lapangan, analisis numerik tingkat lanjut, serta kepatuhan terhadap standar nasional dan internasional, Geoinhance ensures bahwa setiap keputusan teknik yang diambil tepat secara teknis, efisien, dan dapat dipertanggungjawabkan.
                 </p>
 
                 <div class="grid grid-cols-3 gap-4 border-t border-slate-200 pt-6">
@@ -358,132 +361,239 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 </div>
                 <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-red-800/10 rounded-full blur-2xl -z-10"></div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="visi-misi" class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200" x-data="{ activeTab: 'visi' }">
-            <div class="max-w-4xl mx-auto">
-                <div class="text-center mb-12">
-                    <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Arah & Komitmen</span>
-                    <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Prinsip Kerja Kami</h2>
-                </div>
+    <!-- 3. SECTION: VISI MISI PERUSAHAAN (CENTERED + TABS ACCENT BUFFER) -->
+    <section id="visi-misi" class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200" x-data="{ activeTab: 'visi' }">
+        <div class="max-w-4xl mx-auto">
+            <div class="text-center mb-12">
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Arah & Komitmen</span>
+                <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Prinsip Kerja Kami</h2>
+            </div>
 
-                <div class="flex justify-center space-x-4 mb-8">
-                    <button @click="activeTab = 'visi'" 
-                            :class="activeTab === 'visi' ? 'bg-red-800 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-200'"
-                            class="px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 border border-slate-200">
-                        Visi Perusahaan
-                    </button>
-                    <button @click="activeTab = 'misi'" 
-                            :class="activeTab === 'misi' ? 'bg-red-800 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-200'"
-                            class="px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 border border-slate-200">
-                        Misi Perusahaan
-                    </button>
-                </div>
+            <div class="flex justify-center space-x-4 mb-8">
+                <button @click="activeTab = 'visi'" 
+                        :class="activeTab === 'visi' ? 'bg-red-800 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-200'"
+                        class="px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 border border-slate-200">
+                    Visi Perusahaan
+                </button>
+                <button @click="activeTab = 'misi'" 
+                        :class="activeTab === 'misi' ? 'bg-red-800 text-white shadow-md' : 'bg-white text-slate-600 hover:bg-slate-200'"
+                        class="px-8 py-3 rounded-xl font-bold uppercase text-xs tracking-widest transition-all duration-300 border border-slate-200">
+                    Misi Perusahaan
+                </button>
+            </div>
 
-                <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-200 min-h-[220px] flex items-center relative overflow-hidden">
-                    <div x-show="activeTab === 'visi'" 
-                         x-transition:enter="transition ease-out duration-500"
-                         x-transition:enter-start="opacity-0 translate-x-8"
-                         x-transition:enter-end="opacity-100 translate-x-0"
-                         class="w-full flex flex-col md:flex-row items-start gap-6">
-                        <div class="w-12 h-12 bg-red-50 text-red-800 rounded-xl flex items-center justify-center shrink-0 shadow-inner">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
-                        </div>
-                        <div>
-                            <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-3">Menjadi yang Terdepan di Asia Tenggara</h3>
-                            <p class="text-slate-600 text-base leading-relaxed">
-                                Menjadi penyedia solusi teknik geoteknik dan teknologi sipil paling tepercaya, yang menghadirkan infrastruktur aman, inovatif, dan berkelanjutan serta memenuhi standar nasional maupun internasional.
-                            </p>
-                        </div>
+            <div class="bg-white p-10 rounded-3xl shadow-sm border border-slate-200 min-h-[220px] flex items-center relative overflow-hidden">
+                <!-- Konten Visi -->
+                <div x-show="activeTab === 'visi'" 
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0 translate-x-8"
+                     x-transition:enter-end="opacity-100 translate-x-0"
+                     class="w-full flex flex-col md:flex-row items-start gap-6">
+                    <div class="w-12 h-12 bg-red-50 text-red-800 rounded-xl flex items-center justify-center shrink-0 shadow-inner">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path></svg>
                     </div>
+                    <div>
+                        <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-3">MENYEDIAKAN SOLUSI GEOTEKNIK TERBAIK & TEPERCAYA</h3>
+                        <p class="text-slate-600 text-base leading-relaxed">
+                            Menjadi penyedia solusi teknik geoteknik dan teknologi sipil paling tepercaya, yang menghadirkan infrastruktur aman, inovatif, dan berkelanjutan serta memenuhi standar nasional maupun internasional.
+                        </p>
+                    </div>
+                </div>
 
-                    <div x-show="activeTab === 'misi'" 
-                         x-transition:enter="transition ease-out duration-500"
-                         x-transition:enter-start="opacity-0 -translate-x-8"
-                         x-transition:enter-end="opacity-100 translate-x-0"
-                         class="w-full space-y-4" x-cloak>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">1</div>
-                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Menyediakan layanan konsultasi geoteknik yang akurat dan andal
-                            </p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">2</div>
-                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Menyediakan solusi teknik & perangkat lunak (software) berbasis teknologi
-                            </p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">3</div>
-                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Mengembangkan sumber daya manusia yang kompeten melalui pelatihan
-                            </p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">4</div>
-                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Melakukan penyelidikan geoteknik & pengujian laboratorium yang berkualitas tinggi
-                            </p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">5</div>
-                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Membangun kemitraan jangka panjang dengan klien dan pemangku kepentingan (stakeholders)
-                            </p>
-                        </div>
-                        <div class="flex items-start space-x-4">
-                            <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">6</div>
-                            <p class="text-slate-600 text-sm leading-relaxed pt-1">
-                                Menerapkan sistem manajemen K3 (Keselamatan dan Kesehatan Kerja), lingkungan, serta anti-penyuapan
-                            </p>
-                        </div>
+                <!-- Konten Misi -->
+                <div x-show="activeTab === 'misi'" 
+                     x-transition:enter="transition ease-out duration-500"
+                     x-transition:enter-start="opacity-0 -translate-x-8"
+                     x-transition:enter-end="opacity-100 translate-x-0"
+                     class="w-full space-y-4" x-cloak>
+                    <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-3">LANGKAH STRATEGIS DAN KOMITMEN NYATA KAMI</h3>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">1</div>
+                        <p class="text-slate-600 text-sm leading-relaxed pt-1">Menyediakan layanan konsultasi geoteknik yang akurat dan andal</p>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">2</div>
+                        <p class="text-slate-600 text-sm leading-relaxed pt-1">Menyediakan solusi teknik & perangkat lunak (software) berbasis teknologi</p>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">3</div>
+                        <p class="text-slate-600 text-sm leading-relaxed pt-1">Mengembangkan sumber daya manusia yang kompeten melalui pelatihan</p>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">4</div>
+                        <p class="text-slate-600 text-sm leading-relaxed pt-1">Melakukan penyelidikan geoteknik & pengujian laboratorium yang berkualitas tinggi</p>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">5</div>
+                        <p class="text-slate-600 text-sm leading-relaxed pt-1">Membangun kemitraan jangka panjang dengan klien dan pemangku kepentingan (stakeholders)</p>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <div class="w-8 h-8 bg-blue-50 text-[#002d62] rounded-lg flex items-center justify-center shrink-0 font-bold text-sm">6</div>
+                        <p class="text-slate-600 text-sm leading-relaxed pt-1">Menerapkan sistem manajemen K3 (Keselamatan dan Kesehatan Kerja), lingkungan, serta anti-penyuapan</p>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <section id="alamat-kantor" class="max-w-7xl mx-auto py-24 px-6">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-                <div data-aos="fade-right">
-                    <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Location</span>
-                    <h2 class="text-3xl font-black text-slate-900 uppercase mb-6 tracking-tight">Kantor Operasional</h2>
-                    
-                    <div class="space-y-6">
-                        <div class="flex items-start space-x-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition duration-300 cursor-pointer group">
-                            <div class="text-red-800 mt-1 group-hover:scale-110 transition duration-300">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 group-hover:text-red-800 transition">Alamat Surat / Operasional</h4>
-                                <p class="text-slate-600 text-sm mt-1 leading-relaxed">
-                                    Menara Sentraya Lt. 11 Unit A4, <br>
-                                    Jl. Iskandarsyah Raya, Jakarta Selatan, DKI Jakarta.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start space-x-4 p-4 rounded-xl hover:bg-white hover:shadow-md transition duration-300 cursor-pointer group">
-                            <div class="text-red-800 mt-1 group-hover:scale-110 transition duration-300">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 group-hover:text-red-800 transition">Studio Teknis</h4>
-                                <p class="text-slate-600 text-sm mt-1 leading-relaxed">
-                                    Jl. Ir. H. Juanda No. 123, Dago, Kota Bandung, West Java.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+    <!-- 4. SECTION: KEAHLIAN & PENDEKATAN KAMI (ALTERNATING ZIG-ZAG GRID) -->
+    <section class="bg-white py-20 px-6">
+        <div class="max-w-7xl mx-auto space-y-24">
+            
+            <!-- BARIS 1: KEAHLIAN KAMI (Kiri: Foto, Kanan: Teks) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center">
+                <div class="w-full h-[320px] md:h-[400px] rounded-2xl overflow-hidden shadow-sm border border-slate-200/60" data-aos="fade-right">
+                    <img src="https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800" alt="Analisis Geoteknik GeoINHance" class="w-full h-full object-cover">
                 </div>
                 
-                <div class="h-96 rounded-3xl overflow-hidden shadow-xl border border-slate-200" data-aos="fade-left">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2736184581457!2d106.80164807603417!3d-6.22761356098628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14fc2ff6113%3A0xc6c7674681643cb0!2sMenara%20Sentraya!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
-                            class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <div data-aos="fade-left">
+                    <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Kapabilitas Utama</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
+                        Keahlian <br><span class="text-red-800">Kami</span>
+                    </h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed font-normal">
+                        GeoINHance memiliki keahlian yang kuat dalam analisis geoteknik tingkat lanjut, termasuk Finite Element Method (FEM) 2D dan 3D, pemodelan numerik, analisis respons seismik, serta penilaian stabilitas tanah.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed font-normal">
+                        Kapabilitas ini memungkinkan kami untuk mengevaluasi interaksi tanah-struktur secara realistis, bahkan pada proyek dengan risiko tinggi dan kondisi geologi yang menantang.
+                    </p>
                 </div>
             </div>
-        </section>
+
+            <!-- BARIS 2: PENDEKATAN KAMI (Kiri: Teks, Kanan: Foto) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center pt-4">
+                <div class="order-2 md:order-1" data-aos="fade-right">
+                    <span class="text-[#002d62] font-bold uppercase text-xs tracking-[0.3em] block mb-2">Strategi Eksekusi</span>
+                    <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
+                        Pendekatan <br><span class="text-[#002d62]">Kami</span>
+                    </h2>
+                    <p class="text-slate-600 mb-4 leading-relaxed font-normal">
+                        Kami believe bahwa solusi rekayasa yang efektif harus kuat secara teknis, praktis, dan berorientasi pada target proyek. Oleh karena itu, layanan kami diberikan melalui pendekatan yang terintegrasi dan dipersonalisasi.
+                    </p>
+                    <p class="text-slate-600 leading-relaxed font-normal">
+                        Seluruh proses didukung oleh komunikasi satu pintu melalui Project Manager khusus untuk menjamin standar kualitas terbaik, keselamatan kerja, serta ketepatan waktu penyelesaian proyek Anda.
+                    </p>
+                </div>
+                
+                <div class="w-full h-[320px] md:h-[400px] rounded-2xl overflow-hidden shadow-sm border border-slate-200/60 order-1 md:order-2" data-aos="fade-left">
+                    <img src="https://images.unsplash.com/photo-1590069261209-f8e9b8642343?w=800" alt="Manajemen Proyek GeoINHance" class="w-full h-full object-cover">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. SECTION: KOMITMEN KAMI (CLEAN LIGHT CENTERED WITH CARD CONTRAST) -->
+    <section class="bg-slate-50/70 py-20 px-6 border-t border-b border-slate-100">
+        <div class="max-w-6xl mx-auto">
+            
+            <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Nilai & Tanggung Jawab</span>
+                <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
+                    Komitmen Kami
+                </h2>
+                <div class="w-16 h-[2px] bg-red-800 mx-auto mt-4"></div>
+                
+                <p class="text-slate-600 mt-6 leading-relaxed font-normal text-sm md:text-base">
+                    Dengan pengalaman luas di berbagai sektor infrastruktur seperti jalan tol, jembatan, pelabuhan, bandara, jalur kereta api, bangunan gedung, hingga fasilitas energi, GeoINHance berkomitmen penuh menjadi mitra teknis strategis melalui tiga pilar utama:
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12" data-aos="fade-up" data-aos-delay="100">
+                <!-- Kartu 01 -->
+                <div class="bg-white border border-slate-200/60 p-8 rounded-xl space-y-4 hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:border-red-200 transition duration-300">
+                    <div class="text-red-800 font-mono font-black text-lg tracking-wider">01 .</div>
+                    <h3 class="text-slate-900 font-bold uppercase tracking-tight text-sm">Optimasi Keputusan</h3>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-normal">
+                        Meningkatkan kualitas pengambilan keputusan teknik (<span class="font-semibold text-slate-800">engineering decision-making</span>) secara presisi, akurat, dan berbasis data ilmiah.
+                    </p>
+                </div>
+
+                <!-- Kartu 02 -->
+                <div class="bg-white border border-slate-200/60 p-8 rounded-xl space-y-4 hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:border-red-200 transition duration-300">
+                    <div class="text-red-800 font-mono font-black text-lg tracking-wider">02 .</div>
+                    <h3 class="text-slate-900 font-bold uppercase tracking-tight text-sm">Mitigasi Risiko</h3>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-normal">
+                        Meminimalkan risiko konstruksi serta memitigasi potensi permasalahan stabilitas tanah dan geoteknik yang kompleks langsung di lapangan.
+                    </p>
+                </div>
+
+                <!-- Kartu 03 -->
+                <div class="bg-white border border-slate-200/60 p-8 rounded-xl space-y-4 hover:shadow-[0_10px_30px_rgba(0,0,0,0.04)] hover:border-red-200 transition duration-300">
+                    <div class="text-red-800 font-mono font-black text-lg tracking-wider">03 .</div>
+                    <h3 class="text-slate-900 font-bold uppercase tracking-tight text-sm">Infrastruktur Berkelanjutan</h3>
+                    <p class="text-slate-600 text-xs md:text-sm leading-relaxed font-normal">
+                        Mendukung penuh pengembangan infrastruktur nasional yang tangguh, mengutamakan aspek keamanan tinggi, serta berkelanjutan jangka panjang.
+                    </p>
+                </div>
+            </div>
+
+            <div class="max-w-4xl mx-auto text-center border-t border-slate-200 pt-8" data-aos="fade-up" data-aos-delay="200">
+                <p class="text-slate-500 text-xs leading-relaxed font-normal">
+                    Sejalan dengan visi utama perusahaan, kami terus memperkuat kapabilitas teknis, pengembangan sumber daya manusia, serta inovasi teknologi. Langkah ini berjalan beriringan dengan konsistensi kami dalam menerapkan prinsip Keselamatan dan Kesehatan Kerja (K3), perlindungan lingkungan, serta tata kelola perusahaan yang baik (*good corporate governance*).
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECTION: CTA DOWNLOAD COMPANY PROFILE (ULTRA CLEAN BUTTON ONLY) -->
+<section class="py-12 px-6 text-center bg-white">
+    <div class="max-w-md mx-auto" data-aos="fade-up">
+        
+        <a href="{{ asset('documents/COMPANY PROFILE GEOINHANCE.pdf') }}" class="inline-flex items-center justify-center space-x-3 bg-red-800 hover:bg-red-700 text-white font-bold uppercase text-xs tracking-widest px-8 py-4 rounded-xl shadow-md hover:shadow-red-800/30 transition-all duration-300 transform hover:-translate-y-0.5 group w-full sm:w-auto">
+            <span>Download Company Profile</span>
+            <svg class="w-4 h-4 transform group-hover:translate-y-0.5 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
+            </svg>
+        </a>
+        
     </div>
+</section>
+
+    <!-- 6. SECTION: ALAMAT KANTOR & MAPS (SPLIT GRID) -->
+    <section id="alamat-kantor" class="bg-white py-24 px-6">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div data-aos="fade-right">
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Location</span>
+                <h2 class="text-3xl font-black text-slate-900 uppercase mb-6 tracking-tight">Kantor Operasional</h2>
+                
+                <div class="space-y-6">
+                    <div class="flex items-start space-x-4 p-4 rounded-xl hover:bg-slate-50 hover:shadow-md transition duration-300 cursor-pointer group">
+                        <div class="text-red-800 mt-1 group-hover:scale-110 transition duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 group-hover:text-red-800 transition">Alamat Surat / Operasional</h4>
+                            <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                                Menara Sentraya Lt. 11 Unit A4, <br>
+                                Jl. Iskandarsyah Raya, Jakarta Selatan, DKI Jakarta.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start space-x-4 p-4 rounded-xl hover:bg-slate-50 hover:shadow-md transition duration-300 cursor-pointer group">
+                        <div class="text-red-800 mt-1 group-hover:scale-110 transition duration-300">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 group-hover:text-red-800 transition">Studio Teknis</h4>
+                            <p class="text-slate-600 text-sm mt-1 leading-relaxed">
+                                Jl. Ir. H. Juanda No. 123, Dago, Kota Bandung, West Java.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="h-96 rounded-3xl overflow-hidden shadow-xl border border-slate-200" data-aos="fade-left">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2736184581457!2d106.80164807603417!3d-6.22761356098628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14fc2ff6113%3A0xc6c7674681643cb0!2sMenara%20Sentraya!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
+                        class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+        </div>
+    </section>
+</div>
 
         <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
             <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
@@ -498,9 +608,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
                     </p>
                     <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
 
@@ -534,6 +645,10 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 </div>
             </div>
         </footer>
+
+    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+    </a>
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
