@@ -1,20 +1,20 @@
-
 <!DOCTYPE html>
 <html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Engineering Articles - PT GeoINHance Solusi Rekayasa</title>
+    <title>Pendaftaran Training - PT GeoINHance Solusi Rekayasa</title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
     <style>
         .nav-glass {
             background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(8px);
+            backdrop-filter: blur(10px);
         }
 
         .nav-link {
@@ -26,7 +26,7 @@
             position: absolute;
             width: 0;
             height: 2px;
-            bottom: -4px;
+            bottom: -5px;
             left: 0;
             background: #991b1b;
             transition: .3s;
@@ -38,14 +38,15 @@
         }
 
         [x-cloak] {
-            display:none !important;
+            display: none !important;
         }
     </style>
 </head>
 
-<body class="bg-slate-50 font-sans antialiased text-slate-900">
+<body class="bg-slate-50 font-sans antialiased text-slate-900"
+      x-data="{ mobileMenuOpen: false, mobileTrainingDropdownOpen: false }">
 
-    <!-- NAVBAR -->
+<!-- NAVBAR -->
 <nav class="fixed w-full z-[100] transition-all duration-300 ">
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
@@ -191,7 +192,7 @@
                          x-cloak>
                         <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multibangun Engineering Hub</a>
                         <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
-                        <a href="{{ route('resources.news-events') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Document Library</a>
@@ -277,280 +278,302 @@
         </div>
     </nav>
 
-    <!-- WRAPPER -->
-    <div class="pt-[95px]">
+<!-- CONTENT -->
+<div class="pt-[95px]">
 
-        <!-- HERO -->
-        <section class="bg-[#002d62] text-white py-24 px-6 relative overflow-hidden">
+    <!-- HERO -->
+    <section class="bg-[#002d62] text-white py-24 px-6 text-center relative overflow-hidden">
 
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-            <div class="relative z-10 max-w-5xl mx-auto text-center">
+        <div class="relative z-10 max-w-4xl mx-auto" data-aos="zoom-in">
 
-                <span class="text-red-500 uppercase tracking-[0.3em] text-xs font-bold block mb-4">
-                    Engineering Knowledge Center
+            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
+                GeoINHance Professional Training
+            </span>
+
+            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight">
+                Pendaftaran <br>
+                Training Engineering
+            </h1>
+
+            <p class="text-slate-300 mt-6 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+                Tingkatkan kompetensi profesional Anda melalui program pelatihan geoteknik,
+                FEM analysis, PLAXIS, dan engineering design bersama tim praktisi berpengalaman.
+            </p>
+
+        </div>
+
+    </section>
+
+    <!-- TRAINING PROGRAM -->
+    <section class="max-w-7xl mx-auto py-24 px-6">
+
+        <!-- HEADER -->
+        <div class="text-center mb-20" data-aos="fade-up">
+
+            <span class="inline-block px-5 py-2 rounded-full border border-red-100 bg-red-50 text-red-800 text-xs font-extrabold uppercase tracking-[0.35em] shadow-sm">
+                Available Program
+            </span>
+
+            <h2 class="mt-6 text-4xl md:text-5xl font-black uppercase text-slate-900 leading-tight">
+                Program
+                <span class="text-red-800">
+                    Training
+                </span>
+            </h2>
+
+            <p class="max-w-2xl mx-auto mt-6 text-lg leading-8 text-slate-500">
+                Program pelatihan profesional dengan pendekatan industri nyata,
+                studi kasus lapangan, dan simulasi engineering modern.
+            </p>
+
+        </div>
+
+        <!-- CARD GRID -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            <!-- CARD -->
+            <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+
+                    <span class="material-symbols-outlined text-[60px] text-white">
+                        engineering
+                    </span>
+
+                </div>
+
+                <h3 class="mb-4 text-2xl font-black text-slate-900">
+                    PLAXIS 2D
+                </h3>
+
+                <p class="leading-8 text-slate-500 mb-6">
+                    Training pemodelan geoteknik 2D untuk analisis stabilitas lereng,
+                    fondasi, retaining wall, dan deformasi tanah.
+                </p>
+
+                <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
+                    Beginner to Intermediate
                 </span>
 
-                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight mb-6">
-                    Technical Articles & Insights
-                </h1>
+            </div>
 
-                <p class="text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                    Kumpulan artikel teknis, studi geoteknik,
-                    analisis infrastruktur, serta insight rekayasa
-                    modern untuk mendukung pengambilan keputusan
-                    engineering secara presisi.
+            <!-- CARD -->
+            <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+                <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+
+                    <span class="material-symbols-outlined text-[60px] text-white">
+                        dataset
+                    </span>
+
+                </div>
+
+                <h3 class="mb-4 text-2xl font-black text-slate-900">
+                    PLAXIS 3D
+                </h3>
+
+                <p class="leading-8 text-slate-500 mb-6">
+                    Simulasi geoteknik 3D lanjutan untuk tunnel, pile group,
+                    excavation, dan analisis konstruksi kompleks.
                 </p>
 
+                <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
+                    Advanced Program
+                </span>
+
             </div>
 
-        </section>
+            <!-- CARD -->
+            <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
 
-        <!-- FEATURED ARTICLE -->
-        <section class="max-w-7xl mx-auto py-24 px-6">
+                <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
 
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-
-                <div>
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200"
-                         class="rounded-3xl shadow-2xl h-[420px] object-cover w-full">
-                </div>
-
-                <div>
-
-                    <span class="text-red-800 text-xs uppercase tracking-[0.3em] font-bold">
-                        Featured Article
+                    <span class="material-symbols-outlined text-[60px] text-white">
+                        school
                     </span>
 
-                    <h2 class="text-4xl font-black uppercase leading-tight mt-4 mb-6">
-                        Modern Geotechnical
-                        Investigation for
-                        Tunnel Infrastructure
-                    </h2>
-
-                    <p class="text-slate-600 leading-relaxed mb-8">
-                        Pembahasan mendalam mengenai investigasi
-                        geoteknik modern pada proyek terowongan
-                        transportasi cepat, termasuk slope stability,
-                        settlement prediction, hingga finite element
-                        modelling menggunakan pendekatan numerik.
-                    </p>
-
-                    <a href="#"
-                       class="bg-red-800 hover:bg-red-700 text-white uppercase tracking-widest text-xs px-8 py-4 rounded-xl font-bold transition">
-
-                        Read Full Article
-                    </a>
-
                 </div>
+
+                <h3 class="mb-4 text-2xl font-black text-slate-900">
+                    Geotechnical Workshop
+                </h3>
+
+                <p class="leading-8 text-slate-500 mb-6">
+                    Workshop intensif engineering design dan interpretasi hasil FEM
+                    berdasarkan studi kasus proyek nyata Indonesia.
+                </p>
+
+                <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
+                    Professional Class
+                </span>
 
             </div>
 
-        </section>
+        </div>
 
-        <!-- ARTICLE GRID -->
-        <section class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200">
+    </section>
 
-            <div class="max-w-7xl mx-auto">
+    <!-- FORM -->
+    <section class="bg-slate-100 py-24 px-6 border-t border-slate-200">
 
-                <div class="mb-14">
+        <div class="max-w-4xl mx-auto bg-white rounded-[2rem] border border-slate-200 shadow-sm p-10 md:p-14">
 
-                    <span class="text-red-800 text-xs uppercase tracking-[0.3em] font-bold">
-                        Latest Publications
-                    </span>
+            <div class="mb-12 text-center">
 
-                    <h2 class="text-4xl font-black uppercase mt-3">
-                        Engineering Articles
-                    </h2>
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
+                    Registration Form
+                </span>
 
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    <!-- CARD -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:-translate-y-2 transition duration-500">
-
-                        <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=1200"
-                             class="h-56 w-full object-cover">
-
-                        <div class="p-8">
-
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-red-800 font-bold">
-                                Slope Stability
-                            </span>
-
-                            <h3 class="text-xl font-black uppercase mt-3 mb-4 leading-snug">
-                                Landslide Mitigation Strategy
-                                in Mountain Transportation Area
-                            </h3>
-
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                                Analisis faktor keamanan lereng dan
-                                pendekatan stabilisasi modern pada
-                                area infrastruktur jalan pegunungan.
-                            </p>
-
-                            <a href="#"
-                               class="text-red-800 font-bold uppercase text-xs tracking-widest">
-
-                                Explore →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CARD -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:-translate-y-2 transition duration-500">
-
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200"
-                             class="h-56 w-full object-cover">
-
-                        <div class="p-8">
-
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-red-800 font-bold">
-                                Numerical Analysis
-                            </span>
-
-                            <h3 class="text-xl font-black uppercase mt-3 mb-4 leading-snug">
-                                PLAXIS 3D Workflow
-                                for Deep Excavation
-                            </h3>
-
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                                Simulasi deformasi tanah dan retaining
-                                structure menggunakan finite element
-                                analysis berbasis 3D.
-                            </p>
-
-                            <a href="#"
-                               class="text-red-800 font-bold uppercase text-xs tracking-widest">
-
-                                Explore →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CARD -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:-translate-y-2 transition duration-500">
-
-                        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1200"
-                             class="h-56 w-full object-cover">
-
-                        <div class="p-8">
-
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-red-800 font-bold">
-                                Transportation
-                            </span>
-
-                            <h3 class="text-xl font-black uppercase mt-3 mb-4 leading-snug">
-                                Railway Embankment
-                                Settlement Evaluation
-                            </h3>
-
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                                Evaluasi penurunan tanah pada jalur
-                                kereta cepat dengan pendekatan
-                                coupled consolidation analysis.
-                            </p>
-
-                            <a href="#"
-                               class="text-red-800 font-bold uppercase text-xs tracking-widest">
-
-                                Explore →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- CTA -->
-        <section class="bg-[#002d62] text-white py-20 px-6 text-center relative overflow-hidden">
-
-            <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-red-800 rounded-full blur-3xl opacity-20"></div>
-
-            <div class="relative z-10 max-w-3xl mx-auto">
-
-                <h2 class="text-4xl font-black uppercase mb-6">
-                    Explore More Engineering Knowledge
+                <h2 class="text-4xl font-black uppercase text-slate-900">
+                    Daftar Sekarang
                 </h2>
 
-                <p class="text-slate-300 leading-relaxed mb-10">
-                    Dapatkan insight terbaru mengenai geoteknik,
-                    rekayasa sipil, numerik modelling, dan
-                    pengembangan infrastruktur modern.
-                </p>
-
-                <a href="#"
-                   class="bg-red-800 hover:bg-red-700 px-8 py-4 rounded-xl uppercase tracking-widest text-xs font-bold transition">
-
-                    View All Resources
-                </a>
-
             </div>
 
-        </section>
+            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-                <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-800 p-2 rounded-lg mr-3">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
-                        Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
-                    </div>
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Nama Lengkap
+                    </label>
+
+                    <input type="text"
+                           class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Navigasi</h4>
-                    <ul class="space-y-4 text-slate-400 text-sm">
-                        <li><a href="/" class="hover:text-white transition">Beranda</a></li>
-                        <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
-                        <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
-                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
-                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
-                    </ul>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Email
+                    </label>
+
+                    <input type="email"
+                           class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
                 </div>
 
                 <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Kantor Pusat</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Jl. Ciierokaso No 94, Sarijadi,<br>
-                        Kec. Sukasari, Kota Bandung 40151<br>
-                    </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 851 9044 1744</p>
-                    <a href="mailto:geoinhance.solusirekayasa@gmail.com" class="text-slate-400 text-sm hover:text-white transition">geoinhance.solusirekayasa@gmail.com</a>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Perusahaan / Institusi
+                    </label>
+
+                    <input type="text"
+                           class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
                 </div>
-            </div>
-            
-            <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
-                <p>© 1945 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
-                <div class="flex gap-4">
-                    <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
-                    <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
+
+                <div>
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Pilih Training
+                    </label>
+
+                    <select class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
+
+                        <option>PLAXIS 2D</option>
+                        <option>PLAXIS 3D</option>
+                        <option>Geotechnical Workshop</option>
+
+                    </select>
                 </div>
+
+                <div class="md:col-span-2">
+
+                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                        Pesan Tambahan
+                    </label>
+
+                    <textarea rows="5"
+                              class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800"></textarea>
+
+                </div>
+
+                <div class="md:col-span-2 text-center mt-4">
+
+                    <button type="submit"
+                            class="bg-red-800 hover:bg-red-700 text-white font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
+
+                        Kirim Pendaftaran
+
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center mb-6">
+                <div class="bg-red-800 p-2 rounded-lg mr-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                </div>
+                <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
             </div>
-        </footer>
+            <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
+                {{ __('footer.desc') }}
+            </p>
+            <div class="flex space-x-4">
+                <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.navigation') }}
+            </h4>
+            <ul class="space-y-4 text-slate-400 text-sm">
+                <li><a href="/" class="hover:text-white transition">{{ __('footer.home') }}</a></li>
+                <li><a href="/#services" class="hover:text-white transition">{{ __('footer.services') }}</a></li>
+                <li><a href="/#portfolio" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
+                <li><a href="/karir" class="hover:text-white transition">{{ __('footer.career') }}</a></li>
+                <li><a href="/kontak" class="hover:text-white transition">{{ __('footer.contact') }}</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.head_office') }}
+            </h4>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                {!! __('footer.address') !!}
+            </p>
+            <p class="text-slate-400 text-sm mb-2">
+                {{ __('footer.phone') }}: +62 851 9044 1744
+            </p>
+            <p class="text-slate-400 text-sm text-red-500 font-bold">geoinhance.solusirekayasa@gmail.com</p>
+        </div>
     </div>
+    
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
+        <p>{{ __('footer.copyright') }}</p>
+        <div class="flex gap-4">
+            <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.privacy_policy') }}
+            </a>
+            <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.terms_of_service') }}
+            </a>
+        </div>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+
+<script>
+    AOS.init({
+        duration: 800,
+        once: true,
+    });
+</script>
 
 </body>
 </html>
-```

@@ -7,62 +7,70 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Socialite\Facades\Socialite;
 use Exception;
-use Illuminate\Support\Str;
 
 class SocialiteController extends Controller
 {
     public function redirect($provider)
     {
-        return Socialite::driver($provider)->redirect();
+        return Socialite::driver($provider)->stateless()->redirect();
     }
 
     public function callback($provider)
     {
         try {
-            // Mengambil data pengguna dari Google/Facebook/dll
-            $socialUser = Socialite::driver($provider)->user();
-        } catch (Exception $e) {
-            return redirect('/login')->with('error', 'Gagal login menggunakan ' . ucfirst($provider));
-        }
+            $socialUser = Socialite::driver($provider)->stateless()->user();
 
-        // 1. Cek apakah user ini sudah pernah login pakai akun sosial ini sebelumnya
-        $registeredUser = User::where('provider_name', $provider)
-                              ->where('provider_id', $socialUser->getId())
-                              ->first();
+            // GENERATE EMAIL CADANGAN: Jika email dari provider kosong, buat otomatis
+            $email = $socialUser->getEmail() ?? $socialUser->getId() . '@' . $provider . '.local';
 
-        if ($registeredUser) {
-            Auth::login($registeredUser);
-            return redirect()->intended('/dashboard'); // Sesuaikan '/dashboard' dengan rute halaman utamamu
-        }
+            // 1. Cek apakah user ini sudah pernah login pakai akun sosial ini sebelumnya
+            $registeredUser = User::where('provider_name', $provider)
+                                  ->where('provider_id', $socialUser->getId())
+                                  ->first();
 
-        // 2. Jika belum, cek apakah email-nya sudah terdaftar secara manual
-        $userByEmail = User::where('email', $socialUser->getEmail())->first();
+            if ($registeredUser) {
+                Auth::login($registeredUser);
+                return $this->authenticatedRedirect();
+            }
 
-        if ($userByEmail) {
-            // Tautkan akun sosial ke data user yang sudah ada
-            $userByEmail->update([
+            // 2. Jika belum, cek apakah email-nya sudah terdaftar secara manual
+            $userByEmail = User::where('email', $email)->first(); // Gunakan variabel $email yang sudah aman
+
+            if ($userByEmail) {
+                $userByEmail->update([
+                    'provider_name' => $provider,
+                    'provider_id' => $socialUser->getId()
+                ]);
+                
+                Auth::login($userByEmail);
+                return $this->authenticatedRedirect();
+            }
+
+            // 3. Jika benar-benar pengguna baru, buatkan akun baru di database
+            $newUser = User::create([
+                'name' => $socialUser->getName() ?? $socialUser->getNickname() ?? 'User Geo',
+                'email' => $email, // Gunakan variabel $email yang sudah aman
                 'provider_name' => $provider,
-                'provider_id' => $socialUser->getId()
+                'provider_id' => $socialUser->getId(),
+                'password' => '123456', // Plain text untuk tugas kampus
+                'role' => 'client',
             ]);
-            
-            Auth::login($userByEmail);
+
+            Auth::login($newUser);
+            return $this->authenticatedRedirect();
+
+        } catch (Exception $e) {
+            // Ubah dd() ke redirect dengan pesan error agar tidak merusak tampilan saat testing
+            return redirect()->route('login')->with('error', 'Terjadi kendala login: ' . $e->getMessage());
+        }
+    }
+
+    protected function authenticatedRedirect()
+    {
+        if (Auth::user()->role === 'admin') {
             return redirect()->intended('/dashboard');
         }
 
-        // 3. Jika benar-benar pengguna baru, buatkan akun baru di database
-        $newUser = User::create([
-            'name' => $socialUser->getName() ?? $socialUser->getNickname() ?? 'User Geo',
-            'email' => $socialUser->getEmail(),
-            'provider_name' => $provider,
-            'provider_id' => $socialUser->getId(),
-            
-            // Password disimpan dalam bentuk plain text murni agar mudah dicek saat pengembangan
-            'password' => '123456', 
-        ]);
-
-        Auth::login($newUser);
-        return redirect()->intended('/dashboard');
+        return redirect('/');
     }
-
-    
 }

@@ -1,98 +1,56 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Dashboard Admin') }}
+            {{ __('Dashboard Utama') }}
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+    <div class="space-y-6 max-w-5xl">
+        <div class="bg-slate-800 text-white rounded-xl shadow-sm p-6">
+            <h1 class="text-2xl font-bold">Selamat Datang Kembali, {{ Auth::user()->name }}!</h1>
+            <p class="text-slate-300 text-sm mt-1">
+                Gunakan panel navigasi kiri untuk mengakses kontrol penuh manajemen konten korporat PT GeoINHance Solusi Rekayasa.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Modul Banner</p>
+                    <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">Sistem Aktif</p>
+                </div>
+                <div class="p-3 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 00.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                    </svg>
+                </div>
+            </div>
             
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <p class="text-lg font-medium">Selamat Datang kembali, {{ Auth::user()->name }}!</p>
-                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-1">Gunakan panel ini untuk mengelola konten dan data pada website PT GeoINHance Solusi Rekayasa.</p>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Portofolio Proyek</p>
+                    <p class="text-xl font-bold text-gray-900 dark:text-white mt-1">Terintegrasi</p>
+                </div>
+                <div class="p-3 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                    </svg>
                 </div>
             </div>
 
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
-                    <div>
-                        <div class="p-3 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 rounded-lg w-fit mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 001.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Manajemen Banner Utama</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                            Ganti, tambah, atau hapus foto-foto beresolusi besar yang tampil di slider halaman depan (Landing Page) user.
-                        </p>
-                    </div>
-                    <a href="{{ route('admin.slider.index') }}" class="inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-medium text-sm py-2 px-4 rounded-lg transition">
-                        Kelola Foto Banner
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                    </a>
+            <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
+                <div>
+                    <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Level Autentikasi</p>
+                    <p class="text-lg font-extrabold text-amber-600 dark:text-amber-400 mt-1 uppercase">
+                        {{ Auth::user()->role }}
+                    </p>
                 </div>
-
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 border border-gray-100 dark:border-gray-700 flex flex-col justify-between">
-                    <div>
-                        <div class="p-3 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-400 rounded-lg w-fit mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 21v-4.875c0-.621.504-1.125 1.125-1.125h3.375c.621 0 1.125.504 1.125 1.125V21m0 0h4.5V3.545M12.75 21h7.5V10.75M2.25 21h1.5m18 0h-18M2.25 9l4.5-1.636M18.75 3l-1.5.545m0 6.205l3 1m-1.5-7.75l-4.5 1.636M17.25 10.5l-1.5.545m-9.75 4.5l3-1m3 1l3-1M4.5 10.5l3-1m3 1l3-1m-7.5 3l3-1m3 1l3-1" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Manajemen Proyek</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                            Kelola portofolio kesuksesan proyek strategis perusahaan lengkap dengan deskripsi, kategori, lokasi, dan tahun.
-                        </p>
-                    </div>
-                    <a href="{{ route('admin.project.index') }}" class="inline-flex items-center justify-center bg-red-600 hover:bg-red-700 text-white font-medium text-sm py-2 px-4 rounded-lg transition">
-                        Kelola Portofolio Proyek
-                        <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                        </svg>
-                    </a>
+                <div class="p-3 bg-amber-50 dark:bg-amber-900/20 text-amber-600 dark:text-amber-400 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                    </svg>
                 </div>
-
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 border border-gray-100 dark:border-gray-700 opacity-60 flex flex-col justify-between">
-                    <div>
-                        <div class="p-3 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-lg w-fit mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M20.25 14.15v4.25c0 .414-.336.75-.75.75H4.5a.75.75 0 01-.75-.75V14.15M20.25 14.15a15.042 15.042 0 01-16.5 0M20.25 14.15V9.75M3.75 14.15V9.75M20.25 9.75c0-.414-.336-.75-.75-.75H4.5a.75.75 0 01-.75.75M20.25 9.75V5.25c0-.414-.336-.75-.75-.75H4.5a.75.75 0 01-.75.75v4.5m16.5 0a15.041 15.041 0 00-16.5 0" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Manajemen Layanan</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                            Kelola data sektor dan produk teknik seperti analisis tanah, pondasi, dan geoteknik.
-                        </p>
-                    </div>
-                    <button disabled class="inline-flex items-center justify-center bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-medium text-sm py-2 px-4 rounded-lg cursor-not-allowed">
-                        Segera Hadir
-                    </button>
-                </div>
-
-                <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 border border-gray-100 dark:border-gray-700 opacity-60 flex flex-col justify-between">
-                    <div>
-                        <div class="p-3 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 rounded-lg w-fit mb-4">
-                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 19.128a9.38 9.38 0 002.625.372 9.337 9.337 0 004.121-.952 4.125 4.125 0 00-7.533-2.493M15 19.128v-.003c0-1.113-.285-2.16-.786-3.07M15 19.128v.109A11.386 11.386 0 0110.089 18H6.284a11.386 11.386 0 01-5.003-1.233v-.109c0-2.33 1.307-4.35 3.217-5.414M15.5 5.25a3 3 0 11-6 0 3 3 0 016 0zm-7 0a2.5 2.5 0 11-5 0 2.5 2.5 0 015 0z" />
-                            </svg>
-                        </div>
-                        <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-2">Manajemen Karir / Lowongan</h3>
-                        <p class="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                            Tambah lowongan pekerjaan atau magang baru dan lihat data pelamar yang masuk ke PT GeoINHance.
-                        </p>
-                    </div>
-                    <button disabled class="inline-flex items-center justify-center bg-gray-300 dark:bg-gray-700 text-gray-500 dark:text-gray-400 font-medium text-sm py-2 px-4 rounded-lg cursor-not-allowed">
-                        Segera Hadir
-                    </button>
-                </div>
-
             </div>
-
         </div>
     </div>
 </x-app-layout>

@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ========================================================
+   BRANDING COLOR VARIATIONS (PT GeoINHance Solusi Rekayasa)
+   ======================================================== */
+:root {
+    --geo-blue: #0e1d82;
+    --geo-red: #c00000;
+    --geo-light-blue: #cfdde9;
+}
+
+/* 1. Perbaikan Scrollbar Admin Panel */
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f1f5f9; /* slate-100 */
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: var(--geo-blue);
+    opacity: 0.7;
+    border-radius: 20px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background-color: var(--geo-red);
+}
+
+/* 2. Fokus Form Input Menyesuaikan Warna Biru Utama */
+input:focus, select:focus, textarea:focus {
+    outline: none !important;
+    box-shadow: 0 0 0 3px rgba(14, 29, 130, 0.2) !important;
+    border-color: var(--geo-blue) !important;
+}
+
+/* 3. Efek Transisi Komponen */
+aside a, button {
+    transition: all 0.25s ease-in-out;
+}
+
+html {
+    scroll-behavior: smooth;
+}               

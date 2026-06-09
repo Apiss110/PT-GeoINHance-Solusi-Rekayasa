@@ -15,6 +15,13 @@
                     <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
+
+                    {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
+                    @if(auth()->check() && auth()->user()->role === 'superadmin')
+                        <flux:sidebar.item icon="users" :href="route('admin.kelola-admin.index')" :current="request()->routeIs('admin.kelola-admin.*')" wire:navigate>
+                            {{ __('Kelola Daftar Admin') }}
+                        </flux:sidebar.item>
+                    @endif
                 </flux:sidebar.group>
             </flux:sidebar.nav>
 
@@ -33,7 +40,6 @@
             <x-desktop-user-menu class="hidden lg:block" :name="auth()->user()->name" />
         </flux:sidebar>
 
-        <!-- Mobile User Menu -->
         <flux:header class="lg:hidden">
             <flux:sidebar.toggle class="lg:hidden" icon="bars-2" inset="left" />
 

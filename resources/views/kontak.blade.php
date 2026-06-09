@@ -47,35 +47,41 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 </head>
 <body class="bg-slate-50 font-sans antialiased text-slate-900" x-data="{ mobileMenuOpen: false, mobileDropdownOpen: false }">
 
-    <nav class="fixed w-full z-[100] transition-all duration-300">
+<nav class="fixed w-full z-[100] transition-all duration-300 ">
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
                 <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> Bandung, West Java</span>
                 <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 851-9044-1744</span>
             </div>
-            <div class="flex items-center space-x-4 font-bold">
-                <a href="#" class="hover:text-yellow-500 transition">ID</a>
-                <span class="opacity-20">|</span>
-                <a href="#" class="hover:text-yellow-500 transition">EN</a>
+            <div class="flex space-x-2 text-xs font-bold">
+                <a href="{{ route('lang.switch', 'id') }}" 
+                class="{{ App::getLocale() == 'id' ? 'text-red-800' : 'text-slate-400 hover:text-slate-600' }}">
+                ID
+                </a>
+                <span class="text-slate-300">|</span>
+                <a href="{{ route('lang.switch', 'en') }}" 
+                class="{{ App::getLocale() == 'en' ? 'text-red-800' : 'text-slate-400 hover:text-slate-600' }}">
+                EN
+                </a>
             </div>
         </div>
 
         <div class="nav-glass border-b border-slate-200 py-4 px-6 md:px-16 flex justify-between items-center shadow-sm">
             <div class="flex items-center">
-                <div class="bg-red-800 p-1.5 rounded-md mr-3">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                </div>
-                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='{{ route('home') }}'">
-                    <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span>
-                    <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">Engineering Solutions</span>
+                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='/'">
+                    <!-- <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span> -->
+                    <img src="images/inh 2.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
+                    <!-- <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">geotechnical insights, engineering solutions</span> -->
                 </div>
             </div>
 
-            <div class="hidden lg:flex items-center space-x-10 text-[12px] font-bold uppercase tracking-widest text-slate-600">
-                <a href="/profil" class="nav-link hover:text-red-800 transition">Profil Perusahaan</a>
+            <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-slate-600">
+                <a href="/profil"  class="nav-link transition
+                    {{ request()->is('profil') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">Profil Perusahaan</a>
                 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
+                    <button  class="nav-link flex items-center space-x-1
+                    {{ request()->is('sektor/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
                         <span>SEKTOR</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
@@ -95,7 +101,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Oil & Gas</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Energi</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Agriculture</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur & Transportasi</a>
+                        <a href="{{ route('sektor.infrastruktur') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur & Transportasi</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Jalur Kereta Api</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Bandar Udara</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pelabuhan</a>
@@ -110,7 +116,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
+                    <button  class="nav-link flex items-center space-x-1
+                        {{ request()->is('produk/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
                         <span>PRODUK</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
@@ -126,27 +133,15 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid InterAx</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid TriAx</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid Biaxial</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geogrid Uniaxial</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multiblock Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">SierraScape Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geocell</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrance</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Zipdram</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Stripdram</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Monitoring Jarak Jauh (InSAR)</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Produk</a>
+                        <a href="{{ route('product.plaxis2d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 2D</a>
+                        <a href="{{ route('product.plaxis3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 3D</a>
+                        <a href="https://www.bentley.com/software/plaxis-2d/" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detail Program Plaxis</a>
                     </div>
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
+                    <button class="nav-link flex items-center space-x-1
+                        {{ request()->is('proyek/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
                         <span>PROYEK</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
@@ -162,21 +157,24 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar TriAx GeoGrid</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Biaxial GeoGrid</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Tensar Uniaxial GeoGrid</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geomembrane</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotextile</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">MultiBlock Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Sierrascape Retaining Wall System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Wraparound System</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">VMax Erosion Control</a>
+                        <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lombok GECC Power Plant </a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Design & Build of Kalibaru</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Design of Red Mud Stockyard</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Using Plaxis 3D</a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis </a>
+                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link hover:text-red-800 flex items-center space-x-1 focus:outline-none">
+                    <button class="nav-link flex items-center space-x-1
+                        {{ request()->is('resources/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
                         <span>RESOURCES</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
@@ -193,8 +191,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
                         <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Multibangun Engineering Hub</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
+                        <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
+                        <a href="{{ route('resources.news-events') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
                         <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Document Library</a>
@@ -202,9 +200,31 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                     </div>
                 </div>
 
-                <a href="/karir" class="nav-link hover:text-red-800 transition">Legalitas</a>
-                <a href="/karir" class="nav-link hover:text-red-800 transition">Karir</a>
-                <a href="/kontak" class="nav-link text-red-800 active transition">Kontak</a>
+                <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
+                    <button class="nav-link flex items-center space-x-1
+                        {{ request()->is('training/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
+                        <span>TRAINING</span>
+                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div x-show="open" 
+                         x-transition:enter="transition ease-out duration-200"
+                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave="transition ease-in duration-150"
+                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
+                         x-cloak>
+                        <a href="/training/silabus" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Silabus & Materi</a>
+                        <a href="/training/fasilitas" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Fasilitas (Sertifikat, Modul, Software Trial)</a>
+                        <a href="/training/pendaftaran" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Form Pendaftaran</a>
+                    </div>
+                </div>
+                <a href="/kontak"class="nav-link transition
+                        {{ request()->is('kontak') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">Kontak</a>
 
                 @auth
                     <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
@@ -256,57 +276,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 @endauth
             </div>
         </div>
-
-        <div x-show="mobileMenuOpen" 
-             x-transition:enter="transition ease-out duration-200"
-             x-transition:enter-start="opacity-0 -translate-y-4"
-             x-transition:enter-end="opacity-100 translate-y-0"
-             x-transition:leave="transition ease-in duration-150"
-             x-transition:leave-start="opacity-100 translate-y-0"
-             x-transition:leave-end="opacity-0 -translate-y-4"
-             class="lg:hidden bg-white border-b border-slate-200 py-4 px-6 space-y-3 shadow-xl font-bold uppercase text-xs tracking-wider" 
-             x-cloak>
-            <a href="/" class="block text-slate-600 hover:text-red-800 py-1">Beranda</a>
-            
-            <div class="space-y-1">
-                <button @click="mobileDropdownOpen = !mobileDropdownOpen" class="w-full flex justify-between items-center text-red-800 py-1 text-left focus:outline-none">
-                    <span>Tentang</span>
-                    <svg class="w-4 h-4 transition-transform duration-200" :class="mobileDropdownOpen ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                    </svg>
-                </button>
-                <div x-show="mobileDropdownOpen" x-collapse class="pl-4 border-l border-slate-200 space-y-2.5 py-1.5 normal-case font-semibold text-slate-500 text-[11px]" x-cloak>
-                    <a href="#" @click="mobileMenuOpen = false" class="block hover:text-red-800">Profil Perusahaan</a>
-                    <a href="/#visi-misi" @click="mobileMenuOpen = false" class="block hover:text-red-800">Visi & Misi</a>
-                    <a href="#alamat-kantor" @click="mobileMenuOpen = false" class="block hover:text-red-800">Lokasi Kantor</a>
-                </div>
-            </div>
-            
-            <a href="/#services" class="block text-slate-600 hover:text-red-800 py-1">Layanan</a>
-            <a href="/#portfolio" class="block text-slate-600 hover:text-red-800 py-1">Proyek</a>
-            <a href="{{ route('login') }}" class="block bg-slate-900 text-white text-center py-2.5 rounded shadow">Client Area</a>
-        </div>
     </nav>
 
     <div class="pt-[95px]">
         
-        <section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
+<section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="relative z-10" data-aos="zoom-in">
-                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">Hubungi Hubungan Kerja Kami</span>
-                <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">Kontak & Tim Struktur</h1>
+                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">{{ __('contact.hero_sub') }}</span>
+                <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">{{ __('contact.hero_title') }}</h1>
                 <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
             </div>
         </section>
 
-<!-- SECTION: OUR TEAM (CLEAN MODERN TREE DIAGRAM) -->
 <section class="bg-white py-20 px-4 overflow-x-auto">
     <div class="max-w-6xl mx-auto min-w-[1000px]">
         
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl font-black text-[#002d62] uppercase tracking-tight mb-3">Our Team</h2>
+            <h2 class="text-3xl font-black text-[#002d62] uppercase tracking-tight mb-3">{{ __('contact.team_title') }}</h2>
             <p class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto">
-                Our team consists of qualified geotechnical engineers and technical specialists with extensive experience across diverse projects.
+                {{ __('contact.team_desc') }}
             </p>
         </div>
 
@@ -318,7 +307,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" alt="Dr.techn. Indra Noer Hamdhan" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
-                        <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">Technical Advisor</span>
+                        <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">{{ __('contact.role_advisor') }}</span>
                         <h3 class="text-[#002d62] font-extrabold text-xs leading-snug">Dr.techn. Indra Noer Hamdhan, S.T., M.T.</h3>
                     </div>
                 </div>
@@ -331,7 +320,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400" alt="Rinaldi Alamsyah" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
-                        <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">Board of Director</span>
+                        <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">{{ __('contact.role_director') }}</span>
                         <h3 class="text-[#002d62] font-extrabold text-xs leading-snug">Rinaldi Alamsyah, S.T.</h3>
                     </div>
                 </div>
@@ -348,7 +337,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Engineering Division</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_engineering') }}</h4>
                             </div>
                         </div>
                     </div>
@@ -357,7 +346,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Survey<br>Division</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_survey') !!}</h4>
                             </div>
                         </div>
                     </div>
@@ -366,7 +355,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">QHSE<br>Division</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_qhse') !!}</h4>
                             </div>
                         </div>
                     </div>
@@ -375,7 +364,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Finance & Accounting</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_finance') }}</h4>
                             </div>
                         </div>
                     </div>
@@ -384,7 +373,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Marketing Division</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_marketing') }}</h4>
                             </div>
                         </div>
                     </div>
@@ -393,7 +382,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Project<br>Admin</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_admin') !!}</h4>
                             </div>
                         </div>
                     </div>
@@ -402,7 +391,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
                         <div class="px-2 w-full">
                             <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">Procurement / HRGA</h4>
+                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_procurement') }}</h4>
                             </div>
                         </div>
                     </div>
@@ -419,8 +408,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 
                 <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
                     <div>
-                        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Connect With Us</span>
-                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Kantor Operasional</h2>
+                        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('contact.connect_us') }}</span>
+                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('contact.office_title') }}</h2>
                     </div>
                     
                     <div class="space-y-4">
@@ -429,10 +418,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Alamat Surat / Operasional</h4>
+                                <h4 class="font-bold text-slate-900 text-sm">{{ __('contact.office_main_title') }}</h4>
                                 <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                                    Menara Sentraya Lt. 11 Unit A4, <br>
-                                    Jl. Iskandarsyah Raya, Jakarta Selatan, DKI Jakarta.
+                                    {!! __('contact.office_mail_desc') !!}
                                 </p>
                             </div>
                         </div>
@@ -442,9 +430,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                             </div>
                             <div>
-                                <h4 class="font-bold text-slate-900 text-sm">Studio Teknis</h4>
+                                <h4 class="font-bold text-slate-900 text-sm">{{ __('contact.office_studio_title') }}</h4>
                                 <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                                    Jl. Ir. H. Juanda No. 123, Dago, Kota Bandung, West Java.
+                                    {!! __('contact.office_studio_desc') !!}
                                 </p>
                             </div>
                         </div>
@@ -461,52 +449,52 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                 </div>
 
                 <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xl" data-aos="fade-left">
-                    <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-2">Kirimkan Pesan</h3>
-                    <p class="text-slate-500 text-xs mb-8">Memiliki kebutuhan analisis tanah strategis atau penawaran kerja sama? Sampaikan pesan Anda melalui formulir terintegrasi berikut.</p>
+                    <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-2">{{ __('contact.form_title') }}</h3>
+                    <p class="text-slate-500 text-xs mb-8">{{ __('contact.form_desc') }}</p>
                     
                     <form action="#" method="POST" class="space-y-6">
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Nama Lengkap *</label>
-                                <input type="text" required placeholder="Contoh: John Doe" 
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_name') }}</label>
+                                <input type="text" required placeholder="{{ __('contact.placeholder_name') }}" 
                                     class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Alamat Email *</label>
-                                <input type="email" required placeholder="nama@perusahaan.com" 
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_email') }}</label>
+                                <input type="email" required placeholder="{{ __('contact.placeholder_email') }}" 
                                     class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
                             </div>
                         </div>
 
                         <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Nomor Telepon / WA *</label>
-                                <input type="tel" required placeholder="0812xxxxxxx" 
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_phone') }}</label>
+                                <input type="tel" required placeholder="{{ __('contact.placeholder_phone') }}" 
                                     class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
                             </div>
                             <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Nama Perusahaan / Instansi</label>
-                                <input type="text" placeholder="PT Sukses Bersama" 
+                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_company') }}</label>
+                                <input type="text" placeholder="{{ __('contact.placeholder_company') }}" 
                                     class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
                             </div>
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Subjek Kebutuhan</label>
-                            <input type="text" placeholder="Permintaan Quota Penawaran / Konsultasi Lapangan" 
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_subject') }}</label>
+                            <input type="text" placeholder="{{ __('contact.placeholder_subject') }}" 
                                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
                         </div>
 
                         <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">Detail Pesan / Pertanyaan *</label>
-                            <textarea required rows="4" placeholder="Tuliskan pesan detail mengenai proyek atau kendala teknis Anda di sini..." 
+                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_message') }}</label>
+                            <textarea required rows="4" placeholder="{{ __('contact.placeholder_message') }}" 
                                 class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition resize-none"></textarea>
                         </div>
 
                         <div class="pt-2">
                             <button type="submit" 
                                 class="w-full bg-slate-900 text-white font-bold uppercase text-xs tracking-widest py-4 rounded-xl shadow-lg hover:bg-red-800 transition duration-300 transform hover:-translate-y-0.5">
-                                Kirim Pesan Sekarang
+                                {{ __('contact.btn_submit') }}
                             </button>
                         </div>
                     </form>
@@ -515,56 +503,65 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </div>
         </section>
 
-        <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-800 p-2 rounded-lg mr-3">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
-                        Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
-                    </div>
+<footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center mb-6">
+                <div class="bg-red-800 p-2 rounded-lg mr-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
                 </div>
-
-                <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Navigasi</h4>
-                    <ul class="space-y-4 text-slate-400 text-sm">
-                        <li><a href="/" class="hover:text-white transition">Beranda</a></li>
-                        <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
-                        <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
-                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
-                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Kantor Pusat</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Menara Sentraya Lt. 11 Unit A4, <br>
-                        Jl. Iskandarsyah Raya, Jakarta Selatan.
-                    </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 851-9044-1744</p>
-                    <p class="text-slate-400 text-sm text-red-500 font-bold">E: info@geoinhance.com</p>
-                </div>
+                <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
             </div>
-            
-            <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
-                <p>© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
-                <div class="flex gap-4">
-                    <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
-                    <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
-                </div>
+            <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
+                {{ __('footer.desc') }}
+            </p>
+            <div class="flex space-x-4">
+                <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
             </div>
-        </footer>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.navigation') }}
+            </h4>
+            <ul class="space-y-4 text-slate-400 text-sm">
+                <li><a href="/" class="hover:text-white transition">{{ __('footer.home') }}</a></li>
+                <li><a href="/#services" class="hover:text-white transition">{{ __('footer.services') }}</a></li>
+                <li><a href="/#portfolio" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
+                <li><a href="/karir" class="hover:text-white transition">{{ __('footer.career') }}</a></li>
+                <li><a href="/kontak" class="hover:text-white transition">{{ __('footer.contact') }}</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.head_office') }}
+            </h4>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                {!! __('footer.address') !!}
+            </p>
+            <p class="text-slate-400 text-sm mb-2">
+                {{ __('footer.phone') }}: +62 851 9044 1744
+            </p>
+            <p class="text-slate-400 text-sm text-red-500 font-bold">geoinhance.solusirekayasa@gmail.com</p>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
+        <p>{{ __('footer.copyright') }}</p>
+        <div class="flex gap-4">
+            <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.privacy_policy') }}
+            </a>
+            <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.terms_of_service') }}
+            </a>
+        </div>
+    </div>
+</footer>
     </div>
 
     <a href="https://wa.me/085190441744" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">

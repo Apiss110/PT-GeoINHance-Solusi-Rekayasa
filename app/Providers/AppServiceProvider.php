@@ -5,6 +5,7 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Event; // Ditambahkan untuk mendukung Event::listen
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
 
@@ -24,6 +25,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        // Daftarkan driver Apple Socialite ke dalam Event Laravel
+        Event::listen(
+            \SocialiteProviders\Manager\SocialiteWasCalled::class,
+            \SocialiteProviders\Apple\AppleExtendSocialite::class . '@handle'
+        );
     }
 
     /**

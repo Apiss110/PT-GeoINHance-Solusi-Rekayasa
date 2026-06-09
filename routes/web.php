@@ -3,8 +3,12 @@
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\Admin\SliderController; // Import Controller Admin Slider
 use App\Http\Controllers\Admin\ProjectController; // Import Controller Admin Project
+use App\Http\Controllers\Admin\AdminController; // Import Controller Admin CRUD (Superadmin)
+use App\Http\Middleware\IsSuperadmin; // Import Middleware IsSuperadmin
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\SocialiteController;
+use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\Admin\BlogController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,12 +21,16 @@ Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect']
 // Rute untuk menerima balasan data dari provider setelah pengguna berhasil login
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
+// PERBAIKAN DI SINI: Mengambil data sliders dan blogs sekaligus
 Route::get('/', function () {
-    // Ambil semua foto banner dari database
+    // 1. Ambil semua foto banner dari database
     $sliders = \App\Models\HeroSlider::all();
     
-    // Kirim data sliders ke file welcome.blade.php
-    return view('welcome', compact('sliders')); 
+    // 2. Ambil 3 artikel blog terbaru untuk section Latest Blog & News
+    $blogs = \App\Models\Blog::latest()->take(3)->get();
+    
+    // Kirim kedua data ke file welcome.blade.php
+    return view('welcome', compact('sliders', 'blogs')); 
 })->name('home');
 
 Route::get('/profil', function () {
@@ -67,6 +75,14 @@ Route::prefix('sektor')->group(function () {
 
 });
 
+Route::get('/lang/{locale}', function ($locale) {
+    // Validasi bahasa yang diizinkan agar aman
+    if (in_array($locale, ['id', 'en'])) {
+        Session::put('locale', $locale);
+    }
+    return redirect()->back(); // Kembali ke halaman terakhir yang dibuka user
+})->name('lang.switch');
+
 /*
 |--------------------------------------------------------------------------
 | PROYEK
@@ -88,6 +104,16 @@ Route::view(
     '/resources/articles',
     'resources.articles'
 )->name('resources.articles');
+
+Route::view(
+    '/resources/news-events',
+    'resources.news_events'
+)->name('resources.news-events');
+
+// Rute untuk halaman pendaftaran training
+Route::get('/training/pendaftaran', function () {
+    return view('training.pendaftaran');
+})->name('training.pendaftaran');
 
 /*
 |--------------------------------------------------------------------------
@@ -132,6 +158,19 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
     Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
     Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
+
+    // 4. Fitur CRUD Blog & News (Bisa diakses oleh Admin biasa & Superadmin)
+    Route::resource('blog', BlogController::class);
+
+    // 3. Fitur Kelola Akun Admin (HANYA BISA DIAKSES OLEH SUPERADMIN)
+    Route::middleware([IsSuperadmin::class])->group(function () {
+        Route::get('/kelola-admin', [AdminController::class, 'index'])->name('kelola-admin.index');
+        Route::get('/kelola-admin/create', [AdminController::class, 'create'])->name('kelola-admin.create');
+        Route::post('/kelola-admin', [AdminController::class, 'store'])->name('kelola-admin.store');
+        Route::get('/kelola-admin/{id}/edit', [AdminController::class, 'edit'])->name('kelola-admin.edit');
+        Route::put('/kelola-admin/{id}', [AdminController::class, 'update'])->name('kelola-admin.update');
+        Route::delete('/kelola-admin/{id}', [AdminController::class, 'destroy'])->name('kelola-admin.destroy');
+    });
 
 });
 
