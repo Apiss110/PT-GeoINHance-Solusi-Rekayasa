@@ -110,4 +110,27 @@ class BlogController extends Controller
 
         return redirect()->route('admin.blog.index')->with('with_toast', 'Berita berhasil deleted!');
     }
+
+    /**
+     * PERBAIKAN STEP 2: Handle upload gambar dari CKEditor
+     * Menerima file gambar, menyimpannya ke storage, dan mengembalikan URL publik.
+     */
+    public function uploadImage(Request $request)
+    {
+        // Pastikan ada file gambar yang dikirim dengan nama parameter 'upload' (bawaan CKEditor)
+        if ($request->hasFile('upload')) {
+            $file = $request->file('upload');
+            
+            // Menyimpan gambar ke folder public/blog_images di dalam directory storage
+            $path = $file->store('blog_images', 'public');
+            
+            // Mengembalikan response dalam format JSON yang dipahami oleh CKEditor 5
+            return response()->json([
+                'url' => asset('storage/' . $path)
+            ]);
+        }
+
+        // Jika gagal atau file tidak ditemukan
+        return response()->json(['error' => 'Gagal mengunggah gambar.'], 400);
+    }
 }

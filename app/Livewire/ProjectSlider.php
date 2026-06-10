@@ -41,18 +41,28 @@ class ProjectSlider extends Component
                     
                     @forelse($projects as $project)
                         <div class="w-full md:w-1/3 flex-shrink-0 px-3">
-                            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
-                                <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-48 object-cover" alt="{{ $project->title }}">
+                            
+                            <a href="{{ route('projects.show', $project->id) }}" class="block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-slate-300 transition duration-200 group">
+                                
+                                <div class="overflow-hidden">
+                                    <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" alt="{{ $project->title }}">
+                                </div>
+
                                 <div class="p-6">
                                     <span class="text-xs font-bold text-red-800 uppercase block mb-1">{{ $project->category }}</span>
-                                    <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $project->title }}</h3>
-                                    <p class="text-sm text-slate-600 mb-4">{{ $project->description }}</p>
-                                    <div class="flex justify-between text-xs text-slate-400 font-medium">
+                                    
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition mb-2">{{ $project->title }}</h3>
+                                    
+                                    <p class="text-sm text-slate-600 mb-4 line-clamp-2">{{ strip_tags($project->description) }}</p>
+                                    
+                                    <div class="flex justify-between text-xs text-slate-400 font-medium pt-2 border-t border-slate-100">
                                         <span>📍 {{ $project->location }}</span>
                                         <span>📅 Th. {{ $project->year }}</span>
                                     </div>
                                 </div>
-                            </div>
+
+                            </a>
+
                         </div>
                     @empty
                         <div class="w-full px-3 text-center text-slate-500 py-12">

@@ -215,6 +215,183 @@
     "profile.legal_tax_desc": "Akun pajak perusahaan terdaftar yang menjamin akuntabilitas fiskal transparan dan kepatuhan terhadap peraturan pemerintah.",
 
 
+
+    "breadcrumbs.projects": "Proyek",
+    "fem.title": "3D FEM Analysis",
+    "fem.description": "Portofolio pemodelan mekanika kontinu menggunakan Elemen Hingga Tiga Dimensi (3D Finite Element Method). Berfokus pada simulasi tegangan-regangan lanjut, analisis fatik, hingga keruntuhan material pada komponen struktur non-standar.",
+    
+    "filter.search_label": "Cari Proyek",
+    "filter.search_placeholder": "Ketik kata kunci...",
+    "filter.year_label": "Tahun",
+    "filter.year_all": "Semua Tahun",
+    "filter.category_label": "Kategori",
+    "filter.category_all": "Semua Kategori",
+    "filter.category.static": "Statis Non-Linear",
+    "filter.category.dynamic": "Dinamis Eksplisit",
+    "filter.location_label": "Lokasi wilayah",
+    "filter.location_all": "Semua Lokasi",
+    "filter.apply": "Terapkan Filter",
+    
+    "portfolio.list_title": "Daftar Portofolio",
+    "portfolio.back_to_all": "Kembali ke Semua Proyek",
+    "portfolio.empty": "Tidak ada proyek 3D FEM yang cocok dengan kriteria filter.",
+    "portfolio.showing": "Showing",
+    "portfolio.of": "of",
+    "portfolio.results": "results",
+    "portfolio.read_more": "Selengkapnya",
+    
+    "project.label.category": "Kategori:",
+    "project.label.location": "Lokasi:",
+    "project.label.year": "Tahun Proyek:",
+    
+    "project.1.title": "Analisis Keretakan & Fatik Pelat Landasan Turbin Pembangkit Listrik",
+    "project.1.location": "Cilegon, Banten",
+    "project.1.desc": "Evaluasi distribusi tegangan siklik ekstrem pada fondasi mesin turbin berkecepatan tinggi menggunakan pemodelan elemen hingga solid 3D untuk memprediksi inisiasi retak mikro.",
+    
+    "project.2.title": "Simulasi Impak Blast Load 3D FEM pada Fasilitas Storage Militer",
+    "project.2.location": "Timika, Papua",
+    "project.2.desc": "Analisis propagasi gelombang kejut akibat beban ledakan internal. Pemodelan mencakup perilaku non-linear material beton dan baja pada laju regangan tinggi (strain rate effects).",
+
+
+    "ded.title": "Detailed Engineering Design (DED)",
+    "ded.description": "Portofolio perencanaan teknis terinci untuk struktur atas dan bawah bangunan masif, mencakup pembuatan model digital, kalkulasi beban dinamis, hingga dokumen teknis siap kerja.",
+    
+    "filter.search_placeholder_ded": "Ketik nama proyek...",
+    "filter.category.ded_structure": "DED Struktur",
+    "filter.category.geotechnical": "Geotechnical Analysis",
+    "filter.location.yogyakarta": "DI Yogyakarta",
+    "filter.location.sulawesi": "Sulawesi Selatan",
+    
+    "portfolio.empty_ded": "Tidak ada proyek DED yang cocok dengan kriteria filter.",
+    
+    "project.ded.1.title": "Gedung Gelanggang Inovasi Kreativitas (GIK) UGM",
+    "project.ded.1.location": "Sleman, DI Yogyakarta",
+    "project.ded.1.desc": "Perancangan Detailed Engineering Design (DED) untuk super-struktur bangunan multi-story bentang lebar. Fokus analisis meliputi optimasi rangka atap baja ikonik.",
+    
+    "project.ded.2.title": "Rumah Sakit PTN Universitas Hasanuddin",
+    "project.ded.2.location": "Makassar, Sulawesi Selatan",
+    "project.ded.2.desc": "Penyusunan detail rekayasa struktur untuk bangunan fasilitas kesehatan bertingkat tinggi. Perencanaan teknis mencakup daktilitas penuh sistem penahan beban lateral.",
+
+
+    "geotech.title": "Geotechnical Analysis",
+    "geotech.description": "Portofolio penyelidikan tanah komprehensif, interpretasi parameter tanah lanjut, analisis penurunan (settlement), serta perencanaan perbaikan tanah lunak (ground improvement) untuk memastikan keamanan fondasi infrastruktur.",
+    
+    "filter.search_placeholder_geotech": "Ketik kata kunci...",
+    "filter.category.ground_improvement": "Perbaikan Tanah",
+    "filter.category.soil_investigation": "Penyelidikan Tanah",
+    "filter.location.sulawesi_selatan": "Sulawesi Selatan",
+    "filter.location.jakarta": "DKI Jakarta",
+    
+    "portfolio.empty_geotech": "Tidak ada proyek Geotechnical Analysis yang cocok dengan kriteria filter.",
+    
+    "project.geotech.1.title": "Analisis Perbaikan Tanah Lunak Metode PVD & Vacuum Consolidation",
+    "project.geotech.1.location": "Makassar, Sulawesi Selatan",
+    "project.geotech.1.desc": "Desain percepatan konsolidasi tanah lempung lunak menggunakan Prefabricated Vertical Drain (PVD) yang dikombinasikan dengan sistem tekanan vakum untuk mempercepat penurunan konstruksi reklamasi.",
+    
+    "project.geotech.2.title": "Interpretasi Hasil Penyelidikan Tanah Mendalam Gedung Pencakar Langit",
+    "project.geotech.2.location": "Sudirman, DKI Jakarta",
+    "project.geotech.2.desc": "Evaluasi stratigrafi tanah berdasarkan korelasi data uji CPTu, N-SPT, dan uji laboratorium lanjut (Triaxial & Consolidation test) guna menentukan parameter desain fondasi bored pile diameter besar.",
+
+
+    "plaxis.title": "Numerical Analysis Plaxis 3D",
+    "plaxis.description": "Portofolio pemodelan geoteknik tingkat lanjut, analisis elemen hingga (FEA) 3 dimensi untuk interaksi tanah-struktur (soil-structure interaction), stabilitas lereng galian dalam, hingga perilaku deformasi sistem pondasi kompleks.",
+    
+    "filter.search_placeholder_plaxis": "Ketik kata kunci...",
+    "filter.category.deep_foundation": "Pondasi Dalam",
+    "filter.category.excavation_stability": "Galian & Stabilitas Lereng",
+    "filter.location.jawa_tengah": "Jawa Tengah",
+    "filter.location.sumatera_selatan": "Sumatera Selatan",
+    
+    "portfolio.empty_plaxis": "Tidak ada proyek Plaxis 3D yang cocok dengan kriteria filter.",
+    
+    "project.plaxis.1.title": "Analisis Deformasi Galian Basement Dalam & Stabilitas Secant Pile",
+    "project.plaxis.1.location": "Semarang, Jawa Tengah",
+    "project.plaxis.1.desc": "Simulasi tahapan penggalian (staged construction) untuk memprediksi lateral displacement dinding penahan tanah serta efek soil heave di area padat perkotaan.",
+    
+    "project.plaxis.2.title": "Analisis Kelompok Tiang Bored Pile & Efek Settlement Abutment Jembatan",
+    "project.plaxis.2.location": "Palembang, Sumatera Selatan",
+    "project.plaxis.2.desc": "Studi perilaku grup pondasi tiang terhadap beban aksial kombinasi lateral pada lapisan tanah lunak tebal untuk mengevaluasi efficiency factor serta penurunan jangka panjang.",
+
+
+    "numerical.title": "Numerical Modelling Analysis",
+    "numerical.description": "Portofolio simulasi berbasis komputer tingkat lanjut untuk fenomena fisik kompleks, mencakup dinamika fluida komputasional (CFD), analisis perpindahan panas (thermal), hingga interaksi multi-fisika (multi-physics coupling).",
+    
+    "filter.search_placeholder_numerical": "Ketik kata kunci...",
+    "filter.category.cfd_fluid": "Dinamika Fluida (CFD)",
+    "filter.category.thermal_stress": "Thermal & Multi-Physics",
+    "filter.location.kalimantan_timur": "Kalimantan Timur",
+    "filter.location.riau": "Riau",
+    
+    "portfolio.empty_numerical": "Tidak ada proyek Numerical Modelling yang cocok dengan kriteria filter.",
+    
+    "project.numerical.1.title": "Simulasi CFD Aliran Hidrolika Spillway Bendungan Utama",
+    "project.numerical.1.location": "IKN, Kalimantan Timur",
+    "project.numerical.1.desc": "Analisis perilaku hidrolika air melewati saluran pelimpah (spillway) guna memetakan potensi kavitasi, tinggi jagaan dinding, serta efisiensi kolam olak dalam meredam energi kinetik air.",
+    
+    "project.numerical.2.title": "Analisis Thermal Stress & Perpindahan Panas Pipa Distilasi Kilang",
+    "project.numerical.2.location": "Dumai, Riau",
+    "project.numerical.2.desc": "Pemodelan numerik tergandeng (coupled thermal-structural analysis) untuk mengevaluasi ekspansi termal dan tegangan sisa pada jalur pipa fluida temperatur tinggi guna mencegah kegagalan fatik.",
+
+    "review.title": "Review Design Analysis",
+    "review.description": "Portofolio audit forensik, evaluasi independen pihak ketiga, serta asesmen kapasitas sisa beban (residual capacity) pada struktur bangunan dan infrastruktur eksis guna menjamin kelayakan fungsi jangka panjang.",
+    
+    "filter.search_placeholder_review": "Ketik kata kunci...",
+    "filter.category.audit_struktur": "Audit Forensik Struktur",
+    "filter.category.peer_review": "Third-Party Peer Review",
+    "filter.location.jakarta": "DKI Jakarta",
+    "filter.location.kalimantan": "Kalimantan Timur",
+    
+    "portfolio.empty_review": "Tidak ada proyek Review Design yang cocok dengan kriteria filter.",
+    
+    "project.review.1.title": "Audit Forensik & Review Desain Kapasitas Beban Menara Office",
+    "project.review.1.location": "Sudirman, DKI Jakarta",
+    "project.review.1.desc": "Pemeriksaan independen menyeluruh pasca-konstruksi untuk memverifikasi kapasitas elemen balok-kolom eksis terhadap perubahan regulasi gempa terbaru SNI 1726.",
+    
+    "project.review.2.title": "Third-Party Peer Review Jembatan Pelengkung Rangka Baja",
+    "project.review.2.location": "IKN, Kalimantan Timur",
+    "project.review.2.desc": "Review komputasi paralel menggunakan pemodelan elemen hingga untuk menguji titik kritis lendutan serta tegangan kabel penggantung (hanger tension) bentang 120 meter.",
+
+
+    "slope.title": "Slope Stability Analysis",
+    "slope.description": "Portofolio analisis stabilitas lereng alam maupun buatan, perencanaan sistem perkuatan tanah (soil nailing, retaining walls, geosynthetics), serta simulasi mitigasi risiko tanah longsor pada infrastruktur vital.",
+    
+    "filter.search_placeholder_slope": "Ketik kata kunci...",
+    "filter.category.mitigasi_longsor": "Mitigasi Longsor",
+    "filter.category.perkuatan_dpt": "Struktur Perkuatan / DPT",
+    "filter.location.jawa_barat": "Jawa Barat",
+    "filter.location.sumatera_utara": "Sumatera Utara",
+    
+    "portfolio.empty_slope": "Tidak ada proyek Slope Stability yang cocok dengan kriteria filter.",
+    
+    "project.slope.1.title": "Analisis Stabilitas Lereng & Desain Perkuatan Soil Nailing Jalan Tol",
+    "project.slope.1.location": "Purwakarta, Jawa Barat",
+    "project.slope.1.desc": "Perencanaan dinding penahan tanah tipe retaining wall yang dikombinasikan dengan anyaman angkur soil nail untuk menstabilkan lereng kritis oprit jembatan tol pasca-deformasi masif.",
+    
+    "project.slope.2.title": "Perencanaan DPT Mekanis (MSE Wall) & Evaluasi Safety Factor Lereng",
+    "project.slope.2.location": "Toba, Sumatera Utara",
+    "project.slope.2.desc": "Analisis kestabilan lereng timbunan tegak menggunakan perkuatan geogrid (Mechanically Stabilized Earth Wall) untuk memverifikasi nilai Factor of Safety (FoS) internal dan eksternal.",
+
+
+    "structural.title": "Structural Analysis",
+    "structural.description": "Portofolio pemodelan numerik tingkat lanjut, analisis linear & non-linear (P-Delta, Pushover, Time History), serta simulasi elemen hingga (FEA) guna memverifikasi keamanan dan efisiensi material struktur.",
+    
+    "filter.search_placeholder_structural": "Ketik kata kunci...",
+    "filter.category.seismik_pushover": "Analisis Seismik (Pushover)",
+    "filter.category.fea_optimasi": "Elemen Hingga (FEA)",
+    "filter.location.jawa_timur": "Jawa Timur",
+    "filter.location.jawa_barat": "Jawa Barat",
+    
+    "portfolio.empty_structural": "Tidak ada proyek Structural Analysis yang cocok dengan kriteria filter.",
+    
+    "project.structural.1.title": "Analisis Seismik Non-Linear (Pushover) Menara Apartemen 25 Lantai",
+    "project.structural.1.location": "Surabaya, Jawa Timur",
+    "project.structural.1.desc": "Simulasi keruntuhan bertahap struktur beton bertulang guna memetakan sebaran sendi plastis (plastic hinges) serta kurva kapasitas deformasi gedung saat dilanda gempa kuat.",
+    
+    "project.structural.2.title": "Evaluasi Keandalan & Analisis Elemen Hingga (FEA) Rangka Atap Stadion",
+    "project.structural.2.location": "Bandung, Jawa Barat",
+    "project.structural.2.desc": "Analisis mikro-elemen menggunakan pemodelan solid untuk meninjau konsentrasi tegangan (stress concentration) pada sambungan baut pelat simpul atap bentang lebar ekstrim.",
+
+
     "footer.desc": "Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.",
     "footer.navigation": "Navigasi",
     "footer.home": "Beranda",
@@ -223,7 +400,7 @@
     "footer.career": "Karir Perusahaan",
     "footer.contact": "Hubungi Kami",
     "footer.head_office": "Kantor Pusat",
-    "footer.address": "Jl. Ciierokaso No 94, Sarijadi,<br>Kec. Sukasari, Kota Bandung 40151",
+    "footer.address": "Jl. Cijerokaso No 94, Sarijadi,<br>Kec. Sukasari, Kota Bandung 40151",
     "footer.phone": "P",
     "footer.copyright": "© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.",
     "footer.privacy_policy": "Privacy Policy",

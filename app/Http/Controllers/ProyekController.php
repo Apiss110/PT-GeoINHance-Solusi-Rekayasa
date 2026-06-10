@@ -13,9 +13,9 @@ class ProyekController extends Controller
      */
     public function semuaProyek()
     {
-        $projects = StrategicProject::latest()->get();
-        // folder: resources/views/pages/proyek/semua-proyek.blade.php
-        return view('proyek.semua-proyek', compact('projects'));
+        $projects = StrategicProject::latest()->paginate(6);
+        // Diselaraskan dengan folder aslinya di: resources/views/pages/proyek/semua-proyek.blade.php
+        return view('pages.proyek.semua-proyek', compact('projects'));
     }
 
     /**
@@ -23,8 +23,10 @@ class ProyekController extends Controller
      */
     public function publicShow($id)
     {
+        // Mencari data proyek strategis berdasarkan id
         $project = StrategicProject::findOrFail($id);
-        // folder: resources/views/pages/proyek/detail-proyek.blade.php
+        
+        // Mengarah ke file: resources/views/pages/proyek/detail-proyek.blade.php
         return view('pages.proyek.detail-proyek', compact('project'));
     }
 
@@ -34,7 +36,7 @@ class ProyekController extends Controller
     public function articles()
     {
         $blogs = Blog::latest()->get();
-        // PERBAIKAN: folder: resources/views/resources/articles.blade.php
+        // folder: resources/views/resources/articles.blade.php
         return view('resources.articles', compact('blogs'));
     }
 
@@ -44,7 +46,7 @@ class ProyekController extends Controller
     public function newsEvents()
     {
         $blogs = Blog::latest()->get();
-        // PERBAIKAN: folder: resources/views/resources/news_events.blade.php
+        // folder: resources/views/resources/news_events.blade.php
         return view('resources.news_events', compact('blogs'));
     }
 
@@ -54,7 +56,7 @@ class ProyekController extends Controller
     public function showBlog($slug)
     {
         $blog = Blog::where('slug', $slug)->firstOrFail();
-        // PERBAIKAN: folder: resources/views/resources/article-detail.blade.php
+        // folder: resources/views/resources/article-detail.blade.php
         return view('resources.article-detail', compact('blog'));
     }
 }

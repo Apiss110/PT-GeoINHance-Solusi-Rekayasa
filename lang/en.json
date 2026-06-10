@@ -213,6 +213,183 @@
     "profile.legal_tax_desc": "Registered corporate tax account ensuring transparent fiscal accountability and government regulatory obedience.",
 
 
+    "breadcrumbs.projects": "Projects",
+    "fem.title": "3D FEM Analysis",
+    "fem.description": "Portfolio of continuum mechanics modeling using Three-Dimensional Finite Element Method (3D FEM). Focusing on advanced stress-strain simulation, fatigue analysis, and material failure in non-standard structural components.",
+    
+    "filter.search_label": "Search Project",
+    "filter.search_placeholder": "Type keywords...",
+    "filter.year_label": "Year",
+    "filter.year_all": "All Years",
+    "filter.category_label": "Category",
+    "filter.category_all": "All Categories",
+    "filter.category.static": "Static Non-Linear",
+    "filter.category.dynamic": "Dynamic Explicit",
+    "filter.location_label": "Region Location",
+    "filter.location_all": "All Locations",
+    "filter.apply": "Apply Filter",
+    
+    "portfolio.list_title": "Portfolio List",
+    "portfolio.back_to_all": "Back to All Projects",
+    "portfolio.empty": "No 3D FEM projects match the filter criteria.",
+    "portfolio.showing": "Showing",
+    "portfolio.of": "of",
+    "portfolio.results": "results",
+    "portfolio.read_more": "Read More",
+    
+    "project.label.category": "Category:",
+    "project.label.location": "Location:",
+    "project.label.year": "Project Year:",
+    
+    "project.1.title": "Crack & Fatigue Analysis of Power Plant Turbine Base Plate",
+    "project.1.location": "Cilegon, Banten",
+    "project.1.desc": "Evaluation of extreme cyclic stress distribution on high-speed turbine engine foundations using 3D solid finite element modeling to predict microcrack initiation.",
+    
+    "project.2.title": "3D FEM Blast Load Impact Simulation on Military Storage Facilities",
+    "project.2.location": "Timika, Papua",
+    "project.2.desc": "Analysis of shock wave propagation due to internal blast loads. Modeling includes the non-linear behavior of concrete and steel materials at high strain rates (strain rate effects).",
+
+
+    "ded.title": "Detailed Engineering Design (DED)",
+    "ded.description": "Portfolio of detailed engineering design for upper and lower structures of massive buildings, including digital modeling, dynamic load calculation, and ready-to-work technical documents.",
+    
+    "filter.search_placeholder_ded": "Type project name...",
+    "filter.category.ded_structure": "DED Structure",
+    "filter.category.geotechnical": "Geotechnical Analysis",
+    "filter.location.yogyakarta": "DI Yogyakarta",
+    "filter.location.sulawesi": "South Sulawesi",
+    
+    "portfolio.empty_ded": "No DED projects match the filter criteria.",
+    
+    "project.ded.1.title": "Gedung Gelanggang Inovasi Kreativitas (GIK) UGM",
+    "project.ded.1.location": "Sleman, DI Yogyakarta",
+    "project.ded.1.desc": "Detailed Engineering Design (DED) for wide-span multi-story superstructures. Analysis focuses on the optimization of iconic steel roof trusses.",
+    
+    "project.ded.2.title": "PTN Hospital Universitas Hasanuddin",
+    "project.ded.2.location": "Makassar, South Sulawesi",
+    "project.ded.2.desc": "Preparation of structural engineering details for high-rise healthcare facility buildings. Technical planning includes full ductility of lateral load-resisting systems.",
+
+
+    "geotech.title": "Geotechnical Analysis",
+    "geotech.description": "Portfolio of comprehensive soil investigation, advanced soil parameter interpretation, settlement analysis, and soft ground improvement planning to ensure infrastructure foundation safety.",
+    
+    "filter.search_placeholder_geotech": "Type keywords...",
+    "filter.category.ground_improvement": "Ground Improvement",
+    "filter.category.soil_investigation": "Soil Investigation",
+    "filter.location.sulawesi_selatan": "South Sulawesi",
+    "filter.location.jakarta": "DKI Jakarta",
+    
+    "portfolio.empty_geotech": "No Geotechnical Analysis projects match the filter criteria.",
+    
+    "project.geotech.1.title": "Soft Soil Improvement Analysis using PVD & Vacuum Consolidation Method",
+    "project.geotech.1.location": "Makassar, South Sulawesi",
+    "project.geotech.1.desc": "Design of consolidation acceleration for soft clay soil using Prefabricated Vertical Drain (PVD) combined with a vacuum pressure system to accelerate settlement in reclamation construction.",
+    
+    "project.geotech.2.title": "Deep Soil Investigation Interpretation for Skyscraper Buildings",
+    "project.geotech.2.location": "Sudirman, DKI Jakarta",
+    "project.geotech.2.desc": "Soil stratigraphy evaluation based on correlation of CPTu, N-SPT, and advanced laboratory testing data (Triaxial & Consolidation test) to determine design parameters for large-diameter bored pile foundations.",
+
+
+    "plaxis.title": "Numerical Analysis Plaxis 3D",
+    "plaxis.description": "Portfolio of advanced geotechnical modeling, 3-dimensional finite element analysis (FEA) for soil-structure interaction, deep excavation slope stability, and deformation behavior of complex foundation systems.",
+    
+    "filter.search_placeholder_plaxis": "Type keywords...",
+    "filter.category.deep_foundation": "Deep Foundation",
+    "filter.category.excavation_stability": "Excavation & Slope Stability",
+    "filter.location.jawa_tengah": "Central Java",
+    "filter.location.sumatera_selatan": "South Sumatra",
+    
+    "portfolio.empty_plaxis": "No Plaxis 3D projects match the filter criteria.",
+    
+    "project.plaxis.1.title": "Deformation Analysis of Deep Basement Excavation & Secant Pile Stability",
+    "project.plaxis.1.location": "Semarang, Central Java",
+    "project.plaxis.1.desc": "Simulation of excavation stages (staged construction) to predict lateral displacement of retaining walls and soil heave effects in dense urban areas.",
+    
+    "project.plaxis.2.title": "Bored Pile Group Analysis & Bridge Abutment Settlement Effects",
+    "project.plaxis.2.location": "Palembang, South Sumatra",
+    "project.plaxis.2.desc": "Behavior study of pile group foundations under combined axial and lateral loads in thick soft soil layers to evaluate efficiency factors and long-term settlement.",
+
+
+    "numerical.title": "Numerical Modelling Analysis",
+    "numerical.description": "Portfolio of advanced computer-based simulations for complex physical phenomena, including computational fluid dynamics (CFD), thermal transfer analysis, and multi-physics coupling.",
+    
+    "filter.search_placeholder_numerical": "Type keywords...",
+    "filter.category.cfd_fluid": "Fluid Dynamics (CFD)",
+    "filter.category.thermal_stress": "Thermal & Multi-Physics",
+    "filter.location.kalimantan_timur": "East Kalimantan",
+    "filter.location.riau": "Riau",
+    
+    "portfolio.empty_numerical": "No Numerical Modelling projects match the filter criteria.",
+    
+    "project.numerical.1.title": "CFD Simulation of Main Dam Spillway Hydraulic Flow",
+    "project.numerical.1.location": "IKN, East Kalimantan",
+    "project.numerical.1.desc": "Analysis of hydraulic water behavior passing through the spillway channel to map cavitation potential, wall freeboard height, and the efficiency of the stilling basin in dissipating water kinetic energy.",
+    
+    "project.numerical.2.title": "Thermal Stress & Heat Transfer Analysis of Refinery Distillation Pipelines",
+    "project.numerical.2.location": "Dumai, Riau",
+    "project.numerical.2.desc": "Numerical coupled modeling (coupled thermal-structural analysis) to evaluate thermal expansion and residual stress on high-temperature fluid piping systems to prevent fatigue failure.",
+
+
+    "review.title": "Review Design Analysis",
+    "review.description": "Portfolio of forensic audits, third-party independent evaluations, and structural residual load capacity assessments on existing buildings and infrastructure to guarantee long-term operational feasibility.",
+    
+    "filter.search_placeholder_review": "Type keywords...",
+    "filter.category.audit_struktur": "Forensic Structural Audit",
+    "filter.category.peer_review": "Third-Party Peer Review",
+    "filter.location.jakarta": "DKI Jakarta",
+    "filter.location.kalimantan": "East Kalimantan",
+    
+    "portfolio.empty_review": "No Review Design projects match the filter criteria.",
+    
+    "project.review.1.title": "Forensic Audit & Load Capacity Design Review of Office Tower",
+    "project.review.1.location": "Sudirman, DKI Jakarta",
+    "project.review.1.desc": "A comprehensive independent post-construction assessment to verify the capacity of existing beam-column elements against the latest seismic regulation updates of SNI 1726.",
+    
+    "project.review.2.title": "Third-Party Peer Review of Steel Truss Arch Bridge",
+    "project.review.2.location": "IKN, East Kalimantan",
+    "project.review.2.desc": "Parallel computing review using finite element modeling to analyze critical deflection points and hanger cable tension for a 120-meter span bridge.",
+
+
+    "slope.title": "Slope Stability Analysis",
+    "slope.description": "Portfolio of stability analysis for natural and engineered slopes, design of soil reinforcement systems (soil nailing, retaining walls, geosynthetics), and landslide risk mitigation simulations on critical infrastructure.",
+    
+    "filter.search_placeholder_slope": "Type keywords...",
+    "filter.category.mitigasi_longsor": "Landslide Mitigation",
+    "filter.category.perkuatan_dpt": "Reinforcement Structure / Retaining Wall",
+    "filter.location.jawa_barat": "West Java",
+    "filter.location.sumatera_utara": "North Sumatra",
+    
+    "portfolio.empty_slope": "No Slope Stability projects match the filter criteria.",
+    
+    "project.slope.1.title": "Slope Stability Analysis & Soil Nailing Reinforcement Design for Toll Road",
+    "project.slope.1.location": "Purwakarta, West Java",
+    "project.slope.1.desc": "Design of a retaining wall combined with a soil nail anchor network to stabilize critical slopes at toll bridge approaches after massive deformation.",
+    
+    "project.slope.2.title": "Mechanical Retaining Wall (MSE Wall) Design & Slope Safety Factor Evaluation",
+    "project.slope.2.location": "Toba, North Sumatra",
+    "project.slope.2.desc": "Stability analysis of vertical embankment slopes using geogrid reinforcement (Mechanically Stabilized Earth Wall) to verify internal and external Factor of Safety (FoS) values.",
+
+
+    "structural.title": "Structural Analysis",
+    "structural.description": "Portfolio of advanced numerical modeling, linear & non-linear analysis (P-Delta, Pushover, Time History), and finite element analysis (FEA) to verify structural safety and material efficiency.",
+    
+    "filter.search_placeholder_structural": "Type keywords...",
+    "filter.category.seismik_pushover": "Seismic Analysis (Pushover)",
+    "filter.category.fea_optimasi": "Finite Element Analysis (FEA)",
+    "filter.location.jawa_timur": "East Java",
+    "filter.location.jawa_barat": "West Java",
+    
+    "portfolio.empty_structural": "No Structural Analysis projects match the filter criteria.",
+    
+    "project.structural.1.title": "Non-Linear Seismic Analysis (Pushover) of a 25-Story Apartment Tower",
+    "project.structural.1.location": "Surabaya, East Java",
+    "project.structural.1.desc": "Simulation of progressive collapse in reinforced concrete structures to map plastic hinge distribution and building deformation capacity curves during strong earthquakes.",
+    
+    "project.structural.2.title": "Reliability Evaluation & Finite Element Analysis (FEA) of Stadium Roof Truss",
+    "project.structural.2.location": "Bandung, West Java",
+    "project.structural.2.desc": "Micro-element analysis using solid modeling to evaluate stress concentrations at bolt connections of node plates for extreme long-span roofs.",
+
+
     "footer.desc": "Providing world-class engineering and geotechnical consulting services with high integrity and accuracy throughout Indonesia.",
     "footer.navigation": "Navigation",
     "footer.home": "Home",

@@ -134,7 +134,7 @@
                     <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.port') }}</a>
                     <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.industry') }}</a>
                     <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.education') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.all') }}</a>
+                    <a href="{{ route('sektor.semua-sektor') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.all') }}</a>
                     </div>
                 </div>
 
@@ -183,16 +183,13 @@
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
                     <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
-                    <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">DED</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lombok GECC Power Plant</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Design & Build of Kalibaru</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Design of Red Mud Stockyard</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Using Plaxis 3D</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
+                    <a href="{{ route('proyek.detailed-engineering-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
+                    <a href="{{ route('proyek.review-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
+                    <a href="{{ route('proyek.structural-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Structural Analysis</a>
+                    <a href="{{ route('proyek.3d-fem-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">3D FEM Analysis</a>
+                    <a href="{{ route('proyek.numerical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
+                    <a href="{{ route('proyek.numerical-modeling') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis</a>
+                    <a href="{{ route('proyek.slope-stability') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
                     <a href="{{ route('proyek.semua') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
@@ -302,281 +299,184 @@
             </div>
         </div>
     </nav>
-
-    <!-- WRAPPER -->
     <div class="pt-[95px]">
 
-        <!-- HERO -->
-        <section class="bg-[#002d62] text-white py-24 px-6 relative overflow-hidden">
-
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-
-            <div class="relative z-10 max-w-5xl mx-auto text-center">
-
-                <span class="text-red-500 uppercase tracking-[0.3em] text-xs font-bold block mb-4">
-                    Engineering Knowledge Center
-                </span>
-
-                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight mb-6">
-                    Technical Articles & Insights
-                </h1>
-
-                <p class="text-slate-300 max-w-3xl mx-auto leading-relaxed">
-                    Kumpulan artikel teknis, studi geoteknik,
-                    analisis infrastruktur, serta insight rekayasa
-                    modern untuk mendukung pengambilan keputusan
-                    engineering secara presisi.
-                </p>
-
-            </div>
-
-        </section>
-
-        <!-- FEATURED ARTICLE -->
-        <section class="max-w-7xl mx-auto py-24 px-6">
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-14 items-center">
-
-                <div>
-                    <img src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=1200"
-                         class="rounded-3xl shadow-2xl h-[420px] object-cover w-full">
-                </div>
-
-                <div>
-
-                    <span class="text-red-800 text-xs uppercase tracking-[0.3em] font-bold">
-                        Featured Article
-                    </span>
-
-                    <h2 class="text-4xl font-black uppercase leading-tight mt-4 mb-6">
-                        Modern Geotechnical
-                        Investigation for
-                        Tunnel Infrastructure
-                    </h2>
-
-                    <p class="text-slate-600 leading-relaxed mb-8">
-                        Pembahasan mendalam mengenai investigasi
-                        geoteknik modern pada proyek terowongan
-                        transportasi cepat, termasuk slope stability,
-                        settlement prediction, hingga finite element
-                        modelling menggunakan pendekatan numerik.
-                    </p>
-
-                    <a href="#"
-                       class="bg-red-800 hover:bg-red-700 text-white uppercase tracking-widest text-xs px-8 py-4 rounded-xl font-bold transition">
-
-                        Read Full Article
-                    </a>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- ARTICLE GRID -->
-        <section class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200">
-
-            <div class="max-w-7xl mx-auto">
-
-                <div class="mb-14">
-
-                    <span class="text-red-800 text-xs uppercase tracking-[0.3em] font-bold">
-                        Latest Publications
-                    </span>
-
-                    <h2 class="text-4xl font-black uppercase mt-3">
-                        Engineering Articles
-                    </h2>
-
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                    <!-- CARD -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:-translate-y-2 transition duration-500">
-
-                        <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?q=80&w=1200"
-                             class="h-56 w-full object-cover">
-
-                        <div class="p-8">
-
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-red-800 font-bold">
-                                Slope Stability
-                            </span>
-
-                            <h3 class="text-xl font-black uppercase mt-3 mb-4 leading-snug">
-                                Landslide Mitigation Strategy
-                                in Mountain Transportation Area
-                            </h3>
-
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                                Analisis faktor keamanan lereng dan
-                                pendekatan stabilisasi modern pada
-                                area infrastruktur jalan pegunungan.
-                            </p>
-
-                            <a href="#"
-                               class="text-red-800 font-bold uppercase text-xs tracking-widest">
-
-                                Explore →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CARD -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:-translate-y-2 transition duration-500">
-
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?q=80&w=1200"
-                             class="h-56 w-full object-cover">
-
-                        <div class="p-8">
-
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-red-800 font-bold">
-                                Numerical Analysis
-                            </span>
-
-                            <h3 class="text-xl font-black uppercase mt-3 mb-4 leading-snug">
-                                PLAXIS 3D Workflow
-                                for Deep Excavation
-                            </h3>
-
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                                Simulasi deformasi tanah dan retaining
-                                structure menggunakan finite element
-                                analysis berbasis 3D.
-                            </p>
-
-                            <a href="#"
-                               class="text-red-800 font-bold uppercase text-xs tracking-widest">
-
-                                Explore →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                    <!-- CARD -->
-                    <div class="bg-white rounded-3xl overflow-hidden shadow-sm border border-slate-200 hover:-translate-y-2 transition duration-500">
-
-                        <img src="https://images.unsplash.com/photo-1494412574643-ff11b0a5c1c3?q=80&w=1200"
-                             class="h-56 w-full object-cover">
-
-                        <div class="p-8">
-
-                            <span class="text-[10px] uppercase tracking-[0.25em] text-red-800 font-bold">
-                                Transportation
-                            </span>
-
-                            <h3 class="text-xl font-black uppercase mt-3 mb-4 leading-snug">
-                                Railway Embankment
-                                Settlement Evaluation
-                            </h3>
-
-                            <p class="text-slate-500 text-sm leading-relaxed mb-6">
-                                Evaluasi penurunan tanah pada jalur
-                                kereta cepat dengan pendekatan
-                                coupled consolidation analysis.
-                            </p>
-
-                            <a href="#"
-                               class="text-red-800 font-bold uppercase text-xs tracking-widest">
-
-                                Explore →
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </section>
-
-        <!-- CTA -->
-        <section class="bg-[#002d62] text-white py-20 px-6 text-center relative overflow-hidden">
-
-            <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-red-800 rounded-full blur-3xl opacity-20"></div>
-
-            <div class="relative z-10 max-w-3xl mx-auto">
-
-                <h2 class="text-4xl font-black uppercase mb-6">
-                    Explore More Engineering Knowledge
-                </h2>
-
-                <p class="text-slate-300 leading-relaxed mb-10">
-                    Dapatkan insight terbaru mengenai geoteknik,
-                    rekayasa sipil, numerik modelling, dan
-                    pengembangan infrastruktur modern.
-                </p>
-
-                <a href="#"
-                   class="bg-red-800 hover:bg-red-700 px-8 py-4 rounded-xl uppercase tracking-widest text-xs font-bold transition">
-
-                    View All Resources
-                </a>
-
-            </div>
-
-        </section>
-
-                <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-800 p-2 rounded-lg mr-3">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
-                        Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Navigasi</h4>
-                    <ul class="space-y-4 text-slate-400 text-sm">
-                        <li><a href="/" class="hover:text-white transition">Beranda</a></li>
-                        <li><a href="/#services" class="hover:text-white transition">Layanan Kami</a></li>
-                        <li><a href="/#portfolio" class="hover:text-white transition">Proyek Strategis</a></li>
-                        <li><a href="/karir" class="hover:text-white transition">Karir Perusahaan</a></li>
-                        <li><a href="/kontak" class="hover:text-white transition">Hubungi Kami</a></li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Kantor Pusat</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Jl. Ciierokaso No 94, Sarijadi,<br>
-                        Kec. Sukasari, Kota Bandung 40151<br>
-                    </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 851 9044 1744</p>
-                    <a href="mailto:geoinhance.solusirekayasa@gmail.com" class="text-slate-400 text-sm hover:text-white transition">geoinhance.solusirekayasa@gmail.com</a>
-                </div>
-            </div>
-            
-            <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
-                <p>© 1945 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
-                <div class="flex gap-4">
-                    <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
-                    <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
-                </div>
-            </div>
-        </footer>
+<section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8" x-data="{ activeCategory: 'all' }">
+    
+    <div class="flex justify-center flex-wrap gap-4 mb-12">
+        <button @click="activeCategory = 'all'" :class="activeCategory === 'all' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Semua</button>
+        <button @click="activeCategory = 'project'" :class="activeCategory === 'project' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Proyek</button>
+        <button @click="activeCategory = 'event'" :class="activeCategory === 'event' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Events</button>
+        <button @click="activeCategory = 'news'" :class="activeCategory === 'news' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Company News</button>
     </div>
 
+    @if($blogs->isEmpty())
+        <div class="text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
+            <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+            </svg>
+            <p class="text-slate-500 font-medium">Belum ada berita atau event yang dipublikasikan.</p>
+        </div>
+    @else
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            @foreach($blogs as $blog)
+                @php
+                    // Konversi kategori dari database agar cocok dengan tombol filter Alpine.js
+                    $dbCategory = strtoupper(trim($blog->category));
+                    
+                    if ($dbCategory === 'PROYEK' || $dbCategory === 'PROJECT') {
+                        $alpineCategory = 'project';
+                    } elseif ($dbCategory === 'EVENT' || $dbCategory === 'EVENTS') {
+                        $alpineCategory = 'event';
+                    } else {
+                        $alpineCategory = 'news'; // Default untuk BERITA atau COMPANY NEWS
+                    }
+                @endphp
+
+                <article 
+                    x-show="activeCategory === 'all' || activeCategory === '{{ $alpineCategory }}'"
+                    x-transition:enter="transition ease-out duration-300"
+                    x-transition:enter-start="opacity-0 scale-95"
+                    x-transition:enter-end="opacity-100 scale-100"
+                    class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
+                    
+                    <div>
+                        <div class="relative overflow-hidden h-56 bg-slate-100">
+                            @if($blog->image)
+                                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                            @else
+                                <div class="w-full h-full flex items-center justify-center text-slate-400 text-xs font-medium">
+                                    No Image Available
+                                </div>
+                            @endif
+
+                            <div class="absolute top-4 left-4">
+                                <span class="{{ $alpineCategory === 'project' ? 'bg-red-800' : ($alpineCategory === 'event' ? 'bg-blue-900' : 'bg-slate-800') }} text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
+                                    {{ $blog->category ?? 'News' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-6">
+                            <p class="text-slate-400 text-[11px] font-bold tracking-widest mb-2 uppercase">
+                                {{ $blog->published_at ? \Carbon\Carbon::parse($blog->published_at)->format('d M Y') : $blog->created_at->format('d M Y') }}
+                            </p>
+                            
+                            <h3 class="text-lg font-black text-slate-900 leading-tight mb-3 group-hover:text-red-800 transition line-clamp-2">
+                                {{ $blog->title }}
+                            </h3>
+                            
+                            <div class="text-slate-600 text-xs leading-relaxed line-clamp-3">
+                                {!! strip_tags($blog->content) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0">
+                        <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
+                            PELAJARI SELENGKAPNYA 
+                            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+    @endif
+</section>
+
+<section class="relative overflow-hidden bg-gradient-to-br from-[#002d62] via-[#001f44] to-slate-950 text-white py-20 px-6">
+    <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+    <div class="relative z-10 max-w-3xl mx-auto text-center">
+        <h3 class="text-3xl font-black uppercase mb-6 tracking-tight">Ingin Tahu Lebih Banyak?</h3>
+        <p class="text-slate-300 text-sm md:text-base mb-10 leading-relaxed font-medium">
+            Ikuti kami di media sosial untuk update harian mengenai proyek-proyek terbaru kami atau hubungi tim GeoINHance untuk konsultasi teknis.
+        </p>
+        <div class="flex justify-center gap-4">
+            <a href="#" class="inline-flex items-center bg-white hover:bg-slate-200 text-[#002d62] font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1">
+                Ikuti Linkedin Kami
+            </a>
+        </div>
+    </div>
+</section>
+
+    <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center mb-6">
+                <div class="bg-red-800 p-2 rounded-lg mr-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                </div>
+                <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
+            </div>
+            <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
+                {{ __('footer.desc') }}
+            </p>
+            <div class="flex space-x-4">
+                <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
+            </div>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.navigation') }}
+            </h4>
+            <ul class="space-y-4 text-slate-400 text-sm">
+                <li><a href="/" class="hover:text-white transition">{{ __('footer.home') }}</a></li>
+                <li><a href="/#services" class="hover:text-white transition">{{ __('footer.services') }}</a></li>
+                <li><a href="/#portfolio" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
+                <li><a href="/karir" class="hover:text-white transition">{{ __('footer.career') }}</a></li>
+                <li><a href="/kontak" class="hover:text-white transition">{{ __('footer.contact') }}</a></li>
+            </ul>
+        </div>
+
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.head_office') }}
+            </h4>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                {!! __('footer.address') !!}
+            </p>
+            <p class="text-slate-400 text-sm mb-2">
+                {{ __('footer.phone') }}: +62 851 9044 1744
+            </p>
+            <p class="text-slate-400 text-sm text-red-500 font-bold">geoinhance.solusirekayasa@gmail.com</p>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
+        <p>{{ __('footer.copyright') }}</p>
+        <div class="flex gap-4">
+            <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.privacy_policy') }}
+            </a>
+            <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.terms_of_service') }}
+            </a>
+        </div>
+    </div>
+</footer>
+
+    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+    </a>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        window.onscroll = function() {
+            const nav = document.querySelector('nav');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        };
+    </script>
+    @livewireScripts
 </body>
 </html>
-```
