@@ -44,7 +44,7 @@
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Pilih File Gambar <span class="text-red-500">*</span></label>
                             <input type="file" name="image" class="w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 cursor-pointer p-2" required>
-                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">Format: JPG, JPEG, PNG, WEBP (Maksimal 2MB). Rekomendasi resolusi: 1920x1080 px.</p>
+                            <p class="text-gray-400 text-xs mt-1">Format: JPG, JPEG, PNG, WEBP (Maks 5MB).</p>
                         </div>
                         
                         <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-sm">

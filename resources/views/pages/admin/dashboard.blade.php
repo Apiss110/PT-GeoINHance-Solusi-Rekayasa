@@ -38,6 +38,20 @@
                 </div>
             </div>
 
+            <!-- Modul Tambahan ke-4: Informasi Blog & News -->
+            <div class="bg-[#1e2530] border border-slate-700/20 rounded-xl p-5 flex justify-between items-center shadow-sm">
+                <div>
+                    <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Modul Blog</span>
+                    <span class="text-lg font-bold text-white">Sistem Aktif</span>
+                </div>
+                <!-- Warna container icon emas kecokelatan senada dengan icon portfolio di screenshot -->
+                <div class="p-2.5 bg-amber-500/10 text-amber-500 rounded-lg">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
+                    </svg>
+                </div>
+            </div>
+
             <div class="bg-white dark:bg-gray-800 p-6 rounded-xl border border-gray-200 dark:border-gray-700 shadow-sm flex items-center justify-between">
                 <div>
                     <p class="text-xs font-semibold text-gray-400 uppercase tracking-wider">Level Autentikasi</p>

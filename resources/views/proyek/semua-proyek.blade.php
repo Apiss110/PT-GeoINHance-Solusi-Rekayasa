@@ -303,316 +303,275 @@
         </div>
     </nav>
 
-<!-- CONTENT -->
-<div class="pt-[95px]">
-
-    <!-- HERO -->
-    <section class="bg-[#002d62] text-white py-28 px-6 relative overflow-hidden">
-
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-
-            <div data-aos="fade-right">
-
-                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
-                    Engineering Project Portfolio
-                </span>
-
-                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight mb-6">
-                    Geotechnical <br>
-                    Analysis
-                </h1>
-
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed max-w-xl">
-                    Comprehensive geotechnical investigation and engineering analysis
-                    project for strategic infrastructure development including slope
-                    stability evaluation, tunnel engineering, and Detailed Engineering Design.
-                </p>
-
-                <div class="w-16 h-1 bg-red-800 rounded-full mt-6"></div>
-
-            </div>
-
-            <div data-aos="fade-left">
-
-                <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200"
-                         class="w-full h-[500px] object-cover"
-                         alt="Geotechnical Project">
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- PROJECT OVERVIEW -->
-    <section class="max-w-7xl mx-auto py-24 px-6">
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-            <div data-aos="fade-right">
-
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">
-                    Project Overview
-                </span>
-
-                <h2 class="text-3xl md:text-5xl font-black uppercase text-slate-900 leading-tight mb-6">
-                    Integrated School Area <br>
-                    Bendungan Village
-                </h2>
-
-                <p class="text-slate-600 leading-relaxed mb-6">
-                    Conducting a comprehensive geotechnical analysis in the Integrated
-                    School Area located in Bendungan Village, Jonggol District,
-                    Bogor Regency as part of strategic infrastructure development.
-                </p>
-
-                <p class="text-slate-600 leading-relaxed">
-                    The engineering study includes geological investigations,
-                    subsurface characterization, numerical modeling,
-                    and engineering recommendations to support long-term
-                    construction stability and safety performance.
-                </p>
-
-            </div>
-
-            <div class="grid grid-cols-2 gap-6" data-aos="fade-left">
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        landscape
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        Slope Stability
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        Stability analysis and mitigation strategy for critical slopes.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        tunnel
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        Tunnel Study
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        Advanced numerical analysis for railway tunnel infrastructure.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        engineering
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        DED Preparation
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        Preparation of Detailed Engineering Design documents.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        analytics
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        Numerical Modeling
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        PLAXIS-based geotechnical simulation and interpretation.
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- HSR PROJECT -->
-    <section class="bg-slate-100 py-24 px-6 border-y border-slate-200">
-
-        <div class="max-w-7xl mx-auto">
-
-            <div class="text-center mb-16">
-
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
-                    Railway Infrastructure
-                </span>
-
-                <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-slate-900">
-                    Jakarta-Bandung <br>
-                    High-Speed Railway Tunnel
-                </h2>
-
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-                <div data-aos="fade-right">
-
-                    <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200"
-                         class="rounded-3xl shadow-2xl h-[500px] w-full object-cover"
-                         alt="Tunnel Engineering">
-
-                </div>
-
-                <div data-aos="fade-left">
-
-                    <p class="text-slate-600 leading-relaxed mb-6">
-                        Conducting a comprehensive technical study on landslide mitigation,
-                        including field investigations, geotechnical analysis,
-                        slope stability evaluations, and the preparation of
-                        a Detailed Engineering Design (DED).
-                    </p>
-
-                    <p class="text-slate-600 leading-relaxed mb-10">
-                        The project supports strategic transportation infrastructure
-                        development and serves as a technical foundation
-                        for safe and sustainable tunnel construction activities.
-                    </p>
-
-                    <div class="space-y-5">
-
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-red-800 text-white flex items-center justify-center mr-4">
-                                <i class="fas fa-check text-xs"></i>
-                            </div>
-
-                            <div>
-                                <h4 class="font-black uppercase text-slate-900 text-sm">
-                                    Geological Investigation
-                                </h4>
-
-                                <p class="text-sm text-slate-500">
-                                    Detailed site mapping and subsurface characterization.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-red-800 text-white flex items-center justify-center mr-4">
-                                <i class="fas fa-check text-xs"></i>
-                            </div>
-
-                            <div>
-                                <h4 class="font-black uppercase text-slate-900 text-sm">
-                                    Slope Reinforcement Analysis
-                                </h4>
-
-                                <p class="text-sm text-slate-500">
-                                    Numerical evaluation of landslide mitigation systems.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-red-800 text-white flex items-center justify-center mr-4">
-                                <i class="fas fa-check text-xs"></i>
-                            </div>
-
-                            <div>
-                                <h4 class="font-black uppercase text-slate-900 text-sm">
-                                    Tunnel Safety Engineering
-                                </h4>
-
-                                <p class="text-sm text-slate-500">
-                                    Stability verification during excavation stages.
-                                </p>
-                            </div>
-                        </div>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- CTA -->
-    <section class="bg-[#002d62] text-white py-20 px-6 text-center relative overflow-hidden">
-
-        <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-red-800 rounded-full blur-3xl opacity-20"></div>
-
-        <div class="relative z-10 max-w-3xl mx-auto" data-aos="zoom-in">
-
-            <h3 class="text-3xl md:text-4xl font-black uppercase mb-5 tracking-tight">
-                Engineering Precision For Strategic Infrastructure
-            </h3>
-
-            <p class="text-slate-300 text-sm leading-relaxed mb-8">
-                GeoINHance delivers advanced geotechnical analysis,
-                engineering simulation, and infrastructure consulting
-                for high-impact development projects across Indonesia.
+    <div class="pt-[95px]">
+
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">Company Portfolio</span>
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
+                Portofolio Proyek Rekayasa & Konstruksi
+            </h1>
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                Menampilkan rekam jejak dedikasi kami dalam menyelesaikan tantangan infrastruktur rumit secara presisi menggunakan teknologi analisis mutakhir.
             </p>
-
-            <a href="https://wa.me/622127881958"
-               target="_blank"
-               class="inline-flex items-center bg-red-800 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition shadow-lg">
-
-                <i class="fab fa-whatsapp mr-3"></i>
-                Discuss Your Project
-            </a>
-
         </div>
-
     </section>
 
-</div>
+    <section class="py-8 bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+            <div class="flex flex-wrap gap-2 w-full md:w-auto">
+                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm">Semua</button>
+                <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">Struktural</button>
+                <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">Geoteknik & Aliran</button>
+                <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">Pertambangan</button>
+            </div>
+            <div class="relative w-full md:w-72">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
+                <input type="text" placeholder="Cari proyek berdasarkan nama..." class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+            </div>
+        </div>
+    </section>
 
-<!-- FOOTER -->
-<footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 md:px-16 border-t border-slate-800">
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+                    <div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-building-shield text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                            <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">Struktural</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">Desain Rangka Gedung Pusat Finansial 45 Lantai</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                Analisis beban statik, dinamik, perwujudan gaya angin ekstrem, dan simulasi beban gempa transient tinggi menggunakan standar kode internasional untuk menjamin keamanan struktural bangunan pencakar langit.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-cube text-blue-500 mr-1"></i>STAAD.Pro Advanced</span>
+                        </div>
+                        <a href="#" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">Lihat Detail Proyek</a>
+                    </div>
+                </div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+                    <div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-water-volume text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                            <span class="absolute bottom-4 left-4 z-20 bg-teal-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">Geoteknik & Aliran</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">Analisis Rembesan Air (Seepage) Bendungan Utama</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                Evaluasi komprehensif 3D mengenai tingkat kestabilan lereng bendungan akibat penurunan muka air berkala secara cepat (*rapid drawdown*) serta analisis distribusi tekanan air pori tanah.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-droplet text-blue-500 mr-1"></i>GeoStudio 3D Flow</span>
+                        </div>
+                        <a href="#" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">Lihat Detail Proyek</a>
+                    </div>
+                </div>
 
-        <p class="uppercase tracking-[0.2em]">
-            © 1945 PT GeoINHance Solusi Rekayasa
-        </p>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+                    <div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-road-tunnel text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                            <span class="absolute bottom-4 left-4 z-20 bg-teal-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">Geoteknik</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">Simulasi Ekskavasi & Terowongan Bawah Tanah MRT</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                Memodelkan interaksi mekanis pergerakan tanah jenuh di area urban perkotaan padat penduduk guna mengantisipasi deformasi permukaan tanah di sekitar jalur galian proyek MRT.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-layer-group text-blue-500 mr-1"></i>PLAXIS 3D Suite</span>
+                        </div>
+                        <a href="#" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">Lihat Detail Proyek</a>
+                    </div>
+                </div>
 
-        <div class="flex gap-4 uppercase tracking-[0.2em]">
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+                    <div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-mountain-city text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                            <span class="absolute bottom-4 left-4 z-20 bg-amber-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">Pertambangan</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">Manajemen Aliran Udara & Air Limbah Batuan Tambang</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                Pemodelan transfer kontaminan zat terlarut, gas, dan sirkulasi udara pada tumpukan limbah batuan (*mined rock stockpiles*) di area iklim dingin untuk meminimalkan risiko lingkungan.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-droplet text-blue-500 mr-1"></i>GeoStudio 2D Flow</span>
+                        </div>
+                        <a href="#" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">Lihat Detail Proyek</a>
+                    </div>
+                </div>
 
-            <a href="#" class="hover:text-red-500 transition">
-                Privacy Policy
-            </a>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+                    <div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-bridge text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                            <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">Struktural</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">Analisis Beban Dinamis Jembatan Kabel Layang (Cable-Stayed)</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                Otomatisasi kalkulasi beban bergerak kendaraan berat serta analisis termal berkala untuk memastikan kekuatan kabel pancang utama jembatan bentang panjang.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-cube text-blue-500 mr-1"></i>Structural WorkSuite</span>
+                        </div>
+                        <a href="#" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">Lihat Detail Proyek</a>
+                    </div>
+                </div>
 
-            <a href="#" class="hover:text-red-500 transition">
-                Terms of Service
-            </a>
+                <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+                    <div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-ship text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                            <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">Struktural</span>
+                        </div>
+                        <div class="p-6 space-y-3">
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">Pondasi Offshore Monopile Turbin Angin Lepas Pantai</h3>
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                Rekayasa struktur laut lepas yang menerima gaya siklik konstan gelombang laut dan pemodelan kekuatan interaksi tiang jangkar (*suction anchors*) di dasar laut terdalam.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200 mr-1"><i class="fa-solid fa-layer-group text-blue-500 mr-1"></i>PLAXIS 2D</span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200"><i class="fa-solid fa-cube text-blue-500 mr-1"></i>STAAD.Pro</span>
+                        </div>
+                        <a href="#" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">Lihat Detail Proyek</a>
+                    </div>
+                </div>
 
+            </div>
+
+            <div class="pt-16 text-center">
+                <button class="bg-white text-blue-600 border border-gray-300 px-6 py-3 rounded-lg text-xs font-semibold hover:bg-blue-50 hover:border-blue-400 transition inline-flex items-center gap-2 shadow-sm">
+                    Tampilkan Proyek Lainnya <i class="fa-solid fa-chevron-down text-[10px]"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-slate-900 text-white py-16 border-t border-slate-800">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Punya rencana proyek rekayasa yang membutuhkan presisi tinggi?</h2>
+            <p class="text-slate-400 max-w-xl mx-auto text-xs leading-relaxed">
+                Tim ahli kami siap membantu Anda menyusun pemodelan, melakukan uji FEA, hingga memberikan asistensi lisensi software komputasi Bentley & Seequent terbaik.
+            </p>
+            <div class="pt-4">
+                <a href="#" class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md text-xs hover:bg-blue-700 transition shadow-md shadow-blue-500/10 inline-block">
+                    Hubungi Spesialis Kami
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+        <div class="col-span-1 md:col-span-2">
+            <div class="flex items-center mb-6">
+                <div class="bg-red-800 p-2 rounded-lg mr-3">
+                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                </div>
+                <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
+            </div>
+            <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
+                {{ __('footer.desc') }}
+            </p>
+            <div class="flex space-x-4">
+                <a href="https://www.linkedin.com/company/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
+                <a href="https://www.instagram.com/geoinhance/" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.youtube.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-youtube"></i></a>
+                <a href="https://www.tiktok.com/@geoinhance" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-tiktok"></i></a>
+            </div>
         </div>
 
-    </div>
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.navigation') }}
+            </h4>
+            <ul class="space-y-4 text-slate-400 text-sm">
+                <li><a href="/" class="hover:text-white transition">{{ __('footer.home') }}</a></li>
+                <li><a href="/#services" class="hover:text-white transition">{{ __('footer.services') }}</a></li>
+                <li><a href="/#portfolio" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
+                <li><a href="/karir" class="hover:text-white transition">{{ __('footer.career') }}</a></li>
+                <li><a href="/kontak" class="hover:text-white transition">{{ __('footer.contact') }}</a></li>
+            </ul>
+        </div>
 
+        <div>
+            <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
+                {{ __('footer.head_office') }}
+            </h4>
+            <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                {!! __('footer.address') !!}
+            </p>
+            <p class="text-slate-400 text-sm mb-2">
+                {{ __('footer.phone') }}: +62 851 9044 1744
+            </p>
+            <p class="text-slate-400 text-sm text-red-500 font-bold">geoinhance.solusirekayasa@gmail.com</p>
+        </div>
+    </div>
+    
+    <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
+        <p>{{ __('footer.copyright') }}</p>
+        <div class="flex gap-4">
+            <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.privacy_policy') }}
+            </a>
+            <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">
+                {{ __('footer.terms_of_service') }}
+            </a>
+        </div>
+    </div>
 </footer>
 
-<!-- SCRIPT -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+    </a>
 
-<script>
-    AOS.init({
-        duration: 800,
-        once: true,
-    });
-</script>
-
-@livewireScripts
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+        window.onscroll = function() {
+            const nav = document.querySelector('nav');
+            if (window.pageYOffset > 50) {
+                nav.classList.add('shadow-md');
+            } else {
+                nav.classList.remove('shadow-md');
+            }
+        };
+    </script>
+    @livewireScripts
 </body>
 </html>

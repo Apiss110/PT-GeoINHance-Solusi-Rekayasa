@@ -15,9 +15,13 @@
         
         <div class="flex h-screen overflow-hidden">
             
+            <!-- ========================================== -->
+            <!-- SIDEBAR PANEL NAVIGASI (Sisi Kiri)         -->
+            <!-- ========================================== -->
             <aside class="w-64 bg-[#0e1d82] text-white flex flex-col justify-between shrink-0 border-r border-[#0c196e] shadow-lg z-10">
                 <div class="p-5 flex flex-col h-full overflow-y-auto">
                     
+                    <!-- Header Brand & Logo Korporat -->
                     <div class="flex items-center space-x-3 mb-8 border-b border-white/10 pb-5">
                         <div class="p-2 bg-white rounded-lg shadow-sm">
                             <span class="text-[#0e1d82] font-black text-lg tracking-tighter">GIH</span>
@@ -28,9 +32,11 @@
                         </div>
                     </div>
 
+                    <!-- Kelompok Menu Navigasi -->
                     <nav class="flex-1 space-y-1">
                         <p class="px-3 text-[10px] font-bold text-[#cfdde9]/60 uppercase tracking-wider mb-2">Panel Navigasi</p>
                         
+                        <!-- 1. Dashboard Utama -->
                         <a href="{{ route('dashboard') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('dashboard') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
@@ -39,6 +45,7 @@
                             Dashboard Utama
                         </a>
 
+                        <!-- 2. Banner Slider Front -->
                         <a href="{{ route('admin.slider.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.slider.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909m-18 3.75h16.5a1.5 1.5 0 001.5-1.5V6a1.5 1.5 0 00-1.5-1.5H3.75A1.5 1.5 0 002.25 6v12a1.5 1.5 0 00.5 1.5zm10.5-11.25h.008v.008h-.008V8.25zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
@@ -46,6 +53,7 @@
                             Banner Slider Front
                         </a>
 
+                        <!-- 3. Portofolio Proyek -->
                         <a href="{{ route('admin.project.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.project.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
@@ -53,6 +61,16 @@
                             Portofolio Proyek
                         </a>
 
+                        <!-- 4. Blog & News (DITAMBAHKAN DI SINI) -->
+                        <a href="{{ route('admin.blog.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.blog.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 20H4.5A1.5 1.5 0 013 18.5v-13A1.5 1.5 0 014.5 4h15A1.5 1.5 0 0121 5.5v13a1.5 1.5 0 01-1.5 1.5z" />
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M7 8h10M7 12h10M7 16h6" />
+                            </svg>
+                            Blog & News
+                        </a>
+
+                        <!-- Akses Manajemen Khusus Superadmin -->
                         @if(auth()->check() && auth()->user()->role === 'superadmin')
                             <div class="pt-4 mt-4 border-t border-white/10">
                                 <p class="px-3 text-[10px] font-bold text-[#cfdde9]/60 uppercase tracking-wider mb-2">Akses Manajemen</p>
@@ -66,6 +84,7 @@
                         @endif
                     </nav>
 
+                    <!-- Informasi Akun & Tombol Logout -->
                     <div class="mt-auto border-t border-white/10 pt-4 space-y-3">
                         <div class="px-3">
                             <span class="text-xs font-semibold text-white block truncate">{{ auth()->user()->name }}</span>
@@ -85,6 +104,9 @@
                 </div>
             </aside>
 
+            <!-- ========================================== -->
+            <!-- CONTENT AREA (Sisi Kanan)                  -->
+            <!-- ========================================== -->
             <div class="flex-1 flex flex-col min-w-0 overflow-hidden">
                 
                 @if (isset($header))

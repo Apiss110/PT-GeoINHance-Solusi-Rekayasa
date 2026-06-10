@@ -303,316 +303,277 @@
         </div>
     </nav>
 
-<!-- CONTENT -->
-<div class="pt-[95px]">
+    <div class="pt-[73px] lg:pt-[77px]">
 
-    <!-- HERO -->
-    <section class="bg-[#002d62] text-white py-28 px-6 relative overflow-hidden">
-
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-
-        <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 items-center relative z-10">
-
-            <div data-aos="fade-right">
-
-                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
-                    Engineering Project Portfolio
-                </span>
-
-                <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight mb-6">
-                    Geotechnical <br>
-                    Analysis
-                </h1>
-
-                <p class="text-slate-300 text-sm md:text-base leading-relaxed max-w-xl">
-                    Comprehensive geotechnical investigation and engineering analysis
-                    project for strategic infrastructure development including slope
-                    stability evaluation, tunnel engineering, and Detailed Engineering Design.
-                </p>
-
-                <div class="w-16 h-1 bg-red-800 rounded-full mt-6"></div>
-
-            </div>
-
-            <div data-aos="fade-left">
-
-                <div class="rounded-3xl overflow-hidden shadow-2xl border border-white/10">
-                    <img src="https://images.unsplash.com/photo-1513828583688-c52646db42da?w=1200"
-                         class="w-full h-[500px] object-cover"
-                         alt="Geotechnical Project">
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- PROJECT OVERVIEW -->
-    <section class="max-w-7xl mx-auto py-24 px-6">
-
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-            <div data-aos="fade-right">
-
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">
-                    Project Overview
-                </span>
-
-                <h2 class="text-3xl md:text-5xl font-black uppercase text-slate-900 leading-tight mb-6">
-                    Integrated School Area <br>
-                    Bendungan Village
-                </h2>
-
-                <p class="text-slate-600 leading-relaxed mb-6">
-                    Conducting a comprehensive geotechnical analysis in the Integrated
-                    School Area located in Bendungan Village, Jonggol District,
-                    Bogor Regency as part of strategic infrastructure development.
-                </p>
-
-                <p class="text-slate-600 leading-relaxed">
-                    The engineering study includes geological investigations,
-                    subsurface characterization, numerical modeling,
-                    and engineering recommendations to support long-term
-                    construction stability and safety performance.
-                </p>
-
-            </div>
-
-            <div class="grid grid-cols-2 gap-6" data-aos="fade-left">
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        landscape
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        Slope Stability
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        Stability analysis and mitigation strategy for critical slopes.
+    <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-20 lg:py-28 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid lg:grid-cols-12 gap-12 items-center">
+                <div class="lg:col-span-7 space-y-6">
+                    <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">Structural Analysis & Design</span>
+                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none">
+                        STAAD.<span class="text-blue-400">Pro</span>
+                    </h1>
+                    <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed">
+                        A powerful and integrated finite element analysis and design application. Analyze any structure exposed to static, dynamic, wind, earthquake, thermal, and moving loads.
                     </p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        tunnel
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        Tunnel Study
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        Advanced numerical analysis for railway tunnel infrastructure.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        engineering
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        DED Preparation
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        Preparation of Detailed Engineering Design documents.
-                    </p>
-                </div>
-
-                <div class="bg-white p-8 rounded-3xl border border-slate-200 shadow-sm">
-                    <span class="material-symbols-outlined text-red-800 text-4xl mb-4">
-                        analytics
-                    </span>
-
-                    <h4 class="font-black uppercase text-slate-900 mb-2">
-                        Numerical Modeling
-                    </h4>
-
-                    <p class="text-sm text-slate-500 leading-relaxed">
-                        PLAXIS-based geotechnical simulation and interpretation.
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- HSR PROJECT -->
-    <section class="bg-slate-100 py-24 px-6 border-y border-slate-200">
-
-        <div class="max-w-7xl mx-auto">
-
-            <div class="text-center mb-16">
-
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
-                    Railway Infrastructure
-                </span>
-
-                <h2 class="text-3xl md:text-5xl font-black uppercase tracking-tight text-slate-900">
-                    Jakarta-Bandung <br>
-                    High-Speed Railway Tunnel
-                </h2>
-
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-
-                <div data-aos="fade-right">
-
-                    <img src="https://images.unsplash.com/photo-1474487548417-781cb71495f3?w=1200"
-                         class="rounded-3xl shadow-2xl h-[500px] w-full object-cover"
-                         alt="Tunnel Engineering">
-
-                </div>
-
-                <div data-aos="fade-left">
-
-                    <p class="text-slate-600 leading-relaxed mb-6">
-                        Conducting a comprehensive technical study on landslide mitigation,
-                        including field investigations, geotechnical analysis,
-                        slope stability evaluations, and the preparation of
-                        a Detailed Engineering Design (DED).
-                    </p>
-
-                    <p class="text-slate-600 leading-relaxed mb-10">
-                        The project supports strategic transportation infrastructure
-                        development and serves as a technical foundation
-                        for safe and sustainable tunnel construction activities.
-                    </p>
-
-                    <div class="space-y-5">
-
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-red-800 text-white flex items-center justify-center mr-4">
-                                <i class="fas fa-check text-xs"></i>
-                            </div>
-
-                            <div>
-                                <h4 class="font-black uppercase text-slate-900 text-sm">
-                                    Geological Investigation
-                                </h4>
-
-                                <p class="text-sm text-slate-500">
-                                    Detailed site mapping and subsurface characterization.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-red-800 text-white flex items-center justify-center mr-4">
-                                <i class="fas fa-check text-xs"></i>
-                            </div>
-
-                            <div>
-                                <h4 class="font-black uppercase text-slate-900 text-sm">
-                                    Slope Reinforcement Analysis
-                                </h4>
-
-                                <p class="text-sm text-slate-500">
-                                    Numerical evaluation of landslide mitigation systems.
-                                </p>
-                            </div>
-                        </div>
-
-                        <div class="flex items-start">
-                            <div class="w-10 h-10 rounded-full bg-red-800 text-white flex items-center justify-center mr-4">
-                                <i class="fas fa-check text-xs"></i>
-                            </div>
-
-                            <div>
-                                <h4 class="font-black uppercase text-slate-900 text-sm">
-                                    Tunnel Safety Engineering
-                                </h4>
-
-                                <p class="text-sm text-slate-500">
-                                    Stability verification during excavation stages.
-                                </p>
-                            </div>
-                        </div>
-
+                    <div class="flex flex-wrap gap-4 pt-2">
+                        <a href="#variants" class="bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-400 transition shadow-lg shadow-blue-500/20">View Variants</a>
+                        <a href="#features" class="bg-transparent border border-slate-500 text-slate-300 px-6 py-3 rounded-md font-semibold hover:bg-slate-800 hover:text-white transition">Explore Features</a>
                     </div>
-
                 </div>
+                <div class="lg:col-span-5 relative">
+                    <div class="bg-slate-800/60 backdrop-blur-md p-6 rounded-xl border border-slate-700 shadow-2xl relative aspect-[4/3] flex flex-col justify-between">
+                        <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                            <div class="flex space-x-2">
+                                <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                                <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                            </div>
+                            <span class="text-xs text-slate-400 font-mono">STAAD.Pro FEA Engine v24</span>
+                        </div>
+                        <div class="flex-1 flex items-center justify-center">
+                            <i class="fa-solid fa-cubes text-7xl text-blue-400/40 animate-pulse"></i>
+                        </div>
+                        <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700 text-xs font-mono text-slate-300 space-y-1">
+                            <p><span class="text-green-400">></span> Automated Load Generation: Done</p>
+                            <p><span class="text-green-400">></span> 50+ International Design Codes Loaded</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
+    <section class="py-16 bg-white border-b border-gray-100">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="flex gap-4 items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg text-blue-600 shrink-0">
+                        <i class="fa-solid fa-city text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-1">Any Project Type</h3>
+                        <p class="text-sm text-gray-600">Versatile design for buildings, culverts, plants, bridges, stadiums, and marine structures.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg text-blue-600 shrink-0">
+                        <i class="fa-solid fa-wand-magic-sparkles text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-1">Automated Loading</h3>
+                        <p class="text-sm text-gray-600">Reduces hours by automating forces from gravity, wind, earthquakes, snow, or vehicles.</p>
+                    </div>
+                </div>
+                <div class="flex gap-4 items-start">
+                    <div class="bg-blue-50 p-3 rounded-lg text-blue-600 shrink-0">
+                        <i class="fa-solid fa-globe text-xl"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-bold text-gray-900 mb-1">Global Standards</h3>
+                        <p class="text-sm text-gray-600">Easily accommodate global requirements including U.S., European, Indian, Chinese, and Japanese codes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl">Extremely Flexible Modeling Environment</h2>
+                <p class="text-gray-600">Equipped with sophisticated visualization, an open architecture for heavy customization, and a 25-year track record of rock-solid reliability.</p>
             </div>
 
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-4 hover:shadow-md transition">
+                    <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-code"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">OpenSTAAD API Integration</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Extract STAAD data directly into custom programs or tools like Microsoft Word or Excel. Use OpenSTAAD to fully drive model creation, run analyses, and view results via your own tailored macro interfaces.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-4 hover:shadow-md transition">
+                    <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-file-cad"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">CAD Interoperability</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Import CAD models in DXF formats seamlessly to use as base wireframes, structural grids, or outlines for complex decks that require robust finite element meshing. Exchange CIS/2 data with advanced steel design packages.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-4 hover:shadow-md transition">
+                    <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-pencil-ruler"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Integrated Concrete & Steel Design</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Access over 50 steel design codes globally. Enjoy integrated steel drawing production via Steel Autodrafter, or unlock full concrete design, detailing, and drawing production with specialized extensions.
+                    </p>
+                </div>
+                <div class="bg-white p-8 rounded-xl shadow-sm border border-gray-100 space-y-4 hover:shadow-md transition">
+                    <div class="bg-blue-600 text-white w-10 h-10 rounded-lg flex items-center justify-center">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-gray-900">Advanced Non-Linear Analysis</h3>
+                    <p class="text-gray-600 text-sm leading-relaxed">
+                        Export your structural analytical models directly to ADINA to solve highly sophisticated, complex, or extreme non-linear physical problems with high convergence stability.
+                    </p>
+                </div>
+            </div>
         </div>
-
     </section>
 
-    <!-- CTA -->
-    <section class="bg-[#002d62] text-white py-20 px-6 text-center relative overflow-hidden">
+    <section id="variants" class="py-20 bg-white border-t border-b border-gray-200">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
+                <span class="text-blue-600 font-bold text-xs uppercase tracking-wider">Choose Your Tier</span>
+                <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl">STAAD.Pro Flexible Variants</h2>
+                <p class="text-gray-600">Pilih varian yang paling sesuai dengan kompleksitas beban struktur, kriteria seismik, dan integrasi fondasi proyek Anda.</p>
+            </div>
 
-        <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-red-800 rounded-full blur-3xl opacity-20"></div>
+            <div class="grid lg:grid-cols-3 gap-8 items-stretch">
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200 flex flex-col justify-between relative hover:border-blue-300 transition">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">STAAD.Pro</h3>
+                            <p class="text-xs text-blue-600 font-semibold mt-1">Standard Core Edition</p>
+                        </div>
+                        <p class="text-sm text-gray-600">Solusi mendasar untuk analisis struktur harian menggunakan metode analisis elemen hingga standar.</p>
+                        <hr class="border-gray-200">
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Static & basic dynamic loading</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Comprehensive FEM tools</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> 50+ International design codes</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> OpenSTAAD customization API</li>
+                        </ul>
+                    </div>
+                    <div class="pt-8">
+                        <a href="#contact" class="block text-center bg-white border border-gray-300 text-gray-700 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-100 transition">Request Quote</a>
+                    </div>
+                </div>
 
-        <div class="relative z-10 max-w-3xl mx-auto" data-aos="zoom-in">
+                <div class="bg-slate-900 p-8 rounded-2xl border-2 border-blue-500 flex flex-col justify-between relative text-white transform lg:-translate-y-2 shadow-xl shadow-blue-950/20">
+                    <div class="absolute top-0 right-6 transform -translate-y-1/2 bg-blue-500 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1 rounded-full">
+                        Most Popular
+                    </div>
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold">STAAD.Pro Advanced</h3>
+                            <p class="text-xs text-blue-400 font-semibold mt-1">High-Performance & Non-Linear</p>
+                        </div>
+                        <p class="text-sm text-slate-300">Menyelesaikan masalah struktural yang jauh lebih kompleks dengan kecepatan komputasi super cepat.</p>
+                        <hr class="border-slate-800">
+                        <ul class="space-y-3 text-sm text-slate-300">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400"></i> Semua fitur versi STAAD.Pro</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400"></i> Higher-order non-linear analysis</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400"></i> Advanced Seismic & Dynamic solver</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-blue-400"></i> Multi-threaded processing capabilities</li>
+                        </ul>
+                    </div>
+                    <div class="pt-8">
+                        <a href="#contact" class="block text-center bg-blue-500 text-white py-2.5 rounded-lg text-sm font-semibold hover:bg-blue-600 transition shadow-md shadow-blue-500/10">Upgrade to Advanced</a>
+                    </div>
+                </div>
 
-            <h3 class="text-3xl md:text-4xl font-black uppercase mb-5 tracking-tight">
-                Engineering Precision For Strategic Infrastructure
-            </h3>
+                <div class="bg-gray-50 p-8 rounded-2xl border border-gray-200 flex flex-col justify-between relative hover:border-blue-300 transition">
+                    <div class="space-y-6">
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900">Structural WorkSuite</h3>
+                            <p class="text-xs text-blue-600 font-semibold mt-1">Complete Bundle System</p>
+                        </div>
+                        <p class="text-sm text-gray-600">Paket komprehensif terintegrasi mencakup analisis super, desain fondasi, dan koneksi baja spesifik.</p>
+                        <hr class="border-gray-200">
+                        <ul class="space-y-3 text-sm text-gray-600">
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Termasuk STAAD.Pro Advanced</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> STAAD Foundation Advanced</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> RAM Connection & RAM Concept</li>
+                            <li class="flex items-center gap-2"><i class="fa-solid fa-check text-green-500"></i> Integrated Concrete detailing tools</li>
+                        </ul>
+                    </div>
+                    <div class="pt-8">
+                        <a href="#contact" class="block text-center bg-white border border-gray-300 text-gray-700 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-100 transition">Get Full Suite</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <p class="text-slate-300 text-sm leading-relaxed mb-8">
-                GeoINHance delivers advanced geotechnical analysis,
-                engineering simulation, and infrastructure consulting
-                for high-impact development projects across Indonesia.
+    <section id="contact" class="bg-slate-900 text-white py-16">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-8">
+            <h2 class="text-3xl font-bold tracking-tight">Ready to optimize your structural workflows?</h2>
+            <p class="text-slate-400 max-w-2xl mx-auto text-sm leading-relaxed">
+                STAAD.Pro can be purchased directly on Bentley's eStore or via Virtuosity. Untuk konsultasi implementasi lisensi perusahaan Anda, hubungi tim kami segera.
             </p>
-
-            <a href="https://wa.me/622127881958"
-               target="_blank"
-               class="inline-flex items-center bg-red-800 hover:bg-red-700 text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition shadow-lg">
-
-                <i class="fab fa-whatsapp mr-3"></i>
-                Discuss Your Project
-            </a>
-
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
+                <a href="https://virtuosity.com" target="_blank" class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md hover:bg-blue-700 transition w-full sm:w-auto">
+                    Buy via Virtuosity eStore
+                </a>
+                <a href="#" class="bg-slate-800 text-slate-300 font-semibold px-8 py-3 rounded-md hover:bg-slate-700 transition w-full sm:w-auto border border-slate-700">
+                    Contact Specialist
+                </a>
+            </div>
         </div>
-
     </section>
 
-</div>
-
-<!-- FOOTER -->
 <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 md:px-16 border-t border-slate-800">
+        <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
+            <div class="col-span-1 md:col-span-2">
+                <div class="flex items-center mb-6">
+                    <div class="bg-red-800 p-2 rounded-lg mr-3">
+                        <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
+                    </div>
+                    <span class="font-black text-2xl tracking-tighter uppercase text-white">Geo<span class="text-red-800">INHance</span></span>
+                </div>
+                <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
+                    Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
+                </p>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition text-white"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition text-white"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition text-white"><i class="fab fa-instagram"></i></a>
+                </div>
+            </div>
 
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-
-        <p class="uppercase tracking-[0.2em]">
-            © 1945 PT GeoINHance Solusi Rekayasa
-        </p>
-
-        <div class="flex gap-4 uppercase tracking-[0.2em]">
-
-            <a href="#" class="hover:text-red-500 transition">
-                Privacy Policy
-            </a>
-
-            <a href="#" class="hover:text-red-500 transition">
-                Terms of Service
-            </a>
-
+            <div>
+                <h4 class="text-white font-bold uppercase tracking-wider mb-3">Produk Utama</h4>
+                <ul class="space-y-2">
+                    <li><a href="{{ route('product.plaxis2d') }}" class="hover:text-red-500 transition">PLAXIS 2D</a></li>
+                    <li><a href="#" class="hover:text-red-500 transition">PLAXIS 3D</a></li>
+                    <li><a href="#" class="hover:text-red-500 transition">Geogrid Systems</a></li>
+                </ul>
+            </div>
+            
+            <div>
+                <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-4">Kantor Pusat</h4>
+                <p class="text-slate-400 text-sm leading-relaxed mb-4">
+                    Menara Sentraya Lt. 11 Unit A4, <br>
+                    Jl. Iskandarsyah Raya, Jakarta Selatan.
+                </p>
+                <p class="text-slate-400 text-sm mb-1">P: +62 851-9044-1744</p>
+                <p class="text-slate-400 text-sm text-red-500 font-bold">E: info@geoinhance.com</p>
+            </div>
         </div>
+        
+        <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
+            <p>© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
+                <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
 
-    </div>
 
-</footer>
-
-<!-- SCRIPT -->
-<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
-<script>
-    AOS.init({
-        duration: 800,
-        once: true,
-    });
-</script>
-
-@livewireScripts
-
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            once: true,
+        });
+    </script>
 </body>
 </html>

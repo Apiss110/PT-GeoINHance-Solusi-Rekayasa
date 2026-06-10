@@ -30,7 +30,7 @@ class SliderController extends Controller
         $request->validate([
             'title' => 'nullable|string|max:255',
             'subtitle' => 'nullable|string|max:255',
-            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:2048', // Maksimal 2MB
+            'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120', // Maksimal 2MB
         ]);
 
         if ($request->hasFile('image')) {

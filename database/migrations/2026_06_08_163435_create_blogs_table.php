@@ -12,8 +12,8 @@ return new class extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('category'); // Contoh: GEOTEKNIK, TEKNOLOGI
-            $table->string('tag');      // Contoh: SIPIL, INOVASI
+            $table->string('category')->nullable();
+            $table->string('tag')->nullable();  // Contoh: SIPIL, INOVASI
             $table->text('content');    // Isi artikel lengkap / deskripsi pendek
             $table->string('image')->nullable(); // Foto background kartu
             $table->date('published_at'); // Tanggal rilis artikel

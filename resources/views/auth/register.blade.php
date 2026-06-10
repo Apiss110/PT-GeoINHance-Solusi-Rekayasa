@@ -165,7 +165,7 @@
                 <a href="{{ route('login') }}" class="text-red-800 font-bold hover:underline ml-1">Log In Area</a>
             </div>
 
-            <a href="/" class="absolute top-4 right-4 md:top-8 md:right-12 text-slate-400 hover:text-slate-900 transition flex items-center text-xs font-bold uppercase tracking-wider group">
+            <a href="/login" class="absolute top-4 right-4 md:top-8 md:right-12 text-slate-400 hover:text-slate-900 transition flex items-center text-xs font-bold uppercase tracking-wider group">
                 <svg class="w-4 h-4 mr-1 transform group-hover:-translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                 Kembali
             </a>

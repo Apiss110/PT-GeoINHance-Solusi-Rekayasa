@@ -71,7 +71,7 @@ class HomeSlider extends Component
                                 </h1>
                                 <div>
                                     <a href="{{ $slide['link'] }}" class="inline-block bg-yellow-400 hover:bg-yellow-300 text-blue-950 font-bold uppercase py-4 px-10 rounded-full transition duration-300 tracking-wider">
-                                        Pelajari Layanan
+                                        {{ __('home-slider.btn') }}
                                     </a>
                                 </div>
                             </div>

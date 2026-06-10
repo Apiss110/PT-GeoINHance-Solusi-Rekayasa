@@ -29,10 +29,9 @@ class ProjectController extends Controller
             'description' => 'required|string',
             'location' => 'required|string|max:255',
             'year' => 'required|string|max:4',
-            'image' => 'required|image|mimes:jpeg,jpg,png,webp|max:2048',
+            'image' => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
         ]);
 
-        // Upload file gambar ke folder storage/app/public/projects
         $path = $request->file('image')->store('projects', 'public');
 
         StrategicProject::create([
@@ -54,7 +53,6 @@ class ProjectController extends Controller
     {
         $project = StrategicProject::findOrFail($id);
 
-        // Hapus file gambar dari server lokalan/hosting
         if (Storage::disk('public')->exists($project->image_path)) {
             Storage::disk('public')->delete($project->image_path);
         }

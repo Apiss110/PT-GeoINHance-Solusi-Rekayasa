@@ -16,6 +16,21 @@
                         {{ __('Dashboard') }}
                     </flux:sidebar.item>
 
+                    {{-- 1. MODUL BANNER SLIDER --}}
+                    <flux:sidebar.item icon="image" :href="route('admin.slider.index')" :current="request()->routeIs('admin.slider.*')" wire:navigate>
+                        {{ __('Banner Slider Front') }}
+                    </flux:sidebar.item>
+
+                    {{-- 2. MODUL PORTOFOLIO PROYEK --}}
+                    <flux:sidebar.item icon="briefcase" :href="route('admin.project.index')" :current="request()->routeIs('admin.project.*')" wire:navigate>
+                        {{ __('Portofolio Proyek') }}
+                    </flux:sidebar.item>
+
+                    {{-- 3. MODUL BLOG & NEWS (YANG BARU) --}}
+                    <flux:sidebar.item icon="newspaper" :href="route('admin.blog.index')" :current="request()->routeIs('admin.blog.*')" wire:navigate>
+                        {{ __('Blog & News') }}
+                    </flux:sidebar.item>
+
                     {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
                     @if(auth()->check() && auth()->user()->role === 'superadmin')
                         <flux:sidebar.item icon="users" :href="route('admin.kelola-admin.index')" :current="request()->routeIs('admin.kelola-admin.*')" wire:navigate>

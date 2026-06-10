@@ -7,8 +7,7 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -76,7 +75,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
        <nav class="fixed w-full z-[100] transition-all duration-300 ">
         <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
             <div class="flex items-center space-x-8">
-                <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> Bandung, West Java</span>
+                <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> {{ __('nav.top.location') }}</span>
                 <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 851-9044-1744</span>
             </div>
             <div class="flex space-x-2 text-xs font-bold">
@@ -96,19 +95,19 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             <div class="flex items-center">
                 <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='/'">
                     <!-- <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span> -->
-                    <img src="images/inh 2.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
+                    <img src="../images/inh 2.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
                     <!-- <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">geotechnical insights, engineering solutions</span> -->
                 </div>
             </div>
 
             <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-slate-600">
                 <a href="/profil"  class="nav-link transition
-                    {{ request()->is('profil') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">Profil Perusahaan</a>
+                    {{ request()->is('profil') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}"> {{ __('nav.menu.profile') }}</a>
                 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button  class="nav-link flex items-center space-x-1
                     {{ request()->is('sektor/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>SEKTOR</span>
+                        <span>{{ __('nav.menu.sectors') }}</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -123,26 +122,26 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Mitigasi Geobencana</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Rekayasa Bawah Tanah</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Pembangkit Energi</a>
-                        <a href="{{ route('sektor.infrastruktur') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur & Transportasi</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur Jalan</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Infrastruktur Air</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Minyak Bumi Gas</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Jalur Kereta Api</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Bandar Udara</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Pelabuhan</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Kawasan Industri</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Fasilitas Pendidikan</a>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Sektor</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.geohazard') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.underground') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.power_plant') }}</a>
+                    <a href="{{ route('sektor.infrastruktur') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.infra_trans') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.road') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.water') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.oil_gas') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.railway') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.airport') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.port') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.industry') }}</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.education') }}</a>
+                    <a href="{{ route('sektor.semua-sektor') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.all') }}</a>
                     </div>
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button  class="nav-link flex items-center space-x-1
                         {{ request()->is('produk/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>PRODUK</span>
+                        <span>{{ __('nav.menu.products') }}</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -157,16 +156,18 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="{{ route('product.plaxis2d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 2D</a>
-                        <a href="{{ route('product.plaxis3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 3D</a>
-                        <a href="https://www.bentley.com/software/plaxis-2d/" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detail Program Plaxis</a>
+                         <a href="{{ route('product.staadpro') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Staad Pro</a>
+                         <a href="{{ route('product.geostudio') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">GeoStudio Flow</a>
+                         <a href="{{ route('product.plaxis2d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 2D</a>
+                         <a href="{{ route('product.plaxis3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 3D</a>
+                         <a href="https://www.bentley.com/software/plaxis-2d/" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.products.details') }}</a>
                     </div>
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link flex items-center space-x-1
                         {{ request()->is('proyek/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>PROYEK</span>
+                        <span>{{ __('nav.menu.projects') }}</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -181,25 +182,25 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
-                        <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lombok GECC Power Plant </a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Design & Build of Kalibaru</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Design of Red Mud Stockyard</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Using Plaxis 3D</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis </a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
+                    <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                    <a href="#visi-misi" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">DED</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Lombok GECC Power Plant</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Design & Build of Kalibaru</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Design of Red Mud Stockyard</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Using Plaxis 3D</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
+                    <a href="{{ route('proyek.semua') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
                     </div>
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link flex items-center space-x-1
                         {{ request()->is('resources/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>RESOURCES</span>
+                        <span>{{ __('nav.menu.resources') }}</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -214,20 +215,20 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">GeoInhance Engineering Hub</a>
-                        <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Articles</a>
-                        <a href="{{ route('resources.news-events') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">News & Events</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Case Study</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Document Library</a>
-                        <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Resources</a>
+                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">GeoInhance Engineering Hub</a>
+                    <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.articles') }}</a>
+                    <a href="{{ route('resources.news-events') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.news') }}</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.case_study') }}</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.docs') }}</a>
+                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.all') }}</a>
                     </div>
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link flex items-center space-x-1
                         {{ request()->is('training/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>TRAINING</span>
+                        <span>{{ __('nav.menu.training') }}</span>
                         <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
                         </svg>
@@ -242,13 +243,13 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                          x-transition:leave-end="opacity-0 scale-95 translate-y-2"
                          class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                          x-cloak>
-                        <a href="/training/silabus" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Silabus & Materi</a>
-                        <a href="/training/fasilitas" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Fasilitas (Sertifikat, Modul, Software Trial)</a>
-                        <a href="/training/pendaftaran" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Form Pendaftaran</a>
+                    <a href="/training/silabus" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.syllabus') }}</a>
+                    <a href="/training/fasilitas" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.facilities') }}</a>
+                    <a href="/training/pendaftaran" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.register') }}</a>
                     </div>
                 </div>
                 <a href="/kontak"class="nav-link transition
-                        {{ request()->is('kontak') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">Kontak</a>
+                        {{ request()->is('kontak') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">{{ __('nav.menu.contact') }}</a>
 
                 @auth
                     <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
@@ -259,7 +260,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                             
                             <div class="text-left leading-none">
                                 <span class="block text-xs font-black text-slate-800 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
-                                <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ Auth::user()->role ?? 'Client' }}</span>
+                                <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ Auth::user()->role ?? __('nav.auth.client') }}</span>
                             </div>
 
                             <svg class="w-3 h-3 text-slate-400 transition-transform duration-200 shadow-none" :class="userOpen ? 'transform rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -279,7 +280,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                             
                             <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="flex items-center space-x-2 px-4 py-2.5 text-xs hover:bg-slate-50 hover:text-red-800 transition">
                                 <span class="material-symbols-outlined text-slate-400 text-sm">dashboard</span>
-                                <span>Dasbor Panel</span>
+                                <span>__('nav.auth.dashboard')</span>
                             </a>
 
                             <hr class="border-slate-100 my-1">
@@ -288,14 +289,14 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
                                 @csrf
                                 <button type="submit" class="w-full flex items-center space-x-2 px-4 py-2.5 text-xs text-red-700 font-bold hover:bg-red-50 text-left transition">
                                     <span class="material-symbols-outlined text-red-600 text-sm">logout</span>
-                                    <span>Keluar Sistem</span>
+                                    <span>{{ __('nav.auth.logout') }}</span>
                                 </button>
                             </form>
                         </div>
                     </div>
                 @else
                     <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
-                        Client Area
+                        {{ __('nav.auth.login') }}
                     </a>
                 @endauth
             </div>
@@ -305,223 +306,150 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         
         <livewire:home-slider />
 
-        <section class="max-w-7xl mx-auto py-12 px-6">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-red-800 flex items-center space-x-6" data-aos="fade-up">
-                    <span class="text-4xl font-black text-slate-900">12+</span>
-                    <span class="text-xs uppercase font-bold tracking-widest text-slate-500 leading-relaxed">Tahun Pengalaman<br>Industri</span>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-blue-800 flex items-center space-x-6" data-aos="fade-up" data-aos-delay="100">
-                    <div class="bg-blue-50 p-3 rounded-xl text-blue-800">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900">Data Akurat</h4>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-tight">Laboratorium Standar Int.</p>
-                    </div>
-                </div>
-                <div class="bg-white p-8 rounded-2xl shadow-sm border-l-4 border-slate-800 flex items-center space-x-6" data-aos="fade-up" data-aos-delay="200">
-                    <div class="bg-red-50 p-3 rounded-xl text-red-800">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
-                    </div>
-                    <div>
-                        <h4 class="font-bold text-slate-900">Tim Ahli</h4>
-                        <p class="text-[10px] text-slate-500 uppercase font-bold tracking-tight">Insinyur Berlisensi</p>
-                    </div>
-                </div>
+<section id="home-about" class="w-full py-24 px-12 md:px-20 bg-white overflow-hidden">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-24 items-center">
+        
+        <div data-aos="fade-right">
+            
+            <h2 class="text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight mb-5 leading-tight">
+                {{ __('home.about_title_1') }} <br class="hidden xl:block">
+                <span class="text-red-800">{{ __('home.about_title_2') }}</span>
+            </h2>
+            
+            <div class="w-12 h-[2px] bg-red-800 mb-8"></div>
+            
+            <p class="text-sm md:text-base leading-relaxed text-slate-500 mb-8 text-justify md:text-left">
+                {!! __('home.about_desc') !!}
+            </p>
+
+            <a href="/profil" class="inline-flex items-center gap-2 text-xs font-black uppercase tracking-wider text-red-800 hover:text-[#002d62] transition-colors group">
+                {{ __('home.about_btn') }}
+                <span class="transform group-hover:translate-x-1 transition-transform">→</span>
+            </a>
+        </div>
+
+        <div class="relative" data-aos="fade-left" data-aos-delay="200">
+            <div class="absolute -top-4 -right-4 w-full h-full bg-slate-50 border border-slate-200 rounded-2xl -z-10"></div>
+            <div class="absolute -bottom-6 -left-6 w-32 h-32 bg-red-50 rounded-full blur-2xl -z-10"></div>
+            
+            <div class="overflow-hidden rounded-2xl shadow-lg border border-slate-100 relative group">
+                <img src="path-ke-gambar-anda.jpg" alt="GeoINHance Project" class="w-full h-auto object-cover aspect-[4/3] group-hover:scale-105 transition-transform duration-700">
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-900/30 to-transparent pointer-events-none"></div>
             </div>
-        </section>
+        </div>
+    </div>
+</section>
 
 <section id="services" class="w-full py-24 px-12 md:px-20 bg-white">
+    <div class="text-center mb-24" data-aos="fade-up">
+        <span class="inline-block px-4 py-1.5 rounded-full border border-red-100 bg-red-50 text-red-800 text-[11px] font-extrabold uppercase tracking-[0.3em] shadow-sm mb-4">
+            {{ __('home.service_badge') }}
+        </span>
+        <h2 class="text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight">
+            {{ __('home.service_title_1') }}
+        </h2>
+        <div class="w-12 h-[2px] bg-red-800 mx-auto mt-5"></div>
+    </div>
 
-    <!-- HEADER BADGE -->
-<div class="text-center mb-24" data-aos="fade-up">
-    <span class="inline-block px-4 py-1.5 rounded-full border border-red-100 bg-red-50 text-red-800 text-[11px] font-extrabold uppercase tracking-[0.3em] shadow-sm mb-4">
-        Komitmen Kami
-    </span>
-    <h2 class="text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight">
-        Our Service <span class="text-red-800">Guarantee</span>
-    </h2>
-    <div class="w-12 h-[2px] bg-red-800 mx-auto mt-5"></div>
-</div>
-
-    <!-- BARIS PERTAMA: 3 KOLOM LEBAR (FULL WIDTH PC) -->
     <div class="grid grid-cols-1 md:grid-cols-3 gap-16 lg:gap-24 w-full text-center">
-
-        <!-- POIN 1 -->
         <div class="flex flex-col items-center space-y-5" data-aos="fade-up" data-aos-delay="100">
-            <div class="text-red-800 transition-transform duration-300 hover:scale-110">
-                <span class="material-symbols-outlined text-[85px] stroke-[1.1]">
-                    support_agent
-                </span>
-            </div>
-            <div class="space-y-3">
-                <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">
-                    One Door Communication
-                </h3>
-                <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">
-                    We Will Provide Project Manager for our Valuable Client.
-                </p>
-            </div>
+            <span class="material-symbols-outlined text-[85px] text-red-800">support_agent</span>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">{{ __('home.serv_1_title') }}</h3>
+            <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">{{ __('home.serv_1_desc') }}</p>
         </div>
-
-        <!-- POIN 2 -->
         <div class="flex flex-col items-center space-y-5" data-aos="fade-up" data-aos-delay="200">
-            <div class="text-red-800 transition-transform duration-300 hover:scale-110">
-                <span class="material-symbols-outlined text-[85px] stroke-[1.1]">
-                    description
-                </span>
-            </div>
-            <div class="space-y-3">
-                <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">
-                    Reports Custom by Request
-                </h3>
-                <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">
-                    Menyajikan laporan teknis dan analitis yang disesuaikan berdasarkan spesifikasi proyek Anda.
-                </p>
-            </div>
+            <span class="material-symbols-outlined text-[85px] text-red-800">description</span>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">{{ __('home.serv_2_title') }}</h3>
+            <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">{{ __('home.serv_2_desc') }}</p>
         </div>
-
-        <!-- POIN 3 -->
         <div class="flex flex-col items-center space-y-5" data-aos="fade-up" data-aos-delay="300">
-            <div class="text-red-800 transition-transform duration-300 hover:scale-110">
-                <span class="material-symbols-outlined text-[85px] stroke-[1.1]">
-                    payments
-                </span>
-            </div>
-            <div class="space-y-3">
-                <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">
-                    Costumize Renumeration
-                </h3>
-                <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">
-                    Costumize Renumeration base on Company Budget & Government Regulation.
-                </p>
-            </div>
+            <span class="material-symbols-outlined text-[85px] text-red-800">payments</span>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">{{ __('home.serv_3_title') }}</h3>
+            <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">{{ __('home.serv_3_desc') }}</p>
         </div>
-
     </div>
 
-    <!-- BARIS KEDUA: 2 KOLOM DI TENGAH (UKURAN SEIMBANG & PROPORSIONAL) -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-16 lg:gap-24 w-full md:max-w-[66%] mx-auto text-center mt-20">
-
-        <!-- POIN 4 -->
         <div class="flex flex-col items-center space-y-5" data-aos="fade-up" data-aos-delay="400">
-            <div class="text-red-800 transition-transform duration-300 hover:scale-110">
-                <span class="material-symbols-outlined text-[85px] stroke-[1.1]">
-                    handshake
-                </span>
-            </div>
-            <div class="space-y-3">
-                <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">
-                    Integrated Solution
-                </h3>
-                <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">
-                    We always listen & support our clients needs to provide an integrated & flexible solution.
-                </p>
-            </div>
+            <span class="material-symbols-outlined text-[85px] text-red-800">handshake</span>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">{{ __('home.serv_4_title') }}</h3>
+            <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">{{ __('home.serv_4_desc') }}</p>
         </div>
-
-        <!-- POIN 5 -->
         <div class="flex flex-col items-center space-y-5" data-aos="fade-up" data-aos-delay="500">
-            <div class="text-red-800 transition-transform duration-300 hover:scale-110">
-                <span class="material-symbols-outlined text-[85px] stroke-[1.1]">
-                    model_training
-                </span>
-            </div>
-            <div class="space-y-3">
-                <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">
-                    Continuous Improvement
-                </h3>
-                <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">
-                    We also improve our capability and competence so our clients can focus on their business operations.
-                </p>
-            </div>
+            <span class="material-symbols-outlined text-[85px] text-red-800">model_training</span>
+            <h3 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">{{ __('home.serv_5_title') }}</h3>
+            <p class="text-xs md:text-sm leading-relaxed text-slate-500 max-w-md mx-auto">{{ __('home.serv_5_desc') }}</p>
         </div>
-
     </div>
-
 </section>
 
 <section class="w-full bg-white py-24 border-t border-b border-slate-100" x-data="{ 
     activeBranch: 'bandung',
     branches: {
         jakarta: {
-            title: 'Kantor Perwakilan - Jakarta',
-            desc: 'Hub operasional strategis untuk koordinasi regulasi, kemitraan BUMN, dan manajemen proyek skala nasional.',
+            title: '{{ __('home.net_jkt_title') }}',
+            desc: '{{ __('home.net_jkt_desc') }}',
             img: 'https://images.unsplash.com/photo-1577495508048-b635879837f1?q=80&w=600&auto=format&fit=crop',
             coords: 'top-[67.5%] left-[28%]'
         },
         bandung: {
-            title: 'Kantor Pusat - Bandung',
-            desc: 'Pusat komputasi data geoteknik, studio analisis pemodelan struktural, dan laboratorium pengujian mekanika tanah utama.',
+            title: '{{ __('home.net_bdg_title') }}',
+            desc: '{{ __('home.net_bdg_desc') }}',
             img: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=600&auto=format&fit=crop',
             coords: 'top-[70%] left-[29.5%]'
         },
         surabaya: {
-            title: 'Kantor Cabang - Surabaya',
-            desc: 'Layanan investigasi lapangan wilayah Indonesia Timur, mencakup survei hidrografi dan pemetaan geofisika maritim.',
+            title: '{{ __('home.net_sub_title') }}',
+            desc: '{{ __('home.net_sub_desc') }}',
             img: 'https://images.unsplash.com/photo-1590674899484-d5640e854abe?q=80&w=600&auto=format&fit=crop',
             coords: 'top-[73%] left-[39%]'
         },
         Bali: {
-            title: 'Studio Pusat - Bali',
-            desc: 'Pos komando taktis penanganan survei UAV, pemetaan udara koridor infrastruktur, dan monitoring geoteknik real-time IKN.',
+            title: '{{ __('home.net_bali_title') }}',
+            desc: '{{ __('home.net_bali_desc') }}',
             img: 'https://images.unsplash.com/photo-1541888946425-d81bb19240f5?q=80&w=600&auto=format&fit=crop',
             coords: 'top-[79.5%] left-[44.5%]'
         }
     }
 }">
     <div class="max-w-7xl mx-auto px-6 text-center mb-16" data-aos="fade-up">
-        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Operational Network</span>
-        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Cakupan Wilayah & Jaringan Cabang</h2>
+        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('home.net_badge') }}</span>
+        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('home.net_title') }}</h2>
         <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
-        <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">Sinergi multi-kantor untuk memastikan mobilitas tim teknis yang cepat dan efisien di seluruh koridor infrastruktur Indonesia.</p>
+        <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">{{ __('home.net_desc') }}</p>
     </div>
 
     <div class="w-full relative bg-slate-50 py-12 md:py-20 border-t border-b border-slate-100 flex items-center justify-center select-none overflow-hidden" data-aos="fade-up">
         <div class="w-full max-w-none relative px-0 m-0">
-            
-            <img src="https://simplemaps.com/static/svg/country/id/admin1/id.svg" 
-                 class="w-full h-auto opacity-70 grayscale hover:grayscale-0 transition-all duration-1000 block p-0 m-0 transform md:scale-105" 
-                 alt="GeoINHance Operational Map Vektor">
+            <img src="https://simplemaps.com/static/svg/country/id/admin1/id.svg" class="w-full h-auto opacity-70 grayscale hover:grayscale-0 transition-all duration-1000 block p-0 m-0 transform md:scale-105" alt="GeoINHance Operational Map">
             
             <div class="absolute inset-0 w-full h-full p-0 m-0 transform md:scale-105">
                 <template x-for="(branch, key) in branches" :key="key">
-                    <div class="absolute transform -translate-x-1/2 -translate-y-1/2 group z-10 hover:z-50" 
-                         :class="branch.coords">
+                    <div class="absolute transform -translate-x-1/2 -translate-y-1/2 group z-10 hover:z-50" :class="branch.coords">
                         
                         <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 origin-bottom">
                             <div class="h-24 w-full overflow-hidden rounded-xl bg-slate-100 relative mb-3">
                                 <img :src="branch.img" class="w-full h-full object-cover" :alt="branch.title">
-                                <span class="absolute bottom-2 left-2 bg-red-800 text-white text-[7px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow">GeoINHance Unit</span>
+                                <span class="absolute bottom-2 left-2 bg-red-800 text-white text-[7px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow">{{ __('home.net_tag') }}</span>
                             </div>
                             <h3 class="text-xs font-black text-slate-950 uppercase tracking-wide mb-1 leading-tight" x-text="branch.title"></h3>
                             <p class="text-slate-500 text-[10px] leading-relaxed mb-2" x-text="branch.desc"></p>
                             <span class="flex items-center gap-1 text-[8px] font-bold text-emerald-600 uppercase tracking-wider">
-                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span> Operational Active
+                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 animate-pulse"></span> {{ __('home.net_active') }}
                             </span>
                             <div class="absolute top-full left-1/2 transform -translate-x-1/2 border-[6px] border-transparent border-t-white filter drop-shadow-[0_2px_2px_rgba(0,0,0,0.05)]"></div>
                         </div>
 
-                        <button @mouseenter="activeBranch = key" 
-                                @click="activeBranch = key" 
-                                class="relative flex items-center justify-center focus:outline-none transition-transform duration-300 group-hover:scale-125">
-                            
-                            <span class="absolute inline-flex h-8 w-8 rounded-full opacity-40 animate-ping" 
-                                  :class="activeBranch === key ? 'bg-red-600' : 'bg-[#002d62]/40'"></span>
-                            
-                            <svg class="w-8 h-8 filter drop-shadow-md transition-colors duration-300" 
-                                 viewBox="0 0 24 24" 
-                                 fill="currentColor">
-                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" 
-                                      :class="activeBranch === key ? 'text-red-800' : 'text-[#002d62]'"/>
+                        <button @mouseenter="activeBranch = key" @click="activeBranch = key" class="relative flex items-center justify-center focus:outline-none transition-transform duration-300 group-hover:scale-125">
+                            <span class="absolute inline-flex h-8 w-8 rounded-full opacity-40 animate-ping" :class="activeBranch === key ? 'bg-red-600' : 'bg-[#002d62]/40'"></span>
+                            <svg class="w-8 h-8 filter drop-shadow-md transition-colors duration-300" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" :class="activeBranch === key ? 'text-red-800' : 'text-[#002d62]'"/>
                             </svg>
                         </button>
 
                     </div>
                 </template>
             </div>
-
         </div>
     </div>
 </section>
@@ -529,17 +457,17 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 
 <section class="bg-slate-50 py-24 px-6 border-b border-slate-100 overflow-hidden" x-data="{
     categories: [
-        { name: 'Kementerian & BUMN', count: '12+ Instansi' },
-        { name: 'Kontraktor Utama', count: '20+ Perusahaan' },
-        { name: 'Sektor Swasta', count: '15+ Kemitraan' }
+        { name: '{{ __('home.partners.cat_govt') }}', count: '{{ __('home.partners.count_govt') }}' },
+        { name: '{{ __('home.partners.cat_contractor') }}', count: '{{ __('home.partners.count_contractor') }}' },
+        { name: '{{ __('home.partners.cat_private') }}', count: '{{ __('home.partners.count_private') }}' }
     ]
 }">
     <div class="max-w-7xl mx-auto">
-        <div class="text-center mb-16" data-aos="fade-up">
-            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Trusted Partners</span>
-            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Klien & Kemitraan Strategis</h2>
+<div class="text-center mb-16" data-aos="fade-up">
+            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('home.partners.badge') }}</span>
+            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('home.partners.title') }}</h2>
             <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
-            <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">Telah dipercaya oleh berbagai instansi pemerintah, BUMN, dan korporasi swasta nasional dalam menyelesaikan proyek infrastruktur strategis.</p>
+            <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">{{ __('home.partners.desc') }}</p>
         </div>
 
 <div class="w-full relative py-4 mb-16 select-none" data-aos="fade-up" data-aos-delay="100">
@@ -642,45 +570,41 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
 <style>
 
 </style>
-        <section id="portfolio" class="bg-slate-100 py-24 px-6 border-t border-slate-200">
+
+<section id="portfolio" class="bg-slate-100 py-24 px-6 border-t border-slate-200">
     <div class="max-w-7xl mx-auto">
-        
         <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
             <div class="mb-6 md:mb-0">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Success Stories</span>
-                <h2 class="text-5xl font-black text-slate-900 uppercase tracking-tighter">Proyek Strategis</h2>
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('home.portfolio.badge') }}</span>
+                <h2 class="text-5xl font-black text-slate-900 uppercase tracking-tighter">{{ __('home.portfolio.title') }}</h2>
             </div>
             <a href="#" class="text-red-800 font-bold text-sm border-b-2 border-red-800 pb-1 hover:text-slate-900 hover:border-slate-900 transition-all">
-                Lihat Semua Portofolio &rarr;
+                {{ __('home.portfolio.link') }} &rarr;
             </a>
         </div>
-
         <div data-aos="fade-up" data-aos-delay="100">
-            <div data-aos="fade-up" data-aos-delay="100">
-        <livewire:project-slider />
-    </div>
+            <livewire:project-slider />
         </div>
-
     </div>
-        </section>
-        <!-- ========================================== -->
+</section>
+
+<!-- ========================================== -->
 <!-- SECTION: LATEST BLOG & NEWS               -->
 <!-- ========================================== -->
+@isset($blogs)
 <section class="py-16 bg-white" id="blog-section">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Label Atas & Judul Section -->
         <div class="mb-10">
-            <span class="text-xs font-bold tracking-widest text-[#c00000] uppercase block mb-2">Our Blog</span>
-            <div class="flex justify-between items-end">
+            <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">Our Blog</span>
+            <div class="flex flex-wrap justify-between items-end">
                 <div>
-                    <h2 class="text-3xl font-extrabold text-[#0e1d82] tracking-tight uppercase">
-                        Latest Blog <span class="text-slate-900">& News</span>
+                    <h2 class="text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
+                        {{ __('home.blog.title1') }} <span class="text-slate-900">{{ __('home.blog.title2') }}</span>
                     </h2>
-                    <div class="w-12 h-1 bg-[#c00000] mt-3"></div>
+                    <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
                 
-                <!-- Tombol Navigasi Slider Kanan-Kiri (Sesuai Screenshot) -->
                 <div class="flex space-x-2">
                     <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition">
                         &#10094;
@@ -692,64 +616,45 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
             </div>
         </div>
 
-        <!-- Grid Cards Berita (Looping Dinamis Database) -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-            @forelse($blogs as $blog)
+            
+            @foreach($blogs as $blog)
                 <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition duration-300">
-                    
-                    <!-- Area Gambar Berita & Badge Kategori -->
                     <div class="relative h-64 overflow-hidden bg-slate-900">
-                        <img src="{{ asset('storage/' . $blog->image) }}" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" 
-                             alt="{{ $blog->title }}">
-                        
-                        <!-- Badge Kategori Merah Khas Perusahaan -->
-                        <span class="absolute top-4 left-4 bg-[#c00000] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm">
+                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ $blog->title }}">
+                        <span class="absolute top-4 left-4 bg-[#c80000] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm">
                             {{ $blog->category }}
                         </span>
                     </div>
-
-                    <!-- Area Konten Teks -->
+                    
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div>
-                            <!-- Meta: Tanggal & Tag -->
-                            <div class="flex items-center text-xs text-slate-400 font-medium space-x-2 mb-3">
-                                <span>{{ \Carbon\Carbon::parse($blog->published_at)->translatedFormat('d F Y') }}</span>
-                                <span>•</span>
-                                <span class="uppercase tracking-wider text-slate-500">{{ $blog->tag }}</span>
-                            </div>
-
-                            <!-- Judul Berita (Maksimal 2 Baris agar Tinggi Kartu Rata) -->
-                            <h3 class="text-lg font-bold text-slate-900 line-clamp-2 group-hover:text-[#0e1d82] transition duration-200 mb-3 h-14">
+                            <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
+                                {{ $blog->created_at ? $blog->created_at->format('d M Y') : '' }}
+                            </span>
+                            <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
                                 {{ $blog->title }}
                             </h3>
-
-                            <!-- Cuplikan Deskripsi Pendek -->
-                            <p class="text-sm text-slate-500 line-clamp-3 mb-6">
+                            <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-5">
                                 {{ Str::limit(strip_tags($blog->content), 120) }}
                             </p>
                         </div>
-
-                        <!-- Tombol Aksi Menuju Detail Berita -->
-                        <div class="pt-2 border-t border-slate-100">
-                            <a href="#" class="inline-flex items-center text-xs font-bold text-[#0e1d82] hover:text-[#c00000] uppercase tracking-wider transition group/link">
-                                Baca Selengkapnya 
-                                <span class="ml-2 transform group-hover/link:translate-x-1 transition-transform duration-200">&rarr;</span>
-                            </a>
-                        </div>
+                        
+                        <a href="#" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition">
+                            Pelajari Selengkapnya
+                            <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
                     </div>
+                </div>
+            @endforeach
 
-                </div>
-            @empty
-                <!-- Kondisi Jika Belum Ada Data di Database -->
-                <div class="col-span-3 text-center py-12 text-slate-400 italic bg-slate-50 rounded-2xl border border-dashed border-slate-200">
-                    Belum ada artikel blog atau berita yang dipublikasikan.
-                </div>
-            @endforelse
         </div>
 
     </div>
 </section>
+@endisset
 
 <footer class="bg-[#001a33] text-white pt-20 pb-10 px-6">
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
