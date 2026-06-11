@@ -1,4 +1,4 @@
-    @include('partials.navbar')
+@include('partials.navbar')
         
         <livewire:home-slider />
 

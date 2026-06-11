@@ -372,7 +372,7 @@
     </div>
 </section>
 
-<script>
+<script> 
 document.addEventListener('DOMContentLoaded', function() {
     
     // Check status login via session Laravel Auth directive

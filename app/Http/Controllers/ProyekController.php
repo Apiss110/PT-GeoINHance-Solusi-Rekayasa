@@ -27,7 +27,7 @@ class ProyekController extends Controller
         $project = StrategicProject::findOrFail($id);
         
         // Mengarah ke file: resources/views/pages/proyek/detail-proyek.blade.php
-        return view('pages.proyek.detail-proyek', compact('project'));
+        return view('proyek.detail-proyek', compact('project'));
     }
 
     /**
