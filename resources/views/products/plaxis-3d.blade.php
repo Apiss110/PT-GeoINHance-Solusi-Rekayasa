@@ -72,581 +72,338 @@
 </head>
 <body class="bg-slate-50 font-sans antialiased text-slate-900 ">
 
-       <nav class="fixed w-full z-[100] transition-all duration-300 ">
-        <div class="bg-[#002d62] text-white/90 py-2 px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider">
-            <div class="flex items-center space-x-8">
-                <span class="flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z"></path></svg> {{ __('nav.top.location') }}</span>
-                <span class="hidden sm:flex items-center"><svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path></svg> +62 851-9044-1744</span>
-            </div>
-            <div class="flex space-x-2 text-xs font-bold">
-                <a href="{{ route('lang.switch', 'id') }}" 
-                class="{{ App::getLocale() == 'id' ? 'text-red-800' : 'text-slate-400 hover:text-slate-600' }}">
-                ID
-                </a>
-                <span class="text-slate-300">|</span>
-                <a href="{{ route('lang.switch', 'en') }}" 
-                class="{{ App::getLocale() == 'en' ? 'text-red-800' : 'text-slate-400 hover:text-slate-600' }}">
-                EN
-                </a>
-            </div>
-        </div>
-
-        <div class="nav-glass border-b border-slate-200 py-4 px-6 md:px-16 flex justify-between items-center shadow-sm">
-            <div class="flex items-center">
-                <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='/'">
-                    <!-- <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span> -->
-                    <img src="../images/inh 2.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
-                    <!-- <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">geotechnical insights, engineering solutions</span> -->
-                </div>
-            </div>
-
-            <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-slate-600">
-                <a href="/profil"  class="nav-link transition
-                    {{ request()->is('profil') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}"> {{ __('nav.menu.profile') }}</a>
-                
-                <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button  class="nav-link flex items-center space-x-1
-                    {{ request()->is('sektor/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>{{ __('nav.menu.sectors') }}</span>
-                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div x-show="open" 
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
-                         x-cloak>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.geohazard') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.underground') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.power_plant') }}</a>
-                    <a href="{{ route('sektor.infrastruktur') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.infra_trans') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.road') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.water') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.oil_gas') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.railway') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.airport') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.port') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.industry') }}</a>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.education') }}</a>
-                    <a href="{{ route('sektor.semua-sektor') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.sectors.all') }}</a>
-                    </div>
-                </div>
-
-                <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button  class="nav-link flex items-center space-x-1
-                        {{ request()->is('produk/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>{{ __('nav.menu.products') }}</span>
-                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div x-show="open" 
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
-                         x-cloak>
-                         <a href="{{ route('product.staadpro') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Staad Pro</a>
-                         <a href="{{ route('product.geostudio') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">GeoStudio Flow</a>
-                         <a href="{{ route('product.plaxis2d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 2D</a>
-                         <a href="{{ route('product.plaxis3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Plaxis 3D</a>
-                         <a href="https://www.bentley.com/software/plaxis-2d/" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.products.details') }}</a>
-                    </div>
-                </div>
-
-                <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link flex items-center space-x-1
-                        {{ request()->is('proyek/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>{{ __('nav.menu.projects') }}</span>
-                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div x-show="open" 
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
-                         x-cloak>
-                    <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
-                    <a href="{{ route('proyek.detailed-engineering-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
-                    <a href="{{ route('proyek.review-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
-                    <a href="{{ route('proyek.structural-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Structural Analysis</a>
-                    <a href="{{ route('proyek.3d-fem-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">3D FEM Analysis</a>
-                    <a href="{{ route('proyek.numerical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
-                    <a href="{{ route('proyek.numerical-modeling') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis</a>
-                    <a href="{{ route('proyek.slope-stability') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
-                    <a href="{{ route('proyek.semua') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
-                    </div>
-                </div>
-
-                <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link flex items-center space-x-1
-                        {{ request()->is('resources/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>{{ __('nav.menu.resources') }}</span>
-                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div x-show="open" 
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
-                         x-cloak>
-                    <a href="#" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">GeoInhance Engineering Hub</a>
-                    <a href="{{ route('resources.articles') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.articles') }}</a>
-                    <a href="{{ route('resources.news-events') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.news') }}</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Video</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.case_study') }}</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.docs') }}</a>
-                    <a href="#alamat-kantor" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.all') }}</a>
-                    </div>
-                </div>
-
-                <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link flex items-center space-x-1
-                        {{ request()->is('training/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>{{ __('nav.menu.training') }}</span>
-                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div x-show="open" 
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
-                         x-cloak>
-                    <a href="/training/silabus" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.syllabus') }}</a>
-                    <a href="/training/fasilitas" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.facilities') }}</a>
-                    <a href="/training/pendaftaran" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.register') }}</a>
-                    </div>
-                </div>
-                <a href="/kontak"class="nav-link transition
-                        {{ request()->is('kontak') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">{{ __('nav.menu.contact') }}</a>
-
-                @auth
-                    <div class="relative" x-data="{ userOpen: false }" @click.away="userOpen = false">
-                        <button @click="userOpen = !userOpen" class="flex items-center space-x-2.5 bg-slate-100 hover:bg-slate-200 border border-slate-200 py-1.5 px-3.5 rounded-xl transition duration-200 focus:outline-none normal-case tracking-normal">
-                            <div class="w-6 h-6 bg-red-800 text-white rounded-full flex items-center justify-center font-bold text-[10px] uppercase shadow-sm shrink-0">
-                                {{ substr(Auth::user()->name, 0, 2) }}
-                            </div>
-                            
-                            <div class="text-left leading-none">
-                                <span class="block text-xs font-black text-slate-800 truncate max-w-[100px]">{{ Auth::user()->name }}</span>
-                                <span class="block text-[8px] font-bold text-slate-400 uppercase tracking-widest mt-0.5">{{ Auth::user()->role ?? __('nav.auth.client') }}</span>
-                            </div>
-
-                            <svg class="w-3 h-3 text-slate-400 transition-transform duration-200 shadow-none" :class="userOpen ? 'transform rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
-                            </svg>
-                        </button>
-
-                        <div x-show="userOpen" 
-                             x-transition:enter="transition ease-out duration-100"
-                             x-transition:enter-start="opacity-0 scale-95"
-                             x-transition:enter-end="opacity-100 scale-100"
-                             x-transition:leave="transition ease-in duration-75"
-                             x-transition:leave-start="opacity-100 scale-100"
-                             x-transition:leave-end="opacity-0 scale-95"
-                             class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden py-1 z-50 normal-case font-semibold text-slate-700 tracking-normal" 
-                             x-cloak>
-                            
-                            <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="flex items-center space-x-2 px-4 py-2.5 text-xs hover:bg-slate-50 hover:text-red-800 transition">
-                                <span class="material-symbols-outlined text-slate-400 text-sm">dashboard</span>
-                                <span>__('nav.auth.dashboard')</span>
-                            </a>
-
-                            <hr class="border-slate-100 my-1">
-
-                            <form method="POST" action="{{ route('logout') }}">
-                                @csrf
-                                <button type="submit" class="w-full flex items-center space-x-2 px-4 py-2.5 text-xs text-red-700 font-bold hover:bg-red-50 text-left transition">
-                                    <span class="material-symbols-outlined text-red-600 text-sm">logout</span>
-                                    <span>{{ __('nav.auth.logout') }}</span>
-                                </button>
-                            </form>
-                        </div>
-                    </div>
-                @else
-                    <a href="{{ route('login') }}" class="bg-slate-900 text-white px-6 py-2.5 rounded shadow-lg hover:bg-red-800 transition-all duration-300 transform hover:-translate-y-0.5">
-                        {{ __('nav.auth.login') }}
-                    </a>
-                @endauth
-            </div>
-        </div>
-    </nav>
-
-    <div class="pt-[73px] lg:pt-[77px]">
+@include('partials.navbar')
 
     <!-- CONTENT WRAPPER -->
-<section class="bg-[#002d62] text-white py-24 md:py-28 px-6 tracking-tight text-center relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-    <div class="relative z-10" data-aos="zoom-in">
-        <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3 animate-pulse">Comprehensive 3D Geotechnical Analysis</span>
-        <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">PLAXIS 3D</h1>
-        <p class="text-slate-300 text-sm md:text-base mt-4 max-w-2xl mx-auto leading-relaxed">
-            Perangkat Lunak Elemen Hingga (Finite Element) Komprehensif untuk Desain dan Analisis Deformasi, Stabilitas Tanah, Batuan, serta Struktur Terkait dalam Ruang Tiga Dimensi.
-        </p>
-        <div class="w-16 h-1 bg-red-800 mx-auto mt-6 rounded-full"></div>
-
-        <div class="mt-8 flex justify-center" data-aos="fade-up" data-aos-delay="200">
-            <a href="{{ route('kontak', ['product' => 'plaxis-3d']) }}" 
-               class="w-full sm:w-auto inline-flex items-center justify-center bg-gradient-to-r from-red-800 to-red-700 hover:from-red-700 hover:to-red-600 text-white font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-[0_10px_30px_-5px_rgba(153,27,27,0.4)] hover:shadow-[0_15px_35px_-5px_rgba(153,27,27,0.6)] transition-all duration-300 transform hover:-translate-y-1 group">
-                <span class="material-symbols-outlined mr-2.5 text-lg transition-transform group-hover:scale-110">monetization_on</span> 
-                Minta Penawaran Harga
-            </a>
+<section class="relative bg-gradient-to-br from-slate-900 via-slate-950 to-blue-950 text-white py-20 lg:py-28 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        <div class="grid lg:grid-cols-12 gap-12 items-center">
+            <div class="lg:col-span-7 space-y-6" data-aos="fade-right">
+                <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">{{ __('p3d.hero_badge') }}</span>
+                <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none uppercase">
+                    PLAXIS <span class="text-blue-400">3D</span>
+                </h1>
+                <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed">
+                    {{ __('p3d.hero_description') }}
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#pricing" class="bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-400 transition shadow-lg shadow-blue-500/20">{{ __('p3d.btn_see_editions') }}</a>
+                    <a href="#" class="btn-product-action bg-transparent border border-slate-500 text-slate-300 px-6 py-3 rounded-md font-semibold hover:bg-slate-800 hover:text-white transition" data-variant="{{ __('p3d.btn_request_quote_variant') }}">{{ __('p3d.btn_request_quote') }}</a>
+                </div>
+            </div>
+            <div class="lg:col-span-5 relative" data-aos="zoom-in">
+                <div class="bg-slate-800/60 backdrop-blur-md p-6 rounded-xl border border-slate-700 shadow-2xl relative aspect-[4/3] flex flex-col justify-between">
+                    <div class="flex items-center justify-between border-b border-slate-700 pb-3">
+                        <div class="flex space-x-2">
+                            <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                            <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                        </div>
+                        <span class="text-xs text-slate-400 font-mono">{{ __('p3d.solver_status') }}</span>
+                    </div>
+                    <div class="flex-1 flex flex-col items-center justify-center text-center p-4">
+                        <i class="fa-solid fa-cubes text-6xl text-blue-400/40 mb-3 animate-pulse"></i>
+                        <p class="text-xs font-mono text-slate-400">{{ __('p3d.mesh_framework_status') }}</p>
+                    </div>
+                    <div class="bg-slate-900/80 p-3 rounded-lg border border-slate-700 text-xs font-mono text-slate-300 space-y-1">
+                        <p><span class="text-blue-400">></span> {{ __('p3d.staged_construction_ready') }}</p>
+                        <p><span class="text-blue-400">></span> {{ __('p3d.ses_connected') }}</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto py-24 px-6 grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-    <div data-aos="fade-right" class="space-y-6 text-slate-600 text-base leading-relaxed text-left">
-        <div>
-            <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-4 uppercase tracking-tight">
-                Apa Itu Plaxis 3D?
-            </h2>
-            <div class="w-12 h-1 bg-[#002d62] mb-6 rounded-full"></div>
-        </div>
-        
-        <p class="text-justify">
-            <strong>PLAXIS 3D</strong> adalah solusi komprehensif berbasis elemen hingga (*finite-element*/FE) tiga dimensi penuh yang dirancang khusus untuk desain dan analisis perilaku deformasi serta stabilitas tanah, batuan, dan struktur yang saling terikat. Dikembangkan oleh para pemimpin geoteknik dengan pengalaman lebih dari 50 tahun di bawah bendera <strong>Seequent (The Bentley Subsurface Company)</strong>, solusi ini membantu memitigasi risiko pada proyek rekayasa sipil dan mekanika batuan yang kompleks melalui simulasi yang aman dan efisien biaya.
-        </p>
-
-        <p class="text-justify">
-            Perangkat lunak ini memfasilitasi evaluasi tegangan dan perpindahan secara realistis melalui <em>Staged Construction Mode</em>. Fitur ini memungkinkan pengguna mensimulasikan proses konstruksi lapangan secara akurat dengan mengaktifkan atau menonaktifkan elemen struktur serta kluster tanah/batuan di setiap fase kalkulasi. Selain itu, pemodelan geometri 3D dipermudah lewat alat bantu gambar interaktif seperti opsi *extrude, intersect, combine, array,* hingga integrasi data multi-borehole untuk pembentukan model bawah permukaan dengan sangat cepat.
-        </p>
-        
-        <p class="bg-slate-50 p-5 rounded-xl border-l-4 border-[#002d62] italic text-sm text-slate-500 leading-relaxed">
-            Sebagai mitra resmi di Indonesia, <strong>PT GeoINHance Solusi Rekayasa</strong> berkomitmen menyediakan pengadaan lisensi original Seequent, pembaruan versi berkelanjutan, serta dukungan teknik profesional untuk mengoptimalkan akurasi desain proyek Anda.
-        </p>
-
-        <div class="grid grid-cols-2 gap-6 border-t border-slate-200 pt-6 text-left">
-            <div class="group cursor-pointer">
-                <span class="block text-lg md:text-xl font-black text-[#002d62] group-hover:text-red-800 transition duration-300 leading-snug">Full 3D Geometry Tools</span>
-                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-1 block">Extrude, Intersect, Combine, & Array</span>
+<section id="benefits" class="py-20 bg-white border-b border-gray-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid lg:grid-cols-12 gap-12 items-center mb-16">
+            <div class="lg:col-span-7 space-y-4" data-aos="fade-right">
+                <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl uppercase">{{ __('p3d.about_title') }}</h2>
+                <div class="w-12 h-1 bg-blue-600 rounded-full"></div>
+                <p class="text-gray-600 leading-relaxed text-justify">{{ __('p3d.about_p1') }}</p>
+                <p class="text-gray-600 leading-relaxed text-justify">{{ __('p3d.about_p2') }}</p>
+                <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 italic text-sm text-slate-500 leading-relaxed">
+                    {{ __('p3d.about_partner_note') }}
+                </div>
             </div>
-            <div class="group cursor-pointer">
-                <span class="block text-lg md:text-xl font-black text-[#002d62] group-hover:text-red-800 transition duration-300 leading-snug">Staged Construction</span>
-                <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400 mt-1 block">Simulasi Fase Konstruksi Riil</span>
+            <div class="lg:col-span-5 relative" data-aos="fade-left">
+                <div class="rounded-3xl overflow-hidden shadow-2xl relative border border-gray-200 bg-slate-900 group">
+                    <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800" alt="Plaxis 3D Modeling Work" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
+                    <div class="absolute inset-0 flex flex-col justify-end p-6 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent text-left">
+                        <span class="text-blue-400 font-bold uppercase text-[10px] tracking-widest mb-1">{{ __('p3d.card_mesh_tag') }}</span>
+                        <h4 class="text-white font-extrabold text-lg uppercase tracking-wide">{{ __('p3d.card_mesh_title') }}</h4>
+                        <p class="text-slate-300 text-xs mt-1 leading-relaxed">{{ __('p3d.card_mesh_desc') }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-8 border-t border-gray-100 pt-12" data-aos="fade-up">
+            <div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+                <div class="bg-blue-50 p-3 rounded-lg text-blue-600 w-12 h-12 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-cubes text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">{{ __('p3d.feature_1_title') }}</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-1">{{ __('p3d.feature_1_desc') }}</p>
+                </div>
+            </div>
+            <div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+                <div class="bg-blue-50 p-3 rounded-lg text-blue-600 w-12 h-12 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-timeline text-xl"></i>
+                </div>
+                <div>
+                    <h3 class="font-bold text-lg text-gray-900">{{ __('p3d.feature_2_title') }}</h3>
+                    <p class="text-sm text-gray-600 leading-relaxed mt-1">{{ __('p3d.feature_2_desc') }}</p>
+                </div>
             </div>
         </div>
     </div>
-    
-    <div class="relative group" data-aos="fade-left">
-        <div class="rounded-3xl overflow-hidden shadow-2xl relative z-10 border border-slate-200 bg-slate-900">
-            <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800" alt="Plaxis 3D Modeling Work" class="w-full h-[460px] object-cover group-hover:scale-105 group-hover:opacity-40 transition duration-700">
+</section>
+
+<section id="pricing" class="py-20 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="text-center max-w-3xl mx-auto mb-16 space-y-4" data-aos="fade-up">
+            <span class="text-blue-600 font-bold text-xs uppercase tracking-wider">{{ __('p3d.pricing_tag') }}</span>
+            <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl">{{ __('p3d.pricing_title') }}</h2>
+            <p class="text-gray-600">{{ __('p3d.pricing_desc') }}</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6 items-stretch">
             
-            <div class="absolute inset-0 flex flex-col justify-end p-8 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-20 bg-gradient-to-t from-slate-950/80 via-transparent to-transparent text-left">
-                <span class="text-red-500 font-bold uppercase text-[10px] tracking-widest mb-1">3D Mesh Generation</span>
-                <h4 class="text-white font-black text-xl uppercase tracking-wide">Jaring Elemen Otomatis</h4>
-                <p class="text-slate-300 text-xs mt-2 leading-relaxed">Pembuatan jaring elemen (*mesh*) regular, irregular, atau swept secara otomatis disertai fitur penghalusan manual/otomatis dan kemampuan penuh untuk memeriksa kualitas jaring elemen.</p>
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between hover:border-blue-300 transition" data-aos="fade-up" data-aos-delay="100">
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">{{ __('p3d.edition_1_title') }}</h3>
+                        <span class="text-[10px] text-blue-600 font-semibold uppercase tracking-wider">{{ __('p3d.edition_1_tag') }}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed">{{ __('p3d.edition_1_desc') }}</p>
+                </div>
+                <div class="pt-6">
+                    <a href="#" class="btn-product-action block text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition" data-variant="{{ __('p3d.edition_1_variant') }}">
+                        {{ __('p3d.btn_request_quote_short') }}
+                    </a>
+                </div>
             </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between hover:border-blue-300 transition" data-aos="fade-up" data-aos-delay="200">
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">{{ __('p3d.edition_2_title') }}</h3>
+                        <span class="text-[10px] text-blue-600 font-semibold uppercase tracking-wider">{{ __('p3d.edition_2_tag') }}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed">{{ __('p3d.edition_2_desc') }}</p>
+                    <hr class="border-gray-100">
+                    <ul class="text-[11px] text-gray-500 space-y-1.5 font-medium">
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-[9px]"></i> {{ __('p3d.feature_creep') }}</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-[9px]"></i> {{ __('p3d.feature_coupled_flow') }}</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-[9px]"></i> {{ __('p3d.feature_steady_groundwater') }}</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-500 text-[9px]"></i> {{ __('p3d.feature_thermal_flow') }}</li>
+                    </ul>
+                </div>
+                <div class="pt-6">
+                    <a href="#" class="btn-product-action block text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition" data-variant="{{ __('p3d.edition_2_variant') }}">
+                        {{ __('p3d.btn_request_quote_short') }}
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-slate-900 p-6 rounded-2xl border-2 border-blue-500 text-white flex flex-col justify-between relative shadow-xl shadow-blue-950/10" data-aos="fade-up" data-aos-delay="300">
+                <div class="absolute top-0 right-4 transform -translate-y-1/2 bg-blue-500 text-white text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full">
+                    {{ __('p3d.badge_popular') }}
+                </div>
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-bold text-lg text-white">{{ __('p3d.edition_3_title') }}</h3>
+                        <span class="text-[10px] text-blue-400 font-semibold uppercase tracking-wider">{{ __('p3d.edition_3_tag') }}</span>
+                    </div>
+                    <p class="text-xs text-slate-300 leading-relaxed">{{ __('p3d.edition_3_desc') }}</p>
+                    <hr class="border-slate-800">
+                    <ul class="text-[11px] text-slate-400 space-y-1.5 font-medium">
+                        <li class="flex items-center gap-2 text-slate-300"><i class="fa-solid fa-circle-check text-blue-400 text-[9px]"></i> {{ __('p3d.feature_all_advanced') }}</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-400 text-[9px]"></i> {{ __('p3d.feature_dynamic_earthquake') }}</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-400 text-[9px]"></i> {{ __('p3d.feature_transient_groundwater') }}</li>
+                        <li class="flex items-center gap-2"><i class="fa-solid fa-circle-check text-blue-400 text-[9px]"></i> {{ __('p3d.feature_transient_thermal') }}</li>
+                    </ul>
+                </div>
+                <div class="pt-6">
+                    <a href="#" class="btn-product-action block text-center py-2.5 bg-blue-500 hover:bg-blue-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition" data-variant="{{ __('p3d.edition_3_variant') }}">
+                        {{ __('p3d.btn_request_quote_short') }}
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white p-6 rounded-2xl border border-gray-200 shadow-sm flex flex-col justify-between hover:border-blue-300 transition" data-aos="fade-up" data-aos-delay="400">
+                <div class="space-y-4">
+                    <div>
+                        <h3 class="font-bold text-gray-900 text-lg">{{ __('p3d.edition_4_title') }}</h3>
+                        <span class="text-[10px] text-gray-400 font-bold uppercase tracking-wider block">{{ __('p3d.edition_4_tag') }}</span>
+                    </div>
+                    <p class="text-xs text-gray-600 leading-relaxed">{{ __('p3d.edition_4_desc') }}</p>
+                </div>
+                <div class="pt-6">
+                    <a href="#" class="btn-product-action block text-center py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition" data-variant="{{ __('p3d.edition_4_variant') }}">
+                        {{ __('p3d.btn_request_quote_short') }}
+                    </a>
+                </div>
+            </div>
+
         </div>
-        <div class="absolute -bottom-6 -right-6 w-48 h-48 bg-[#002d62]/10 rounded-full blur-2xl -z-10"></div>
     </div>
 </section>
 
-<section class="py-24 px-6 bg-slate-50 border-t border-b border-slate-200">
-    <div class="max-w-7xl mx-auto">
-        <div class="mb-12 text-center md:text-left">
-            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Product Variations</span>
-            <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Pilihan Edisi Lisensi PLAXIS 3D</h2>
-            <div class="w-12 h-1 bg-red-800 mt-3 rounded-full mx-auto md:mx-0"></div>
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
-                <div>
-                    <h3 class="font-black text-slate-900 text-lg mb-2">PLAXIS 3D</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed">
-                        Menyediakan fitur dasar esensial untuk analisis deformasi harian, stabilitas lereng, dan kalkulasi faktor keamanan (*Safety Analysis*) standar dalam ruang tiga dimensi.
-                    </p>
-                </div>
-                <a href="{{ route('kontak', ['product' => 'plaxis-3d']) }}" class="mt-8 block text-center py-2.5 bg-[#002d62] hover:bg-[#001f44] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition">Minta Penawaran</a>
-            </div>
-
-            <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
-                <div>
-                    <h3 class="font-black text-slate-900 text-lg mb-2">PLAXIS 3D Advanced</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                        Mencakup seluruh fitur edisi dasar ditambah fungsionalitas komputasi dan analisis tanah tingkat lanjut:
-                    </p>
-                    <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-3">
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Analisis Rayapan (*Creep*)</li>
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Kopling Aliran-Deformasi</li>
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Aliran Air Tanah Tunak (*Steady-State*)</li>
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Model Tanah & Batuan Lanjutan</li>
-                    </ul>
-                </div>
-                <a href="{{ route('kontak', ['product' => 'plaxis-3d-advanced']) }}" class="mt-8 block text-center py-2.5 bg-[#002d62] hover:bg-[#001f44] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition">Minta Penawaran</a>
-            </div>
-
-            <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
-                <div>
-                    <h3 class="font-black text-slate-900 text-lg mb-2 mt-1">PLAXIS 3D Ultimate</h3>
-                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                        Edisi terlengkap untuk simulasi kondisi lingkungan dinamis & beban eksternal ekstrem dalam model 3D penuh:
-                    </p>
-                    <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-3">
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Semua fitur edisi Advanced</li>
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Analisis Dinamis & Gempa</li>
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Aliran Air Tanah Transien</li>
-                        <li class="flex items-start"><span class="text-red-800 mr-2">•</span> Analisis Likuefaksi Komprehensif</li>
-                    </ul>
-                </div>
-                <a href="{{ route('kontak', ['product' => 'plaxis-3d-ultimate']) }}" class="mt-8 block text-center py-2.5 bg-gradient-to-r from-red-800 to-red-700 hover:from-red-700 hover:to-red-600 text-white text-xs font-bold uppercase tracking-wider rounded-xl transition shadow-sm">Minta Penawaran</a>
-            </div>
-
-            <div class="bg-white border border-slate-200 p-6 rounded-2xl flex flex-col justify-between shadow-sm hover:shadow-md transition">
-                <div>
-                    <h3 class="font-black text-slate-900 text-lg mb-1">GA 3D WorkSuite</h3>
-                    <span class="text-[10px] font-bold text-slate-400 block mb-2 uppercase tracking-wide">Integrated Bundle</span>
-                    <p class="text-sm text-slate-600 leading-relaxed mb-4">
-                        Paket terintegrasi penuh dari Seequent untuk menggabungkan kekuatan multi-software geoteknik dalam satu lisensi 3D.
-                    </p>
-                    <ul class="text-xs text-slate-500 space-y-2 border-t border-slate-100 pt-3">
-                        <li class="flex items-center"><span class="text-slate-400 mr-2">•</span> PLAXIS 3D Ultimate</li>
-                        <li class="flex items-center"><span class="text-slate-400 mr-2">•</span> GeoStudio 3D Ultimate</li>
-                    </ul>
-                </div>
-                <a href="{{ route('kontak', ['product' => 'geotechnical-analysis-3d-worksuite']) }}" class="mt-8 block text-center py-2.5 bg-[#002d62] hover:bg-[#001f44] text-white text-xs font-bold uppercase tracking-wider rounded-xl transition">Minta Penawaran</a>
-            </div>
-        </div>
+<section class="max-w-5xl mx-auto py-20 px-4 sm:px-6 lg:px-8 text-center" data-aos="fade-up">
+    <div class="max-w-3xl mx-auto mb-12 space-y-3">
+        <span class="text-blue-600 font-bold uppercase text-xs tracking-wider">{{ __('p3d.video_tag') }}</span>
+        <h2 class="text-3xl font-bold text-gray-900 tracking-tight">{{ __('p3d.video_title') }}</h2>
+        <p class="text-gray-500 text-sm leading-relaxed max-w-2xl mx-auto">{{ __('p3d.video_desc') }}</p>
+    </div>
+    <div class="relative rounded-2xl overflow-hidden shadow-2xl border border-gray-200 bg-slate-900 aspect-video w-full transition duration-500">
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" allowfullscreen></iframe>
     </div>
 </section>
 
-<section class="max-w-5xl mx-auto py-24 px-6 text-center" data-aos="fade-up">
-    <div class="max-w-2xl mx-auto mb-12">
-        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Product Showcase</span>
-        <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">Video Demonstrasi PLAXIS 3D</h2>
-        <div class="w-12 h-1 bg-red-800 mt-4 mx-auto rounded-full"></div>
-        <p class="text-slate-500 text-sm mt-4 leading-relaxed">
-            Tonton alur kerja pemodelan geoteknik 3D, otomatisasi pembuatan jaring elemen (*swept mesh generation*), hingga visualisasi interaktif dari analisis tegangan dan perpindahan tanah.
-        </p>
-    </div>
-    
-    <div class="relative rounded-3xl overflow-hidden shadow-2xl border border-slate-200 bg-slate-900 aspect-video w-full">
-        <iframe 
-            class="w-full h-full" 
-            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
-            title="PLAXIS 3D Geotechnical Software Demonstration" 
-            frameborder="0" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
-            allowfullscreen>
-        </iframe>
-    </div>
-</section>
-
-<section class="py-24 px-6 max-w-4xl mx-auto border-t border-slate-100">
-    <div class="mb-12 text-center">
-        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">Common Inquiries</span>
-        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">Frequently Asked Questions (FAQs)</h2>
-        <p class="text-slate-500 text-sm mt-2">Pertanyaan umum mengenai lisensi, spesifikasi sistem, dan kapabilitas PLAXIS 3D.</p>
+<section class="py-20 bg-white border-t border-gray-100 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
+    <div class="mb-12 text-center space-y-2" data-aos="fade-up">
+        <span class="text-blue-600 font-bold uppercase text-xs tracking-wider">{{ __('p3d.faq_tag') }}</span>
+        <h2 class="text-3xl font-bold text-gray-900 tracking-tight">{{ __('p3d.faq_title') }}</h2>
+        <p class="text-gray-500 text-sm">{{ __('p3d.faq_desc') }}</p>
     </div>
 
-    <div class="divide-y divide-slate-200 border-t border-b border-slate-200">
+    <div class="divide-y divide-gray-200 border-t border-b border-gray-200" data-aos="fade-up">
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>What is PLAXIS 3D?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_1_q') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <p class="text-slate-600 mt-4 text-sm md:text-base leading-relaxed text-justify">
-                PLAXIS 3D adalah paket program berbasis elemen hingga (*finite-element*/FE) tiga dimensi komprehensif yang dirancang khusus untuk menganalisis deformasi, stabilitas, dan aliran air tanah pada proyek rekayasa geoteknik dan mekanika batuan kompleks. Program ini diandalkan secara global untuk membuat pemodelan geometri 3D tingkat lanjut secara cepat dan otomatis.
-            </p>
+            <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify bg-slate-50 p-4 rounded-xl border border-slate-100">{{ __('p3d.faq_1_a') }}</p>
         </details>
-
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>What is PLAXIS 3D used for?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_2_q') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <p class="text-slate-600 mt-4 text-sm md:text-base leading-relaxed text-justify">
-                PLAXIS 3D digunakan untuk menyelesaikan berbagai tantangan analisis tanah kompleks, seperti kapasitas dukung dan penurunan fondasi gedung tinggi, tangki LNG, serta struktur jangkar isap lepas pantai (*offshore suction anchors*). Aplikasi ini juga unggul dalam pemodelan penurunan tanah akibat pembuatan terowongan, pertambangan terbuka, deformasi tanggul kereta api cepat, analisis stabilitas/rembesan bendungan, hingga evaluasi bahaya likuefaksi infrastruktur akibat gempa bumi.
-            </p>
+            <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify bg-slate-50 p-4 rounded-xl border border-slate-100">{{ __('p3d.faq_2_a') }}</p>
         </details>
-
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>What is the difference between the various PLAXIS 3D products?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_3_intro') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <div class="text-slate-600 mt-4 text-sm md:text-base leading-relaxed text-left space-y-3">
-                <p>Kapabilitas komputasi dibagi berdasarkan tingkatan edisi produk atau hak kepemilikan SELECT berikut:</p>
+            <div class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-left space-y-3 bg-slate-50 p-4 rounded-xl border border-slate-100">
                 <ul class="list-disc pl-5 space-y-2">
-                    <li><strong>PLAXIS 3D (Standard):</strong> Fitur esensial untuk pemodelan deformasi harian, stabilitas lereng, dan analisis faktor keamanan (*Safety analysis*).</li>
-                    <li><strong>PLAXIS 3D Advanced:</strong> Menambahkan fungsionalitas rayapan (*creep*), kopling aliran-deformasi (*coupled flow*), aliran air tanah tunak (*steady-state*), serta model material tanah tingkat lanjut.</li>
-                    <li><strong>PLAXIS 3D Ultimate:</strong> Edisi terlengkap yang membuka fitur komputasi analisis beban dinamis/gempa bumi, variasi level air tanah transien, likuefaksi, dan aliran panas transien.</li>
-                    <li><strong>Geotechnical Analysis 3D WorkSuite:</strong> Bundling lisensi komprehensif yang mengintegrasikan kapabilitas penuh PLAXIS 3D Ultimate bersama dengan GeoStudio 3D Ultimate.</li>
+                    <li>{{ __('p3d.faq_3_li1') }}</li>
+                    <li>{{ __('p3d.faq_3_li2') }}</li>
+                    <li>{{ __('p3d.faq_3_li3') }}</li>
+                    <li>{{ __('p3d.faq_3_li4') }}</li>
                 </ul>
             </div>
         </details>
-
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>What are the system requirements to run PLAXIS 3D?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_4_q') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <div class="text-slate-600 mt-4 text-sm leading-relaxed text-left space-y-4">
-                <p>Untuk memastikan proses komputasi elemen hingga 3D berjalan dengan lancar, berikut spesifikasi perangkat komputer yang dibutuhkan:</p>
+            <div class="text-gray-600 mt-4 text-sm leading-relaxed text-left space-y-4 bg-slate-50 p-4 rounded-xl border border-slate-100">
+                <p>{{ __('p3d.faq_4_intro') }}</p>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <strong class="text-red-800 block mb-2 text-xs uppercase tracking-wide">Spesifikasi Minimum:</strong>
-                        <ul class="list-disc pl-4 space-y-1 text-slate-500 text-xs">
-                            <li><strong>CPU:</strong> Dual-core CPU</li>
-                            <li><strong>OS:</strong> Windows 10 Pro (64-bit) atau Windows 11 Pro</li>
-                            <li><strong>RAM:</strong> 4 GB RAM</li>
-                            <li><strong>Storage:</strong> 2 GB ruang hard disk kosong</li>
-                            <li><strong>GPU:</strong> GPU dengan 256 MB OpenGL 1.3</li>
-                            <li><strong>Display:</strong> Resolusi layar 1280 x 800 px atau lebih baik</li>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                        <strong class="text-gray-900 block mb-2 text-xs uppercase tracking-wide">{{ __('p3d.faq_4_min_title') }}</strong>
+                        <ul class="list-disc pl-4 space-y-1 text-gray-500 text-xs">
+                            <li>{{ __('p3d.faq_4_min_cpu') }}</li>
+                            <li>{{ __('p3d.faq_4_min_os') }}</li>
+                            <li>{{ __('p3d.faq_4_min_ram') }}</li>
+                            <li>{{ __('p3d.faq_4_min_storage') }}</li>
+                            <li>{{ __('p3d.faq_4_min_gpu') }}</li>
+                            <li>{{ __('p3d.faq_4_min_display') }}</li>
                         </ul>
                     </div>
-                    <div class="bg-slate-50 p-4 rounded-xl border border-slate-100">
-                        <strong class="text-[#002d62] block mb-2 text-xs uppercase tracking-wide">Spesifikasi Rekomendasi:</strong>
-                        <ul class="list-disc pl-4 space-y-1 text-slate-500 text-xs">
-                            <li><strong>CPU:</strong> Quad-core CPU</li>
-                            <li><strong>RAM:</strong> 8 GB RAM</li>
-                            <li><strong>GPU:</strong> Discrete GPU dari seri Nvidia GeForce atau Quadro (VRAM minimal 1 GB & bus 128-bit), atau solusi ATI/AMD yang setara</li>
-                            <li><strong>Display:</strong> Resolusi layar optimal 1920 x 1080 px</li>
+                    <div class="bg-white p-4 rounded-xl border border-gray-100 shadow-sm">
+                        <strong class="text-blue-600 block mb-2 text-xs uppercase tracking-wide">{{ __('p3d.faq_4_rec_title') }}</strong>
+                        <ul class="list-disc pl-4 space-y-1 text-gray-500 text-xs">
+                            <li>{{ __('p3d.faq_4_rec_cpu') }}</li>
+                            <li>{{ __('p3d.faq_4_rec_ram') }}</li>
+                            <li>{{ __('p3d.faq_4_rec_gpu') }}</li>
+                            <li>{{ __('p3d.faq_4_rec_display') }}</li>
                         </ul>
                     </div>
                 </div>
             </div>
         </details>
-
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>How is PLAXIS 3D licensing and activation managed?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_5_q') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <p class="text-slate-600 mt-4 text-sm md:text-base leading-relaxed text-justify">
-                Aktivasi PLAXIS 3D menggunakan teknologi berbasis cloud dari Bentley yang dinamakan <strong>Subscription Entitlement Service (SES)</strong>. Sistem ini memberikan ID universal untuk menghubungkan seluruh aktivitas dalam aplikasi Bentley Anda. Manajemen hak lisensi dikelola langsung pada tingkat pengguna (*user level*) sehingga **tidak lagi memerlukan kunci aktivasi manual atau dongle fisik (hardware dongles)**. Pengguna juga mendapatkan kemudahan akses langsung ke materi belajar personal, pembaruan produk otomatis, serta notifikasi rilis berkala.
-            </p>
+            <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify bg-slate-50 p-4 rounded-xl border border-slate-100">{{ __('p3d.faq_5_a') }}</p>
         </details>
-
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>Who develops PLAXIS 3D and what calculation method does it use?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_6_q') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <p class="text-slate-600 mt-4 text-sm md:text-base leading-relaxed text-justify">
-                PLAXIS 3D dikembangkan secara resmi oleh <strong>Seequent (The Bentley Subsurface Company)</strong>. Perangkat lunak ini didukung penuh oleh prosedur kalkulasi berbasis <strong>Finite Element Method (FEM)</strong> tiga dimensi yang kokoh dan terbukti di industri. Menggunakan komputasi *multicore* dan arsitektur 64-bit, prosedur hitungnya menjamin konvergensi yang cepat dan andal untuk pemodelan penurunan (*settlement*), aliran air tanah, maupun dinamika tanah yang rumit.
-            </p>
+            <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify bg-slate-50 p-4 rounded-xl border border-slate-100">{{ __('p3d.faq_6_a') }}</p>
         </details>
-
         <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-            <summary class="flex justify-between items-center font-bold text-slate-900 cursor-pointer list-none text-base md:text-lg hover:text-[#002d62] transition">
-                <span>Where can I get PLAXIS 3D training or professional support in Indonesia?</span>
-                <span class="transition group-open:rotate-180 text-slate-400">
-                    <svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg>
-                </span>
+            <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                <span>{{ __('p3d.faq_7_q') }}</span>
+                <span class="transition group-open:rotate-180 text-gray-400"><svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="22"><path d="M6 9l6 6 6-6"></path></svg></span>
             </summary>
-            <p class="text-slate-600 mt-4 text-sm md:text-base leading-relaxed text-justify">
-                Sebagai *channel partner* resmi Seequent di Indonesia, <strong>PT GeoINHance Solusi Rekayasa</strong> menyediakan layanan komprehensif yang mencakup pengadaan lisensi original Seequent, pembaruan versi berkelanjutan (*SELECT entitlement*), bantuan kendala teknis pemodelan 3D, hingga program pelatihan (*training course*) geoteknik bersertifikat resmi untuk mengoptimalkan akurasi desain proyek Anda.
-            </p>
+            <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify bg-slate-50 p-4 rounded-xl border border-slate-100">{{ __('p3d.faq_7_a') }}</p>
         </details>
     </div>
 </section>
 
-<section class="bg-[#002d62] text-white py-16 px-6 text-center relative overflow-hidden border-t border-slate-800">
-    <div class="absolute -right-24 -bottom-24 w-72 h-72 bg-red-800 rounded-full blur-3xl opacity-20"></div>
-    <div class="relative z-10 max-w-2xl mx-auto" data-aos="fade-up">
-        <h3 class="text-2xl md:text-3xl font-black uppercase mb-4 tracking-tight">Implementasikan Pemodelan PLAXIS 3D Sekarang</h3>
-        <p class="text-slate-300 text-sm mb-8 leading-relaxed">
-            Tingkatkan efisiensi analisis infrastruktur Anda dengan akurasi elemen hingga tiga dimensi yang teruji. Konsultasikan skema lisensi tahunan korporasi atau paket edukasi instansi bersama tim teknis kami.
-        </p>
-        <div class="flex flex-wrap justify-center gap-4">
+<section class="py-16 bg-slate-900 text-white px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">
+    <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:24px_24px]"></div>
+    <div class="relative z-10 max-w-3xl mx-auto space-y-6" data-aos="fade-up">
+        <h3 class="text-2xl md:text-3xl font-bold uppercase tracking-tight">{{ __('p3d.contact_title') }}</h3>
+        <p class="text-slate-400 text-sm max-w-2xl mx-auto leading-relaxed">{{ __('p3d.contact_desc') }}</p>
+        <div class="flex flex-col sm:flex-row justify-center items-center gap-4 pt-4">
             <a href="https://wa.me/6285190441744" target="_blank" 
-               class="w-full sm:w-auto inline-flex items-center justify-center bg-slate-900/60 hover:bg-slate-900 border border-slate-700 hover:border-emerald-500 text-slate-200 hover:text-white font-bold text-xs uppercase tracking-widest px-8 py-4 rounded-xl shadow-lg transition-all duration-300 transform hover:-translate-y-1 group">
-                <i class="fab fa-whatsapp mr-2.5 text-base text-emerald-500 group-hover:animate-bounce"></i> 
-                Hubungi via WhatsApp
+               class="btn-product-action w-full sm:w-auto inline-flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white font-semibold px-8 py-3 rounded-md transition shadow-lg shadow-blue-600/20 group"
+               data-variant="{{ __('p3d.btn_whatsapp_variant') }}">
+                <i class="fab fa-whatsapp mr-2 text-base text-white"></i> 
+                {{ __('p3d.btn_whatsapp') }}
             </a>
         </div>
     </div>
 </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    
+    // Check status login via session Laravel Auth directive
+    const isUserLoggedIn = {{ Auth::check() ? 'true' : 'false' }};
+    
+    // Ambil semua elemen dengan class pengaman aksi penawaran/beli
+    const actionButtons = document.querySelectorAll('.btn-product-action');
+
+    actionButtons.forEach(button => {
+        button.addEventListener('click', function(event) {
+            
+            // Jika status user adalah Visitor (Belum Login)
+            if (!isUserLoggedIn) {
+                // Intersept trigger navigasi bawaan elemen HTML atau link external
+                event.preventDefault();
+                event.stopPropagation();
+                
+                // Track data internal untuk debugging orientasi variant produk
+                const chosenVariant = this.getAttribute('data-variant');
+                console.log(`[Intercept Mode] Visitor ditahan mendownload/mengakses variant: ${chosenVariant}`);
+                
+                // Alihkan visitor langsung ke halaman login aplikasi
+                window.location.href = "{{ route('login') }}";
+            }
+        });
+    });
+});
+</script>
 
     <!-- FOOTER -->
-    <footer class="bg-slate-900 text-slate-400 text-xs py-12 px-6 md:px-16 border-t border-slate-800">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
-                <div class="col-span-1 md:col-span-2">
-                    <div class="flex items-center mb-6">
-                        <div class="bg-red-800 p-2 rounded-lg mr-3">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <span class="font-black text-2xl tracking-tighter uppercase">Geo<span class="text-red-800">INHance</span></span>
-                    </div>
-                    <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
-                        Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.
-                    </p>
-                    <div class="flex space-x-4">
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="w-10 h-10 bg-white/5 rounded-full flex items-center justify-center hover:bg-red-800 transition"><i class="fab fa-instagram"></i></a>
-                    </div>
-                </div>
-
-            <div>
-                <h4 class="text-white font-bold uppercase tracking-wider mb-3">Produk Utama</h4>
-                <ul class="space-y-2">
-                    <li><a href="{{ route('product.plaxis2d') }}" class="hover:text-red-500 transition">PLAXIS 2D</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">PLAXIS 3D</a></li>
-                    <li><a href="#" class="hover:text-red-500 transition">Geogrid Systems</a></li>
-                </ul>
-            </div>
-            <div>
-                    <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">Kantor Pusat</h4>
-                    <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                        Menara Sentraya Lt. 11 Unit A4, <br>
-                        Jl. Iskandarsyah Raya, Jakarta Selatan.
-                    </p>
-                    <p class="text-slate-400 text-sm mb-2">P: +62 851-9044-1744</p>
-                    <p class="text-slate-400 text-sm text-red-500 font-bold">E: info@geoinhance.com</p>
-                </div>
-            </div>
-            
-            <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
-                <p>© 1945 PT GeoINHance Solusi Rekayasa. All rights reserved.</p>
-                <div class="flex gap-4">
-                    <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">Privacy Policy</a>
-                    <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">Terms of Service</a>
-                </div>
-            </div>
-    </footer>
+@include('partials.footer')
 
     <!-- SCRIPT AKTIVASI -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>

@@ -53,7 +53,10 @@ Route::get('/product/geostudio-flow', function () { return view('products.geostu
 |--------------------------------------------------------------------------
 */
 Route::prefix('sektor')->group(function () {
-    Route::view('/infrastruktur-transportasi', 'sektor.infrastruktur-transportasi')->name('sektor.infrastruktur');
+    Route::view(
+    '/infrastruktur-transportasi',
+    'sektor.infrastruktur-transportasi'
+)->name('sektor.infrastruktur-transportasi');
     // PERBAIKAN: Menghapus redundansi prefix /sektor/sektor
     Route::get('/semua-sektor', [SektorController::class, 'semuaSektor'])->name('sektor.semua-sektor');
         Route::view(
@@ -68,7 +71,36 @@ Route::view(
     '/sektor/pembangkit-energi',
     'sektor.pembangkit-energi'
 )->name('sektor.pembangkit-energi');
+Route::view(
+    '/infrastruktur-air',
+    'sektor.infrastruktur-air'
+)->name('sektor.infrastruktur-air');
+Route::view(
+    '/minyak-bumi-gas',
+    'sektor.minyak-bumi-gas'
+)->name('sektor.minyak-bumi-gas');
+Route::view(
+    '/kawasan-industri',
+    'sektor.kawasan-industri'
+)->name('sektor.kawasan-industri');
+Route::view(
+    '/infrastruktur-jalan',
+    'sektor.infrastruktur-jalan'
+)->name('sektor.infrastruktur-jalan');
+Route::view(
+    '/jalur-kereta-api',
+    'sektor.jalur-kereta-api'
+)->name('sektor.jalur-kereta-api');
+Route::view(
+    '/kawasan-bandar-udara',
+    'sektor.kawasan-bandar-udara'
+)->name('sektor.kawasan-bandar-udara');
+Route::view(
+    '/fasilitas-pendidikan',
+    'sektor.fasilitas-pendidikan'
+)->name('sektor.fasilitas-pendidikan');
 });
+
 
 /*
 |--------------------------------------------------------------------------

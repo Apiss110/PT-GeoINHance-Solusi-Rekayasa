@@ -15,7 +15,7 @@ class ProyekController extends Controller
     {
         $projects = StrategicProject::latest()->paginate(6);
         // Diselaraskan dengan folder aslinya di: resources/views/pages/proyek/semua-proyek.blade.php
-        return view('pages.proyek.semua-proyek', compact('projects'));
+        return view('proyek.semua-proyek', compact('projects'));
     }
 
     /**
