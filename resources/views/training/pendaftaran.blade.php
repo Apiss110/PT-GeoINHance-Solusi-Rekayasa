@@ -74,226 +74,195 @@
 @include('partials.navbar')
 
     <!-- HERO -->
-    <section class="bg-[#002d62] text-white py-24 px-6 text-center relative overflow-hidden">
+<section class="bg-[#002d62] text-white py-24 px-6 text-center relative overflow-hidden">
 
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
 
-        <div class="relative z-10 max-w-4xl mx-auto" data-aos="zoom-in">
+    <div class="relative z-10 max-w-4xl mx-auto" data-aos="zoom-in">
 
-            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
-                GeoINHance Professional Training
+        <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
+            {{ __('register.hero_badge') }}
+        </span>
+
+        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight">
+            {{ __('register.hero_title_1') }} <br>
+            {{ __('register.hero_title_2') }}
+        </h1>
+
+        <p class="text-slate-300 mt-6 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+            {{ __('register.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+<section class="max-w-7xl mx-auto py-24 px-6">
+
+    <div class="text-center mb-20" data-aos="fade-up">
+
+        <span class="inline-block px-5 py-2 rounded-full border border-red-100 bg-red-50 text-red-800 text-xs font-extrabold uppercase tracking-[0.35em] shadow-sm">
+            {{ __('register.prog_badge') }}
+        </span>
+
+        <h2 class="mt-6 text-4xl md:text-5xl font-black uppercase text-slate-900 leading-tight">
+            {{ __('register.prog_title_1') }}
+            <span class="text-red-800">
+                {{ __('register.prog_title_2') }}
             </span>
+        </h2>
 
-            <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight">
-                Pendaftaran <br>
-                Training Engineering
-            </h1>
+        <p class="max-w-2xl mx-auto mt-6 text-lg leading-8 text-slate-500">
+            {{ __('register.prog_desc') }}
+        </p>
 
-            <p class="text-slate-300 mt-6 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
-                Tingkatkan kompetensi profesional Anda melalui program pelatihan geoteknik,
-                FEM analysis, PLAXIS, dan engineering design bersama tim praktisi berpengalaman.
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+            <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+                <span class="material-symbols-outlined text-[60px] text-white">
+                    engineering
+                </span>
+            </div>
+
+            <h3 class="mb-4 text-2xl font-black text-slate-900">
+                {{ __('register.card1_title') }}
+            </h3>
+
+            <p class="leading-8 text-slate-500 mb-6">
+                {{ __('register.card1_desc') }}
             </p>
+
+            <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
+                {{ __('register.card1_level') }}
+            </span>
 
         </div>
 
-    </section>
+        <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
 
-    <!-- TRAINING PROGRAM -->
-    <section class="max-w-7xl mx-auto py-24 px-6">
+            <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+                <span class="material-symbols-outlined text-[60px] text-white">
+                    dataset
+                </span>
+            </div>
 
-        <!-- HEADER -->
-        <div class="text-center mb-20" data-aos="fade-up">
+            <h3 class="mb-4 text-2xl font-black text-slate-900">
+                {{ __('register.card2_title') }}
+            </h3>
 
-            <span class="inline-block px-5 py-2 rounded-full border border-red-100 bg-red-50 text-red-800 text-xs font-extrabold uppercase tracking-[0.35em] shadow-sm">
-                Available Program
+            <p class="leading-8 text-slate-500 mb-6">
+                {{ __('register.card2_desc') }}
+            </p>
+
+            <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
+                {{ __('register.card2_level') }}
             </span>
 
-            <h2 class="mt-6 text-4xl md:text-5xl font-black uppercase text-slate-900 leading-tight">
-                Program
-                <span class="text-red-800">
-                    Training
+        </div>
+
+        <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
+
+            <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
+                <span class="material-symbols-outlined text-[60px] text-white">
+                    school
                 </span>
+            </div>
+
+            <h3 class="mb-4 text-2xl font-black text-slate-900">
+                {{ __('register.card3_title') }}
+            </h3>
+
+            <p class="leading-8 text-slate-500 mb-6">
+                {{ __('register.card3_desc') }}
+            </p>
+
+            <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
+                {{ __('register.card3_level') }}
+            </span>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section class="bg-slate-100 py-24 px-6 border-t border-slate-200">
+
+    <div class="max-w-4xl mx-auto bg-white rounded-[2rem] border border-slate-200 shadow-sm p-10 md:p-14">
+
+        <div class="mb-12 text-center">
+
+            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
+                {{ __('register.form_badge') }}
+            </span>
+
+            <h2 class="text-4xl font-black uppercase text-slate-900">
+                {{ __('register.form_title') }}
             </h2>
 
-            <p class="max-w-2xl mx-auto mt-6 text-lg leading-8 text-slate-500">
-                Program pelatihan profesional dengan pendekatan industri nyata,
-                studi kasus lapangan, dan simulasi engineering modern.
-            </p>
-
         </div>
 
-        <!-- CARD GRID -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
 
-            <!-- CARD -->
-            <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-                <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
-
-                    <span class="material-symbols-outlined text-[60px] text-white">
-                        engineering
-                    </span>
-
-                </div>
-
-                <h3 class="mb-4 text-2xl font-black text-slate-900">
-                    PLAXIS 2D
-                </h3>
-
-                <p class="leading-8 text-slate-500 mb-6">
-                    Training pemodelan geoteknik 2D untuk analisis stabilitas lereng,
-                    fondasi, retaining wall, dan deformasi tanah.
-                </p>
-
-                <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
-                    Beginner to Intermediate
-                </span>
-
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    {{ __('register.label_name') }}
+                </label>
+                <input type="text"
+                       class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
             </div>
 
-            <!-- CARD -->
-            <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-                <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
-
-                    <span class="material-symbols-outlined text-[60px] text-white">
-                        dataset
-                    </span>
-
-                </div>
-
-                <h3 class="mb-4 text-2xl font-black text-slate-900">
-                    PLAXIS 3D
-                </h3>
-
-                <p class="leading-8 text-slate-500 mb-6">
-                    Simulasi geoteknik 3D lanjutan untuk tunnel, pile group,
-                    excavation, dan analisis konstruksi kompleks.
-                </p>
-
-                <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
-                    Advanced Program
-                </span>
-
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    {{ __('register.label_email') }}
+                </label>
+                <input type="email"
+                       class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
             </div>
 
-            <!-- CARD -->
-            <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-                <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
-
-                    <span class="material-symbols-outlined text-[60px] text-white">
-                        school
-                    </span>
-
-                </div>
-
-                <h3 class="mb-4 text-2xl font-black text-slate-900">
-                    Geotechnical Workshop
-                </h3>
-
-                <p class="leading-8 text-slate-500 mb-6">
-                    Workshop intensif engineering design dan interpretasi hasil FEM
-                    berdasarkan studi kasus proyek nyata Indonesia.
-                </p>
-
-                <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
-                    Professional Class
-                </span>
-
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    {{ __('register.label_company') }}
+                </label>
+                <input type="text"
+                       class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
             </div>
 
-        </div>
-
-    </section>
-
-    <!-- FORM -->
-    <section class="bg-slate-100 py-24 px-6 border-t border-slate-200">
-
-        <div class="max-w-4xl mx-auto bg-white rounded-[2rem] border border-slate-200 shadow-sm p-10 md:p-14">
-
-            <div class="mb-12 text-center">
-
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
-                    Registration Form
-                </span>
-
-                <h2 class="text-4xl font-black uppercase text-slate-900">
-                    Daftar Sekarang
-                </h2>
-
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    {{ __('register.label_select') }}
+                </label>
+                <select class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
+                    <option>{{ __('register.card1_title') }}</option>
+                    <option>{{ __('register.card2_title') }}</option>
+                    <option>{{ __('register.card3_title') }}</option>
+                </select>
             </div>
 
-            <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div class="md:col-span-2">
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    {{ __('register.label_message') }}
+                </label>
+                <textarea rows="5"
+                          class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800"></textarea>
+            </div>
 
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                        Nama Lengkap
-                    </label>
+            <div class="md:col-span-2 text-center mt-4">
+                <button type="submit"
+                        class="bg-red-800 hover:bg-red-700 text-white font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
+                    {{ __('register.btn_submit') }}
+                </button>
+            </div>
 
-                    <input type="text"
-                           class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
-                </div>
+        </form>
 
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                        Email
-                    </label>
+    </div>
 
-                    <input type="email"
-                           class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                        Perusahaan / Institusi
-                    </label>
-
-                    <input type="text"
-                           class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                        Pilih Training
-                    </label>
-
-                    <select class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
-
-                        <option>PLAXIS 2D</option>
-                        <option>PLAXIS 3D</option>
-                        <option>Geotechnical Workshop</option>
-
-                    </select>
-                </div>
-
-                <div class="md:col-span-2">
-
-                    <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                        Pesan Tambahan
-                    </label>
-
-                    <textarea rows="5"
-                              class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800"></textarea>
-
-                </div>
-
-                <div class="md:col-span-2 text-center mt-4">
-
-                    <button type="submit"
-                            class="bg-red-800 hover:bg-red-700 text-white font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
-
-                        Kirim Pendaftaran
-
-                    </button>
-
-                </div>
-
-            </form>
-
-        </div>
-
-    </section>
+</section>
 
 </div>
 

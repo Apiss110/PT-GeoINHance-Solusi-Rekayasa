@@ -42,117 +42,109 @@
     </div>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Energy Engineering
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-yellow-500/10 border border-yellow-500/20 text-yellow-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('energy.hero_sector') }}
+        </span>
+
+        <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
+            {{ __('energy.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('energy.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('energy.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- FILTER --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('energy.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="powerplant">
+                {{ __('energy.filter_powerplant') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-72">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-                Pembangkit
-                <span class="text-red-500">
-                    Energi
-                </span>
-            </h1>
-
-            <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Solusi rekayasa geoteknik dan engineering
-                untuk pembangunan fasilitas pembangkit energi,
-                power plant, serta infrastruktur industri strategis.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('energy.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- PROJECT GRID --}}
+<section class="py-20">
 
-            {{-- FILTER --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-6">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="powerplant">
-                    Power Plant
-                </button>
+            {{-- PROJECT --}}
+            <div class="project-item"
+                 data-name="pltu timor-1"
+                 data-category="powerplant">
 
-            </div>
+                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-72">
+                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+                        <i class="fa-solid fa-bolt text-[90px] text-yellow-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari proyek..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
+                        <span class="absolute bottom-4 left-4 bg-yellow-600 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('energy.card_badge') }}
+                        </span>
 
-            </div>
+                    </div>
 
-        </div>
+                    <div class="p-7">
 
-    </section>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('energy.card_title') }}
+                        </h3>
 
-    {{-- PROJECT GRID --}}
-    <section class="py-20">
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('energy.card_desc') }}
+                        </p>
 
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                {{-- PROJECT --}}
-                <div class="project-item"
-                     data-name="pltu timor-1"
-                     data-category="powerplant">
-
-                    <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-bolt text-[90px] text-yellow-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-yellow-600 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Power Plant
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                PLTU Timor-1
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis geoteknik dan engineering
-                                untuk pembangunan fasilitas PLTU Timor-1,
-                                termasuk pondasi struktur utama,
-                                settlement analysis,
-                                dan evaluasi stabilitas tanah.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('energy.btn_view_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
@@ -162,7 +154,9 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')

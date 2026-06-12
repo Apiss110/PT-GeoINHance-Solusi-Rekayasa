@@ -47,161 +47,153 @@
     </header>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Underground Engineering
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('underground.hero_sector') }}
+        </span>
+
+        <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
+            {{ __('underground.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('underground.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('underground.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- FILTER --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('underground.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="excavation">
+                {{ __('underground.filter_excavation') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="tunnel">
+                {{ __('underground.filter_tunnel') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-72">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-                Rekayasa
-                <span class="text-red-500">
-                    Bawah Tanah
-                </span>
-            </h1>
-
-            <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Solusi engineering bawah tanah untuk tunnel,
-                deep excavation, retaining system,
-                dan pembangunan infrastruktur perkotaan modern.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('underground.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- PROJECT --}}
+<section class="py-20">
 
-            {{-- FILTER --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-6">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="excavation">
-                    Excavation
-                </button>
+            {{-- PROJECT 1 --}}
+            <div class="project-item"
+                 data-name="deep excavation tol hbr 2"
+                 data-category="excavation">
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="tunnel">
-                    Tunnel
-                </button>
+                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-            </div>
+                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-72">
+                        <i class="fa-solid fa-person-digging text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+                        <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('underground.badge_excavation') }}
+                        </span>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari proyek..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
+                    </div>
 
-            </div>
+                    <div class="p-7">
 
-        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('underground.project_1_title') }}
+                        </h3>
 
-    </section>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('underground.project_1_desc') }}
+                        </p>
 
-    {{-- PROJECT --}}
-    <section class="py-20">
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                {{-- PROJECT 1 --}}
-                <div class="project-item"
-                     data-name="deep excavation tol hbr 2"
-                     data-category="excavation">
-
-                    <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-person-digging text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Excavation
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Deep Excavation Tol HBR 2
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis stabilitas deep excavation,
-                                retaining wall, dan deformasi tanah
-                                pada pembangunan jalan tol HBR 2.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('underground.btn_view_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- PROJECT 2 --}}
-                <div class="project-item"
-                     data-name="tunnel jacking underpass tatakan"
-                     data-category="tunnel">
+            </div>
 
-                    <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- PROJECT 2 --}}
+            <div class="project-item"
+                 data-name="tunnel jacking underpass tatakan"
+                 data-category="tunnel">
 
-                        <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
+                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-road-circle-exclamation text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Tunnel
-                            </span>
+                        <i class="fa-solid fa-road-circle-exclamation text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('underground.badge_tunnel') }}
+                        </span>
 
-                        <div class="p-7">
+                    </div>
 
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Tunnel Jacking Underpass Tatakan
-                            </h3>
+                    <div class="p-7">
 
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Numerical analysis dan tunnel jacking
-                                untuk pembangunan underpass Tatakan
-                                dengan metode konstruksi bawah tanah modern.
-                            </p>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('underground.project_2_title') }}
+                        </h3>
 
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('underground.project_2_desc') }}
+                        </p>
 
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('underground.btn_view_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
@@ -211,8 +203,9 @@
 
         </div>
 
-    </section>
+    </div>
 
+</section>
     {{-- FOOTER --}}
     @include('partials.footer')
 

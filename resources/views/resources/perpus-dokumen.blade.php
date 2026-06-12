@@ -79,14 +79,16 @@
     
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <nav class="flex mb-4 text-sm text-slate-400 font-medium">
-            <span class="text-slate-500">Resources</span>
+            <span class="text-slate-500">{{ __('library.breadcrumb_resources') }}</span>
             <span class="mx-2">/</span>
-            <span class="text-blue-400">Dokumen Perpustakaan</span>
+            <span class="text-blue-400">{{ __('library.breadcrumb_library') }}</span>
         </nav>
         
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">Dokumen Perpustakaan</h1>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
+            {{ __('library.hero_title') }}
+        </h1>
         <p class="mt-3 text-base text-slate-300 max-w-3xl leading-relaxed">
-            Pusat unduhan dokumen teknis, laporan analisis, gambar rencana, dan spesifikasi material dari berbagai proyek infrastruktur dan simulasi geoteknik/struktural.
+            {{ __('library.hero_desc') }}
         </p>
     </div>
 </section>
@@ -98,30 +100,36 @@
             <form id="filterFormLibrary" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
                 
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Cari Dokumen</label>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        {{ __('library.label_search') }}
+                    </label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
                             <i class="fa-solid fa-magnifying-glass text-xs"></i>
                         </span>
-                        <input type="text" id="inputNamaLibrary" placeholder="Ketik nama proyek atau dokumen..." 
+                        <input type="text" id="inputNamaLibrary" placeholder="{{ __('library.placeholder_search') }}" 
                                class="w-full bg-slate-50 border border-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition">
                     </div>
                 </div>
 
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Kategori</label>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        {{ __('library.label_category') }}
+                    </label>
                     <select id="selectKategoriLibrary" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
-                        <option value="">Kategori</option>
-                        <option value="laporan-teknis">Laporan Teknis / Analisis</option>
-                        <option value="gambar-kerja">Gambar Rencana / CAD</option>
-                        <option value="spesifikasi">Spesifikasi Material</option>
+                        <option value="">{{ __('library.option_category_default') }}</option>
+                        <option value="laporan-teknis">{{ __('library.option_cat_report') }}</option>
+                        <option value="gambar-kerja">{{ __('library.option_cat_cad') }}</option>
+                        <option value="spesifikasi">{{ __('library.option_cat_spec') }}</option>
                     </select>
                 </div>
 
                 <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">Tahun Terbit</label>
+                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
+                        {{ __('library.label_year') }}
+                    </label>
                     <select id="selectTahunLibrary" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
-                        <option value="">Semua Tahun</option>
+                        <option value="">{{ __('library.option_all_years') }}</option>
                         <option value="2025">2025</option>
                         <option value="2024">2024</option>
                         <option value="2023">2023</option>
@@ -130,7 +138,7 @@
 
                 <div>
                     <button type="submit" class="w-full bg-slate-900 hover:bg-blue-700 text-white font-bold text-xs tracking-widest py-2.5 rounded-lg transition duration-200 shadow-sm uppercase text-center flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-sliders text-[10px]"></i> Saring Dokumen
+                        <i class="fa-solid fa-sliders text-[10px]"></i> {{ __('library.btn_filter') }}
                     </button>
                 </div>
             </form>
@@ -138,14 +146,15 @@
 
         <div class="mb-8 flex justify-between items-center border-b border-gray-200 pb-4">
             <span class="text-sm text-slate-600 font-medium">
-                Arsip File Digital <strong class="text-slate-900">Perpustakaan</strong>
+                {{ __('library.archive_title') }} <strong class="text-slate-900">{{ __('library.archive_subtitle') }}</strong>
             </span>
         </div>
 
         <div id="libraryGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             
+            {{-- CARD 1 --}}
             <div class="doc-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="laporan analisis stabilitas lereng soil nailing jalan tol purwakarta"
+                 data-nama="{{ strtolower(__('library.card1_search')) }}"
                  data-kategori="laporan-teknis"
                  data-tahun="2024">
                 <div>
@@ -158,22 +167,23 @@
                         </span>
                     </div>
                     <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                        Laporan Analisis Stabilitas Lereng & Desain Perkuatan Soil Nailing - Tol Purwakarta
+                        {{ __('library.card1_title') }}
                     </h3>
                     <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                        Dokumen komprehensif mengenai kalkulasi angka keamanan (FoS) struktur eksisting serta detail engineering desain angkur penahan tanah.
+                        {{ __('library.card1_desc') }}
                     </p>
                 </div>
                 <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>Tahun: <span class="font-semibold text-slate-700">2024</span></div>
+                    <div>{{ __('library.label_year_card') }} <span class="font-semibold text-slate-700">2024</span></div>
                     <a href="#" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Unduh File
+                        <i class="fa-solid fa-cloud-arrow-down"></i> {{ __('library.btn_download') }}
                     </a>
                 </div>
             </div>
 
+            {{-- CARD 2 --}}
             <div class="doc-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="gambar rencana dpt mekanis mse wall bendungan toba"
+                 data-nama="{{ strtolower(__('library.card2_search')) }}"
                  data-kategori="gambar-kerja"
                  data-tahun="2023">
                 <div>
@@ -186,22 +196,23 @@
                         </span>
                     </div>
                     <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                        Blueprints & Gambar Rencana Detail DPT Mekanis (MSE Wall) - Toba
+                        {{ __('library.card2_title') }}
                     </h3>
                     <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                        Lembar blueprints digital skala penuh proyek proteksi dinding penahan tanah tegak menggunakan sistem anyaman geogrid komposit.
+                        {{ __('library.card2_desc') }}
                     </p>
                 </div>
                 <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>Tahun: <span class="font-semibold text-slate-700">2023</span></div>
+                    <div>{{ __('library.label_year_card') }} <span class="font-semibold text-slate-700">2023</span></div>
                     <a href="#" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Unduh File
+                        <i class="fa-solid fa-cloud-arrow-down"></i> {{ __('library.btn_download') }}
                     </a>
                 </div>
             </div>
 
+            {{-- CARD 3 --}}
             <div class="doc-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="analisis seismik non linear pushover menara apartemen surabaya"
+                 data-nama="{{ strtolower(__('library.card3_search')) }}"
                  data-kategori="laporan-teknis"
                  data-tahun="2024">
                 <div>
@@ -214,22 +225,23 @@
                         </span>
                     </div>
                     <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                        Studi Numerik Komparatif: Analisis Seismik Pushover Apartemen 25 Lantai
+                        {{ __('library.card3_title') }}
                     </h3>
                     <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                        Output grafik kapasitas beban seismik lateral, pemetaan sendi plastis kolom utama, serta batas deformasi struktur terhadap beban gempa rencana.
+                        {{ __('library.card3_desc') }}
                     </p>
                 </div>
                 <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>Tahun: <span class="font-semibold text-slate-700">2024</span></div>
+                    <div>{{ __('library.label_year_card') }} <span class="font-semibold text-slate-700">2024</span></div>
                     <a href="#" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Unduh File
+                        <i class="fa-solid fa-cloud-arrow-down"></i> {{ __('library.btn_download') }}
                     </a>
                 </div>
             </div>
 
+            {{-- CARD 4 --}}
             <div class="doc-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="spesifikasi material baja ringan dan struktur atap stadion bandung"
+                 data-nama="{{ strtolower(__('library.card4_search')) }}"
                  data-kategori="spesifikasi"
                  data-tahun="2023">
                 <div>
@@ -242,22 +254,23 @@
                         </span>
                     </div>
                     <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                        Spesifikasi Teknis Material & Kontrol Kualitas Rangka Atap Stadion Utama
+                        {{ __('library.card4_title') }}
                     </h3>
                     <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                        Buku panduan mutu material profil baja, standar torsi pengencangan baut, rancangan uji laboratorium pelat simpul mikro-elemen FEA.
+                        {{ __('library.card4_desc') }}
                     </p>
                 </div>
                 <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>Tahun: <span class="font-semibold text-slate-700">2023</span></div>
+                    <div>{{ __('library.label_year_card') }} <span class="font-semibold text-slate-700">2023</span></div>
                     <a href="#" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Unduh File
+                        <i class="fa-solid fa-cloud-arrow-down"></i> {{ __('library.btn_download') }}
                     </a>
                 </div>
             </div>
 
+            {{-- CARD 5 --}}
             <div class="doc-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="analisis struktur elemen hingga fea pelat baja jembatan mahakam"
+                 data-nama="{{ strtolower(__('library.card5_search')) }}"
                  data-kategori="laporan-teknis"
                  data-tahun="2025">
                 <div>
@@ -270,34 +283,34 @@
                         </span>
                     </div>
                     <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                        Analisis Elemen Hingga (FEA) Distribusi Stress Konsentrasi Sambungan Jembatan
+                        {{ __('library.card5_title') }}
                     </h3>
                     <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                        Validasi numerik menggunakan pemodelan 3D solid guna memitigasi risiko keretakan akibat lelah material (*fatigue failure*) pada pelat sambung utama.
+                        {{ __('library.card5_desc') }}
                     </p>
                 </div>
                 <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>Tahun: <span class="font-semibold text-slate-700">2025</span></div>
+                    <div>{{ __('library.label_year_card') }} <span class="font-semibold text-slate-700">2025</span></div>
                     <a href="#" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
-                        <i class="fa-solid fa-cloud-arrow-down"></i> Unduh File
+                        <i class="fa-solid fa-cloud-arrow-down"></i> {{ __('library.btn_download') }}
                     </a>
                 </div>
             </div>
 
             <div id="noLibraryMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-                Tidak ada dokumen perpustakaan yang cocok dengan kriteria filter Anda.
+                {{ __('library.empty_message') }}
             </div>
 
         </div>
 
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
-                Menampilkan <span id="countDisplayedLibrary" class="text-slate-700 font-bold">0</span> dari <span id="countTotalLibrary" class="text-slate-700 font-bold">0</span> arsip dokumen
+                {{ __('library.footer_showing') }} <span id="countDisplayedLibrary" class="text-slate-700 font-bold">0</span> {{ __('library.footer_of') }} <span id="countTotalLibrary" class="text-slate-700 font-bold">0</span> {{ __('library.footer_records') }}
             </div>
             
             <div id="paginationLibraryControls" class="inline-flex rounded-lg bg-[#1E293B] p-0.5 text-white shadow-sm overflow-hidden">
-                </div>
+            </div>
         </div>
     </div>
 </section>

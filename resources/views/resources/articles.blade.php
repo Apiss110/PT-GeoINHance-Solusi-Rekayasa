@@ -74,13 +74,36 @@
 
 @include('partials.navbar')
 
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+            {{ __('blog.hero_badge') }}
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
+            {{ __('blog.hero_title') }}
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+            {{ __('blog.hero_desc') }}
+        </p>
+    </div>
+</section>
+
 <section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8" x-data="{ activeCategory: 'all' }">
     
     <div class="flex justify-center flex-wrap gap-4 mb-12">
-        <button @click="activeCategory = 'all'" :class="activeCategory === 'all' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Semua</button>
-        <button @click="activeCategory = 'project'" :class="activeCategory === 'project' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Proyek</button>
-        <button @click="activeCategory = 'event'" :class="activeCategory === 'event' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Events</button>
-        <button @click="activeCategory = 'news'" :class="activeCategory === 'news' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">Company News</button>
+        <button @click="activeCategory = 'all'" :class="activeCategory === 'all' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
+            {{ __('blog.filter_all') }}
+        </button>
+        <button @click="activeCategory = 'project'" :class="activeCategory === 'project' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
+            {{ __('blog.filter_project') }}
+        </button>
+        <button @click="activeCategory = 'event'" :class="activeCategory === 'event' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
+            {{ __('blog.filter_event') }}
+        </button>
+        <button @click="activeCategory = 'news'" :class="activeCategory === 'news' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
+            {{ __('blog.filter_news') }}
+        </button>
     </div>
 
     @if($blogs->isEmpty())
@@ -88,7 +111,7 @@
             <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
             </svg>
-            <p class="text-slate-500 font-medium">Belum ada berita atau event yang dipublikasikan.</p>
+            <p class="text-slate-500 font-medium">{{ __('blog.empty_state') }}</p>
         </div>
     @else
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -119,13 +142,13 @@
                                 <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-slate-400 text-xs font-medium">
-                                    No Image Available
+                                    {{ __('blog.no_image') }}
                                 </div>
                             @endif
 
                             <div class="absolute top-4 left-4">
                                 <span class="{{ $alpineCategory === 'project' ? 'bg-red-800' : ($alpineCategory === 'event' ? 'bg-blue-900' : 'bg-slate-800') }} text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
-                                    {{ $blog->category ?? 'News' }}
+                                    {{ __('blog.badge_' . $alpineCategory) }}
                                 </span>
                             </div>
                         </div>
@@ -147,7 +170,7 @@
 
                     <div class="p-6 pt-0">
                         <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
-                            PELAJARI SELENGKAPNYA 
+                            {{ __('blog.read_more') }} 
                             <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -162,18 +185,19 @@
 <section class="relative overflow-hidden bg-gradient-to-br from-[#002d62] via-[#001f44] to-slate-950 text-white py-20 px-6">
     <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
     <div class="relative z-10 max-w-3xl mx-auto text-center">
-        <h3 class="text-3xl font-black uppercase mb-6 tracking-tight">Ingin Tahu Lebih Banyak?</h3>
+        <h3 class="text-3xl font-black uppercase mb-6 tracking-tight">
+            {{ __('blog.cta_title') }}
+        </h3>
         <p class="text-slate-300 text-sm md:text-base mb-10 leading-relaxed font-medium">
-            Ikuti kami di media sosial untuk update harian mengenai proyek-proyek terbaru kami atau hubungi tim GeoINHance untuk konsultasi teknis.
+            {{ __('blog.cta_desc') }}
         </p>
         <div class="flex justify-center gap-4">
             <a href="#" class="inline-flex items-center bg-white hover:bg-slate-200 text-[#002d62] font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1">
-                Ikuti Linkedin Kami
+                {{ __('blog.cta_btn') }}
             </a>
         </div>
     </div>
 </section>
-
 @include('partials.footer')
 
     <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">

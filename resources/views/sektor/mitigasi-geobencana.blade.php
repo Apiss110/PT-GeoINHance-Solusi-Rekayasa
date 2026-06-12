@@ -48,27 +48,25 @@
     </header>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
 
         <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
         <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
             <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Engineering Sector
+                {{ __('geodisaster.hero_sector') }}
             </span>
 
             <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Mitigasi
+                {{ __('geodisaster.hero_title_1') }}
                 <span class="text-red-500">
-                    Geobencana
+                    {{ __('geodisaster.hero_title_2') }}
                 </span>
             </h1>
 
             <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Solusi rekayasa geoteknik dan mitigasi bencana
-                untuk analisis longsor, kestabilan lereng,
-                perlindungan area kritis, dan infrastruktur rawan geobencana.
+                {{ __('geodisaster.hero_desc') }}
             </p>
 
         </div>
@@ -85,17 +83,17 @@
 
                 <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
                         data-category="all">
-                    Semua
+                    {{ __('geodisaster.filter_all') }}
                 </button>
 
                 <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
                         data-category="longsor">
-                    Longsor
+                    {{ __('geodisaster.filter_landslide') }}
                 </button>
 
                 <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
                         data-category="bendungan">
-                    Bendungan
+                    {{ __('geodisaster.filter_dam') }}
                 </button>
 
             </div>
@@ -110,7 +108,7 @@
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="Cari proyek..."
+                    placeholder="{{ __('geodisaster.search_placeholder') }}"
                     class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
             </div>
@@ -126,7 +124,7 @@
 
             <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                {{-- PROJECT --}}
+                {{-- PROJECT 1 --}}
                 <div class="project-item"
                      data-name="longsor kendari"
                      data-category="longsor">
@@ -138,7 +136,7 @@
                             <i class="fa-solid fa-mountain text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
                             <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Longsor
+                                {{ __('geodisaster.badge_landslide') }}
                             </span>
 
                         </div>
@@ -146,33 +144,29 @@
                         <div class="p-7">
 
                             <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Longsor Kendari
+                                {{ __('geodisaster.project_1_title') }}
                             </h3>
 
                             <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis kestabilan lereng dan mitigasi
-                                area longsor aktif di wilayah Kendari
-                                menggunakan pendekatan numerical modeling.
+                                {{ __('geodisaster.project_1_desc') }}
                             </p>
 
                             <div class="mt-6 flex flex-wrap gap-2">
 
                                 <span class="bg-red-50 text-red-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Slope Stability
+                                    {{ __('geodisaster.tag_slope_stability') }}
                                 </span>
 
                                 <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    PLAXIS 2D
+                                    {{ __('geodisaster.tag_plaxis_2d') }}
                                 </span>
 
                             </div>
 
                             <a href="#"
                                class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Detail Proyek
+                                {{ __('geodisaster.project_detail') }}
                                 <i class="fa-solid fa-arrow-right"></i>
-
                             </a>
 
                         </div>
@@ -181,7 +175,7 @@
 
                 </div>
 
-                {{-- PROJECT --}}
+                {{-- PROJECT 2 --}}
                 <div class="project-item"
                      data-name="bendungan toka tindung"
                      data-category="bendungan">
@@ -193,7 +187,7 @@
                             <i class="fa-solid fa-water text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
                             <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Bendungan
+                                {{ __('geodisaster.badge_dam') }}
                             </span>
 
                         </div>
@@ -201,33 +195,29 @@
                         <div class="p-7">
 
                             <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Bendungan Toka Tindung
+                                {{ __('geodisaster.project_2_title') }}
                             </h3>
 
                             <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Investigasi geoteknik bendungan,
-                                analisis rembesan, dan evaluasi stabilitas
-                                struktur bendungan utama.
+                                {{ __('geodisaster.project_2_desc') }}
                             </p>
 
                             <div class="mt-6 flex flex-wrap gap-2">
 
                                 <span class="bg-cyan-50 text-cyan-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Seepage Analysis
+                                    {{ __('geodisaster.tag_seepage_analysis') }}
                                 </span>
 
                                 <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    GeoStudio
+                                    {{ __('geodisaster.tag_geostudio') }}
                                 </span>
 
                             </div>
 
                             <a href="#"
                                class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Detail Proyek
+                                {{ __('geodisaster.project_detail') }}
                                 <i class="fa-solid fa-arrow-right"></i>
-
                             </a>
 
                         </div>
@@ -236,7 +226,7 @@
 
                 </div>
 
-                {{-- PROJECT --}}
+                {{-- PROJECT 3 --}}
                 <div class="project-item"
                      data-name="longsor papua"
                      data-category="longsor">
@@ -248,7 +238,7 @@
                             <i class="fa-solid fa-triangle-exclamation text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
                             <span class="absolute bottom-4 left-4 bg-orange-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Critical Area
+                                {{ __('geodisaster.badge_critical') }}
                             </span>
 
                         </div>
@@ -256,33 +246,29 @@
                         <div class="p-7">
 
                             <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Longsor Papua
+                                {{ __('geodisaster.project_3_title') }}
                             </h3>
 
                             <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Pemodelan deformasi tanah dan analisis
-                                faktor keamanan pada area longsor
-                                dengan tingkat risiko tinggi di Papua.
+                                {{ __('geodisaster.project_3_desc') }}
                             </p>
 
                             <div class="mt-6 flex flex-wrap gap-2">
 
                                 <span class="bg-orange-50 text-orange-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Risk Assessment
+                                    {{ __('geodisaster.tag_risk_assessment') }}
                                 </span>
 
                                 <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Numerical Modeling
+                                    {{ __('geodisaster.tag_numerical_modeling') }}
                                 </span>
 
                             </div>
 
                             <a href="#"
                                class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Detail Proyek
+                                {{ __('geodisaster.project_detail') }}
                                 <i class="fa-solid fa-arrow-right"></i>
-
                             </a>
 
                         </div>

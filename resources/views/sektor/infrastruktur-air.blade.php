@@ -39,144 +39,132 @@
     </div>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-6xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-[0.3em]">
-                Water Infrastructure Sector
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-cyan-500/10 border border-cyan-400/20 text-cyan-300 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('water.hero_sector') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('water.hero_title_1') }}
+            <span class="text-cyan-400">
+                {{ __('water.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('water.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- SEARCH --}}
+<section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+
+    <div class="max-w-7xl mx-auto px-6 flex justify-between items-center flex-col lg:flex-row gap-4">
+
+        <div>
+            <h2 class="text-2xl font-black text-slate-900 uppercase">
+                {{ __('water.project_title') }}
+            </h2>
+        </div>
+
+        <div class="relative w-full lg:w-80">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Infrastruktur
-                <span class="text-cyan-400">
-                    Air
-                </span>
-            </h1>
-
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Solusi engineering untuk sistem pengelolaan air,
-                infrastruktur pompa, drainase,
-                dan sistem penyediaan air bersih modern.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('water.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- SEARCH --}}
-    <section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex justify-between items-center flex-col lg:flex-row gap-4">
+{{-- PROJECT GRID --}}
+<section class="py-20">
 
-            <div>
-                <h2 class="text-2xl font-black text-slate-900 uppercase">
-                    Daftar Proyek
-                </h2>
-            </div>
+    <div class="max-w-7xl mx-auto px-6">
 
-            <div class="relative w-full lg:w-80">
+        <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+            {{-- PROJECT --}}
+            <div class="project-item" data-name="stasiun pompa ancol-sentiong">
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari proyek..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-cyan-600 focus:bg-white transition">
+                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-            </div>
+                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-        </div>
+                        <i class="fa-solid fa-water text-[90px] text-cyan-500/20 group-hover:scale-110 transition duration-300"></i>
 
-    </section>
+                        <span class="absolute bottom-4 left-4 bg-cyan-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('water.project_1_badge') }}
+                        </span>
 
-    {{-- PROJECT GRID --}}
-    <section class="py-20">
+                    </div>
 
-        <div class="max-w-7xl mx-auto px-6">
+                    <div class="p-7">
 
-            <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-2 gap-8">
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-cyan-700 transition">
+                            {{ __('water.project_1_title') }}
+                        </h3>
 
-                {{-- PROJECT --}}
-                <div class="project-item"
-                     data-name="stasiun pompa ancol-sentiong">
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('water.project_1_desc') }}
+                        </p>
 
-                    <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-water text-[90px] text-cyan-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-cyan-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Water Infrastructure
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-cyan-700 transition">
-                                Stasiun Pompa Ancol-Sentiong
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Engineering analysis dan evaluasi geoteknik
-                                untuk sistem stasiun pompa pengendalian banjir
-                                kawasan perkotaan Jakarta.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-cyan-700 font-bold text-sm hover:gap-3 transition-all">
-                                Lihat Proyek
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <a href="#" class="mt-6 inline-flex items-center gap-2 text-cyan-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('water.btn_view_project') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- PROJECT --}}
-                <div class="project-item"
-                     data-name="spam bekasi">
+            </div>
 
-                    <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- PROJECT --}}
+            <div class="project-item" data-name="spam bekasi">
 
-                        <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
+                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-faucet-drip text-[90px] text-cyan-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-sky-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                SPAM Project
-                            </span>
+                        <i class="fa-solid fa-faucet-drip text-[90px] text-cyan-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-sky-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('water.project_2_badge') }}
+                        </span>
 
-                        <div class="p-7">
+                    </div>
 
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-cyan-700 transition">
-                                SPAM Bekasi
-                            </h3>
+                    <div class="p-7">
 
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis dan perencanaan infrastruktur sistem
-                                penyediaan air minum untuk mendukung kebutuhan
-                                kawasan perkotaan dan industri.
-                            </p>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-cyan-700 transition">
+                            {{ __('water.project_2_title') }}
+                        </h3>
 
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-cyan-700 font-bold text-sm hover:gap-3 transition-all">
-                                Lihat Proyek
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('water.project_2_desc') }}
+                        </p>
 
-                        </div>
+                        <a href="#" class="mt-6 inline-flex items-center gap-2 text-cyan-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('water.btn_view_project') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
@@ -186,7 +174,9 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')

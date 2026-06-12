@@ -32,34 +32,31 @@
     </div>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Sector Project
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('road.hero_sector') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('road.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('road.hero_title_2') }}
             </span>
+        </h1>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Infrastruktur
-                <span class="text-red-500">
-                    Jalan
-                </span>
-            </h1>
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('road.hero_desc') }}
+        </p>
 
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                GeoINHance menyediakan layanan engineering
-                dan analisis geoteknik untuk pembangunan
-                infrastruktur jalan serta sistem transportasi modern.
-            </p>
+    </div>
 
-        </div>
+</section>
 
-    </section>
-
-    {{-- CONTENT --}}
 {{-- FILTER + SEARCH --}}
 <section class="sticky top-32 z-40 bg-white border-b border-gray-200 shadow-sm py-6">
 
@@ -69,19 +66,19 @@
         <div class="flex flex-wrap gap-2 w-full lg:w-auto">
 
             <button class="bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm">
-                Semua
+                {{ __('road.filter_all') }}
             </button>
 
             <button class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg text-xs font-semibold">
-                Jalan Nasional
+                {{ __('road.filter_national') }}
             </button>
 
             <button class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg text-xs font-semibold">
-                Jalan Tol
+                {{ __('road.filter_toll') }}
             </button>
 
             <button class="bg-gray-100 text-gray-500 px-4 py-2 rounded-lg text-xs font-semibold">
-                Jembatan
+                {{ __('road.filter_bridge') }}
             </button>
 
         </div>
@@ -95,7 +92,7 @@
 
             <input
                 type="text"
-                placeholder="Cari proyek jalan..."
+                placeholder="{{ __('road.search_placeholder') }}"
                 class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
@@ -113,11 +110,11 @@
         <div class="mb-10">
 
             <h2 class="text-3xl font-black text-slate-900">
-                Daftar Proyek
+                {{ __('road.project_title') }}
             </h2>
 
             <p class="text-slate-500 mt-2">
-                Proyek sektor infrastruktur jalan GeoINHance.
+                {{ __('road.project_desc') }}
             </p>
 
         </div>
@@ -135,7 +132,7 @@
                     <i class="fa-solid fa-road text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
                     <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                        Infrastructure
+                        {{ __('road.card_badge') }}
                     </span>
 
                 </div>
@@ -147,26 +144,22 @@
                         <span class="w-2 h-2 rounded-full bg-yellow-500 animate-pulse"></span>
 
                         <span class="text-xs uppercase tracking-wider text-yellow-600 font-bold">
-                            Coming Soon
+                            {{ __('road.card_status') }}
                         </span>
 
                     </div>
 
                     <h3 class="text-2xl font-black text-slate-900 mb-4">
-                        Belum Ada Proyek Ditampilkan
+                        {{ __('road.card_title') }}
                     </h3>
 
                     <p class="text-sm text-slate-600 leading-relaxed">
-                        Dokumentasi proyek pada sektor Infrastruktur Jalan
-                        masih dalam tahap pengembangan dan akan segera
-                        diperbarui secara berkala.
+                        {{ __('road.card_text') }}
                     </p>
 
                     <button
                         class="mt-7 w-full bg-gray-100 text-gray-400 border border-gray-200 py-3 rounded-xl text-sm font-bold cursor-not-allowed">
-
-                        Segera Hadir
-
+                        {{ __('road.card_btn') }}
                     </button>
 
                 </div>

@@ -48,213 +48,197 @@
     </header>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Training Facilities
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('facility.hero_badge') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('facility.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('facility.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('facility.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="sticky top-32 z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- FILTER --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('facility.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="certificate">
+                {{ __('facility.filter_certificate') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="module">
+                {{ __('facility.filter_module') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="software">
+                {{ __('facility.filter_software') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-80">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Fasilitas
-                <span class="text-red-500">
-                    Training
-                </span>
-            </h1>
-
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                GeoINHance menyediakan berbagai fasilitas pelatihan profesional
-                mulai dari sertifikat resmi, modul pembelajaran,
-                hingga software trial untuk mendukung proses belajar peserta.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('facility.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="sticky top-32 z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- CONTENT --}}
+<section class="py-20">
 
-            {{-- FILTER --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-6">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="facilityGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="certificate">
-                    Sertifikat
-                </button>
+            {{-- CERTIFICATE CARD --}}
+            <div class="facility-item"
+                 data-name="{{ strtolower(__('facility.card1_search')) }}"
+                 data-category="certificate">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="module">
-                    Modul
-                </button>
+                <div class="facility-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="software">
-                    Software Trial
-                </button>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-            </div>
+                        <i class="fa-solid fa-award text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-80">
+                        <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('facility.tag_certificate') }}
+                        </span>
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+                    </div>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari fasilitas..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
+                    <div class="p-7">
 
-            </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('facility.card1_title') }}
+                        </h3>
 
-        </div>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('facility.card1_desc') }}
+                        </p>
 
-    </section>
-
-    {{-- CONTENT --}}
-    <section class="py-20">
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div id="facilityGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                {{-- CARD --}}
-                <div class="facility-item"
-                     data-name="sertifikat resmi"
-                     data-category="certificate">
-
-                    <div class="facility-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-award text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Certificate
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Sertifikat Resmi
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Sertifikat training profesional
-                                sebagai bukti kompetensi peserta
-                                setelah menyelesaikan program pelatihan.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('facility.btn_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- CARD --}}
-                <div class="facility-item"
-                     data-name="modul pembelajaran"
-                     data-category="module">
+            </div>
 
-                    <div class="facility-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- MODULE CARD --}}
+            <div class="facility-item"
+                 data-name="{{ strtolower(__('facility.card2_search')) }}"
+                 data-category="module">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="facility-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-book-open text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Module
-                            </span>
+                        <i class="fa-solid fa-book-open text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('facility.tag_module') }}
+                        </span>
 
-                        <div class="p-7">
+                    </div>
 
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Modul Pembelajaran
-                            </h3>
+                    <div class="p-7">
 
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Materi training lengkap berupa PDF,
-                                studi kasus engineering,
-                                dan panduan praktik software.
-                            </p>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('facility.card2_title') }}
+                        </h3>
 
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('facility.card2_desc') }}
+                        </p>
 
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('facility.btn_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- CARD --}}
-                <div class="facility-item"
-                     data-name="software trial"
-                     data-category="software">
+            </div>
 
-                    <div class="facility-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- SOFTWARE TRIAL CARD --}}
+            <div class="facility-item"
+                 data-name="{{ strtolower(__('facility.card3_search')) }}"
+                 data-category="software">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="facility-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-laptop-code text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-emerald-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Software
-                            </span>
+                        <i class="fa-solid fa-laptop-code text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-emerald-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('facility.tag_software') }}
+                        </span>
 
-                        <div class="p-7">
+                    </div>
 
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Software Trial
-                            </h3>
+                    <div class="p-7">
 
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Akses trial software engineering
-                                seperti PLAXIS, GeoStudio,
-                                dan tools numerical modeling lainnya.
-                            </p>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('facility.card3_title') }}
+                        </h3>
 
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('facility.card3_desc') }}
+                        </p>
 
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('facility.btn_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
@@ -264,8 +248,9 @@
 
         </div>
 
-    </section>
+    </div>
 
+</section>
     {{-- FOOTER --}}
     @include('partials.footer')
 

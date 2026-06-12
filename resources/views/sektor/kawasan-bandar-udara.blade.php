@@ -39,89 +39,80 @@
     </div>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Airport Infrastructure Sector
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('airport.hero_sector') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('airport.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('airport.hero_title_2') }}
             </span>
+        </h1>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Kawasan
-                <span class="text-red-500">
-                    Bandar Udara
-                </span>
-            </h1>
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('airport.hero_desc') }}
+        </p>
 
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                GeoINHance mendukung pengembangan kawasan bandar udara
-                melalui layanan engineering, analisis geoteknik,
-                dan infrastruktur transportasi terintegrasi.
+    </div>
+
+</section>
+
+{{-- PROJECT --}}
+<section class="py-20">
+
+    <div class="max-w-7xl mx-auto px-6">
+
+        <div class="mb-12">
+
+            <h2 class="text-3xl font-black text-slate-900">
+                {{ __('airport.project_title') }}
+            </h2>
+
+            <p class="text-slate-500 mt-2">
+                {{ __('airport.project_desc') }}
             </p>
 
         </div>
 
-    </section>
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-    {{-- PROJECT --}}
-    <section class="py-20">
+            {{-- PROJECT CARD --}}
+            <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-        <div class="max-w-7xl mx-auto px-6">
+                <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-            <div class="mb-12">
+                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
 
-                <h2 class="text-3xl font-black text-slate-900">
-                    Daftar Proyek
-                </h2>
+                    <i class="fa-solid fa-plane-departure text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                <p class="text-slate-500 mt-2">
-                    Proyek kawasan bandar udara yang ditangani GeoINHance.
-                </p>
+                    <span class="absolute bottom-4 left-4 bg-sky-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                        {{ __('airport.card_badge') }}
+                    </span>
 
-            </div>
+                </div>
 
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="p-7">
 
-                {{-- PROJECT CARD --}}
-                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+                    <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                        {{ __('airport.card_title') }}
+                    </h3>
 
-                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
+                    <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                        {{ __('airport.card_desc') }}
+                    </p>
 
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80"></div>
-
-                        <i class="fa-solid fa-plane-departure text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                        <span class="absolute bottom-4 left-4 bg-sky-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                            Airport Infrastructure
-                        </span>
-
-                    </div>
-
-                    <div class="p-7">
-
-                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                            Infrastruktur Akses KA Bandara YIA
-                        </h3>
-
-                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                            Proyek pengembangan infrastruktur akses kereta api
-                            menuju Bandara Internasional Yogyakarta (YIA)
-                            untuk mendukung konektivitas transportasi modern
-                            dan integrasi kawasan bandar udara.
-                        </p>
-
-                        <a href="#"
-                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                            Lihat Detail
-                            <i class="fa-solid fa-arrow-right"></i>
-
-                        </a>
-
-                    </div>
+                    <a href="#"
+                       class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                        {{ __('airport.btn_view_detail') }}
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </a>
 
                 </div>
 
@@ -129,7 +120,9 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')

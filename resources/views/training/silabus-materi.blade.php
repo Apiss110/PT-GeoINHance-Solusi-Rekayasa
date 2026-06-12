@@ -48,418 +48,391 @@
     </header>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Training Program
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('syllabus.hero_badge') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('syllabus.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('syllabus.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('syllabus.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="py-8 bg-white border-b border-gray-200 sticky top-28 z-40 shadow-sm">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- FILTER --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('syllabus.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="plaxis">
+                {{ __('syllabus.filter_plaxis') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="geostudio">
+                {{ __('syllabus.filter_geostudio') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="structural">
+                {{ __('syllabus.filter_structural') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="foundation">
+                {{ __('syllabus.filter_foundation') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-80">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Silabus &
-                <span class="text-red-500">
-                    Materi
-                </span>
-            </h1>
-
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Kurikulum pelatihan engineering profesional
-                dengan materi terstruktur, studi kasus industri,
-                dan pendekatan berbasis software engineering modern.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('syllabus.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="py-8 bg-white border-b border-gray-200 sticky top-28 z-40 shadow-sm">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- CONTENT --}}
+<section class="py-20">
 
-            {{-- FILTER --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-6">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="trainingGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="plaxis">
-                    PLAXIS
-                </button>
+            {{-- PLAXIS 2D BASIC --}}
+            <div class="training-item"
+                 data-name="{{ strtolower(__('syllabus.card1_search')) }}"
+                 data-category="plaxis">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="geostudio">
-                    GeoStudio
-                </button>
+                <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="structural">
-                    Structural
-                </button>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="foundation">
-                    Foundation
-                </button>
+                        <i class="fa-solid fa-layer-group text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+
+                        <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('syllabus.tag_plaxis') }}
+                        </span>
+
+                    </div>
+
+                    <div class="p-7">
+
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('syllabus.card1_title') }}
+                        </h3>
+
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('syllabus.card1_desc') }}
+                        </p>
+
+                        <div class="mt-6 flex flex-wrap gap-2">
+
+                            <span class="bg-red-50 text-red-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.level_beginner') }}
+                            </span>
+
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.modules_12') }}
+                            </span>
+
+                        </div>
+
+                        <a href="#"
+                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('syllabus.btn_view') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-80">
+            {{-- NUMERICAL MODELING ADVANCED --}}
+            <div class="training-item"
+                 data-name="{{ strtolower(__('syllabus.card2_search')) }}"
+                 data-category="plaxis">
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+                <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari silabus atau materi..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+
+                        <i class="fa-solid fa-chart-line text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+
+                        <span class="absolute bottom-4 left-4 bg-orange-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('syllabus.tag_advanced') }}
+                        </span>
+
+                    </div>
+
+                    <div class="p-7">
+
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('syllabus.card2_title') }}
+                        </h3>
+
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('syllabus.card2_desc') }}
+                        </p>
+
+                        <div class="mt-6 flex flex-wrap gap-2">
+
+                            <span class="bg-yellow-50 text-yellow-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.level_intermediate') }}
+                            </span>
+
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.modules_18') }}
+                            </span>
+
+                        </div>
+
+                        <a href="#"
+                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('syllabus.btn_view') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
+            {{-- SEEPAGE & FLOW ANALYSIS --}}
+            <div class="training-item"
+                 data-name="{{ strtolower(__('syllabus.card3_search')) }}"
+                 data-category="geostudio">
 
-    </section>
+                <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-    {{-- CONTENT --}}
-    <section class="py-20">
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-        <div class="max-w-7xl mx-auto px-6">
+                        <i class="fa-solid fa-water text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-            <div id="trainingGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <span class="absolute bottom-4 left-4 bg-cyan-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('syllabus.tag_geostudio') }}
+                        </span>
 
-                {{-- CARD --}}
-                <div class="training-item"
-                     data-name="plaxis 2d basic"
-                     data-category="plaxis">
+                    </div>
 
-                    <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+                    <div class="p-7">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('syllabus.card3_title') }}
+                        </h3>
 
-                            <i class="fa-solid fa-layer-group text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('syllabus.card3_desc') }}
+                        </p>
 
-                            <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                PLAXIS
+                        <div class="mt-6 flex flex-wrap gap-2">
+
+                            <span class="bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.level_professional') }}
+                            </span>
+
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.modules_10') }}
                             </span>
 
                         </div>
 
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                PLAXIS 2D Basic
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Dasar numerical modeling geoteknik,
-                                soil parameter, staged construction,
-                                dan slope stability analysis.
-                            </p>
-
-                            <div class="mt-6 flex flex-wrap gap-2">
-
-                                <span class="bg-red-50 text-red-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Beginner
-                                </span>
-
-                                <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    12 Modul
-                                </span>
-
-                            </div>
-
-                            <a href="#"
-                               class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Materi
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('syllabus.btn_view') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- CARD --}}
-                <div class="training-item"
-                     data-name="plaxis advanced"
-                     data-category="plaxis">
+            </div>
 
-                    <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- STRUCTURAL ANALYSIS --}}
+            <div class="training-item"
+                 data-name="{{ strtolower(__('syllabus.card4_search')) }}"
+                 data-category="structural">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-chart-line text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-orange-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Advanced
+                        <i class="fa-solid fa-building-columns text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+
+                        <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('syllabus.tag_structural') }}
+                        </span>
+
+                    </div>
+
+                    <div class="p-7">
+
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('syllabus.card4_title') }}
+                        </h3>
+
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('syllabus.card4_desc') }}
+                        </p>
+
+                        <div class="mt-6 flex flex-wrap gap-2">
+
+                            <span class="bg-indigo-50 text-indigo-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.tag_structural') }}
+                            </span>
+
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.modules_15') }}
                             </span>
 
                         </div>
 
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Numerical Modeling Advanced
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Tunnel interaction, deep excavation,
-                                consolidation analysis, dan staged simulation.
-                            </p>
-
-                            <div class="mt-6 flex flex-wrap gap-2">
-
-                                <span class="bg-yellow-50 text-yellow-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Intermediate
-                                </span>
-
-                                <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    18 Modul
-                                </span>
-
-                            </div>
-
-                            <a href="#"
-                               class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Materi
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('syllabus.btn_view') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- CARD --}}
-                <div class="training-item"
-                     data-name="geostudio seepage"
-                     data-category="geostudio">
+            </div>
 
-                    <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- FOUNDATION ENGINEERING --}}
+            <div class="training-item"
+                 data-name="{{ strtolower(__('syllabus.card5_search')) }}"
+                 data-category="foundation">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-water text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-cyan-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                GeoStudio
+                        <i class="fa-solid fa-screwdriver-wrench text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+
+                        <span class="absolute bottom-4 left-4 bg-amber-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('syllabus.tag_foundation') }}
+                        </span>
+
+                    </div>
+
+                    <div class="p-7">
+
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('syllabus.card5_title') }}
+                        </h3>
+
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('syllabus.card5_desc') }}
+                        </p>
+
+                        <div class="mt-6 flex flex-wrap gap-2">
+
+                            <span class="bg-red-50 text-red-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.level_geotechnical') }}
+                            </span>
+
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.modules_14') }}
                             </span>
 
                         </div>
 
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Seepage & Flow Analysis
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Simulasi rembesan bendungan,
-                                rapid drawdown, hydraulic conductivity,
-                                dan pore water pressure.
-                            </p>
-
-                            <div class="mt-6 flex flex-wrap gap-2">
-
-                                <span class="bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Professional
-                                </span>
-
-                                <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    10 Modul
-                                </span>
-
-                            </div>
-
-                            <a href="#"
-                               class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Materi
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('syllabus.btn_view') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- CARD --}}
-                <div class="training-item"
-                     data-name="structural analysis"
-                     data-category="structural">
+            </div>
 
-                    <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- SLOPE STABILITY ANALYSIS --}}
+            <div class="training-item"
+                 data-name="{{ strtolower(__('syllabus.card6_search')) }}"
+                 data-category="geostudio">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-building-columns text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Structural
-                            </span>
+                        <i class="fa-solid fa-mountain text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Structural Analysis
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis struktur bangunan,
-                                load combination, response spectrum,
-                                dan seismic engineering.
-                            </p>
-
-                            <div class="mt-6 flex flex-wrap gap-2">
-
-                                <span class="bg-indigo-50 text-indigo-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Structural
-                                </span>
-
-                                <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    15 Modul
-                                </span>
-
-                            </div>
-
-                            <a href="#"
-                               class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Materi
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-emerald-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('syllabus.tag_stability') }}
+                        </span>
 
                     </div>
 
-                </div>
+                    <div class="p-7">
 
-                {{-- CARD --}}
-                <div class="training-item"
-                     data-name="foundation engineering"
-                     data-category="foundation">
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('syllabus.card6_title') }}
+                        </h3>
 
-                    <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('syllabus.card6_desc') }}
+                        </p>
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                        <div class="mt-6 flex flex-wrap gap-2">
 
-                            <i class="fa-solid fa-screwdriver-wrench text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                            <span class="bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.level_analysis') }}
+                            </span>
 
-                            <span class="absolute bottom-4 left-4 bg-amber-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Foundation
+                            <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
+                                {{ __('syllabus.modules_11') }}
                             </span>
 
                         </div>
 
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Foundation Engineering
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Pondasi dangkal, pondasi tiang,
-                                bearing capacity, settlement,
-                                dan soil interaction.
-                            </p>
-
-                            <div class="mt-6 flex flex-wrap gap-2">
-
-                                <span class="bg-red-50 text-red-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Geotechnical
-                                </span>
-
-                                <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    14 Modul
-                                </span>
-
-                            </div>
-
-                            <a href="#"
-                               class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Materi
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                {{-- CARD --}}
-                <div class="training-item"
-                     data-name="slope stability"
-                     data-category="geostudio">
-
-                    <div class="training-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-mountain text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-emerald-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Stability
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Slope Stability Analysis
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis kestabilan lereng,
-                                factor of safety, circular slip,
-                                dan reinforcement engineering.
-                            </p>
-
-                            <div class="mt-6 flex flex-wrap gap-2">
-
-                                <span class="bg-emerald-50 text-emerald-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    Analysis
-                                </span>
-
-                                <span class="bg-slate-100 text-slate-700 text-[11px] font-semibold px-3 py-1 rounded-full">
-                                    11 Modul
-                                </span>
-
-                            </div>
-
-                            <a href="#"
-                               class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-
-                                Lihat Materi
-                                <i class="fa-solid fa-arrow-right"></i>
-
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-7 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('syllabus.btn_view') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
@@ -469,7 +442,9 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')

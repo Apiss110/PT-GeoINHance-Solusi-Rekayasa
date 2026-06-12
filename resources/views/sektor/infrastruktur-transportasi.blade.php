@@ -40,181 +40,164 @@
     </div>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Infrastructure & Transportation
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('transportation.hero_sector') }}
+        </span>
+
+        <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
+            {{ __('transportation.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('transportation.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('transportation.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="sticky top-32 z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- FILTER --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('transportation.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="jalan">
+                {{ __('transportation.filter_road') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="kereta">
+                {{ __('transportation.filter_railway') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="bandara">
+                {{ __('transportation.filter_airport') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="pelabuhan">
+                {{ __('transportation.filter_port') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-72">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-                Infrastruktur &
-                <span class="text-red-500">
-                    Transportasi
-                </span>
-            </h1>
-
-            <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Solusi engineering multidisiplin untuk proyek jalan tol,
-                jembatan, transportasi massal,
-                bandar udara, dan infrastruktur pelabuhan modern.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('transportation.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="sticky top-32 z-40 bg-white border-b border-gray-200 shadow-sm py-6">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- PROJECT SECTION --}}
+<section class="py-20">
 
-            {{-- FILTER --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-6">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="jalan">
-                    Jalan Tol & Umum
-                </button>
+            {{-- TRANSLATABLE PROJECT ARRAY --}}
+            @php
+                $projects = [
+                    ['filter_name' => 'simpang charitas', 'name_key' => 'transportation.proj_charitas', 'category' => 'jalan'],
+                    ['filter_name' => 'jembatan cikondang', 'name_key' => 'transportation.proj_cikondang', 'category' => 'jalan'],
+                    ['filter_name' => 'tol sedyatmo-kataraja', 'name_key' => 'transportation.proj_sedyatmo', 'category' => 'jalan'],
+                    ['filter_name' => 'tol sigli-banda aceh', 'name_key' => 'transportation.proj_sigli', 'category' => 'jalan'],
+                    ['filter_name' => 'tol hbr 2', 'name_key' => 'transportation.proj_hbr2', 'category' => 'jalan'],
+                    ['filter_name' => 'underpass tatakan 101', 'name_key' => 'transportation.proj_tatakan', 'category' => 'jalan'],
+                    ['filter_name' => 'jembatan srandakan 3', 'name_key' => 'transportation.proj_srandakan', 'category' => 'jalan'],
+                    ['filter_name' => 'kaa bandara yia', 'name_key' => 'transportation.proj_kaa_yia', 'category' => 'kereta'],
+                    ['filter_name' => 'jalur ka cipatat-padalarang', 'name_key' => 'transportation.proj_ka_cipatat', 'category' => 'kereta'],
+                    ['filter_name' => 'infrastruktur akses ka bandara yia', 'name_key' => 'transportation.proj_akses_yia', 'category' => 'bandara'],
+                    ['filter_name' => 'revetment dermaga benoa', 'name_key' => 'transportation.proj_benoa', 'category' => 'pelabuhan'],
+                ];
+            @endphp
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="kereta">
-                    Perkeretaapian
-                </button>
+            @foreach($projects as $project)
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="bandara">
-                    Bandar Udara
-                </button>
+            <div class="project-item"
+                 data-name="{{ $project['filter_name'] }}"
+                 data-category="{{ $project['category'] }}">
 
-                <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="pelabuhan">
-                    Pelabuhan
-                </button>
+                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-            </div>
+                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-72">
+                        @if($project['category'] == 'jalan')
+                            <i class="fa-solid fa-road text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                        @elseif($project['category'] == 'kereta')
+                            <i class="fa-solid fa-train text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                        @elseif($project['category'] == 'bandara')
+                            <i class="fa-solid fa-plane text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                        @else
+                            <i class="fa-solid fa-ship text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                        @endif
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+                        <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('transportation.cat_' . $project['category']) }}
+                        </span>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari proyek..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
+                    </div>
 
-            </div>
+                    <div class="p-7">
 
-        </div>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __($project['name_key']) }}
+                        </h3>
 
-    </section>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('transportation.card_desc') }}
+                        </p>
 
-    {{-- PROJECT SECTION --}}
-    <section class="py-20">
-
-        <div class="max-w-7xl mx-auto px-6">
-
-            <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                {{-- JALAN --}}
-                @php
-                    $projects = [
-                        ['name' => 'Simpang Charitas', 'category' => 'jalan'],
-                        ['name' => 'Jembatan Cikondang', 'category' => 'jalan'],
-                        ['name' => 'Tol Sedyatmo-Kataraja', 'category' => 'jalan'],
-                        ['name' => 'Tol Sigli-Banda Aceh', 'category' => 'jalan'],
-                        ['name' => 'Tol HBR 2', 'category' => 'jalan'],
-                        ['name' => 'Underpass Tatakan 101', 'category' => 'jalan'],
-                        ['name' => 'Jembatan Srandakan 3', 'category' => 'jalan'],
-
-                        ['name' => 'KAA Bandara YIA', 'category' => 'kereta'],
-                        ['name' => 'Jalur KA Cipatat-Padalarang', 'category' => 'kereta'],
-
-                        ['name' => 'Infrastruktur Akses KA Bandara YIA', 'category' => 'bandara'],
-
-                        ['name' => 'Revetment Dermaga Benoa', 'category' => 'pelabuhan'],
-                    ];
-                @endphp
-
-                @foreach($projects as $project)
-
-                <div class="project-item"
-                     data-name="{{ strtolower($project['name']) }}"
-                     data-category="{{ $project['category'] }}">
-
-                    <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
-
-                            @if($project['category'] == 'jalan')
-                                <i class="fa-solid fa-road text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-                            @elseif($project['category'] == 'kereta')
-                                <i class="fa-solid fa-train text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-                            @elseif($project['category'] == 'bandara')
-                                <i class="fa-solid fa-plane text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-                            @else
-                                <i class="fa-solid fa-ship text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-                            @endif
-
-                            <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-
-                                @if($project['category'] == 'jalan')
-                                    Jalan Tol & Umum
-                                @elseif($project['category'] == 'kereta')
-                                    Perkeretaapian
-                                @elseif($project['category'] == 'bandara')
-                                    Bandar Udara
-                                @else
-                                    Pelabuhan
-                                @endif
-
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                {{ $project['name'] }}
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Proyek engineering dan analisis geoteknik
-                                untuk mendukung pengembangan infrastruktur
-                                transportasi modern dan strategis nasional.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Lihat Detail
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('transportation.btn_view_detail') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                @endforeach
-
             </div>
+
+            @endforeach
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')

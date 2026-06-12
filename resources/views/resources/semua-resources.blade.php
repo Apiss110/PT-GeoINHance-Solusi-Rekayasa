@@ -47,340 +47,330 @@
     </header>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-40 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-40 pb-28">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Knowledge Center
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('resources.hero_badge') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('resources.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('resources.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('resources.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="py-8 bg-white border-b border-gray-200 sticky top-36 z-40 shadow-sm">
+
+    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- FILTER --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('resources.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="knowledge">
+                {{ __('resources.filter_knowledge') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="article">
+                {{ __('resources.filter_article') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="event">
+                {{ __('resources.filter_event') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="media">
+                {{ __('resources.filter_media') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="case-study">
+                {{ __('resources.filter_casestudy') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="document">
+                {{ __('resources.filter_document') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-72">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
+                <i class="fa-solid fa-magnifying-glass"></i>
             </span>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Semua
-                <span class="text-red-500">
-                    Resources
-                </span>
-            </h1>
-
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                Pusat informasi, artikel teknik, studi kasus,
-                dokumentasi engineering, serta berbagai insight profesional
-                dari GeoINHance.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('resources.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="py-8 bg-white border-b border-gray-200 sticky top-36 z-40 shadow-sm">
+</section>
 
-        <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- GRID --}}
+<section class="py-20">
 
-            {{-- FILTER --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-6">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="resourceGrid"
+             class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="knowledge">
-                    Engineering Hub
-                </button>
+            {{-- ENGINEERING HUB --}}
+            <div class="resource-item"
+                 data-name="{{ strtolower(__('resources.card_hub_search')) }}"
+                 data-category="knowledge">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="article">
-                    Artikel
-                </button>
+                <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="event">
-                    Berita & Acara
-                </button>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="media">
-                    Video
-                </button>
+                        <i class="fa-solid fa-brain text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="case-study">
-                    Studi Kasus
-                </button>
+                        <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('resources.tag_knowledge') }}
+                        </span>
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="document">
-                    Dokumen
-                </button>
+                    </div>
+
+                    <div class="p-7">
+
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('resources.card_hub_title') }}
+                        </h3>
+
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('resources.card_hub_desc') }}
+                        </p>
+
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('resources.btn_explore') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-72">
+            {{-- ARTIKEL --}}
+            <div class="resource-item"
+                 data-name="{{ strtolower(__('resources.card_article_search')) }}"
+                 data-category="article">
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                </span>
+                <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari resources..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+
+                        <i class="fa-solid fa-newspaper text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+
+                        <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('resources.tag_article') }}
+                        </span>
+
+                    </div>
+
+                    <div class="p-7">
+
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('resources.card_article_title') }}
+                        </h3>
+
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('resources.card_article_desc') }}
+                        </p>
+
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('resources.btn_explore') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
+
+                    </div>
+
+                </div>
 
             </div>
 
-        </div>
+            {{-- BERITA --}}
+            <div class="resource-item"
+                 data-name="{{ strtolower(__('resources.card_event_search')) }}"
+                 data-category="event">
 
-    </section>
+                <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-    {{-- GRID --}}
-    <section class="py-20">
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-        <div class="max-w-7xl mx-auto px-6">
+                        <i class="fa-solid fa-calendar-days text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-            <div id="resourceGrid"
-                 class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                        <span class="absolute bottom-4 left-4 bg-emerald-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('resources.tag_event') }}
+                        </span>
 
-                {{-- ENGINEERING HUB --}}
-                <div class="resource-item"
-                     data-name="engineering hub"
-                     data-category="knowledge">
+                    </div>
 
-                    <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+                    <div class="p-7">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('resources.card_event_title') }}
+                        </h3>
 
-                            <i class="fa-solid fa-brain text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('resources.card_event_desc') }}
+                        </p>
 
-                            <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Knowledge
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                GeoINHance Engineering Hub
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Pusat insight engineering, inovasi teknologi,
-                                dan pengembangan solusi rekayasa modern.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Explore
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('resources.btn_explore') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- ARTIKEL --}}
-                <div class="resource-item"
-                     data-name="artikel"
-                     data-category="article">
+            </div>
 
-                    <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- VIDEO --}}
+            <div class="resource-item"
+                 data-name="{{ strtolower(__('resources.card_media_search')) }}"
+                 data-category="media">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-newspaper text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Article
-                            </span>
+                        <i class="fa-solid fa-circle-play text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-purple-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('resources.tag_media') }}
+                        </span>
 
-                        <div class="p-7">
+                    </div>
 
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Artikel
-                            </h3>
+                    <div class="p-7">
 
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Artikel teknik sipil, geoteknik,
-                                numerical modeling, hingga engineering software.
-                            </p>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('resources.card_media_title') }}
+                        </h3>
 
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Explore
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('resources.card_media_desc') }}
+                        </p>
 
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('resources.btn_explore') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- BERITA --}}
-                <div class="resource-item"
-                     data-name="berita acara"
-                     data-category="event">
+            </div>
 
-                    <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- STUDI KASUS --}}
+            <div class="resource-item"
+                 data-name="{{ strtolower(__('resources.card_casestudy_search')) }}"
+                 data-category="case-study">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-calendar-days text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-emerald-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Event
-                            </span>
+                        <i class="fa-solid fa-diagram-project text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-orange-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('resources.tag_casestudy') }}
+                        </span>
 
-                        <div class="p-7">
+                    </div>
 
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Berita & Acara
-                            </h3>
+                    <div class="p-7">
 
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Update kegiatan perusahaan, seminar,
-                                webinar engineering, dan event industri.
-                            </p>
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('resources.card_casestudy_title') }}
+                        </h3>
 
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Explore
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('resources.card_casestudy_desc') }}
+                        </p>
 
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('resources.btn_explore') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
                 </div>
 
-                {{-- VIDEO --}}
-                <div class="resource-item"
-                     data-name="video"
-                     data-category="media">
+            </div>
 
-                    <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+            {{-- DOKUMEN --}}
+            <div class="resource-item"
+                 data-name="{{ strtolower(__('resources.card_doc_search')) }}"
+                 data-category="document">
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
+                <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
 
-                            <i class="fa-solid fa-circle-play text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
+                    <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
 
-                            <span class="absolute bottom-4 left-4 bg-purple-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Media
-                            </span>
+                        <i class="fa-solid fa-book text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
 
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Video
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Video pembelajaran, tutorial software,
-                                presentasi engineering, dan dokumentasi proyek.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Explore
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <span class="absolute bottom-4 left-4 bg-slate-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
+                            {{ __('resources.tag_library') }}
+                        </span>
 
                     </div>
 
-                </div>
+                    <div class="p-7">
 
-                {{-- STUDI KASUS --}}
-                <div class="resource-item"
-                     data-name="studi kasus"
-                     data-category="case-study">
+                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
+                            {{ __('resources.card_doc_title') }}
+                        </h3>
 
-                    <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
+                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
+                            {{ __('resources.card_doc_desc') }}
+                        </p>
 
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-diagram-project text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-orange-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Case Study
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Studi Kasus
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Analisis proyek nyata, solusi engineering,
-                                dan studi implementasi teknologi geoteknik.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Explore
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-                {{-- DOKUMEN --}}
-                <div class="resource-item"
-                     data-name="dokumen"
-                     data-category="document">
-
-                    <div class="resource-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                        <div class="bg-slate-900 h-52 flex items-center justify-center relative overflow-hidden">
-
-                            <i class="fa-solid fa-book text-[80px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                            <span class="absolute bottom-4 left-4 bg-slate-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                                Library
-                            </span>
-
-                        </div>
-
-                        <div class="p-7">
-
-                            <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                                Perpustakaan Dokumen
-                            </h3>
-
-                            <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                                Kumpulan dokumen teknis, company profile,
-                                whitepaper, dan engineering references.
-                            </p>
-
-                            <a href="#"
-                               class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                                Explore
-                                <i class="fa-solid fa-arrow-right"></i>
-                            </a>
-
-                        </div>
+                        <a href="#"
+                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
+                            {{ __('resources.btn_explore') }}
+                            <i class="fa-solid fa-arrow-right"></i>
+                        </a>
 
                     </div>
 
@@ -390,7 +380,9 @@
 
         </div>
 
-    </section>
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')

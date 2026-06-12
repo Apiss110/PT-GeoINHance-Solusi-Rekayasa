@@ -48,157 +48,155 @@
     </div>
 
     {{-- HERO --}}
-    <section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
+<section class="relative overflow-hidden bg-slate-900 pt-36 pb-28">
 
-        <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
 
-        <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
+    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
 
-            <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-                Engineering Sector
+        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
+            {{ __('all_sectors.hero_sector') }}
+        </span>
+
+        <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
+            {{ __('all_sectors.hero_title_1') }}
+            <span class="text-red-500">
+                {{ __('all_sectors.hero_title_2') }}
+            </span>
+        </h1>
+
+        <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
+            {{ __('all_sectors.hero_desc') }}
+        </p>
+
+    </div>
+
+</section>
+
+{{-- FILTER + SEARCH --}}
+<section class="py-8 bg-white border-b border-gray-200 sticky top-[88px] z-40 shadow-sm">
+
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-4 justify-between items-center">
+
+        {{-- CATEGORY --}}
+        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+
+            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
+                    data-category="all">
+                {{ __('all_sectors.filter_all') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="infrastruktur">
+                {{ __('all_sectors.filter_infrastructure') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="transportasi">
+                {{ __('all_sectors.filter_transportation') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="energi">
+                {{ __('all_sectors.filter_energy') }}
+            </button>
+
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
+                    data-category="geoteknik">
+                {{ __('all_sectors.filter_geotechnical') }}
+            </button>
+
+        </div>
+
+        {{-- SEARCH --}}
+        <div class="relative w-full lg:w-72">
+
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                <i class="fa-solid fa-magnifying-glass text-xs"></i>
             </span>
 
-            <h1 class="mt-7 text-5xl md:text-6xl font-black uppercase tracking-tight leading-none text-white">
-                Semua
-                <span class="text-red-500">
-                    Sektor
-                </span>
-            </h1>
-
-            <p class="mt-7 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-                GeoINHance menyediakan layanan rekayasa teknik multidisiplin
-                untuk berbagai sektor strategis nasional mulai dari
-                transportasi, energi, geoteknik, hingga mitigasi geobencana.
-            </p>
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="{{ __('all_sectors.search_placeholder') }}"
+                class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
 
         </div>
 
-    </section>
+    </div>
 
-    {{-- FILTER + SEARCH --}}
-    <section class="py-8 bg-white border-b border-gray-200 sticky top-[88px] z-40 shadow-sm">
+</section>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col lg:flex-row gap-4 justify-between items-center">
+{{-- GRID --}}
+<section class="py-16 bg-gray-50">
 
-            {{-- CATEGORY --}}
-            <div class="flex flex-wrap gap-2 w-full lg:w-auto">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
-                <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                        data-category="all">
-                    Semua
-                </button>
+        <div id="sectorGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="infrastruktur">
-                    Infrastruktur
-                </button>
+            @foreach($sectors as $sector)
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="transportasi">
-                    Transportasi
-                </button>
+            <div class="sector-item"
+                data-name="{{ strtolower(__($sector['name'])) }}"
+                data-category="{{ $sector['category'] }}">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="energi">
-                    Energi
-                </button>
+                <div class="sector-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group h-full">
 
-                <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                        data-category="geoteknik">
-                    Geoteknik
-                </button>
+                    <div>
 
-            </div>
+                        <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
 
-            {{-- SEARCH --}}
-            <div class="relative w-full lg:w-72">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
 
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                </span>
+                            <i class="fa-solid {{ $sector['icon'] }} text-[70px] text-red-500/30 group-hover:scale-110 transition duration-300"></i>
 
-                <input
-                    type="text"
-                    id="searchInput"
-                    placeholder="Cari sektor..."
-                    class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
-
-            </div>
-
-        </div>
-
-    </section>
-
-    {{-- GRID --}}
-    <section class="py-16 bg-gray-50">
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-            <div id="sectorGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-                @foreach($sectors as $sector)
-
-                <div class="sector-item"
-                    data-name="{{ strtolower($sector['name']) }}"
-                    data-category="{{ $sector['category'] }}">
-
-                    <div class="sector-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group h-full">
-
-                        <div>
-
-                            <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
-
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
-
-                                <i class="fa-solid {{ $sector['icon'] }} text-[70px] text-red-500/30 group-hover:scale-110 transition duration-300"></i>
-
-                                <span class="absolute bottom-4 left-4 z-20 {{ $sector['badgeColor'] }} text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">
-                                    {{ $sector['badge'] }}
-                                </span>
-
-                            </div>
-
-                            <div class="p-6 space-y-3">
-
-                                <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-700 transition">
-                                    {{ $sector['name'] }}
-                                </h3>
-
-                                <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                                    {{ $sector['description'] }}
-                                </p>
-
-                            </div>
+                            <span class="absolute bottom-4 left-4 z-20 {{ $sector['badgeColor'] }} text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">
+                                {{ __($sector['badge']) }}
+                            </span>
 
                         </div>
 
-                        <div class="p-6 pt-0">
+                        <div class="p-6 space-y-3">
 
-                            <a href="#"
-                               class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-red-800 hover:text-white hover:border-red-800 transition">
-                                Lihat Detail
-                            </a>
+                            <h3 class="text-lg font-bold text-gray-900 group-hover:text-red-700 transition">
+                                {{ __($sector['name']) }}
+                            </h3>
+
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                {{ __($sector['description']) }}
+                            </p>
 
                         </div>
 
                     </div>
 
+                    <div class="p-6 pt-0">
+
+                        <a href="#"
+                           class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-red-800 hover:text-white hover:border-red-800 transition">
+                            {{ __('all_sectors.btn_view_detail') }}
+                        </a>
+
+                    </div>
+
                 </div>
 
-                @endforeach
-
             </div>
 
-            {{-- PAGINATION --}}
-            <div class="mt-16 flex justify-center">
-
-                {{ $sectors->links() }}
-
-            </div>
+            @endforeach
 
         </div>
 
-    </section>
+        {{-- PAGINATION --}}
+        <div class="mt-16 flex justify-center">
+
+            {{ $sectors->links() }}
+
+        </div>
+
+    </div>
+
+</section>
 
     {{-- FOOTER --}}
     @include('partials.footer')
