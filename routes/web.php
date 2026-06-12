@@ -63,12 +63,12 @@ Route::prefix('sektor')->group(function () {
         '/mitigasi-geobencana',
         'sektor.mitigasi-geobencana'
     )->name('sektor.mitigasi-geobencana');
-    Route::view(
-    '/sektor/rekayasa-bawah-tanah',
+Route::view(
+    '/rekayasa-bawah-tanah',
     'sektor.rekayasa-bawah-tanah'
 )->name('sektor.rekayasa-bawah-tanah');
 Route::view(
-    '/sektor/pembangkit-energi',
+    '/pembangkit-energi',
     'sektor.pembangkit-energi'
 )->name('sektor.pembangkit-energi');
 Route::view(

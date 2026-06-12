@@ -126,7 +126,7 @@
                         <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-4 w-72 bg-white rounded-2xl shadow-2xl border border-slate-100 p-4 opacity-0 scale-95 pointer-events-none group-hover:opacity-100 group-hover:scale-100 transition-all duration-300 origin-bottom">
                             <div class="h-24 w-full overflow-hidden rounded-xl bg-slate-100 relative mb-3">
                                 <img :src="branch.img" class="w-full h-full object-cover" :alt="branch.title">
-                                <span class="absolute bottom-2 left-2 bg-red-800 text-white text-[7px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow">{{ __('home.net_tag') }}</span>
+                                <span class="absolute bottom-2 left-2 bg-red-800 text-white text-[7px] font-black uppercase tracking-widest px-2 py-0.5 rounded shadow">{{ __('home.net_unit_tag') }}</span>
                             </div>
                             <h3 class="text-xs font-black text-slate-950 uppercase tracking-wide mb-1 leading-tight" x-text="branch.title"></h3>
                             <p class="text-slate-500 text-[10px] leading-relaxed mb-2" x-text="branch.desc"></p>

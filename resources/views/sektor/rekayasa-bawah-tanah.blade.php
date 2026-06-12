@@ -13,6 +13,11 @@
 
     <style>
 
+        .nav-glass{
+            background: rgba(255,255,255,.97);
+            backdrop-filter: blur(12px);
+        }
+
         .project-card{
             transition: all .35s ease;
         }
@@ -35,9 +40,11 @@
 <body class="bg-gray-50 text-slate-900">
 
     {{-- NAVBAR --}}
-    <div class="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm">
+<header class="fixed top-0 left-0 w-full z-[999] nav-glass border-b border-gray-200 shadow-sm">
+
         @include('partials.navbar')
-    </div>
+
+    </header>
 
     {{-- HERO --}}
     <section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">

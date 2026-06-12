@@ -36,7 +36,9 @@
 
     {{-- NAVBAR --}}
     <div class="fixed top-0 left-0 w-full z-50 bg-white border-b border-gray-200 shadow-sm">
+
         @include('partials.navbar')
+
     </div>
 
     {{-- HERO --}}
