@@ -10,18 +10,19 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
+{
     Schema::create('strategic_projects', function (Blueprint $table) {
         $table->id();
-        $table->string('category');    // Contoh: Geoteknik, Infrastruktur
+        // Pastikan hanya baris hubungan kategori ini yang dipakai
+        $table->foreignId('project_category_id')->constrained('project_categories')->onDelete('cascade');
         $table->string('title');
         $table->text('description');
-        $table->string('location');    // Contoh: Jawa Tengah
-        $table->string('year');        // Contoh: 2024
+        $table->string('location');
+        $table->string('year');
         $table->string('image_path');
         $table->timestamps();
     });
-    }
+}
 
     /**
      * Reverse the migrations.

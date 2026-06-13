@@ -1,123 +1,120 @@
 @include('partials.navbar')
 
 <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">Company Portfolio</span>
-            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
-                Portofolio Proyek Rekayasa & Konstruksi
-            </h1>
-            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-                Menampilkan rekam jejak dedikasi kami dalam menyelesaikan tantangan infrastruktur rumit secara presisi menggunakan teknologi analisis mutakhir.
-            </p>
-        </div>
-    </section>
-
-    <section class="py-8 bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 justify-between items-center">
-            <div class="flex flex-wrap gap-2 w-full md:w-auto">
-                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm">Semua</button>
-                <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">Struktural</button>
-                <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">Geoteknik & Aliran</button>
-                <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">Pertambangan</button>
-            </div>
-            <div class="relative w-full md:w-72">
-                <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
-                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                </span>
-                <input type="text" placeholder="Cari proyek berdasarkan nama..." class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
-            </div>
-        </div>
-    </section>
-
-    <section class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-    @foreach($projects as $project)
-
-    <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
-
-        <div>
-
-            {{-- IMAGE / THUMBNAIL --}}
-            <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
-
-                <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
-
-                @if($project->image)
-                    <img src="{{ asset('storage/' . $project->image) }}"
-                         class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                @else
-                    <i class="fa-solid fa-building text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
-                @endif
-
-                <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">
-                    {{ $project->category ?? 'Project' }}
-                </span>
-
-            </div>
-
-            <div class="p-6 space-y-3">
-
-                <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">
-                    {{ $project->title }}
-                </h3>
-
-                <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                    {{ Str::limit($project->description, 180) }}
-                </p>
-
-            </div>
-
-        </div>
-
-        <div class="p-6 pt-0 space-y-4">
-
-            <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
-
-                <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">
-                    <i class="fa-solid fa-layer-group text-blue-500 mr-1"></i>
-                    {{ $project->software ?? 'Engineering Software' }}
-                </span>
-
-            </div>
-
-            <a href="{{ route('proyek.detailed-engineering-design', ['from' => 'all']) }}" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">
-
-                Lihat Detail Proyek
-
-            </a>
-
-        </div>
-
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+            {{ __('portfolio.hero_badge') }}
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
+            {{ __('portfolio.hero_title') }}
+        </h1>
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+            {{ __('portfolio.hero_desc') }}
+        </p>
     </div>
+</section>
 
-    @endforeach
-
-</div>
-
-            {{-- PAGINATION --}}
-            <div class="mt-16 flex justify-center">
-
-                {{ $projects->links() }}
-
-            </div>
-    </section>
-
-    <section id="contact" class="bg-slate-900 text-white py-16 border-t border-slate-800">
-        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
-            <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">Punya rencana proyek rekayasa yang membutuhkan presisi tinggi?</h2>
-            <p class="text-slate-400 max-w-xl mx-auto text-xs leading-relaxed">
-                Tim ahli kami siap membantu Anda menyusun pemodelan, melakukan uji FEA, hingga memberikan asistensi lisensi software komputasi Bentley & Seequent terbaik.
-            </p>
-            <div class="pt-4">
-                <a href="#" class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md text-xs hover:bg-blue-700 transition shadow-md shadow-blue-500/10 inline-block">
-                    Hubungi Spesialis Kami
-                </a>
-            </div>
+<section class="py-8 bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+        <div class="flex flex-wrap gap-2 w-full md:w-auto">
+            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm">
+                {{ __('portfolio.filter_all') }}
+            </button>
+            <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">
+                {{ __('portfolio.filter_structural') }}
+            </button>
+            <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">
+                {{ __('portfolio.filter_geotechnical') }}
+            </button>
+            <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">
+                {{ __('portfolio.filter_mining') }}
+            </button>
         </div>
-    </section>
+        <div class="relative w-full md:w-72">
+            <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
+                <i class="fa-solid fa-magnifying-glass text-xs"></i>
+            </span>
+            <input type="text" placeholder="{{ __('portfolio.search_placeholder') }}" class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+        </div>
+    </div>
+</section>
+
+<section class="py-16 bg-gray-50">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+            @foreach($projects as $project)
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+
+                <div>
+                    {{-- IMAGE / THUMBNAIL --}}
+                    <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
+
+                        @if($project->image)
+                            <img src="{{ asset('storage/' . $project->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        @else
+                            <i class="fa-solid fa-building text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
+                        @endif
+
+                        <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">
+                            {{ $project->category ?? __('portfolio.default_category') }}
+                        </span>
+                    </div>
+
+                    <div class="p-6 space-y-3">
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">
+                            {{ $project->title }}
+                        </h3>
+                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                            {{ Str::limit($project->description, 180) }}
+                        </p>
+                    </div>
+                </div>
+
+                <div class="p-6 pt-0 space-y-4">
+                    <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
+                        <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">
+                            <i class="fa-solid fa-layer-group text-blue-500 mr-1"></i>
+                            {{ $project->software ?? __('portfolio.default_software') }}
+                        </span>
+                    </div>
+
+                    <a href="{{ route('proyek.detailed-engineering-design', ['from' => 'all']) }}" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">
+                        {{ __('portfolio.view_detail') }}
+                    </a>
+                </div>
+
+            </div>
+
+            @endforeach
+
+        </div>
+
+        {{-- PAGINATION --}}
+        <div class="mt-16 flex justify-center">
+            {{ $projects->links() }}
+        </div>
+    </div>
+</section>
+
+<section id="contact" class="bg-slate-900 text-white py-16 border-t border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-6">
+        <h2 class="text-2xl sm:text-3xl font-bold tracking-tight">
+            {{ __('portfolio.cta_title') }}
+        </h2>
+        <p class="text-slate-400 max-w-xl mx-auto text-xs leading-relaxed">
+            {{ __('portfolio.cta_desc') }}
+        </p>
+        <div class="pt-4">
+            <a href="#" class="bg-blue-600 text-white font-semibold px-8 py-3 rounded-md text-xs hover:bg-blue-700 transition shadow-md shadow-blue-500/10 inline-block">
+                {{ __('portfolio.cta_btn') }}
+            </a>
+        </div>
+    </div>
+</section>
 
 @include('partials.footer')
 

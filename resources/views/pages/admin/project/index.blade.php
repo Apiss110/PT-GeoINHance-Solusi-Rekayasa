@@ -23,29 +23,40 @@
                     
                     <form action="{{ route('admin.project.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                         @csrf
+                        
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Proyek <span class="text-red-500">*</span></label>
-                            <input type="text" name="category" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: GEOTEKNIK atau INFRASTRUKTUR">
+                            <select name="project_category_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Pilih Jenis / Kategori Proyek --</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}" {{ old('project_category_id') == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('project_category_id')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Nama / Judul Proyek <span class="text-red-500">*</span></label>
-                            <input type="text" name="title" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: ANALISIS STABILITAS LERENG TOL">
+                            <input type="text" name="title" value="{{ old('title') }}" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: ANALISIS STABILITAS LERENG TOL">
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Deskripsi Singkat <span class="text-red-500">*</span></label>
-                            <textarea name="description" rows="4" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Tuliskan deskripsi ringkas proyek portofolio..."></textarea>
+                            <textarea name="description" rows="4" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Tuliskan deskripsi ringkas proyek portofolio...">{{ old('description') }}</textarea>
                         </div>
 
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Lokasi <span class="text-red-500">*</span></label>
-                                <input type="text" name="location" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: Jawa Barat">
+                                <input type="text" name="location" value="{{ old('location') }}" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: Jawa Barat">
                             </div>
                             <div>
                                 <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Tahun <span class="text-red-500">*</span></label>
-                                <input type="number" name="year" min="2000" max="2100" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="2026">
+                                <input type="number" name="year" min="2000" max="2100" value="{{ old('year', 2026) }}" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="2026">
                             </div>
                         </div>
                         
@@ -83,7 +94,7 @@
                                         </td>
                                         <td class="px-4 py-3 align-middle">
                                             <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-red-900/40 dark:text-red-300 uppercase">
-                                                {{ $project->category }}
+                                                {{ $project->category->name ?? 'Tanpa Kategori' }}
                                             </span>
                                             <div class="text-base font-bold text-gray-900 dark:text-white mt-1 uppercase">{{ $project->title }}</div>
                                             <p class="text-xs text-gray-400 mt-1 line-clamp-2">{{ $project->description }}</p>

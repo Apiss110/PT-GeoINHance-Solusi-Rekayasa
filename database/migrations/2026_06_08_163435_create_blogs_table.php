@@ -14,9 +14,9 @@ return new class extends Migration
             $table->string('slug')->unique();
             $table->string('category')->nullable();
             $table->string('tag')->nullable();  // Contoh: SIPIL, INOVASI
-            $table->text('content');    // Isi artikel lengkap / deskripsi pendek
-            $table->string('image')->nullable(); // Foto background kartu
-            $table->date('published_at'); // Tanggal rilis artikel
+            $table->text('content');    // Isi artikel lengkap
+            $table->string('image')->nullable(); // Nama file/path foto banner blog
+            $table->date('published_at')->useCurrent(); // Otomatis tanggal hari ini jika kosong
             $table->timestamps();
         });
     }

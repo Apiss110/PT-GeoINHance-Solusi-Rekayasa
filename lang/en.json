@@ -390,6 +390,22 @@
     "project.structural.2.desc": "Micro-element analysis using solid modeling to evaluate stress concentrations at bolt connections of node plates for extreme long-span roofs.",
 
 
+    "portfolio.hero_badge": "Company Portfolio",
+    "portfolio.hero_title": "Engineering & Construction Project Portfolio",
+    "portfolio.hero_desc": "Showcasing our track record of dedication to solving complex infrastructure challenges with precision using cutting-edge analytical technologies.",
+    "portfolio.filter_all": "All",
+    "portfolio.filter_structural": "Structural",
+    "portfolio.filter_geotechnical": "Geotechnical & Flow",
+    "portfolio.filter_mining": "Mining",
+    "portfolio.search_placeholder": "Search projects by name...",
+    "portfolio.default_category": "Project",
+    "portfolio.default_software": "Engineering Software",
+    "portfolio.view_detail": "View Project Details",
+    "portfolio.cta_title": "Have an engineering project plan that requires high precision?",
+    "portfolio.cta_desc": "Our team of experts is ready to help you construct modeling, perform FEA tests, and provide licensing assistance for the best Bentley & Seequent computing software.",
+    "portfolio.cta_btn": "Contact Our Specialist",
+
+
 
     "staad_pro.hero.badge": "Structural Analysis & Design",
     "staad_pro.hero.title": "STAAD.Pro",

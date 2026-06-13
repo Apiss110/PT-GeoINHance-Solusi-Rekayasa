@@ -4,7 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\StrategicProject; 
+use App\Models\ProjectCategory; // Tambahan: Panggil model kategori baru
+use App\Models\Proyek;
 use Illuminate\Http\Request;
+
 
 class ProyekController extends Controller
 {
@@ -22,12 +25,28 @@ class ProyekController extends Controller
      * Halaman detail satu proyek (Publik)
      */
     public function publicShow($id)
+{
+    $proyek = \App\Models\StrategicProject::findOrFail($id);
+    // Kirim data ke file view (misalnya: resources/views/proyek/show.blade.php)
+    return view('proyek.show', compact('proyek'));
+}
+
+    /**
+     * Halaman menampilkan daftar proyek berdasarkan Jenis / Kategori lewat Slug (Publik)
+     */
+    public function showByCategory($slug)
     {
-        // Mencari data proyek strategis berdasarkan id
-        $project = StrategicProject::findOrFail($id);
+        // 1. Cari data kategori berdasarkan slug di URL (e.g., 'geotechnical-analysis')
+        $category = ProjectCategory::where('slug', $slug)->firstOrFail();
         
-        // Mengarah ke file: resources/views/pages/proyek/detail-proyek.blade.php
-        return view('proyek.detail-proyek', compact('project'));
+        // 2. Ambil isi proyek yang berelasi dengan kategori ini (Eager loading data kategori)
+        $projects = $category->strategicProjects()->latest()->get();
+        
+        // 3. Ambil semua kategori untuk kebutuhan link menu samping/dropdown navbar jika diperlukan
+        $categories = ProjectCategory::all();
+
+        // Diarahkan ke file template dinamis baru yang kita buat di folder proyek
+        return view('proyek.index-category', compact('category', 'projects', 'categories'));
     }
 
     /**

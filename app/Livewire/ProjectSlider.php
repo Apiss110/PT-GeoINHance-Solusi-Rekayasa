@@ -42,7 +42,7 @@ class ProjectSlider extends Component
                     @forelse($projects as $project)
                         <div class="w-full md:w-1/3 flex-shrink-0 px-3">
                             
-                            <a href="{{ route('projects.show', $project->id) }}" class="block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-slate-300 transition duration-200 group">
+                            <a href="{{ route('proyek.detail', $project->id) }}" class="block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-slate-300 transition duration-200 group">
                                 
                                 <div class="overflow-hidden">
                                     <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" alt="{{ $project->title }}">

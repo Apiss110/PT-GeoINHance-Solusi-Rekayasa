@@ -4,27 +4,30 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\StrategicProject;
+use App\Models\ProjectCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
     /**
-     * Menampilkan halaman daftar proyek di dashboard admin
+     * 1. Menampilkan halaman daftar proyek di dashboard admin
      */
     public function index()
     {
-        $projects = StrategicProject::latest()->get();
-        return view('pages.admin.project.index', compact('projects'));
+        $projects = StrategicProject::with('category')->latest()->get();
+        $categories = ProjectCategory::all(); 
+
+        return view('pages.admin.project.index', compact('projects', 'categories'));
     }
 
     /**
-     * Menyimpan data proyek baru ke database dan folder storage
+     * 2. Menyimpan data proyek baru
      */
     public function store(Request $request)
     {
         $request->validate([
-            'category' => 'required|string|max:255',
+            'project_category_id' => 'required|exists:project_categories,id',
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'location' => 'required|string|max:255',
@@ -35,7 +38,7 @@ class ProjectController extends Controller
         $path = $request->file('image')->store('projects', 'public');
 
         StrategicProject::create([
-            'category' => $request->category,
+            'project_category_id' => $request->project_category_id,
             'title' => $request->title,
             'description' => $request->description,
             'location' => $request->location,
@@ -47,7 +50,43 @@ class ProjectController extends Controller
     }
 
     /**
-     * Menghapus data proyek dari database dan file fisiknya di storage
+     * 3. Memperbarui data proyek
+     */
+    public function update(Request $request, $id)
+    {
+        $project = StrategicProject::findOrFail($id);
+
+        $request->validate([
+            'project_category_id' => 'required|exists:project_categories,id',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
+            'location' => 'required|string|max:255',
+            'year' => 'required|string|max:4',
+            'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
+        ]);
+
+        $data = [
+            'project_category_id' => $request->project_category_id,
+            'title' => $request->title,
+            'description' => $request->description,
+            'location' => $request->location,
+            'year' => $request->year,
+        ];
+
+        if ($request->hasFile('image')) {
+            if (Storage::disk('public')->exists($project->image_path)) {
+                Storage::disk('public')->delete($project->image_path);
+            }
+            $data['image_path'] = $request->file('image')->store('projects', 'public');
+        }
+
+        $project->update($data);
+
+        return redirect()->route('admin.project.index')->with('success', 'Proyek strategis berhasil diperbarui!');
+    }
+
+    /**
+     * 4. Menghapus data proyek
      */
     public function destroy($id)
     {
@@ -60,5 +99,20 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('admin.project.index')->with('success', 'Proyek strategis berhasil dihapus!');
+    }
+
+    /**
+     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user
+     */
+    public function showPublicByCategory($slug)
+    {
+        // Mencari kategori berdasarkan slug
+        $category = ProjectCategory::where('slug', $slug)->firstOrFail();
+
+        // Mengambil proyek berdasarkan ID kategori
+        $projects = StrategicProject::where('project_category_id', $category->id)->latest()->get();
+
+        // Mengembalikan ke view spesifik kategori
+        return view('proyek.geotechnical-analysis', compact('category', 'projects'));
     }
 }

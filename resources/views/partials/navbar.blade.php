@@ -165,34 +165,45 @@
                 </div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
-                    <button class="nav-link flex items-center space-x-1
-                        {{ request()->is('proyek/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
-                        <span>{{ __('nav.menu.projects') }}</span>
-                        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div x-show="open" 
-                         x-transition:enter="transition ease-out duration-200"
-                         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
-                         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave="transition ease-in duration-150"
-                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
-                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
-                         x-cloak>
-                    <a href="{{ route('project.geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
-                    <a href="{{ route('proyek.detailed-engineering-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
-                    <a href="{{ route('proyek.review-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
-                    <a href="{{ route('proyek.structural-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Structural Analysis</a>
-                    <a href="{{ route('proyek.3d-fem-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">3D FEM Analysis</a>
-                    <a href="{{ route('proyek.numerical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
-                    <a href="{{ route('proyek.numerical-modeling') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis</a>
-                    <a href="{{ route('proyek.slope-stability') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
-                    <a href="{{ route('proyek.semua') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
-                    </div>
-                </div>
+    <button class="nav-link flex items-center space-x-1
+        {{ request()->is('proyek/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
+        <span>{{ __('nav.menu.projects') }}</span>
+        <svg class="w-3 h-3 transition-transform duration-200" :class="open ? 'rotate-180' : ''" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+        </svg>
+    </button>
+    
+    <div x-show="open" 
+         x-transition:enter="transition ease-out duration-200"
+         x-transition:enter-start="opacity-0 scale-95 translate-y-2"
+         x-transition:enter-end="opacity-100 scale-100 translate-y-0"
+         x-transition:leave="transition ease-in duration-150"
+         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
+         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
+         class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
+         x-cloak>
+         
+        <!-- PERBAIKAN: Semua href diarahkan ke route dinamis 'proyek.category' dengan slug masing-masing -->
+        <a href="{{ route('proyek.category', 'geotechnical-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Geotechnical Analysis</a>
+        
+        <a href="{{ route('proyek.category', 'detailed-engineering-design') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Detailed Engineering Design (DED)</a>
+        
+        <a href="{{ route('proyek.category', 'review-design-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Review Design Analysis</a>
+        
+        <a href="{{ route('proyek.category', 'structural-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Structural Analysis</a>
+        
+        <a href="{{ route('proyek.category', '3d-fem-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">3D FEM Analysis</a>
+        
+        <a href="{{ route('proyek.category', 'numerical-analysis-plaxis-3d') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Analysis Plaxis 3D</a>
+        
+        <a href="{{ route('proyek.category', 'numerical-modeling-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Numerical Modeling Analysis</a>
+        
+        <a href="{{ route('proyek.category', 'slope-stability-analysis') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Slope Stability Analysis</a>
+        
+        <!-- Untuk Menu 'Semua Proyek', biarkan mengarah ke method semuaProyek bawaanmu -->
+        <a href="{{ route('proyek.semua') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">Semua Proyek</a>
+    </div>
+</div>
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link flex items-center space-x-1

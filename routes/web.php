@@ -22,10 +22,15 @@ use App\Http\Controllers\SektorController;
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
-// Halaman Utama / Landing Page (Mengambil Banner & 3 Berita Terbaru)
+// PERBAIKAN EMERGENSI: Menggunakan try-catch agar halaman depan TIDAK AKAN PERNAH Error 500 saat presentasi meskipun database kosong
 Route::get('/', function () {
-    $sliders = \App\Models\HeroSlider::all();
-    $blogs = \App\Models\Blog::latest()->take(3)->get();
+    try {
+        $sliders = \App\Models\HeroSlider::all() ?? collect();
+        $blogs = \App\Models\Blog::latest()->take(3)->get() ?? collect();
+    } catch (\Exception $e) {
+        $sliders = collect();
+        $blogs = collect();
+    }
     return view('welcome', compact('sliders', 'blogs')); 
 })->name('home');
 
@@ -36,6 +41,10 @@ Route::get('/karir', function () { return view('karir'); })->name('karir');
 Route::get('/legalitas', function () { return view('legalitas'); })->name('legalitas');
 Route::get('/privacy-policy', function () { return view('privacy'); })->name('privacy.policy');
 Route::get('/terms-of-service', function () { return view('terms'); })->name('terms.service');
+
+Route::get('email/verify', function () {
+    return redirect()->route('verification.notice');
+})->name('fortify.verification.notice'); // Ubah namanya agar tidak bentrok
 
 /*
 |--------------------------------------------------------------------------
@@ -53,93 +62,39 @@ Route::get('/product/geostudio-flow', function () { return view('products.geostu
 |--------------------------------------------------------------------------
 */
 Route::prefix('sektor')->group(function () {
-    Route::view(
-    '/infrastruktur-transportasi',
-    'sektor.infrastruktur-transportasi'
-)->name('sektor.infrastruktur-transportasi');
-    // PERBAIKAN: Menghapus redundansi prefix /sektor/sektor
+    Route::view('/infrastruktur-transportasi', 'sektor.infrastruktur-transportasi')->name('sektor.infrastruktur-transportasi');
     Route::get('/semua-sektor', [SektorController::class, 'semuaSektor'])->name('sektor.semua-sektor');
-        Route::view(
-        '/mitigasi-geobencana',
-        'sektor.mitigasi-geobencana'
-    )->name('sektor.mitigasi-geobencana');
-Route::view(
-    '/rekayasa-bawah-tanah',
-    'sektor.rekayasa-bawah-tanah'
-)->name('sektor.rekayasa-bawah-tanah');
-Route::view(
-    '/pembangkit-energi',
-    'sektor.pembangkit-energi'
-)->name('sektor.pembangkit-energi');
-Route::view(
-    '/infrastruktur-air',
-    'sektor.infrastruktur-air'
-)->name('sektor.infrastruktur-air');
-Route::view(
-    '/minyak-bumi-gas',
-    'sektor.minyak-bumi-gas'
-)->name('sektor.minyak-bumi-gas');
-Route::view(
-    '/kawasan-industri',
-    'sektor.kawasan-industri'
-)->name('sektor.kawasan-industri');
-Route::view(
-    '/infrastruktur-jalan',
-    'sektor.infrastruktur-jalan'
-)->name('sektor.infrastruktur-jalan');
-Route::view(
-    '/jalur-kereta-api',
-    'sektor.jalur-kereta-api'
-)->name('sektor.jalur-kereta-api');
-Route::view(
-    '/kawasan-bandar-udara',
-    'sektor.kawasan-bandar-udara'
-)->name('sektor.kawasan-bandar-udara');
-Route::view(
-    '/fasilitas-pendidikan',
-    'sektor.fasilitas-pendidikan'
-)->name('sektor.fasilitas-pendidikan');
+    Route::view('/mitigasi-geobencana', 'sektor.mitigasi-geobencana')->name('sektor.mitigasi-geobencana');
+    Route::view('/rekayasa-bawah-tanah', 'sektor.rekayasa-bawah-tanah')->name('sektor.rekayasa-bawah-tanah');
+    Route::view('/pembangkit-energi', 'sektor.pembangkit-energi')->name('sektor.pembangkit-energi');
+    Route::view('/infrastruktur-air', 'sektor.infrastruktur-air')->name('sektor.infrastruktur-air');
+    Route::view('/minyak-bumi-gas', 'sektor.minyak-bumi-gas')->name('sektor.minyak-bumi-gas');
+    Route::view('/kawasan-industri', 'sektor.kawasan-industri')->name('sektor.kawasan-industri');
+    Route::view('/infrastruktur-jalan', 'sektor.infrastruktur-jalan')->name('sektor.infrastruktur-jalan');
+    Route::view('/jalur-kereta-api', 'sektor.jalur-kereta-api')->name('sektor.jalur-kereta-api');
+    Route::view('/kawasan-bandar-udara', 'sektor.kawasan-bandar-udara')->name('sektor.kawasan-bandar-udara');
+    Route::view('/fasilitas-pendidikan', 'sektor.fasilitas-pendidikan')->name('sektor.fasilitas-pendidikan');
 });
-
 
 /*
 |--------------------------------------------------------------------------
 | PROYEK (PUBLIC PORTFOLIO)
 |--------------------------------------------------------------------------
 */
-Route::get('/proyek/detailed-engineering-design', function () { 
-    return view('proyek.detailed-engineering-designed'); 
-})->name('proyek.detailed-engineering-design');
-
-Route::get('/proyek/review-design', function () { 
-    return view('proyek.review-design'); 
-})->name('proyek.review-design');
-
-Route::get('/proyek/structural-analysis', function () { 
-    return view('proyek.structural-analysis'); 
-})->name('proyek.structural-analysis');
-
-Route::get('/proyek/3d-fem', function () { 
-    return view('proyek.3d-fem'); 
-})->name('proyek.3d-fem-analysis');
-
-Route::get('/proyek/numerical-analysis', function () { 
-    return view('proyek.numerical-analysis'); 
-})->name('proyek.numerical-analysis');
-
-Route::get('/proyek/numerical-modeling', function () { 
-    return view('proyek.numerical-modeling'); 
-})->name('proyek.numerical-modeling');
-
-Route::get('/proyek/slope-stability', function () { 
-    return view('proyek.slope-stability'); 
-})->name('proyek.slope-stability');
-
+Route::get('/proyek/detailed-engineering-design', function () { return view('proyek.detailed-engineering-designed'); })->name('proyek.detailed-engineering-design');
+Route::get('/proyek/review-design', function () { return view('proyek.review-design'); })->name('proyek.review-design');
+Route::get('/proyek/structural-analysis', function () { return view('proyek.structural-analysis'); })->name('proyek.structural-analysis');
+Route::get('/proyek/3d-fem', function () { return view('proyek.3d-fem'); })->name('proyek.3d-fem-analysis');
+Route::get('/proyek/numerical-analysis', function () { return view('proyek.numerical-analysis'); })->name('proyek.numerical-analysis');
+Route::get('/proyek/numerical-modeling', function () { return view('proyek.numerical-modeling'); })->name('proyek.numerical-modeling');
+Route::get('/proyek/slope-stability', function () { return view('proyek.slope-stability'); })->name('proyek.slope-stability');
 Route::get('/proyek/semua-proyek', [ProyekController::class, 'semuaProyek'])->name('proyek.semua');
-Route::view('/proyek/geotechnical-analysis', 'proyek.geotechnical-analysis')->name('project.geotechnical-analysis');
 
-// SYNCED: Mengubah nama rute dari 'proyek.show' menjadi 'projects.show' agar sesuai dengan komponen Livewire
-Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('projects.show');
+// PERBAIKAN RELASI: Tambahkan ->whereNumber('id') agar rute ID tidak bertabrakan dengan rute Slug teks
+Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proyek.detail')->whereNumber('id');
+
+// PERBAIKAN: Diarahkan ke ProjectController Admin agar membaca fungsi pemanggil database dinamis kita, dan disesuaikan name-nya
+Route::get('/proyek/{slug}', [ProjectController::class, 'showPublicByCategory'])->name('proyek.category');
 
 /*
 |--------------------------------------------------------------------------
@@ -149,34 +104,15 @@ Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proje
 Route::get('/resources/articles', [ProyekController::class, 'articles'])->name('resources.articles');
 Route::get('/resources/news-events', [ProyekController::class, 'newsEvents'])->name('resources.news-events');
 Route::get('/blog/{slug}', [ProyekController::class, 'showBlog'])->name('blog.show');
-
-Route::get('/resources/geo-engineering', function () { 
-    return view('resources.geo-engineering'); 
-})->name('resources.geo-engineering');
-
-Route::get('/resources/consulting-services', function () { 
-    return view('resources.consulting-services'); 
-})->name('resources.consulting-services');
-
-Route::get('/resources/perpus-dokumen', function () { 
-    return view('resources.perpus-dokumen'); 
-})->name('resources.perpus-dokumen');
-
-Route::get('/resources/semua-resources', function () { 
-    return view('resources.semua-resources'); 
-})->name('resources.semua');
-
-Route::get('/resources/studi-kasus', function () { 
-    return view('resources.studi-kasus'); 
-})->name('resources.studi-kasus');
-
-Route::get('/resources/video', function () { 
-    return view('resources.video'); 
-})->name('resources.video');
+Route::get('/resources/geo-engineering', function () { return view('resources.geo-engineering'); })->name('resources.geo-engineering');
+Route::get('/resources/consulting-services', function () { return view('resources.consulting-services'); })->name('resources.consulting-services');
+Route::get('/resources/perpus-dokumen', function () { return view('resources.perpus-dokumen'); })->name('resources.perpus-dokumen');
+Route::get('/resources/semua-resources', function () { return view('resources.semua-resources'); })->name('resources.semua');
+Route::get('/resources/studi-kasus', function () { return view('resources.studi-kasus'); })->name('resources.studi-kasus');
+Route::get('/resources/video', function () { return view('resources.video'); })->name('resources.video');
 
 // Training
 Route::get('/training/pendaftaran', function () { return view('training.pendaftaran'); })->name('training.pendaftaran');
-
 Route::prefix('training')->group(function () {
     Route::view('/silabus-materi', 'training.silabus-materi')->name('training.silabus');
     Route::view('/fasilitas', 'training.fasilitas')->name('training.fasilitas');
@@ -208,7 +144,7 @@ Route::middleware('auth')->group(function () {
 Route::get('logout', function () {
     auth()->logout();
     return redirect('/');
-})->name('logout');
+})->name('user.logout');
 
 /*
 |--------------------------------------------------------------------------
@@ -225,9 +161,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // 2. Kelola Proyek Strategis
     Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
     Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
+    Route::put('/project/{id}', [ProjectController::class, 'update'])->name('admin.project.update');
     Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
-    // Jalur khusus untuk menangani upload gambar dari CKEditor admin
     Route::post('/blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.upload.image');
 
     // 3. Kelola Blog & News Admin (CRUD Resource)

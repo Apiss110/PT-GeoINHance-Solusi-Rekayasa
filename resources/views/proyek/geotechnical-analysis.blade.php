@@ -7,10 +7,10 @@
         <nav class="flex mb-4 text-sm text-slate-400 font-medium">
             <a href="{{ route('proyek.semua') }}" class="hover:text-white transition">{{ __('breadcrumbs.projects') }}</a>
             <span class="mx-2">/</span>
-            <span class="text-blue-400">{{ __('geotech.title') }}</span>
+            <span class="text-blue-400">{{ $category->name }}</span>
         </nav>
         
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{{ __('geotech.title') }}</h1>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{{ $category->name }}</h1>
         <p class="mt-3 text-base text-slate-300 max-w-3xl leading-relaxed">
             {{ __('geotech.description') }}
         </p>
@@ -38,9 +38,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.year_label') }}</label>
                     <select id="selectTahunGeotech" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.year_all') }}</option>
+                        <option value="2026">2026</option>
                         <option value="2025">2025</option>
                         <option value="2024">2024</option>
-                        <option value="2023">2023</option>
                     </select>
                 </div>
 
@@ -48,8 +48,7 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.category_label') }}</label>
                     <select id="selectKategoriGeotech" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.category_all') }}</option>
-                        <option value="ground-improvement">{{ __('filter.category.ground_improvement') }}</option>
-                        <option value="soil-investigation">{{ __('filter.category.soil_investigation') }}</option>
+                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
                     </select>
                 </div>
 
@@ -57,8 +56,8 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.location_label') }}</label>
                     <select id="selectLokasiGeotech" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.location_all') }}</option>
-                        <option value="sulawesi-selatan">{{ __('filter.location.sulawesi_selatan') }}</option>
-                        <option value="jakarta">{{ __('filter.location.jakarta') }}</option>
+                        <option value="jawa-barat">Jawa Barat</option>
+                        <option value="jakarta">DKI Jakarta</option>
                     </select>
                 </div>
 
@@ -72,7 +71,7 @@
 
         <div class="mb-8 flex justify-between items-center border-b border-gray-200 pb-4">
             <span class="text-sm text-slate-600 font-medium">
-                {{ __('portfolio.list_title') }} <strong class="text-slate-900">{{ __('geotech.title') }}</strong>
+                {{ __('portfolio.list_title') }} <strong class="text-slate-900">{{ $category->name }}</strong>
             </span>
             
             @if(request('from') == 'all')
@@ -83,111 +82,46 @@
         </div>
 
         <div id="projectGridGeotech" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+    
+    @foreach($projects as $project)
+        <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+            <div>
+                <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
+                    <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover">
+                </div>
+                
+                <div class="p-6 space-y-4">
+                    <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition">{{ $project->title }}</h3>
+                    
+                    <div class="space-y-2 text-xs text-slate-600">
+                        <p>Lokasi: {{ $project->location }}</p>
+                        <p>Tahun: {{ $project->year }}</p>
+                    </div>
+
+                    <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                        {{ $project->description }}
+                    </p>
+                </div>
+            </div>
             
-            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ Str::lower(__('project.geotech.1.title')) }}"
-                 data-tahun="2025"
-                 data-kategori="ground-improvement"
-                 data-lokasi="sulawesi-selatan">
-                <div>
-                    <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                        <i class="fa-solid fa-bore-hole text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    
-                    <div class="p-6 space-y-4">
-                        <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
-                            {{ __('project.geotech.1.title') }}
-                        </h3>
-                        
-                        <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
-                                <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ __('filter.category.ground_improvement') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
-                                <span class="font-semibold text-slate-900">{{ __('project.geotech.1.location') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
-                                <span class="font-semibold text-slate-900">2025</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ __('project.geotech.1.desc') }}
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="p-6 pt-0 space-y-3">
-                    <div class="flex flex-wrap gap-1">
-                        <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">Settle3D / Geostudio</span>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                        {{ __('portfolio.read_more') }}
-                    </a>
-                </div>
+            <div class="p-6 pt-0">
+                <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                    Read More
+                </a>
             </div>
-
-            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ Str::lower(__('project.geotech.2.title')) }}"
-                 data-tahun="2024"
-                 data-kategori="soil-investigation"
-                 data-lokasi="jakarta">
-                <div>
-                    <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                        <i class="fa-solid fa-compass-drafting text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    
-                    <div class="p-6 space-y-4">
-                        <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
-                            {{ __('project.geotech.2.title') }}
-                        </h3>
-                        
-                        <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
-                                <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ __('filter.category.soil_investigation') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
-                                <span class="font-semibold text-slate-900">{{ __('project.geotech.2.location') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
-                                <span class="font-semibold text-slate-900">2024</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ __('project.geotech.2.desc') }}
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="p-6 pt-0 space-y-3">
-                    <div class="flex flex-wrap gap-1">
-                        <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">Geotechnical Core Data</span>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                        {{ __('portfolio.read_more') }}
-                    </a>
-                </div>
-            </div>
-
-            <div id="noProjectMessageGeotech" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
-                <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-                {{ __('portfolio.empty_geotech') }}
-            </div>
-
         </div>
+    @endforeach
+
+    @if($projects->isEmpty())
+        <div class="col-span-full text-center py-12 text-slate-500">
+            Belum ada proyek untuk kategori ini.
+        </div>
+    @endif
+</div>
 
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
-                {{ __('portfolio.showing') }} <span id="countDisplayedGeotech" class="text-slate-700 font-bold">2</span> {{ __('portfolio.of') }} <span id="countTotalGeotech" class="text-slate-700 font-bold">2</span> {{ __('portfolio.results') }}
+                {{ __('portfolio.showing') }} <span id="countDisplayedGeotech" class="text-slate-700 font-bold">{{ $projects->count() }}</span> {{ __('portfolio.of') }} <span id="countTotalGeotech" class="text-slate-700 font-bold">{{ $projects->count() }}</span> {{ __('portfolio.results') }}
             </div>
             
             <div class="inline-flex rounded-lg bg-[#1E293B] p-0.5 text-white shadow-sm overflow-hidden">

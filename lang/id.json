@@ -608,6 +608,22 @@
     "project.structural.2.desc": "Analisis mikro-elemen menggunakan pemodelan solid untuk meninjau konsentrasi tegangan (stress concentration) pada sambungan baut pelat simpul atap bentang lebar ekstrim.",
 
 
+    "portfolio.hero_badge": "Company Portfolio",
+    "portfolio.hero_title": "Portofolio Proyek Rekayasa & Konstruksi",
+    "portfolio.hero_desc": "Menampilkan rekam jejak dedikasi kami dalam menyelesaikan tantangan infrastruktur rumit secara presisi menggunakan teknologi analisis mutakhir.",
+    "portfolio.filter_all": "Semua",
+    "portfolio.filter_structural": "Struktural",
+    "portfolio.filter_geotechnical": "Geoteknik & Aliran",
+    "portfolio.filter_mining": "Pertambangan",
+    "portfolio.search_placeholder": "Cari proyek berdasarkan nama...",
+    "portfolio.default_category": "Proyek",
+    "portfolio.default_software": "Software Rekayasa",
+    "portfolio.view_detail": "Lihat Detail Proyek",
+    "portfolio.cta_title": "Punya rencana proyek rekayasa yang membutuhkan presisi tinggi?",
+    "portfolio.cta_desc": "Tim ahli kami siap membantu Anda menyusun pemodelan, melakukan uji FEA, hingga memberikan asistensi lisensi software komputasi Bentley & Seequent terbaik.",
+    "portfolio.cta_btn": "Hubungi Spesialis Kami",
+
+
     "staad_pro.hero.badge": "Analisis & Desain Struktural",
     "staad_pro.hero.title": "STAAD.Pro",
     "staad_pro.hero.description": "Aplikasi analisis dan desain elemen finite yang kuat dan terintegrasi. Analisis struktur apa pun yang terkena beban statis, dinamis, angin, gempa bumi, termal, dan beban bergerak.",
