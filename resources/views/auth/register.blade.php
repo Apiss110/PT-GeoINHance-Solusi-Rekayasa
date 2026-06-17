@@ -27,12 +27,8 @@
         <!-- Bagian Kiri -->
         <div class="hidden md:flex md:w-1/2 bg-pattern p-12 flex-col justify-between relative text-white">
             <div class="flex items-center relative z-10">
-                <div class="bg-red-800 p-2 rounded-xl mr-3 shadow-md">
-                    <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                </div>
                 <div class="leading-none">
-                    <span class="font-black text-xl tracking-tighter uppercase block">Geo<span class="text-red-500">INHance</span></span>
-                    <span class="text-[9px] font-bold text-slate-300 tracking-[0.2em] uppercase">Engineering Solutions</span>
+                    <img src="../images/logo_inh.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
                 </div>
             </div>
 

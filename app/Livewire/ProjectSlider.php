@@ -49,7 +49,10 @@ class ProjectSlider extends Component
                                 </div>
 
                                 <div class="p-6">
-                                    <span class="text-xs font-bold text-red-800 uppercase block mb-1">{{ $project->category }}</span>
+                                    {{-- PERBAIKAN DI SINI: Memanggil properti name / NAME agar tidak keluar JSON mentah --}}
+                                    <span class="text-xs font-bold text-red-800 uppercase block mb-1">
+                                        {{ $project->category->name ?? ($project->category->NAME ?? 'Project') }}
+                                    </span>
                                     
                                     <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition mb-2">{{ $project->title }}</h3>
                                     

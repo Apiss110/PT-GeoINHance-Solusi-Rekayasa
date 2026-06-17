@@ -287,7 +287,7 @@
                             
                             <a href="{{ Auth::user()->role === 'admin' ? url('/dashboard') : url('/client/dashboard') }}" class="flex items-center space-x-2 px-4 py-2.5 text-xs hover:bg-slate-50 hover:text-red-800 transition">
                                 <span class="material-symbols-outlined text-slate-400 text-sm">dashboard</span>
-                                <span>__('nav.auth.dashboard')</span>
+                                <span>{{__('nav.auth.dashboard')}}</span>
                             </a>
 
                             <hr class="border-slate-100 my-1">
