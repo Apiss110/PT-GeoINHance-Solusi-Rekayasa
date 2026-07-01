@@ -235,7 +235,7 @@
 
 
     "news.hero_badge": "resources",
-    "news.hero_title": "News & Events",
+    "news.hero_title": "Berita & Acara",
     "news.hero_desc": "Menampilkan rekam jejak dedikasi kami dalam menyelesaikan tantangan infrastruktur rumit secara presisi menggunakan teknologi analisis mutakhir.",
     "news.filter_all": "Semua",
     "news.filter_project": "Proyek",
@@ -376,9 +376,7 @@
     "profile.location_sub": "Location",
     "profile.location_title": "Kantor Operasional",
     "profile.addr_01_title": "Alamat Surat / Operasional",
-    "profile.addr_01_desc": "Menara Sentraya Lt. 11 Unit A4, <br> Jl. Iskandarsyah Raya, Jakarta Selatan, DKI Jakarta.",
-    "profile.addr_02_title": "Studio Teknis",
-    "profile.addr_02_desc": "Jl. Ir. H. Juanda No. 123, Dago, Kota Bandung, West Java.",
+    "profile.addr_01_desc": "Jl. Cijerokaso No 94, Sarijadi, Kec. Sukasari, Kota Bandung 40151",
 
 
     "contact.hero_sub": "Hubungi Hubungan Kerja Kami",
@@ -1034,7 +1032,7 @@
     "casestudy.card5_desc": "Penerapan teknologi peredam gempa eksternal untuk mereduksi simpangan antar-lantai (drift ratio) tanpa perlu melakukan perkuatan selubung beton masif.",
 
     "blog.hero_badge": "Resources",
-    "blog.hero_title": "Artikel & Berita Terbaru",
+    "blog.hero_title": "Artikel & Insight Industri",
     "blog.hero_desc": "Temukan informasi terbaru mengenai proyek geoteknik, insight industri, event mendatang, serta kabar internal dari GeoINHance.",
     "blog.filter_all": "Semua",
     "blog.filter_project": "Proyek",

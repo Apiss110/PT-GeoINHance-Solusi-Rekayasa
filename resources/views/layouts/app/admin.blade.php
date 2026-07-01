@@ -1,11 +1,7 @@
 <div class="flex min-h-screen bg-slate-50">
     
-    <!-- ========================================== -->
-    <!-- SIDEBAR PANEL NAVIGASI (Sisi Kiri)         -->
-    <!-- ========================================== -->
     <div class="w-64 bg-[#0e1d82] text-white flex flex-col justify-between p-5 shrink-0 shadow-lg">
         <div>
-            <!-- Header Brand & Logo Korporat -->
             <div class="flex items-center space-x-3 mb-8 border-b border-white/10 pb-4">
                 <div class="bg-white text-[#0e1d82] px-2.5 py-1.5 rounded-lg font-black text-lg tracking-wider shadow-sm">
                     GIH
@@ -16,15 +12,12 @@
                 </div>
             </div>
 
-            <!-- Kelompok Menu Navigasi -->
             <div class="space-y-6">
-                <!-- KELOMPOK 1: PANEL NAVIGASI -->
                 <div>
                     <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 mb-2">
                         PANEL NAVIGASI
                     </div>
                     <nav class="space-y-1">
-                        <!-- Dashboard Utama -->
                         <a href="{{ route('dashboard') }}" 
                            class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-200 {{ request()->routeIs('dashboard') ? 'bg-white text-[#0e1d82] font-bold shadow-sm' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -33,7 +26,6 @@
                             <span>Dashboard Utama</span>
                         </a>
 
-                        <!-- Banner Slider Front -->
                         <a href="{{ route('admin.slider.index') }}" 
                            class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-200 {{ request()->routeIs('admin.slider.*') ? 'bg-white text-[#0e1d82] font-bold shadow-sm' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -42,7 +34,6 @@
                             <span>Banner Slider Front</span>
                         </a>
 
-                        <!-- Portofolio Proyek -->
                         <a href="{{ route('admin.project.index') }}" 
                            class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-200 {{ request()->routeIs('admin.project.*') ? 'bg-white text-[#0e1d82] font-bold shadow-sm' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -51,7 +42,6 @@
                             <span>Portofolio Proyek</span>
                         </a>
 
-                        <!-- Blog & News (Sudah Ditambahkan & Selaras) -->
                         <a href="{{ route('admin.blog.index') }}" 
                            class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-200 {{ request()->routeIs('admin.blog.*') ? 'bg-white text-[#0e1d82] font-bold shadow-sm' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -59,17 +49,23 @@
                             </svg>
                             <span>Blog & News</span>
                         </a>
+
+                        <a href="{{ route('admin.branch.index') }}" 
+                           class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-200 {{ request()->routeIs('admin.branch.*') ? 'bg-white text-[#0e1d82] font-bold shadow-sm' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                            </svg>
+                            <span>Kantor Cabang & Peta</span>
+                        </a>
                     </nav>
                 </div>
 
-                <!-- KELOMPOK 2: AKSES MANAJEMEN (Hanya muncul jika user login adalah superadmin) -->
                 @if(auth()->check() && auth()->user()->role === 'superadmin')
                 <div>
                     <div class="text-[10px] font-bold uppercase tracking-widest text-slate-400 px-3 mb-2">
                         AKSES MANAJEMEN
                     </div>
                     <nav class="space-y-1">
-                        <!-- Kelola Akun Admin -->
                         <a href="{{ route('admin.kelola-admin.index') }}" 
                            class="flex items-center space-x-3 px-3 py-2.5 rounded-xl text-sm font-medium transition duration-200 {{ request()->routeIs('admin.kelola-admin.*') ? 'bg-white text-[#0e1d82] font-bold shadow-sm' : 'text-slate-200 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -83,7 +79,6 @@
             </div>
         </div>
 
-        <!-- Sidebar Bagian Bawah: Informasi Akun Dinamis & Tombol Logout -->
         <div class="border-t border-white/10 pt-4 space-y-3">
             <div class="px-3">
                 <div class="font-bold text-sm tracking-wide truncate">{{ auth()->user()->name ?? 'Superadmin Geo' }}</div>
@@ -101,9 +96,6 @@
         </div>
     </div>
 
-    <!-- ========================================== -->
-    <!-- CONTENT WRAPPER (Sisi Kanan - Konten Utama) -->
-    <!-- ========================================== -->
     <div class="content-wrapper flex-1 overflow-y-auto">
         <div class="content p-8">
             <div class="container-fluid">

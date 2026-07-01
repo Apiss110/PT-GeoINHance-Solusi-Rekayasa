@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use App\Models\ProjectCategory;
-use Illuminate\Support\Str;
 
 class ProjectCategorySeeder extends Seeder
 {
@@ -13,23 +12,50 @@ class ProjectCategorySeeder extends Seeder
      */
     public function run(): void
     {
-        // Daftar semua kategori proyek sesuai navbar depan kamu
+        // Menggunakan array asosiatif agar kita bisa mengontrol slug-nya secara manual
+        // Hal ini memastikan slug di database PASTI SAMA dengan rute URL di web.php
         $categories = [
-            'Geotechnical Analysis',
-            'Detailed Engineering Design (DED)',
-            'Review Design Analysis',
-            'Structural Analysis',
-            '3D FEM Analysis',
-            'Numerical Analysis Plaxis 3D',
-            'Numerical Modeling Analysis',
-            'Slope Stability Analysis'
+            [
+                'name' => 'Geotechnical Analysis',
+                'slug' => 'geotechnical-analysis',
+            ],
+            [
+                'name' => 'Detailed Engineering Design (DED)',
+                'slug' => 'detailed-engineering-design', // Sinkron dengan /proyek/detailed-engineering-design
+            ],
+            [
+                'name' => 'Review Design Analysis',
+                'slug' => 'review-design', // Sinkron dengan /proyek/review-design
+            ],
+            [
+                'name' => 'Structural Analysis',
+                'slug' => 'structural-analysis', // Sinkron dengan /proyek/structural-analysis
+            ],
+            [
+                'name' => '3D FEM Analysis',
+                'slug' => '3d-fem', // Sinkron dengan /proyek/3d-fem
+            ],
+            [
+                'name' => 'Numerical Analysis Plaxis 3D',
+                'slug' => 'numerical-analysis', // Sinkron dengan /proyek/numerical-analysis
+            ],
+            [
+                'name' => 'Numerical Modeling Analysis',
+                'slug' => 'numerical-modeling', // Sinkron dengan /proyek/numerical-modeling
+            ],
+            [
+                'name' => 'Slope Stability Analysis',
+                'slug' => 'slope-stability', // Sinkron dengan /proyek/slope-stability
+            ],
         ];
 
         foreach ($categories as $category) {
-            ProjectCategory::create([
-                'name' => $category,
-                'slug' => Str::slug($category), // Otomatis jadi geotechnical-analysis, dll.
-            ]);
+            // updateOrCreate akan memeriksa berdasarkan 'slug'. 
+            // Jika slug belum ada -> buat baru. Jika sudah ada -> update namanya saja (Aman dari eror duplikat!)
+            ProjectCategory::updateOrCreate(
+                ['slug' => $category['slug']], 
+                ['name' => $category['name']]
+            );
         }
     }
 }

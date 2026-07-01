@@ -38,9 +38,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.year_label') }}</label>
                     <select id="selectTahunStructural" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.year_all') }}</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
+                        @foreach($projects->pluck('year')->unique()->sortDesc() as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -48,6 +48,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.category_label') }}</label>
                     <select id="selectKategoriStructural" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.category_all') }}</option>
+                        @foreach($projects->pluck('category_slug')->unique() as $cat_slug)
+                            <option value="{{ strtolower(trim($cat_slug)) }}">{{ strtoupper(str_replace('-', ' ', $cat_slug)) }}</option>
+                        @endforeach
                         <option value="seismik-pushover">{{ __('filter.category.seismik_pushover') }}</option>
                         <option value="fea-optimasi">{{ __('filter.category.fea_optimasi') }}</option>
                     </select>
@@ -57,8 +60,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.location_label') }}</label>
                     <select id="selectLokasiStructural" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.location_all') }}</option>
-                        <option value="jawa-timur">{{ __('filter.location.jawa_timur') }}</option>
-                        <option value="jawa-barat">{{ __('filter.location.jawa_barat') }}</option>
+                        @foreach($projects->pluck('location')->unique()->sort() as $location)
+                            <option value="{{ strtolower(trim($location)) }}">{{ $location }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -84,99 +88,62 @@
 
         <div id="projectGridStructural" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ Str::lower(__('project.structural.1.title')) }}"
-                 data-tahun="2024"
-                 data-kategori="seismik-pushover"
-                 data-lokasi="jawa-timur">
-                <div>
-                    <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                        <i class="fa-solid fa-chart-line text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
+            @foreach($projects as $project)
+                <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
+                     data-nama="{{ strtolower(trim($project->title)) }}"
+                     data-tahun="{{ $project->year }}"
+                     data-kategori="{{ strtolower(trim($project->category_slug ?? 'structural-analysis')) }}"
+                     data-lokasi="{{ strtolower(trim($project->location)) }}">
+                    <div>
+                        <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
+                            @if($project->image_path)
+                                <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                                <i class="fa-solid {{ Str::contains(strtolower($project->title), ['fea', 'optim']) || $project->category_slug == 'fea-optimasi' ? 'fa-network-wired' : 'fa-chart-line' }} text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
+                            @endif
+                        </div>
+                        
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
+                                {{ $project->title }}
+                            </h3>
+                            
+                            <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
+                                    <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">
+                                        {{ $project->category_name ?? (str_contains($project->category_slug, 'fea') ? __('filter.category.fea_optimasi') : __('filter.category.seismik_pushover')) }}
+                                    </span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
+                                    <span class="font-semibold text-slate-900">{{ $project->location }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
+                                    <span class="font-semibold text-slate-900">{{ $project->year }}</span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                {{ strip_tags($project->description) }}
+                            </p>
+                        </div>
                     </div>
                     
-                    <div class="p-6 space-y-4">
-                        <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
-                            {{ __('project.structural.1.title') }}
-                        </h3>
-                        
-                        <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
-                                <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ __('filter.category.seismik_pushover') }}</span>
+                    <div class="p-6 pt-0 space-y-3">
+                        @if(!empty($project->software_used))
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">{{ $project->software_used }}</span>
                             </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
-                                <span class="font-semibold text-slate-900">{{ __('project.structural.1.location') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
-                                <span class="font-semibold text-slate-900">2024</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ __('project.structural.1.desc') }}
-                        </p>
+                        @endif
+                        <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                            {{ __('portfolio.read_more') }}
+                        </a>
                     </div>
                 </div>
-                
-                <div class="p-6 pt-0 space-y-3">
-                    <div class="flex flex-wrap gap-1">
-                        <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">SAP2000</span>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                        {{ __('portfolio.read_more') }}
-                    </a>
-                </div>
-            </div>
-
-            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ Str::lower(__('project.structural.2.title')) }}"
-                 data-tahun="2023"
-                 data-kategori="fea-optimasi"
-                 data-lokasi="jawa-barat">
-                <div>
-                    <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                        <i class="fa-solid fa-network-wired text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    
-                    <div class="p-6 space-y-4">
-                        <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
-                            {{ __('project.structural.2.title') }}
-                        </h3>
-                        
-                        <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
-                                <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ __('filter.category.fea_optimasi') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
-                                <span class="font-semibold text-slate-900">{{ __('project.structural.2.location') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
-                                <span class="font-semibold text-slate-900">2023</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ __('project.structural.2.desc') }}
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="p-6 pt-0 space-y-3">
-                    <div class="flex flex-wrap gap-1">
-                        <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">ANSYS / Abaqus</span>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                        {{ __('portfolio.read_more') }}
-                    </a>
-                </div>
-            </div>
+            @endforeach
 
             <div id="noProjectMessageStructural" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
@@ -185,9 +152,15 @@
 
         </div>
 
+        @if($projects->isEmpty())
+            <div class="text-center py-12 text-slate-500">
+                Belum ada proyek untuk kategori Structural Analysis saat ini.
+            </div>
+        @endif
+
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
-                {{ __('portfolio.showing') }} <span id="countDisplayedStructural" class="text-slate-700 font-bold">2</span> {{ __('portfolio.of') }} <span id="countTotalStructural" class="text-slate-700 font-bold">2</span> {{ __('portfolio.results') }}
+                {{ __('portfolio.showing') }} <span id="countDisplayedStructural" class="text-slate-700 font-bold">{{ $projects->count() }}</span> {{ __('portfolio.of') }} <span id="countTotalStructural" class="text-slate-700 font-bold">{{ $projects->count() }}</span> {{ __('portfolio.results') }}
             </div>
             
             <div class="inline-flex rounded-lg bg-[#1E293B] p-0.5 text-white shadow-sm overflow-hidden">
@@ -207,9 +180,8 @@
 
 <script>
 document.getElementById('filterFormStructural').addEventListener('submit', function(e) {
-    e.preventDefault(); // Mengunci reload halaman penuh
+    e.preventDefault(); 
 
-    // Menangkap pilihan filter milik user
     const filterNama = document.getElementById('inputNamaStructural').value.toLowerCase().trim();
     const filterTahun = document.getElementById('selectTahunStructural').value;
     const filterKategori = document.getElementById('selectKategoriStructural').value;
@@ -219,13 +191,11 @@ document.getElementById('filterFormStructural').addEventListener('submit', funct
     let displayedCount = 0;
 
     cards.forEach(card => {
-        // Ekstraksi data-atribut dari card
-        const cardNama = card.getAttribute('data-nama');
-        const cardTahun = card.getAttribute('data-tahun');
-        const cardKategori = card.getAttribute('data-kategori');
-        const cardLokasi = card.getAttribute('data-lokasi');
+        const cardNama = card.getAttribute('data-nama') || "";
+        const cardTahun = card.getAttribute('data-tahun') || "";
+        const cardKategori = card.getAttribute('data-kategori') || "";
+        const cardLokasi = card.getAttribute('data-lokasi') || "";
 
-        // Evaluasi logika kecocokan masukan filter
         const matchNama = filterNama === "" || cardNama.includes(filterNama);
         const matchTahun = filterTahun === "" || cardTahun === filterTahun;
         const matchKategori = filterKategori === "" || cardKategori === filterKategori;
@@ -239,10 +209,8 @@ document.getElementById('filterFormStructural').addEventListener('submit', funct
         }
     });
 
-    // Melakukan sinkronisasi otomatis ke teks pencatatan data bawah
     document.getElementById('countDisplayedStructural').innerText = displayedCount;
     
-    // Tampilkan pesan jika kosong pencarian
     const noMessage = document.getElementById('noProjectMessageStructural');
     if (displayedCount === 0) {
         noMessage.classList.remove('hidden');

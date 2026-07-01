@@ -102,17 +102,61 @@ class ProjectController extends Controller
     }
 
     /**
-     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user
+     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user (Dinamis)
+     */
+/**
+     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user (Dinamis)
+     */
+/**
+     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user (Dinamis)
      */
     public function showPublicByCategory($slug)
     {
-        // Mencari kategori berdasarkan slug
-        $category = ProjectCategory::where('slug', $slug)->firstOrFail();
+        // 1. Cari kategori berdasarkan slug asli dari URL
+        $category = ProjectCategory::where('slug', $slug)->first();
 
-        // Mengambil proyek berdasarkan ID kategori
-        $projects = StrategicProject::where('project_category_id', $category->id)->latest()->get();
+        // Fallback 1: Jika di URL 'detailed-engineering-design' tapi di DB barangkali disingkat 'ded'
+        if (!$category && $slug === 'detailed-engineering-design') {
+            $category = ProjectCategory::where('slug', 'ded')->first();
+        }
 
-        // Mengembalikan ke view spesifik kategori
-        return view('proyek.geotechnical-analysis', compact('category', 'projects'));
+        // Fallback 2: Jika di URL 'review-design-analysis' tapi di DB kolom slug-nya 'review-design'
+        if (!$category && $slug === 'review-design-analysis') {
+            $category = ProjectCategory::where('slug', 'review-design')->first();
+        }
+
+        // Jika benar-benar tidak ada di database
+        if (!$category) {
+            return response("Peringatan: Data kategori dengan slug '{$slug}' tidak ditemukan di database Anda. Silakan periksa kembali tabel project_categories.", 200);
+        }
+
+        // 2. Ambil data proyek
+        $projects = StrategicProject::with('category')
+                                    ->where('project_category_id', $category->id)
+                                    ->latest()
+                                    ->get();
+
+        // 3. Peta pencocokan file Blade (Mapping nama file view)
+        $viewMapping = [
+            'geotechnical'                  => 'proyek.geotechnical-analysis',
+            'geotechnical-analysis'         => 'proyek.geotechnical-analysis',
+            'ded'                           => 'proyek.detailed-engineering-designed',
+            'detailed-engineering-design'   => 'proyek.detailed-engineering-designed',
+            'review-design'                 => 'proyek.review-design',
+            'review-design-analysis'        => 'proyek.review-design',
+            '3d-fem'                        => 'proyek.3d-fem',
+            '3d-fem-analysis'               => 'proyek.3d-fem',
+
+            'numerical-analysis'            => 'proyek.numerical-analysis',
+            'numerical-modeling'   => 'proyek.numerical-modeling',
+        ];
+
+        $chosenView = $viewMapping[$slug] ?? 'proyek.' . $slug;
+
+        if (!view()->exists($chosenView)) {
+            abort(404, "File view [{$chosenView}.blade.php] belum Anda buat.");
+        }
+
+        return view($chosenView, compact('category', 'projects'));
     }
 }

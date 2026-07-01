@@ -5,7 +5,8 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
+    {{-- Kita bungkus container utama menggunakan Alpine.js untuk mengatur state Modal Edit --}}
+    <div class="py-12" x-data="{ openEdit: false, currentSlider: {} }">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
             @if(session('success'))
@@ -16,6 +17,7 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
                 
+                {{-- SISI KIRI: Form Tambah Foto Baru --}}
                 <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 h-fit">
                     <h2 class="text-xl font-semibold mb-4 text-gray-700 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">
                         Tambah Foto Baru
@@ -25,26 +27,36 @@
                         @csrf
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Sub-Judul (Teks Kecil Atas)</label>
-                            <input type="text" name="subtitle" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: INOVASI GEOTEKNIK TERPADU">
+                            <input type="text" name="subtitle" value="{{ old('subtitle') }}" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: INOVASI GEOTEKNIK TERPADU">
+                            @error('subtitle') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Judul Utama (Teks Besar)</label>
-                            <input type="text" name="title" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: ANALISIS TANAH & FONDASI PRESISI">
+                            <input type="text" name="title" value="{{ old('title') }}" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: ANALISIS TANAH & FONDASI PRESISI">
+                            @error('title') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
 
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Link Tujuan Tombol (URL)</label>
-                            <input type="text" name="link_url" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: /karir atau /kontak atau #services">
+                            <input type="text" name="link_url" value="{{ old('link_url') }}" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: /karir atau /kontak atau #services">
                             <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
                                 Gunakan <strong>/karir</strong> untuk halaman internal, atau <strong>#services</strong> untuk lompat ke section bawah.
                             </p>
+                            @error('link_url') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
                         </div>
                         
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Pilih File Gambar <span class="text-red-500">*</span></label>
-                            <input type="file" name="image" class="w-full text-sm text-gray-900 bg-gray-50 dark:bg-gray-700 rounded-lg border border-gray-300 dark:border-gray-600 cursor-pointer p-2" required>
-                            <p class="text-gray-400 text-xs mt-1">Format: JPG, JPEG, PNG, WEBP (Maks 5MB).</p>
+                            <input type="file" id="sliderImageInput" name="image" accept=".jpg,.jpeg,.png,.webp" class="w-full text-sm block text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:uppercase file:bg-gray-200 dark:file:bg-gray-600 file:text-gray-700 dark:file:text-white hover:file:bg-gray-300 dark:hover:file:bg-gray-500 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 outline-none transition cursor-pointer" required>
+                            <p class="text-gray-400 dark:text-gray-500 text-[11px] mt-1">Format: JPG, JPEG, PNG, WEBP (Maks 5MB).</p>
+                            @error('image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
+
+                            {{-- Container Preview Upload --}}
+                            <div id="sliderPreviewContainer" class="mt-3 p-3 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl hidden">
+                                <p class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Preview Gambar Terpilih:</p>
+                                <img id="sliderImagePreview" src="#" class="h-28 w-auto object-cover rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
+                            </div>
                         </div>
                         
                         <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-sm">
@@ -53,6 +65,7 @@
                     </form>
                 </div>
 
+                {{-- SISI KANAN: Daftar Banner Aktif (Ditambahkan Aksi Edit) --}}
                 <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
                     <h2 class="text-xl font-semibold mb-4 text-gray-700 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">
                         Daftar Banner Aktif
@@ -85,13 +98,24 @@
                                             </div>
                                         </td>
                                         <td class="px-4 py-3 text-center whitespace-nowrap align-middle">
-                                            <form action="{{ route('admin.slider.destroy', $slider->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto banner ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 bg-transparent border-0 cursor-pointer transition">
-                                                    Hapus
+                                            <div class="flex items-center justify-center space-x-2">
+                                                {{-- 🔵 TOMBOL EDIT BARU: Mengisi data ke object Alpine.js --}}
+                                                <button type="button" 
+                                                        @click="openEdit = true; currentSlider = { id: '{{ $slider->id }}', subtitle: '{{ addslashes($slider->subtitle) }}', title: '{{ addslashes($slider->title) }}', link_url: '{{ addslashes($slider->link_url) }}' }"
+                                                        class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
+                                                    Edit
                                                 </button>
-                                            </form>
+
+                                                <span class="text-gray-300 dark:text-gray-600">|</span>
+
+                                                <form action="{{ route('admin.slider.destroy', $slider->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto banner ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 bg-transparent border-0 cursor-pointer transition">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -108,5 +132,95 @@
 
             </div>
         </div>
+
+        {{-- 🟢 MODAL WINDOW POP-UP UNTUK EDIT BANNER --}}
+        <div x-show="openEdit" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" x-cloak x-transition>
+            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 w-full max-w-lg rounded-2xl p-6 space-y-4" @click.away="openEdit = false">
+                <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-3">
+                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Edit Data Banner Utama</h3>
+                    <button @click="openEdit = false" type="button" class="text-gray-400 hover:text-gray-600 dark:hover:text-white text-xl">&times;</button>
+                </div>
+
+                {{-- Action URL mengarah otomatis ke route update berdasarkan ID slider yang dipilih --}}
+                <form :action="'/admin/slider/' + currentSlider.id" method="POST" enctype="multipart/form-data" class="space-y-4">
+                    @csrf
+                    @method('PUT')
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Sub-Judul (Teks Kecil Atas)</label>
+                        <input type="text" name="subtitle" x-model="currentSlider.subtitle" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Judul Utama (Teks Besar)</label>
+                        <input type="text" name="title" x-model="currentSlider.title" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Link Tujuan Tombol (URL)</label>
+                        <input type="text" name="link_url" x-model="currentSlider.link_url" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Ganti Gambar (Biarkan kosong jika tidak diubah)</label>
+                        <input type="file" id="modalSliderImageInput" name="image" accept=".jpg,.jpeg,.png,.webp" class="w-full text-sm block text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:uppercase file:bg-gray-200 dark:file:bg-gray-600 file:text-gray-700 dark:file:text-white hover:file:bg-gray-300 dark:hover:file:bg-gray-500 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 outline-none transition cursor-pointer">
+                        
+                        {{-- Container Preview untuk Gambar Baru di Modal --}}
+                        <div id="modalSliderPreviewContainer" class="mt-3 p-2 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl hidden">
+                            <p class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Preview Gambar Baru:</p>
+                            <img id="modalSliderImagePreview" src="#" class="h-24 w-auto object-cover rounded-lg shadow-sm">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end space-x-2 pt-2">
+                        <button type="button" @click="openEdit = false" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-xs font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition">Batal</button>
+                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-blue-700 transition">Simpan Perubahan</button>
+                    </div>
+                </form>
+            </div>
+        </div>
     </div>
+
+    {{-- JavaScript Live Preview untuk Form Input Utama dan Form Modal Edit --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Preview Form Tambah Utama
+            const sliderInput = document.getElementById('sliderImageInput');
+            const previewContainer = document.getElementById('sliderPreviewContainer');
+            const sliderPreview = document.getElementById('sliderImagePreview');
+
+            sliderInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        sliderPreview.setAttribute('src', e.target.result);
+                        previewContainer.classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    previewContainer.classList.add('hidden');
+                }
+            });
+
+            // Preview Form Di Dalam Modal Edit
+            const modalInput = document.getElementById('modalSliderImageInput');
+            const modalPreviewContainer = document.getElementById('modalSliderPreviewContainer');
+            const modalImagePreview = document.getElementById('modalSliderImagePreview');
+
+            modalInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        modalImagePreview.setAttribute('src', e.target.result);
+                        modalPreviewContainer.classList.remove('hidden');
+                    }
+                    reader.readAsDataURL(file);
+                } else {
+                    modalPreviewContainer.classList.add('hidden');
+                }
+            });
+        });
+    </script>
 </x-app-layout>

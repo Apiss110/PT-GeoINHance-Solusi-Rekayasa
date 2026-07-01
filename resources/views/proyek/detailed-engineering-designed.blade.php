@@ -38,9 +38,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.year_label') }}</label>
                     <select id="selectTahun" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.year_all') }}</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
-                        <option value="2022">2022</option>
+                        @foreach($projects->pluck('year')->unique()->sortDesc() as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -48,6 +48,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.category_label') }}</label>
                     <select id="selectKategori" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.category_all') }}</option>
+                        @foreach($projects->pluck('category_slug')->unique() as $cat_slug)
+                            <option value="{{ strtolower(trim($cat_slug)) }}">{{ strtoupper($cat_slug) }}</option>
+                        @endforeach
                         <option value="ded">{{ __('filter.category.ded_structure') }}</option>
                         <option value="geotechnical">{{ __('filter.category.geotechnical') }}</option>
                     </select>
@@ -57,8 +60,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.location_label') }}</label>
                     <select id="selectLokasi" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.location_all') }}</option>
-                        <option value="yogyakarta">{{ __('filter.location.yogyakarta') }}</option>
-                        <option value="sulawesi">{{ __('filter.location.sulawesi') }}</option>
+                        @foreach($projects->pluck('location')->unique()->sort() as $location)
+                            <option value="{{ strtolower(trim($location)) }}">{{ $location }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -84,99 +88,61 @@
 
         <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             
-            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ Str::lower(__('project.ded.1.title')) }}"
-                 data-tahun="2023"
-                 data-kategori="ded"
-                 data-lokasi="yogyakarta">
-                <div>
-                    <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                        <i class="fa-solid fa-graduation-cap text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
+            @foreach($projects as $project)
+                <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
+                     data-nama="{{ strtolower(trim($project->title)) }}"
+                     data-tahun="{{ $project->year }}"
+                     data-kategori="{{ strtolower(trim($project->category_slug ?? 'ded')) }}"
+                     data-lokasi="{{ strtolower(trim($project->location)) }}">
+                    <div>
+                        <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
+                            @if($project->image_path)
+                                <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover">
+                            @else
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                                <i class="fa-solid {{ $project->category_slug == 'ded' ? 'fa-graduation-cap' : 'fa-hospital' }} text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
+                            @endif
+                        </div>
+                        
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
+                                {{ $project->title }}
+                            </h3>
+                            
+                            <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
+                                    <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ $project->category_name ?? __('filter.category.ded_structure') }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
+                                    <span class="font-semibold text-slate-900">{{ $project->location }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
+                                    <span class="font-semibold text-slate-900">{{ $project->year }}</span>
+                                </div>
+                            </div>
+
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                {{ strip_tags($project->description) }}
+                            </p>
+                        </div>
                     </div>
                     
-                    <div class="p-6 space-y-4">
-                        <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
-                            {{ __('project.ded.1.title') }}
-                        </h3>
+                    <div class="p-6 pt-0 space-y-3">
+                        @if(!empty($project->software_used))
+                            <div class="flex flex-wrap gap-1">
+                                <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">{{ $project->software_used }}</span>
+                            </div>
+                        @endif
                         
-                        <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
-                                <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ __('filter.category.ded_structure') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
-                                <span class="font-semibold text-slate-900">{{ __('project.ded.1.location') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
-                                <span class="font-semibold text-slate-900">2023</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ __('project.ded.1.desc') }}
-                        </p>
+                        <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                            {{ __('portfolio.read_more') }}
+                        </a>
                     </div>
                 </div>
-                
-                <div class="p-6 pt-0 space-y-3">
-                    <div class="flex flex-wrap gap-1">
-                        <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">STAAD.Pro</span>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                        {{ __('portfolio.read_more') }}
-                    </a>
-                </div>
-            </div>
-
-            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ Str::lower(__('project.ded.2.title')) }}"
-                 data-tahun="2022"
-                 data-kategori="ded"
-                 data-lokasi="sulawesi">
-                <div>
-                    <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                        <i class="fa-solid fa-hospital text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
-                    </div>
-                    
-                    <div class="p-6 space-y-4">
-                        <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
-                            {{ __('project.ded.2.title') }}
-                        </h3>
-                        
-                        <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.category') }}</span>
-                                <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">{{ __('filter.category.ded_structure') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.location') }}</span>
-                                <span class="font-semibold text-slate-900">{{ __('project.ded.2.location') }}</span>
-                            </div>
-                            <div class="flex justify-between items-center">
-                                <span class="text-slate-400 font-medium">{{ __('project.label.year') }}</span>
-                                <span class="font-semibold text-slate-900">2022</span>
-                            </div>
-                        </div>
-
-                        <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ __('project.ded.2.desc') }}
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="p-6 pt-0 space-y-3">
-                    <div class="flex flex-wrap gap-1">
-                        <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">Structural WorkSuite</span>
-                    </div>
-                    <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                        {{ __('portfolio.read_more') }}
-                    </a>
-                </div>
-            </div>
+            @endforeach
 
             <div id="noProjectMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
@@ -185,9 +151,15 @@
 
         </div>
 
+        @if($projects->isEmpty())
+            <div class="text-center py-12 text-slate-500">
+                Belum ada proyek untuk kategori DED saat ini.
+            </div>
+        @endif
+
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
-                {{ __('portfolio.showing') }} <span id="countDisplayed" class="text-slate-700 font-bold">2</span> {{ __('portfolio.of') }} <span id="countTotal" class="text-slate-700 font-bold">2</span> {{ __('portfolio.results') }}
+                {{ __('portfolio.showing') }} <span id="countDisplayed" class="text-slate-700 font-bold">{{ $projects->count() }}</span> {{ __('portfolio.of') }} <span id="countTotal" class="text-slate-700 font-bold">{{ $projects->count() }}</span> {{ __('portfolio.results') }}
             </div>
             
             <div class="inline-flex rounded-lg bg-[#1E293B] p-0.5 text-white shadow-sm overflow-hidden">
@@ -208,9 +180,8 @@
 
 <script>
 document.getElementById('filterForm').addEventListener('submit', function(e) {
-    e.preventDefault(); // Mencegah reload halaman penuh
+    e.preventDefault(); 
 
-    // Ambil nilai filter yang dipilih user
     const filterNama = document.getElementById('inputNama').value.toLowerCase().trim();
     const filterTahun = document.getElementById('selectTahun').value;
     const filterKategori = document.getElementById('selectKategori').value;
@@ -220,30 +191,26 @@ document.getElementById('filterForm').addEventListener('submit', function(e) {
     let displayedCount = 0;
 
     cards.forEach(card => {
-        // Ambil metadata dari atribut kartu proyek
-        const cardNama = card.getAttribute('data-nama');
-        const cardTahun = card.getAttribute('data-tahun');
-        const cardKategori = card.getAttribute('data-kategori');
-        const cardLokasi = card.getAttribute('data-lokasi');
+        const cardNama = card.getAttribute('data-nama') || "";
+        const cardTahun = card.getAttribute('data-tahun') || "";
+        const cardKategori = card.getAttribute('data-kategori') || "";
+        const cardLokasi = card.getAttribute('data-lokasi') || "";
 
-        // Logika evaluasi kecocokan filter
         const matchNama = filterNama === "" || cardNama.includes(filterNama);
         const matchTahun = filterTahun === "" || cardTahun === filterTahun;
         const matchKategori = filterKategori === "" || cardKategori === filterKategori;
         const matchLokasi = filterLokasi === "" || cardLokasi === filterLokasi;
 
         if (matchNama && matchTahun && matchKategori && matchLokasi) {
-            card.style.display = 'flex'; // Tampilkan jika cocok
+            card.style.display = 'flex'; 
             displayedCount++;
         } else {
-            card.style.display = 'none'; // Sembunyikan jika tidak cocok
+            card.style.display = 'none'; 
         }
     });
 
-    // Update teks jumlah data di bagian bawah halaman
     document.getElementById('countDisplayed').innerText = displayedCount;
     
-    // Tampilkan pesan kosong jika semua kartu tersembunyi
     const noMessage = document.getElementById('noProjectMessage');
     if (displayedCount === 0) {
         noMessage.classList.remove('hidden');

@@ -4,18 +4,22 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Models\Blog; // Memastikan model Blog ter-import
+use App\Models\Blog; 
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class BlogController extends Controller
 {
     /**
-     * Menampilkan semua daftar berita dari database
+     * Menampilkan daftar PANEL ADMIN (Hanya Berita / News & Event)
      */
     public function index()
     {
-        $blogs = Blog::latest()->get();
+        // 🟢 KUNCI DI SINI: Menyaring secara ketat agar Kategori Artikel TIDAK IKUT MASUK
+        $blogs = Blog::whereNotIn('category', ['ARTIKEL', 'GEOTECHNIK', 'GEOTEKNIK'])
+                     ->latest()
+                     ->get();
+        
         return view('pages.admin.blog.index', compact('blogs'));
     }
 
@@ -24,57 +28,51 @@ class BlogController extends Controller
         return view('pages.admin.blog.create');
     }
 
-    /**
-     * Memproses penyimpanan berita baru ke database beserta upload foto
-     */
     public function store(Request $request)
     {
-    $request->validate([
-        'title' => 'required|string|max:255',
-        'category' => 'required|string|max:255',
-        'tag' => 'required|string|max:255',
-        'image' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
-        'content' => 'required',
-    ]);
+        $request->validate([
+            'title'    => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'tag'      => 'required|string|max:255',
+            'image'    => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
+            'content'  => 'required',
+        ]);
 
-    $imagePath = null;
-    if ($request->hasFile('image')) {
-        $imagePath = $request->file('image')->store('blogs', 'public');
+        $imagePath = null;
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('blogs', 'public');
+        }
+
+        Blog::create([
+            'title'        => $request->title,
+            'slug'         => Str::slug($request->title) . '-' . Str::random(5),
+            'category'     => strtoupper($request->category), // Mengubah ke UPPERCASE
+            'tag'          => $request->tag,
+            'image'        => $imagePath, 
+            'content'      => $request->content,
+            'published_at' => now(),
+        ]);
+
+        // 🟢 Pastikan diredirect kembali ke halaman index berita panel admin
+        return redirect()->route('admin.blog.index')->with('success', 'Berita berhasil ditambahkan!');
     }
 
-    Blog::create([
-        'title' => $request->title,
-        'slug' => Str::slug($request->title),
-        'category' => $request->category, // Menangkap input dari form komponen kiri
-        'tag' => $request->tag,           // Menangkap input dari form komponen kiri
-        'image' => $imagePath, 
-        'content' => $request->content,
-        'published_at' => now(),
-    ]);
-
-    return redirect()->route('admin.blog.index')->with('success', 'Berita berhasil ditambahkan!');
-    }
-
-    /**
-     * Menampilkan Form Edit berdasarkan ID data asli
-     */
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
         return view('pages.admin.blog.edit', compact('blog'));
     }
 
-    /**
-     * Memproses pembaruan data berita dan foto di database
-     */
     public function update(Request $request, $id)
     {
         $blog = Blog::findOrFail($id);
 
         $request->validate([
-            'title' => 'required|string|max:255',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'content' => 'required',
+            'title'    => 'required|string|max:255',
+            'category' => 'required|string|max:255',
+            'tag'      => 'required|string|max:255',
+            'image'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'content'  => 'required',
         ]);
 
         if ($request->hasFile('image')) {
@@ -84,20 +82,19 @@ class BlogController extends Controller
             $blog->image = $request->file('image')->store('blogs', 'public');
         }
 
-        // PERBAIKAN: Pastikan kolom pendukung tetap aman saat update
-        $blog->title = $request->title;
-        $blog->slug = Str::slug($request->title);
-        $blog->category = $blog->category ?? 'Berita';
-        $blog->tag = $blog->tag ?? 'Umum';
-        $blog->content = $request->content;
+        if ($blog->title !== $request->title) {
+            $blog->slug = Str::slug($request->title) . '-' . Str::random(5);
+        }
+
+        $blog->title    = $request->title;
+        $blog->category = strtoupper($request->category);
+        $blog->tag      = $request->tag;                       
+        $blog->content  = $request->content;
         $blog->save();
 
         return redirect()->route('admin.blog.index')->with('success', 'Berita berhasil diperbarui!');
     }
 
-    /**
-     * Menghapus berkas foto dan record baris dari database
-     */
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
@@ -108,29 +105,17 @@ class BlogController extends Controller
 
         $blog->delete();
 
-        return redirect()->route('admin.blog.index')->with('with_toast', 'Berita berhasil deleted!');
+        return redirect()->route('admin.blog.index')->with('success', 'Berita berhasil dihapus!');
     }
 
-    /**
-     * PERBAIKAN STEP 2: Handle upload gambar dari CKEditor
-     * Menerima file gambar, menyimpannya ke storage, dan mengembalikan URL publik.
-     */
     public function uploadImage(Request $request)
     {
-        // Pastikan ada file gambar yang dikirim dengan nama parameter 'upload' (bawaan CKEditor)
         if ($request->hasFile('upload')) {
             $file = $request->file('upload');
-            
-            // Menyimpan gambar ke folder public/blog_images di dalam directory storage
             $path = $file->store('blog_images', 'public');
             
-            // Mengembalikan response dalam format JSON yang dipahami oleh CKEditor 5
-            return response()->json([
-                'url' => asset('storage/' . $path)
-            ]);
+            return response()->json(['url' => asset('storage/' . $path)]);
         }
-
-        // Jika gagal atau file tidak ditemukan
         return response()->json(['error' => 'Gagal mengunggah gambar.'], 400);
     }
 }

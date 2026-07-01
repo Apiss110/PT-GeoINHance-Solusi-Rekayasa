@@ -102,10 +102,8 @@
     "profile.btn_download": "Download Company Profile",
     "profile.location_sub": "Location",
     "profile.location_title": "Operational Office",
-    "profile.addr_01_title": "Mailing / Operational Address",
-    "profile.addr_01_desc": "Menara Sentraya 11th Fl. Unit A4, <br> Jl. Iskandarsyah Raya, South Jakarta, DKI Jakarta.",
-    "profile.addr_02_title": "Technical Studio",
-    "profile.addr_02_desc": "Jl. Ir. H. Juanda No. 123, Dago, Bandung City, West Java.",
+    "profile.addr_01_title": "Operational Address",
+    "profile.addr_01_desc": "Jl. Cijerokaso No 94, Sarijadi, Sukasari District, Bandung City 40151",
 
     "home-slider.btn": "Learn About Our Services",
 
@@ -1034,7 +1032,7 @@
 
 
     "blog.hero_badge": "Resources",
-    "blog.hero_title": "Latest Articles & News",
+    "blog.hero_title": "Industry Articles & Insights",
     "blog.hero_desc": "Discover the newest updates on geotechnical projects, industry insights, upcoming events, and internal announcements from GeoINHance.",
     "blog.filter_all": "All",
     "blog.filter_project": "Projects",
@@ -1197,7 +1195,7 @@
     "footer.career": "Company Careers",
     "footer.contact": "Contact Us",
     "footer.head_office": "Head Office",
-    "footer.address": "Jl. Ciierokaso No 94, Sarijadi,<br>Sukasari District, Bandung City 40151",
+    "footer.address": "Jl. Cijerokaso No 94, Sarijadi,<br>Sukasari District, Bandung City 40151",
     "footer.phone": "P",
     "footer.copyright": "© 2026 PT GeoINHance Solusi Rekayasa. All rights reserved.",
     "footer.privacy_policy": "Privacy Policy",

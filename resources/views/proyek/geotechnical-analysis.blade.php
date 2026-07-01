@@ -7,12 +7,14 @@
         <nav class="flex mb-4 text-sm text-slate-400 font-medium">
             <a href="{{ route('proyek.semua') }}" class="hover:text-white transition">{{ __('breadcrumbs.projects') }}</a>
             <span class="mx-2">/</span>
-            <span class="text-blue-400">{{ $category->name }}</span>
+            <span class="text-blue-400">{{ $category->name ?? __('geotech.title') }}</span>
         </nav>
         
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{{ $category->name }}</h1>
+        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">{{ $category->name ?? __('geotech.title') }}</h1>
+        
+        {{-- UPDATE: Menggunakan {!! !!} agar tag HTML deskripsi utama ter-render sempurna --}}
         <p class="mt-3 text-base text-slate-300 max-w-3xl leading-relaxed">
-            {{ __('geotech.description') }}
+            {!! __('geotech.description') !!}
         </p>
     </div>
 </section>
@@ -20,6 +22,7 @@
 <section class="py-12 bg-slate-50 min-h-[50vh]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        <!-- Filter Form -->
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80 mb-10">
             <form id="filterFormGeotech" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 items-end">
                 
@@ -38,9 +41,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.year_label') }}</label>
                     <select id="selectTahunGeotech" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.year_all') }}</option>
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
+                        @foreach($projects->pluck('year')->unique()->sortDesc() as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -48,7 +51,7 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.category_label') }}</label>
                     <select id="selectKategoriGeotech" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.category_all') }}</option>
-                        <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                        <option value="{{ $category->slug ?? 'geotechnical-analysis' }}">{{ $category->name ?? 'Geotechnical Analysis' }}</option>
                     </select>
                 </div>
 
@@ -56,8 +59,9 @@
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">{{ __('filter.location_label') }}</label>
                     <select id="selectLokasiGeotech" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('filter.location_all') }}</option>
-                        <option value="jawa-barat">Jawa Barat</option>
-                        <option value="jakarta">DKI Jakarta</option>
+                        @foreach($projects->pluck('location')->unique()->sort() as $location)
+                            <option value="{{ strtolower(trim($location)) }}">{{ $location }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -71,7 +75,7 @@
 
         <div class="mb-8 flex justify-between items-center border-b border-gray-200 pb-4">
             <span class="text-sm text-slate-600 font-medium">
-                {{ __('portfolio.list_title') }} <strong class="text-slate-900">{{ $category->name }}</strong>
+                {{ __('portfolio.list_title') }} <strong class="text-slate-900">{{ $category->name ?? 'Geotechnical Analysis' }}</strong>
             </span>
             
             @if(request('from') == 'all')
@@ -81,43 +85,83 @@
             @endif
         </div>
 
+        <!-- Project Grid -->
         <div id="projectGridGeotech" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-    
-    @foreach($projects as $project)
-        <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
-            <div>
-                <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
-                    <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover">
-                </div>
-                
-                <div class="p-6 space-y-4">
-                    <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition">{{ $project->title }}</h3>
-                    
-                    <div class="space-y-2 text-xs text-slate-600">
-                        <p>Lokasi: {{ $project->location }}</p>
-                        <p>Tahun: {{ $project->year }}</p>
-                    </div>
-
-                    <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                        {{ $project->description }}
-                    </p>
-                </div>
-            </div>
             
-            <div class="p-6 pt-0">
-                <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
-                    Read More
-                </a>
-            </div>
-        </div>
-    @endforeach
+            @foreach($projects as $project)
+                <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
+                     data-nama="{{ strtolower(trim($project->title)) }}"
+                     data-tahun="{{ $project->year }}"
+                     data-kategori="{{ $category->slug ?? 'geotechnical-analysis' }}"
+                     data-lokasi="{{ strtolower(trim($project->location)) }}">
+                    <div>
+                        {{-- Desain kontainer gambar disamakan (ditambahkan overlay gradasi & fallback icon jika foto kosong) --}}
+                        <div class="bg-slate-900 h-44 flex items-center justify-center relative overflow-hidden">
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                            @if($project->image_path)
+                                <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            @else
+                                <i class="fa-solid fa-helmet-safety text-5xl text-blue-500/20 group-hover:scale-110 transition duration-300"></i>
+                            @endif
+                        </div>
+                        
+                        <div class="p-6 space-y-4">
+                            <h3 class="text-base font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3rem] line-clamp-2">
+                                {{ $project->title }}
+                            </h3>
+                            
+                            {{-- Mengubah list baris info geotech sebelumnya menjadi tabel flex list yang rapi seperti slope --}}
+                            <div class="space-y-2 text-xs border-t border-b border-gray-100 py-3 my-2 text-slate-600">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">Category:</span>
+                                    <span class="font-semibold text-slate-900 bg-slate-100 px-2 py-0.5 rounded text-[11px]">
+                                        {{ $category->name ?? 'Geotechnical Analysis' }}
+                                    </span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">Location:</span>
+                                    <span class="font-semibold text-slate-900">{{ $project->location }}</span>
+                                </div>
+                                <div class="flex justify-between items-center">
+                                    <span class="text-slate-400 font-medium">Project Year:</span>
+                                    <span class="font-semibold text-slate-900">{{ $project->year }}</span>
+                                </div>
+                            </div>
 
-    @if($projects->isEmpty())
-        <div class="col-span-full text-center py-12 text-slate-500">
-            Belum ada proyek untuk kategori ini.
+                            {{-- Menggunakan strip_tags agar deskripsi pendek di card bersih tanpa tag HTML mentah --}}
+                            <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
+                                {{ strip_tags($project->description) }}
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="p-6 pt-0 space-y-3">
+                        <div class="flex flex-wrap gap-1">
+                            <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">
+                                {{ $project->software_used ?? 'Plaxis / GeoStudio' }}
+                            </span>
+                        </div>
+                        <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                            {{ __('portfolio.read_more') }}
+                        </a>
+                    </div>
+                </div>
+            @endforeach
+
+            {{-- UPDATE: Pesan pencarian kosong dipindah ke dalam grid agar posisi alignment layout seimbang (col-span-full) --}}
+            <div id="noProjectMessageGeotech" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200 shadow-sm">
+                <i class="fa-solid fa-magnifying-glass text-3xl text-slate-300 mb-2 block"></i>
+                Belum ada proyek yang cocok dengan filter pilihan Anda.
+            </div>
+
         </div>
-    @endif
-</div>
+
+        @if($projects->isEmpty())
+            <div class="text-center py-12 text-slate-500 bg-white rounded-xl border border-gray-200 shadow-sm mt-4">
+                <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
+                Belum ada proyek untuk kategori ini.
+            </div>
+        @endif
 
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
@@ -141,9 +185,8 @@
 
 <script>
 document.getElementById('filterFormGeotech').addEventListener('submit', function(e) {
-    e.preventDefault(); // Mengunci reload halaman penuh
+    e.preventDefault(); 
 
-    // Menangkap pilihan filter milik user
     const filterNama = document.getElementById('inputNamaGeotech').value.toLowerCase().trim();
     const filterTahun = document.getElementById('selectTahunGeotech').value;
     const filterKategori = document.getElementById('selectKategoriGeotech').value;
@@ -153,13 +196,11 @@ document.getElementById('filterFormGeotech').addEventListener('submit', function
     let displayedCount = 0;
 
     cards.forEach(card => {
-        // Ekstraksi data-atribut dari card
-        const cardNama = card.getAttribute('data-nama');
-        const cardTahun = card.getAttribute('data-tahun');
-        const cardKategori = card.getAttribute('data-kategori');
-        const cardLokasi = card.getAttribute('data-lokasi');
+        const cardNama = card.getAttribute('data-nama') || "";
+        const cardTahun = card.getAttribute('data-tahun') || "";
+        const cardKategori = card.getAttribute('data-kategori') || "";
+        const cardLokasi = card.getAttribute('data-lokasi') || "";
 
-        // Evaluasi logika kecocokan masukan filter
         const matchNama = filterNama === "" || cardNama.includes(filterNama);
         const matchTahun = filterTahun === "" || cardTahun === filterTahun;
         const matchKategori = filterKategori === "" || cardKategori === filterKategori;
@@ -173,10 +214,8 @@ document.getElementById('filterFormGeotech').addEventListener('submit', function
         }
     });
 
-    // Melakukan sinkronisasi otomatis ke teks pencatatan data bawah
     document.getElementById('countDisplayedGeotech').innerText = displayedCount;
     
-    // Tampilkan pesan jika kosong pencarian
     const noMessage = document.getElementById('noProjectMessageGeotech');
     if (displayedCount === 0) {
         noMessage.classList.remove('hidden');
@@ -185,7 +224,5 @@ document.getElementById('filterFormGeotech').addEventListener('submit', function
     }
 });
 </script>
-
-</div>
 
 @include('partials.footer')

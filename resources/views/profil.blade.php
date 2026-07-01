@@ -456,7 +456,7 @@
 
     <section class="py-12 px-6 text-center bg-white">
         <div class="max-w-md mx-auto" data-aos="fade-up">
-            <a href="{{ asset('documents/COMPANY PROFILE GEOINHANCE.pdf') }}" class="inline-flex items-center justify-center space-x-3 bg-red-800 hover:bg-red-700 text-white font-bold uppercase text-xs tracking-widest px-8 py-4 rounded-xl shadow-md hover:shadow-red-800/30 transition-all duration-300 transform hover:-translate-y-0.5 group w-full sm:w-auto">
+            <a href="{{ asset('documents/COMPANY PROFILE PT GEOINHANCE.pdf') }}" class="inline-flex items-center justify-center space-x-3 bg-red-800 hover:bg-red-700 text-white font-bold uppercase text-xs tracking-widest px-8 py-4 rounded-xl shadow-md hover:shadow-red-800/30 transition-all duration-300 transform hover:-translate-y-0.5 group w-full sm:w-auto">
                 <span>{{ __('profile.btn_download') }}</span>
                 <svg class="w-4 h-4 transform group-hover:translate-y-0.5 transition duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v1m-4-4l-4 4m0 0l-4-4m4 4V4"></path>
@@ -489,26 +489,11 @@
                             </p>
                         </div>
                     </div>
-
-                    <div class="flex items-start space-x-4 p-4 rounded-xl hover:bg-slate-50 hover:shadow-md transition duration-300 cursor-pointer group">
-                        <div class="text-red-800 mt-1 group-hover:scale-110 transition duration-300">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-7h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"></path></svg>
-                        </div>
-                        <div>
-                            <h4 class="font-bold text-slate-900 group-hover:text-red-800 transition">
-                                {{ __('profile.addr_02_title') }}
-                            </h4>
-                            <p class="text-slate-600 text-sm mt-1 leading-relaxed">
-                                {!! __('profile.addr_02_desc') !!}
-                            </p>
-                        </div>
-                    </div>
                 </div>
             </div>
             
             <div class="h-96 rounded-3xl overflow-hidden shadow-xl border border-slate-200" data-aos="fade-left">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3966.2736184581457!2d106.80164807603417!3d-6.22761356098628!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69f14fc2ff6113%3A0xc6c7674681643cb0!2sMenara%20Sentraya!5e0!3m2!1sid!2sid!4v1710000000000!5m2!1sid!2sid" 
-                        class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2200.1038957721407!2d107.57781654111363!3d-6.868955688592336!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e69f6b4b3f17%3A0xfd3bedcb52ef4602!2sJl.%20Cijerokaso%20No.94%2C%20Sarijadi%2C%20Kec.%20Sukasari%2C%20Kota%20Bandung%2C%20Jawa%20Barat%2040151!5e0!3m2!1sid!2sid!4v1782709646351!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
             </div>
         </div>
     </section>

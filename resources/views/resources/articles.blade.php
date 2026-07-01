@@ -89,22 +89,7 @@
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8" x-data="{ activeCategory: 'all' }">
-    
-    <div class="flex justify-center flex-wrap gap-4 mb-12">
-        <button @click="activeCategory = 'all'" :class="activeCategory === 'all' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('blog.filter_all') }}
-        </button>
-        <button @click="activeCategory = 'project'" :class="activeCategory === 'project' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('blog.filter_project') }}
-        </button>
-        <button @click="activeCategory = 'event'" :class="activeCategory === 'event' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('blog.filter_event') }}
-        </button>
-        <button @click="activeCategory = 'news'" :class="activeCategory === 'news' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('blog.filter_news') }}
-        </button>
-    </div>
+<section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
 
     @if($blogs->isEmpty())
         <div class="text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
@@ -117,24 +102,10 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($blogs as $blog)
                 @php
-                    // Konversi kategori dari database agar cocok dengan tombol filter Alpine.js
                     $dbCategory = strtoupper(trim($blog->category));
-                    
-                    if ($dbCategory === 'PROYEK' || $dbCategory === 'PROJECT') {
-                        $alpineCategory = 'project';
-                    } elseif ($dbCategory === 'EVENT' || $dbCategory === 'EVENTS') {
-                        $alpineCategory = 'event';
-                    } else {
-                        $alpineCategory = 'news'; // Default untuk BERITA atau COMPANY NEWS
-                    }
                 @endphp
 
-                <article 
-                    x-show="activeCategory === 'all' || activeCategory === '{{ $alpineCategory }}'"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
+                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
                     
                     <div>
                         <div class="relative overflow-hidden h-56 bg-slate-100">
@@ -147,8 +118,8 @@
                             @endif
 
                             <div class="absolute top-4 left-4">
-                                <span class="{{ $alpineCategory === 'project' ? 'bg-red-800' : ($alpineCategory === 'event' ? 'bg-blue-900' : 'bg-slate-800') }} text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
-                                    {{ __('blog.badge_' . $alpineCategory) }}
+                                <span class="{{ $dbCategory === 'GEOTECHNIK' || $dbCategory === 'GEOTEKNIK' ? 'bg-[#002d62]' : 'bg-red-800' }} text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
+                                    {{ $blog->category }}
                                 </span>
                             </div>
                         </div>

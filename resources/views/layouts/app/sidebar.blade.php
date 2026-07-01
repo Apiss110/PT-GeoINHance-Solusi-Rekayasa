@@ -26,9 +26,19 @@
                         {{ __('Portofolio Proyek') }}
                     </flux:sidebar.item>
 
-                    {{-- 3. MODUL BLOG & NEWS (YANG BARU) --}}
+                    {{-- 3. MODUL BLOG & NEWS --}}
                     <flux:sidebar.item icon="newspaper" :href="route('admin.blog.index')" :current="request()->routeIs('admin.blog.*')" wire:navigate>
-                        {{ __('Blog & News') }}
+                        {{ __('News & Event') }}
+                    </flux:sidebar.item>
+                    
+                    {{-- 🟢 MODUL BARU: KELOLA ARTIKEL & INSIGHT --}}
+                    <flux:sidebar.item icon="book-open" :href="route('admin.articles.index')" :current="request()->routeIs('admin.articles.*')" wire:navigate>
+                        {{ __('Artikel & Insight') }}
+                    </flux:sidebar.item>
+                    
+                    {{-- 4. MODUL KANTOR CABANG (YANG BARU) --}}
+                    <flux:sidebar.item icon="map" :href="route('admin.branch.index')" :current="request()->routeIs('admin.branch.*')" wire:navigate>
+                        {{ __('Peta Proyek') }}
                     </flux:sidebar.item>
 
                     {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
