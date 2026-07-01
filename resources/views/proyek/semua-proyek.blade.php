@@ -15,61 +15,75 @@
     </div>
 </section>
 
+<!-- Filter Kategori & Pencarian Real-time -->
 <section class="py-8 bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 justify-between items-center">
+        
+        {{-- UPDATE: Menambahkan class 'filter-btn' dan 'data-category' untuk aksi JavaScript --}}
         <div class="flex flex-wrap gap-2 w-full md:w-auto">
-            <button class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm">
+            <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition" data-category="all">
                 {{ __('portfolio.filter_all') }}
             </button>
-            <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition" data-category="structural">
                 {{ __('portfolio.filter_structural') }}
             </button>
-            <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition" data-category="geotechnical">
                 {{ __('portfolio.filter_geotechnical') }}
             </button>
-            <button class="bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition">
+            <button class="filter-btn bg-gray-100 text-gray-600 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition" data-category="mining">
                 {{ __('portfolio.filter_mining') }}
             </button>
         </div>
+
+        {{-- UPDATE: Input pencarian diberikan ID khusus agar bisa dideteksi saat mengetik --}}
         <div class="relative w-full md:w-72">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
                 <i class="fa-solid fa-magnifying-glass text-xs"></i>
             </span>
-            <input type="text" placeholder="{{ __('portfolio.search_placeholder') }}" class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
+            <input type="text" id="searchProjectInput" placeholder="{{ __('portfolio.search_placeholder') }}" 
+                   class="w-full bg-gray-50 border border-gray-300 rounded-lg pl-9 pr-4 py-2 text-xs focus:outline-none focus:ring-2 focus:ring-blue-500 focus:bg-white transition">
         </div>
     </div>
 </section>
 
 <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        
+        <!-- Project Grid Container -->
+    <div id="allProjectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            @foreach($projects as $project)
-
-            <div class="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group">
+        @foreach($projects as $project)
+        {{-- UPDATE: Atribut data-nama sudah diperbaiki tanpa fungsi honesty_null --}}
+        <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
+            data-nama="{{ strtolower(trim($project->title ?? '')) }}"
+            data-kategori="{{ strtolower(trim($project->category->slug ?? $project->category->name ?? '')) }}">
+         
+         <!-- Sisa kode card ke bawah tetap sama... -->
 
                 <div>
                     {{-- IMAGE / THUMBNAIL --}}
                     <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
 
-                        @if($project->image)
-                            <img src="{{ asset('storage/' . $project->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        {{-- Toleransi penamaan field database image / image_path --}}
+                        @if($project->image_path || $project->image)
+                            <img src="{{ asset('storage/' . ($project->image_path ?? $project->image)) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         @else
                             <i class="fa-solid fa-building text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
                         @endif
 
+                        {{-- PERBAIKAN UTAMA: Menggunakan $project->category->name agar tidak memunculkan String JSON --}}
                         <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">
-                            {{ $project->category ?? __('portfolio.default_category') }}
+                            {{ $project->category->name ?? __('portfolio.default_category') }}
                         </span>
                     </div>
 
                     <div class="p-6 space-y-3">
-                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition">
+                        <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3.5rem] line-clamp-2">
                             {{ $project->title }}
                         </h3>
                         <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ Str::limit($project->description, 180) }}
+                            {{ Str::limit(strip_tags($project->description), 180) }}
                         </p>
                     </div>
                 </div>
@@ -78,7 +92,7 @@
                     <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
                         <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">
                             <i class="fa-solid fa-layer-group text-blue-500 mr-1"></i>
-                            {{ $project->software ?? __('portfolio.default_software') }}
+                            {{ $project->software_used ?? $project->software ?? __('portfolio.default_software') }}
                         </span>
                     </div>
 
@@ -88,13 +102,18 @@
                 </div>
 
             </div>
-
             @endforeach
+
+            <!-- Elemen Notifikasi Jika Hasil Filter Kosong -->
+            <div id="noProjectsFoundMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
+                <i class="fa-solid fa-magnifying-glass text-3xl text-slate-300 mb-2 block"></i>
+                Tidak ada proyek yang sesuai dengan kata kunci atau kategori tersebut.
+            </div>
 
         </div>
 
         {{-- PAGINATION --}}
-        <div class="mt-16 flex justify-center">
+        <div id="paginationContainer" class="mt-16 flex justify-center">
             {{ $projects->links() }}
         </div>
     </div>
@@ -118,25 +137,88 @@
 
 @include('partials.footer')
 
-    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
-    </a>
+<a href="https://wa.me/6285190441744" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
+    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
+</a>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
-        window.onscroll = function() {
-            const nav = document.querySelector('nav');
-            if (window.pageYOffset > 50) {
-                nav.classList.add('shadow-md');
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+    window.onscroll = function() {
+        const nav = document.querySelector('nav');
+        if (window.pageYOffset > 50) {
+            nav.classList.add('shadow-md');
+        } else {
+            nav.classList.remove('shadow-md');
+        }
+    };
+
+    // JAVASCRIPT LIVE FILTER UNTUK HALAMAN 'SEMUA PROYEK'
+    const filterButtons = document.querySelectorAll('.filter-btn');
+    const searchInput = document.getElementById('searchProjectInput');
+    const cards = document.querySelectorAll('.project-card');
+    const noMessage = document.getElementById('noProjectsFoundMessage');
+    const pagination = document.getElementById('paginationContainer');
+
+    let currentCategory = 'all';
+
+    function applyFilters() {
+        const searchText = searchInput.value.toLowerCase().trim();
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+            const cardNama = card.getAttribute('data-nama') || '';
+            const cardKategori = card.getAttribute('data-kategori') || '';
+
+            // Cocokkan teks pencarian nama
+            const matchSearch = searchText === '' || cardNama.includes(searchText);
+            
+            // Cocokkan kategori (menggunakan partial match teks slug/kategori agar fleksibel)
+            const matchCategory = currentCategory === 'all' || cardKategori.includes(currentCategory);
+
+            if (matchSearch && matchCategory) {
+                card.style.display = 'flex';
+                visibleCount++;
             } else {
-                nav.classList.remove('shadow-md');
+                card.style.display = 'none';
             }
-        };
-    </script>
-    @livewireScripts
+        });
 
-@include('partials.footer')
+        // Sembunyikan pagination bawaan jika sedang memfilter data secara aktif agar data tidak membingungkan
+        if (searchText !== '' || currentCategory !== 'all') {
+            if(pagination) pagination.style.display = 'none';
+        } else {
+            if(pagination) pagination.style.display = 'flex';
+        }
 
+        // Tampilkan pesan kosong jika tidak ditemukan hasil
+        if (visibleCount === 0) {
+            noMessage.classList.remove('hidden');
+        } else {
+            noMessage.classList.add('hidden');
+        }
+    }
+
+    // Event saat tombol kategori diklik
+    filterButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            // Atur ulang tombol aktif
+            filterButtons.forEach(b => {
+                b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
+                b.classList.add('bg-gray-100', 'text-gray-600');
+            });
+            this.classList.remove('bg-gray-100', 'text-gray-600');
+            this.classList.add('bg-blue-600', 'text-white', 'shadow-sm');
+
+            currentCategory = this.getAttribute('data-category');
+            applyFilters();
+        });
+    });
+
+    // Event saat mengetik di kolom pencarian
+    searchInput.addEventListener('keyup', applyFilters);
+</script>
+
+@livewireScripts
 </body>
 </html>

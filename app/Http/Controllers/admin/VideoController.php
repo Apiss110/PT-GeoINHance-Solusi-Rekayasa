@@ -12,33 +12,40 @@ class VideoController extends Controller
     // Menampilkan halaman form tambah dan tabel daftar video di admin
     public function index()
     {
-        $videos = Video::orderBy('published_at', 'desc')->get();
-        return view('pages.admin.project.index', compact('videos')); // Sesuaikan dengan lokasi view admin video Anda
+    $videos = Video::orderBy('published_at', 'desc')->get();
+    // KODE BARU YANG BENAR:
+    return view('pages.admin.video.index', compact('videos'));
     }
 
     // Menyimpan video baru ke database
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'category' => 'required|string',
-            'published_at' => 'required|date',
-            'duration' => 'nullable|string',
-            'video_url' => 'required|url',
-            'thumbnail' => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'description' => 'nullable|string',
-        ]);
+{
+    $validated = $request->validate([
+        'title' => 'required|string|max:255',
+        'category' => 'required|string',
+        'video_url' => 'required|url',
+        'duration' => 'nullable|string',
+        'production_year' => 'required|integer|min:2000|max:2030', // Validasi input
+        'thumbnail' => 'required|image|max:2048',
+        'description' => 'nullable|string',
+    ]);
 
-        $data = $request->only(['title', 'category', 'published_at', 'duration', 'video_url', 'description']);
+    $thumbnailPath = $request->file('thumbnail')->store('videos/thumbnails', 'public');
 
-        if ($request->hasFile('thumbnail')) {
-            $data['thumbnail_path'] = $request->file('thumbnail')->store('videos/thumbnails', 'public');
-        }
+    // Proses insert data ke database
+    Video::create([
+        'title' => $validated['title'],
+        'category' => $validated['category'],
+        'video_url' => $validated['video_url'],
+        'duration' => $validated['duration'],
+        'video_url' => $validated['video_url'],
+        'description' => $validated['description'],
+        'thumbnail_path' => $thumbnailPath,
+        'production_year' => $validated['production_year'], // <-- PASTIKAN INI ADA
+    ]);
 
-        Video::create($data);
-
-        return redirect()->route('admin.video.index')->with('success', 'Video baru berhasil dipublikasikan!');
-    }
+    return redirect()->back()->with('success', 'Video dokumentasi berhasil ditambahkan!');
+}
 
     // Memperbarui data video (proses edit)
     public function update(Request $request, $id)

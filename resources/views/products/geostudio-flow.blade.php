@@ -234,7 +234,7 @@
                     </div>
                 </div>
                 <div class="pt-8">
-                    <a href="#contact" class="btn-product-action block text-center bg-white border border-gray-300 text-gray-700 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-100 transition" data-variant="GeoStudio 2D Flow">
+                    <a href="https://wa.me/6285190441744" class="btn-product-action block text-center bg-white border border-gray-300 text-gray-700 py-2.5 rounded-lg text-sm font-semibold hover:bg-gray-100 transition" data-variant="GeoStudio 2D Flow">
                         {{ __('geostudio_flow.pricing.plan_2d.btn') }}
                     </a>
                 </div>

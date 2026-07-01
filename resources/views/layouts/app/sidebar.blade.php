@@ -41,6 +41,11 @@
                         {{ __('Peta Proyek') }}
                     </flux:sidebar.item>
 
+                    {{-- 🟢 MODUL BARU: MANAJEMEN VIDEO DOKUMENTASI --}}
+                    <flux:sidebar.item icon="video-camera" :href="route('admin.video.index')" :current="request()->routeIs('admin.video.*')" wire:navigate>
+                        {{ __('Manajemen Video') }}
+                    </flux:sidebar.item>
+
                     {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
                     @if(auth()->check() && auth()->user()->role === 'superadmin')
                         <flux:sidebar.item icon="users" :href="route('admin.kelola-admin.index')" :current="request()->routeIs('admin.kelola-admin.*')" wire:navigate>

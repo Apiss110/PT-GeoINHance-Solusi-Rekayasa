@@ -75,6 +75,14 @@
                             Peta Proyek
                         </a>
 
+                        {{-- 🟢 MODUL BARU: MANAJEMEN VIDEO DOKUMENTASI --}}
+                        <a href="{{ route('admin.video.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.video.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                            <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10l4.553-2.276A1 1 0 0121 8.618v6.764a1 1 0 01-1.447.894L15 14M5 18h8a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                            </svg>
+                            Manajemen Video
+                        </a>
+
                         @if(auth()->check() && auth()->user()->role === 'superadmin')
                             <div class="pt-4 mt-4 border-t border-white/10">
                                 <p class="px-3 text-[10px] font-bold text-[#cfdde9]/60 uppercase tracking-wider mb-2">Akses Manajemen</p>

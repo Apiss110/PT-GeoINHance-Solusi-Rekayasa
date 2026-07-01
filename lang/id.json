@@ -375,7 +375,7 @@
     "profile.btn_download": "Download Company Profile",
     "profile.location_sub": "Location",
     "profile.location_title": "Kantor Operasional",
-    "profile.addr_01_title": "Alamat Surat / Operasional",
+    "profile.addr_01_title": "Alamat Operasional",
     "profile.addr_01_desc": "Jl. Cijerokaso No 94, Sarijadi, Kec. Sukasari, Kota Bandung 40151",
 
 
@@ -394,10 +394,8 @@
     "contact.div_procurement": "Procurement / HRGA",
     "contact.connect_us": "Connect With Us",
     "contact.office_title": "Kantor Operasional",
-    "contact.office_main_title": "Alamat Surat / Operasional",
-    "contact.office_mail_desc": "Menara Sentraya Lt. 11 Unit A4, <br> Jl. Iskandarsyah Raya, Jakarta Selatan, DKI Jakarta.",
-    "contact.office_studio_title": "Studio Teknis",
-    "contact.office_studio_desc": "Jl. Ir. H. Juanda No. 123, Dago, Kota Bandung, Jawa Barat.",
+    "contact.office_main_title": "Alamat Operasional",
+    "contact.office_mail_desc": "Jl. Cijerokaso No 94, Sarijadi, Kec. Sukasari, Kota Bandung 40151",
     "contact.form_title": "Kirimkan Pesan",
     "contact.form_desc": "Memiliki kebutuhan analisis tanah strategis atau penawaran kerja sama? Sampaikan pesan Anda melalui formulir terintegrasi berikut.",
     "contact.label_name": "Nama Lengkap *",

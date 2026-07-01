@@ -118,9 +118,9 @@
                     </label>
                     <select id="selectKategoriVideo" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('video.option_all_categories') }}</option>
-                        <option value="simulasi-animasi">{{ __('video.option_cat_simulasi') }}</option>
-                        <option value="dokumentasi-lapangan">{{ __('video.option_cat_dokumentasi') }}</option>
-                        <option value="tutorial-webinar">{{ __('video.option_cat_tutorial') }}</option>
+                        <option value="3d-simulation-animation">{{ __('video.option_cat_simulasi') }}</option>
+                        <option value="project-documentation">{{ __('video.option_cat_dokumentasi') }}</option>
+                        <option value="technical-tutorials-webinars">{{ __('video.option_cat_tutorial') }}</option>
                     </select>
                 </div>
 
@@ -130,9 +130,10 @@
                     </label>
                     <select id="selectTahunVideo" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('video.option_all_years') }}</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                        <option value="2023">2023</option>
+                        {{-- Mengambil daftar tahun unik langsung dari database secara dinamis --}}
+                        @foreach($videos->pluck('production_year')->unique()->sortDesc() as $year)
+                            <option value="{{ $year }}">{{ $year }}</option>
+                        @endforeach
                     </select>
                 </div>
 
@@ -150,168 +151,74 @@
             </span>
         </div>
 
+        {{-- CONTAINER UTAMA KARTU VIDEO --}}
         <div id="videoGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            
-            {{-- CARD 1 --}}
-            <div class="video-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ strtolower(__('video.card1_search')) }}"
-                 data-kategori="simulasi-animasi"
-                 data-tahun="2024">
-                <div>
-                    <div class="bg-slate-900 h-48 flex items-center justify-center relative overflow-hidden cursor-pointer">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 z-10"></div>
-                        <i class="fa-solid fa-circle-play text-5xl text-white/80 group-hover:text-blue-500 group-hover:scale-110 transition duration-300 z-20"></i>
-                        <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[10px] font-mono px-1.5 py-0.5 rounded z-20">05:24</span>
-                    </div>
-                    
-                    <div class="p-5 space-y-2">
-                        <span class="inline-block text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                            {{ __('video.option_cat_simulasi') }}
-                        </span>
-                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2">
-                            {{ __('video.card1_title') }}
-                        </h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">
-                            {{ __('video.card1_desc') }}
-                        </p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>{{ __('video.label_year_card') }} <span class="font-semibold text-slate-700">2024</span></div>
-                    <a href="#" class="inline-flex items-center gap-1 font-bold text-slate-900 hover:text-blue-600 transition">
-                        {{ __('video.btn_view_more') }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
 
-            {{-- CARD 2 --}}
-            <div class="video-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ strtolower(__('video.card2_search')) }}"
-                 data-kategori="dokumentasi-lapangan"
-                 data-tahun="2025">
-                <div>
-                    <div class="bg-slate-900 h-48 flex items-center justify-center relative overflow-hidden cursor-pointer">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 z-10"></div>
-                        <i class="fa-solid fa-circle-play text-5xl text-white/80 group-hover:text-blue-500 group-hover:scale-110 transition duration-300 z-20"></i>
-                        <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[10px] font-mono px-1.5 py-0.5 rounded z-20">12:15</span>
-                    </div>
-                    
-                    <div class="p-5 space-y-2">
-                        <span class="inline-block text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                            {{ __('video.tag_project_doc') }}
-                        </span>
-                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2">
-                            {{ __('video.card2_title') }}
-                        </h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">
-                            {{ __('video.card2_desc') }}
-                        </p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>{{ __('video.label_year_card') }} <span class="font-semibold text-slate-700">2025</span></div>
-                    <a href="#" class="inline-flex items-center gap-1 font-bold text-slate-900 hover:text-blue-600 transition">
-                        {{ __('video.btn_view_more') }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
+            @foreach($videos as $video)
+                @php
+                    // Membuat slug kategori agar sinkron dengan value pada <select> kategori di atas
+                    $slugKategori = Str::slug($video->category);
 
-            {{-- CARD 3 --}}
-            <div class="video-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ strtolower(__('video.card3_search')) }}"
-                 data-kategori="tutorial-webinar"
-                 data-tahun="2024">
-                <div>
-                    <div class="bg-slate-900 h-48 flex items-center justify-center relative overflow-hidden cursor-pointer">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 z-10"></div>
-                        <i class="fa-solid fa-circle-play text-5xl text-white/80 group-hover:text-blue-500 group-hover:scale-110 transition duration-300 z-20"></i>
-                        <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[10px] font-mono px-1.5 py-0.5 rounded z-20">45:10</span>
-                    </div>
-                    
-                    <div class="p-5 space-y-2">
-                        <span class="inline-block text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                            {{ __('video.option_cat_tutorial') }}
-                        </span>
-                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2">
-                            {{ __('video.card3_title') }}
-                        </h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">
-                            {{ __('video.card3_desc') }}
-                        </p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>{{ __('video.label_year_card') }} <span class="font-semibold text-slate-700">2024</span></div>
-                    <a href="#" class="inline-flex items-center gap-1 font-bold text-slate-900 hover:text-blue-600 transition">
-                        {{ __('video.btn_view_more') }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
+                    // Ambil ID Youtube jika link menggunakan format share/full URL
+                    $videoId = '';
+                    if (preg_match('%(?:youtube(?:-nocookie)?\.com/(?:[^/]+/.+/|(?:v|e(?:mbed)?)/|.*[?&]v=)|youtu\.be/)([^"&?/ ]{11})%i', $video->video_url, $match)) {
+                        $videoId = $match[1];
+                    }
+                @endphp
 
-            {{-- CARD 4 --}}
-            <div class="video-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ strtolower(__('video.card4_search')) }}"
-                 data-kategori="dokumentasi-lapangan"
-                 data-tahun="2023">
-                <div>
-                    <div class="bg-slate-900 h-48 flex items-center justify-center relative overflow-hidden cursor-pointer">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 z-10"></div>
-                        <i class="fa-solid fa-circle-play text-5xl text-white/80 group-hover:text-blue-500 group-hover:scale-110 transition duration-300 z-20"></i>
-                        <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[10px] font-mono px-1.5 py-0.5 rounded z-20">08:40</span>
-                    </div>
+                <div class="video-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200/80 hover:shadow-md transition duration-200"
+                     data-nama="{{ strtolower($video->title) }}"
+                     data-kategori="{{ $slugKategori }}"
+                     data-tahun="{{ $video->production_year }}">
                     
-                    <div class="p-5 space-y-2">
-                        <span class="inline-block text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                            {{ __('video.tag_project_doc') }}
-                        </span>
-                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2">
-                            {{ __('video.card4_title') }}
-                        </h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">
-                            {{ __('video.card4_desc') }}
-                        </p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>{{ __('video.label_year_card') }} <span class="font-semibold text-slate-700">2023</span></div>
-                    <a href="#" class="inline-flex items-center gap-1 font-bold text-slate-900 hover:text-blue-600 transition">
-                        {{ __('video.btn_view_more') }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
+                    <div class="relative aspect-video bg-slate-900 overflow-hidden group">
+                        @if($video->thumbnail_path)
+                            <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="{{ $video->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        @elseif($videoId)
+                            <img src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg" alt="{{ $video->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                        @else
+                            <div class="w-full h-full flex items-center justify-center bg-slate-800 text-slate-600">
+                                <i class="fa-solid fa-video text-3xl"></i>
+                            </div>
+                        @endif
+                        
+                        <a href="{{ $video->video_url }}" target="_blank" class="absolute inset-0 flex items-center justify-center bg-slate-950/40 opacity-100 group-hover:bg-slate-950/50 transition">
+                            <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-md group-hover:scale-110 transition text-slate-900 pl-1">
+                                <i class="fa-solid fa-play text-lg"></i>
+                            </div>
+                        </a>
 
-            {{-- CARD 5 --}}
-            <div class="video-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-                 data-nama="{{ strtolower(__('video.card5_search')) }}"
-                 data-kategori="simulasi-animasi"
-                 data-tahun="2023">
-                <div>
-                    <div class="bg-slate-900 h-48 flex items-center justify-center relative overflow-hidden cursor-pointer">
-                        <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-60 z-10"></div>
-                        <i class="fa-solid fa-circle-play text-5xl text-white/80 group-hover:text-blue-500 group-hover:scale-110 transition duration-300 z-20"></i>
-                        <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[10px] font-mono px-1.5 py-0.5 rounded z-20">03:15</span>
+                        @if($video->duration)
+                            <span class="absolute bottom-3 right-3 bg-slate-950/80 text-white text-[10px] font-bold px-2 py-0.5 rounded backdrop-blur-sm">
+                                {{ $video->duration }}
+                            </span>
+                        @endif
                     </div>
-                    
-                    <div class="p-5 space-y-2">
-                        <span class="inline-block text-[10px] font-semibold text-blue-600 bg-blue-50 px-2 py-0.5 rounded">
-                            {{ __('video.option_cat_simulasi') }}
-                        </span>
-                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2">
-                            {{ __('video.card5_title') }}
-                        </h3>
-                        <p class="text-xs text-slate-500 line-clamp-2">
-                            {{ __('video.card5_desc') }}
-                        </p>
-                    </div>
-                </div>
-                <div class="p-5 pt-0 border-t border-slate-100 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                    <div>{{ __('video.label_year_card') }} <span class="font-semibold text-slate-700">2023</span></div>
-                    <a href="#" class="inline-flex items-center gap-1 font-bold text-slate-900 hover:text-blue-600 transition">
-                        {{ __('video.btn_view_more') }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                    </a>
-                </div>
-            </div>
 
+                    <div class="p-5">
+                        <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md mb-3">
+                            {{ $video->category }}
+                        </span>
+                        
+                        <h3 class="text-base font-bold text-slate-900 line-clamp-2 mb-2 hover:text-blue-600 transition">
+                            <a href="{{ $video->video_url }}" target="_blank">{{ $video->title }}</a>
+                        </h3>
+                        
+                        <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
+                            {{ $video->description ?? 'Tidak ada deskripsi.' }}
+                        </p>
+
+                        <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-400 font-medium">
+                            <span>Year: <strong class="text-slate-600">{{ $video->production_year }}</strong></span>
+                            <a href="{{ $video->video_url }}" target="_blank" class="text-blue-500 hover:text-blue-700 font-semibold flex items-center gap-1">
+                                View Details <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            @endforeach
+
+            {{-- Pesan Error Jika Hasil Pencarian/Filter Kosong --}}
             <div id="noVideoMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
                 {{ __('video.empty_message') }}
@@ -329,7 +236,6 @@
         </div>
     </div>
 </section>
-
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Inisialisasi Elemen DOM khusus Halaman Video
@@ -463,23 +369,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 @include('partials.footer')
-
-    <a href="https://wa.me/6285720062009" class="fixed bottom-8 right-8 z-[99] bg-[#25D366] text-white p-4 rounded-full shadow-2xl hover:scale-110 transition-transform duration-300 flex items-center justify-center">
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"></path></svg>
-    </a>
-
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
-        window.onscroll = function() {
-            const nav = document.querySelector('nav');
-            if (window.pageYOffset > 50) {
-                nav.classList.add('shadow-md');
-            } else {
-                nav.classList.remove('shadow-md');
-            }
-        };
-    </script>
-    @livewireScripts
-</body>
-</html>

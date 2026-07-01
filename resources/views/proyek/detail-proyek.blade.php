@@ -41,7 +41,7 @@
         </div>
 
         <div class="prose max-w-none text-slate-700 leading-relaxed text-base">
-            {!! nl2br(e($project->description)) !!}
+            {{ strip_tags($project->description) }}
         </div>
         
     </div>
