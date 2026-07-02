@@ -89,12 +89,13 @@
 
             {{-- Body List --}}
             <div class="divide-y divide-gray-700 px-6">
-                @forelse($blogs as $blog)
+                {{-- 🟢 PERBAIKAN: Mengganti $blogs menjadi $articles dan $blog menjadi $article --}}
+                @forelse($articles as $article)
                     <div class="grid grid-cols-12 gap-4 py-4 items-center">
                         {{-- Preview Gambar --}}
                         <div class="col-span-3 sm:col-span-2">
-                            @if($blog->image)
-                                <img src="{{ asset('storage/' . $blog->image) }}" alt="Preview" class="w-full h-20 object-cover rounded border border-gray-600">
+                            @if($article->image)
+                                <img src="{{ asset('storage/' . $article->image) }}" alt="Preview" class="w-full h-20 object-cover rounded border border-gray-600">
                             @else
                                 <div class="w-full h-20 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-400">No Image</div>
                             @endif
@@ -104,26 +105,26 @@
                         <div class="col-span-6 sm:col-span-8 space-y-1">
                             <div class="flex flex-wrap gap-2">
                                 <span class="bg-red-600 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded">
-                                    {{ $blog->category ?? 'ARTIKEL' }}
+                                    {{ $article->category ?? 'ARTIKEL' }}
                                 </span>
                                 <span class="bg-gray-600 text-gray-200 text-[10px] px-2 py-0.5 rounded">
-                                    #{{ $blog->tag ?? 'Umum' }}
+                                    #{{ $article->tag ?? 'Umum' }}
                                 </span>
                             </div>
-                            <h4 class="text-white font-semibold text-base line-clamp-1">{{ $blog->title }}</h4>
-                            <p class="text-gray-400 text-xs line-clamp-2">{{ Str::limit(strip_tags($blog->content), 150) }}</p>
+                            <h4 class="text-white font-semibold text-base line-clamp-1">{{ $article->title }}</h4>
+                            <p class="text-gray-400 text-xs line-clamp-2">{{ Str::limit(strip_tags($article->content), 150) }}</p>
                             <span class="text-[11px] text-gray-500 block pt-1">
-                                📅 {{ \Carbon\Carbon::parse($blog->created_at)->format('d M Y') }}
+                                📅 {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }}
                             </span>
                         </div>
 
-                        {{-- Aksi (DIUBAH KE ARTICLES.EDIT & ARTICLES.DESTROY) --}}
+                        {{-- Aksi --}}
                         <div class="col-span-3 sm:col-span-2 flex flex-col sm:flex-row gap-2 justify-center items-center">
-                            <a href="{{ route('admin.articles.edit', $blog->id) }}" class="text-blue-500 hover:text-blue-400 text-sm font-medium transition">
+                            <a href="{{ route('admin.articles.edit', $article->id) }}" class="text-blue-500 hover:text-blue-400 text-sm font-medium transition">
                                 Edit
                             </a>
                             <span class="text-gray-600 hidden sm:inline">|</span>
-                            <form action="{{ route('admin.articles.destroy', $blog->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus artikel ini?')">
+                            <form action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus artikel ini?')">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="text-red-500 hover:text-red-400 text-sm font-medium transition">
@@ -134,7 +135,7 @@
                     </div>
                 @empty
                     <div class="text-center py-8 text-gray-400 text-sm">
-                        Belum ada artikel atau berita yang terdaftar.
+                        Belum ada artikel yang terdaftar.
                     </div>
                 @endforelse
             </div>

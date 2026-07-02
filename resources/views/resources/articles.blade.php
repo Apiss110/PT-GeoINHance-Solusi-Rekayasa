@@ -7,7 +7,7 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -41,24 +41,8 @@
         }
         [x-cloak] { display: none !important; }
 
-            @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
         @keyframes marquee {
             0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
             100% { transform: translateX(-50%); }
         }
         .animate-marquee {
@@ -70,7 +54,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
 
 @include('partials.navbar')
 
@@ -102,7 +86,7 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($blogs as $blog)
                 @php
-                    $dbCategory = strtoupper(trim($blog->category));
+                    $dbCategory = strtoupper(trim($blog->category ?? ''));
                 @endphp
 
                 <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
@@ -140,7 +124,8 @@
                     </div>
 
                     <div class="p-6 pt-0">
-                        <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
+                        {{-- 🟢 PERBAIKAN: Mengubah rute agar membaca ke route detail artikel baru --}}
+                        <a href="{{ route('resources.article-detail-baru', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
                             {{ __('blog.read_more') }} 
                             <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
@@ -169,4 +154,7 @@
         </div>
     </div>
 </section>
+
 @include('partials.footer')
+</body>
+</html>

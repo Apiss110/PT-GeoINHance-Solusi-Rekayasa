@@ -1,280 +1,277 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rekayasa Bawah Tanah - GeoINHance</title>
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-
-    {{-- FONT AWESOME --}}
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    @livewireStyles
 
     <style>
-
-        .nav-glass{
-            background: rgba(255,255,255,.97);
-            backdrop-filter: blur(12px);
+        /* Navbar Glass Effect */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
         }
-
-        .project-card{
-            transition: all .35s ease;
+        /* Underline animation */
+        .nav-link {
+            position: relative;
         }
-
-        .project-card:hover{
-            transform: translateY(-8px);
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #002d62;
+            transition: width 0.3s ease;
         }
-
-        .line-clamp-3{
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+        .nav-link:hover::after {
+            width: 100%;
         }
-
+        .card-shadow {
+            box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.05);
+        }
+        [x-cloak] { display: none !important; }
     </style>
-
 </head>
-
-<body class="bg-gray-50 text-slate-900">
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
 
     {{-- NAVBAR --}}
-<header class="fixed top-0 left-0 w-full z-[999] nav-glass border-b border-gray-200 shadow-sm">
+    @include('partials.navbar')
 
-        @include('partials.navbar')
-
-    </header>
-
-    {{-- HERO --}}
-<section class="relative overflow-hidden bg-slate-900 pt-36 pb-24">
-
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,#1e293b,transparent_40%)]"></div>
-
-    <div class="relative z-10 max-w-7xl mx-auto px-6 text-center">
-
-        <span class="inline-flex items-center gap-2 px-5 py-2 rounded-full bg-red-800/20 border border-red-700/30 text-red-400 text-xs font-bold uppercase tracking-[0.3em]">
-            {{ __('underground.hero_sector') }}
-        </span>
-
-        <h1 class="mt-6 text-5xl md:text-6xl font-black uppercase tracking-tight text-white">
-            {{ __('underground.hero_title_1') }}
-            <span class="text-red-500">
-                {{ __('underground.hero_title_2') }}
+    {{-- HERO SECTION --}}
+    <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+                {{ __('underground.hero_sector') }}
             </span>
-        </h1>
-
-        <p class="mt-6 max-w-3xl mx-auto text-slate-300 leading-relaxed text-lg">
-            {{ __('underground.hero_desc') }}
-        </p>
-
-    </div>
-
-</section>
-
-{{-- FILTER + SEARCH --}}
-<section class="sticky top-[88px] z-40 bg-white border-b border-gray-200 shadow-sm py-6">
-
-    <div class="max-w-7xl mx-auto px-6 flex flex-col lg:flex-row gap-4 justify-between items-center">
-
-        {{-- FILTER --}}
-        <div class="flex flex-wrap gap-2 w-full lg:w-auto">
-
-            <button class="filter-btn bg-red-800 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition"
-                    data-category="all">
-                {{ __('underground.filter_all') }}
-            </button>
-
-            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                    data-category="excavation">
-                {{ __('underground.filter_excavation') }}
-            </button>
-
-            <button class="filter-btn bg-gray-100 text-gray-700 hover:bg-gray-200 px-4 py-2 rounded-lg text-xs font-semibold transition"
-                    data-category="tunnel">
-                {{ __('underground.filter_tunnel') }}
-            </button>
-
+            <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
+                {{ __('underground.hero_title_1') }} <span class="text-blue-400">{{ __('underground.hero_title_2') }}</span>
+            </h1>
+            <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                {{ __('underground.hero_desc') }}
+            </p>
         </div>
+    </section>
 
-        {{-- SEARCH --}}
-        <div class="relative w-full lg:w-72">
-
-            <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-gray-400">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </span>
-
-            <input
-                type="text"
-                id="searchInput"
-                placeholder="{{ __('underground.search_placeholder') }}"
-                class="w-full bg-gray-50 border border-gray-300 rounded-xl pl-11 pr-4 py-3 text-sm focus:outline-none focus:ring-2 focus:ring-red-700 focus:bg-white transition">
-
-        </div>
-
-    </div>
-
-</section>
-
-{{-- PROJECT --}}
-<section class="py-20">
-
-    <div class="max-w-7xl mx-auto px-6">
-
-        <div id="projectGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-            {{-- PROJECT 1 --}}
-            <div class="project-item"
-                 data-name="deep excavation tol hbr 2"
-                 data-category="excavation">
-
-                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
-
-                        <i class="fa-solid fa-person-digging text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                        <span class="absolute bottom-4 left-4 bg-red-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                            {{ __('underground.badge_excavation') }}
-                        </span>
-
-                    </div>
-
-                    <div class="p-7">
-
-                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                            {{ __('underground.project_1_title') }}
-                        </h3>
-
-                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                            {{ __('underground.project_1_desc') }}
-                        </p>
-
-                        <a href="#"
-                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                            {{ __('underground.btn_view_detail') }}
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
-            </div>
-
-            {{-- PROJECT 2 --}}
-            <div class="project-item"
-                 data-name="tunnel jacking underpass tatakan"
-                 data-category="tunnel">
-
-                <div class="project-card bg-white rounded-2xl border border-gray-200 shadow-sm overflow-hidden group">
-
-                    <div class="bg-slate-900 h-56 flex items-center justify-center relative overflow-hidden">
-
-                        <i class="fa-solid fa-road-circle-exclamation text-[90px] text-red-500/20 group-hover:scale-110 transition duration-300"></i>
-
-                        <span class="absolute bottom-4 left-4 bg-blue-700 text-white text-[10px] uppercase tracking-wider font-bold px-3 py-1 rounded-full">
-                            {{ __('underground.badge_tunnel') }}
-                        </span>
-
-                    </div>
-
-                    <div class="p-7">
-
-                        <h3 class="text-2xl font-black text-slate-900 mb-4 group-hover:text-red-700 transition">
-                            {{ __('underground.project_2_title') }}
-                        </h3>
-
-                        <p class="text-sm text-slate-600 leading-relaxed line-clamp-3">
-                            {{ __('underground.project_2_desc') }}
-                        </p>
-
-                        <a href="#"
-                           class="mt-6 inline-flex items-center gap-2 text-red-700 font-bold text-sm hover:gap-3 transition-all">
-                            {{ __('underground.btn_view_detail') }}
-                            <i class="fa-solid fa-arrow-right"></i>
-                        </a>
-
-                    </div>
-
-                </div>
-
+    {{-- NAVIGATION BAR: SEARCH FILTER --}}
+    <section class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm py-5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-center">
+            
+            {{-- SEARCH BAR --}}
+            <div class="relative w-full sm:w-80">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="{{ __('underground.search_placeholder') }}"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
             </div>
 
         </div>
+    </section>
 
-    </div>
+    {{-- PROJECT GRID SECTION --}}
+    <section class="max-w-7xl mx-auto pt-16 pb-8 px-4 sm:px-6 lg:px-8">
+        
+        <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-</section>
+            {{-- LOOPING DATA DARI ADMIN DASHBOARD SECARA DINAMIS --}}
+            @forelse($projects as $project)
+            <div class="project-item transition-all duration-300" data-name="{{ strtolower($project->title) }}">
+                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
+                    <div>
+                        {{-- Thumbnail Area --}}
+                        <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
+                            @if($project->image_path)
+                                <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            @else
+                                <i class="fa-solid fa-person-digging text-[70px] text-blue-500/10 group-hover:scale-110 transition duration-700"></i>
+                            @endif
+                        </div>
+
+                        {{-- Content Area --}}
+                        <div class="p-6 space-y-3">
+                            <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
+                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> {{ $project->location }}, Indonesia
+                            </p>
+                            <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
+                                {{ $project->title }}
+                            </h3>
+                            <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
+                                {!! strip_tags($project->description) !!}
+                            </div>
+                        </div>
+                    </div>
+
+                    {{-- Footer/Tags Area --}}
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
+                                {{ $project->category->name ?? 'Underground' }}
+                            </span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
+                                {{ $project->year }}
+                            </span>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
+                            {{ __('underground.btn_view_detail') ?? 'Lihat Detail' }}
+                            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+            @empty
+            {{-- TAMPILAN JIKA DATA DI DATABASE MASIH KOSONG --}}
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
+                <i class="fa-solid fa-folder-open text-slate-300 text-5xl mb-3"></i>
+                <p class="text-sm text-slate-500 font-medium">Belum ada data proyek rekayasa bawah tanah yang diinput oleh admin.</p>
+            </div>
+            @endforelse
+
+        </div>
+    </section>
+
+    {{-- PAGINATION NAVIGATION INTERFACE --}}
+    <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
+                Menampilkan <span id="infoStart" class="font-bold text-slate-800">0</span> sampai <span id="infoEnd" class="font-bold text-slate-800">0</span> dari <span id="infoTotal" class="font-bold text-slate-800">0</span> rekaman proyek
+            </div>
+            
+            <nav id="paginationControls" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
+                <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                <div id="pageNumbers" class="flex items-center -space-x-px"></div>
+                <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </nav>
+        </div>
+    </section>
+
+    {{-- CTA SECTION --}}
+    <section class="relative overflow-hidden bg-gradient-to-br from-[#002d62] via-[#001f44] to-slate-950 text-white py-20 px-6">
+        <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
+        <div class="relative z-10 max-w-3xl mx-auto text-center">
+            <h3 class="text-3xl font-black uppercase mb-6 tracking-tight">
+                {{ __('portfolio.cta_title') ?? 'Ready to Start Your Project?' }}
+            </h3>
+            <p class="text-slate-300 text-sm md:text-base mb-10 leading-relaxed font-medium">
+                {{ __('portfolio.cta_desc') ?? 'Connect with our engineering experts to get reliable analysis and professional technical design.' }}
+            </p>
+            <div class="flex justify-center gap-4">
+                <a href="#" class="inline-flex items-center bg-white hover:bg-slate-200 text-[#002d62] font-black text-xs uppercase tracking-widest px-8 py-4 rounded-xl transition-all duration-300 transform hover:-translate-y-1">
+                    {{ __('portfolio.cta_btn') ?? 'Contact Us' }}
+                </a>
+            </div>
+        </div>
+    </section>
+
     {{-- FOOTER --}}
     @include('partials.footer')
 
-    {{-- SCRIPT --}}
+    {{-- JAVASCRIPT: PAGINATION & SEARCH LOGIC --}}
     <script>
-
         const searchInput = document.getElementById('searchInput');
-        const items = document.querySelectorAll('.project-item');
+        const items = Array.from(document.querySelectorAll('.project-item'));
+        
+        const itemsPerPage = 6; 
+        let currentPage = 1;
+        let filteredItems = [...items]; 
 
-        searchInput.addEventListener('keyup', function(){
+        function updatePagination() {
+            const totalItems = filteredItems.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
-            let value = this.value.toLowerCase();
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
 
-            items.forEach(item => {
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
+            items.forEach(item => item.style.display = 'none');
+
+            filteredItems.slice(startIndex, endIndex).forEach(item => {
+                item.style.display = 'block';
+            });
+
+            document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
+            document.getElementById('infoEnd').textContent = endIndex;
+            document.getElementById('infoTotal').textContent = totalItems;
+
+            const pageNumbersContainer = document.getElementById('pageNumbers');
+            pageNumbersContainer.innerHTML = '';
+
+            for (let i = 1; i <= totalPages; i++) {
+                const btn = document.createElement('button');
+                btn.textContent = i;
+                btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
+                    i === currentPage 
+                    ? 'bg-[#002d62] text-white' 
+                    : 'bg-white text-slate-700 hover:bg-slate-50'
+                }`;
+                btn.addEventListener('click', () => {
+                    currentPage = i;
+                    updatePagination();
+                    document.getElementById('projectGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                pageNumbersContainer.appendChild(btn);
+            }
+
+            document.getElementById('btnPrev').disabled = (currentPage === 1);
+            document.getElementById('btnNext').disabled = (currentPage === totalPages);
+        }
+
+        document.getElementById('btnPrev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+            }
+        });
+
+        document.getElementById('btnNext').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+            }
+        });
+
+        searchInput.addEventListener('input', function(){
+            let value = this.value.toLowerCase().trim();
+            
+            filteredItems = items.filter(item => {
                 let name = item.dataset.name.toLowerCase();
-
-                if(name.includes(value)){
-                    item.style.display = 'block';
-                } else {
-                    item.style.display = 'none';
-                }
-
+                return name.includes(value);
             });
 
+            currentPage = 1; 
+            updatePagination();
         });
 
-        // FILTER
-        const buttons = document.querySelectorAll('.filter-btn');
-
-        buttons.forEach(button => {
-
-            button.addEventListener('click', function(){
-
-                buttons.forEach(btn => {
-
-                    btn.classList.remove('bg-red-800','text-white');
-                    btn.classList.add('bg-gray-100','text-gray-700');
-
-                });
-
-                this.classList.remove('bg-gray-100','text-gray-700');
-                this.classList.add('bg-red-800','text-white');
-
-                const category = this.dataset.category;
-
-                items.forEach(item => {
-
-                    if(category === 'all'){
-
-                        item.style.display = 'block';
-
-                    } else if(item.dataset.category === category){
-
-                        item.style.display = 'block';
-
-                    } else {
-
-                        item.style.display = 'none';
-
-                    }
-
-                });
-
-            });
-
+        document.addEventListener('DOMContentLoaded', () => {
+            updatePagination();
         });
-
     </script>
 
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+    <script>
+        AOS.init({ duration: 800, once: true });
+    </script>
+    @livewireScripts
 </body>
 </html>

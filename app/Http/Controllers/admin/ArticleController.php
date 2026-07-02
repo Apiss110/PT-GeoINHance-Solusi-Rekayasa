@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog; 
+use App\Models\Article; // 🟢 PERBAIKAN: Menggunakan model Article yang baru, bukan Blog lagi
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -12,27 +12,25 @@ class ArticleController extends Controller
 {
     /**
      * Menampilkan halaman index Artikel & Insight (Halaman Publik / Depan)
-     * Ditambahkan untuk memperbaiki error "Call to undefined method ... publicIndex()"
      */
     public function publicIndex()
-    {
-        // Mengambil semua blog terbaru untuk ditampilkan di halaman resources utama
-        $blogs = Blog::latest()->get();
+{
+    // Mengambil semua data artikel dari model Article
+    $blogs = \App\Models\Article::latest()->get();
 
-        // Mengarahkan ke file view blade halaman depan kamu (sesuaikan path jika berbeda)
-        return view('resources.articles', compact('blogs'));
-    }
+    // Pastikan melemparnya menggunakan nama 'blogs' agar cocok dengan file blade
+    return view('resources.articles', compact('blogs'));
+}
 
     /**
      * Menampilkan halaman index Artikel di Dashboard Admin
      */
     public function index()
     {
-        // 🟢 PERBAIKAN: Karena kategori sekarang berupa input teks bebas, 
-        // kita ambil SEMUA blog tanpa membatasi ejaannya agar tidak ada data yang tersembunyi.
-        $blogs = Blog::latest()->get();
+        // 🟢 PERBAIKAN: Mengambil data dari model Article
+        $articles = Article::latest()->get();
 
-        return view('pages.admin.articles.index', compact('blogs'));
+        return view('pages.admin.articles.index', compact('articles'));
     }
 
     /**
@@ -42,25 +40,25 @@ class ArticleController extends Controller
     {
         $request->validate([
             'title'    => 'required|string|max:255',
-            'content'  => 'required',
-            'category' => 'required|string|max:255', // Ditambahkan max string validation
+            'content'  => 'required|string',
+            'category' => 'required|string|max:255', 
             'tag'      => 'required|string',
             'image'    => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('blogs', 'public');
+            $imagePath = $request->file('image')->store('articles', 'public'); // 🟢 Folder disesuaikan ke 'articles'
         }
 
-        Blog::create([
-            'title'        => $request->title,
-            'slug'         => Str::slug($request->title) . '-' . Str::random(5), 
-            'category'     => strtoupper($request->category), // Tetap disimpan huruf kapital semua agar seragam
-            'tag'          => $request->tag,
-            'image'        => $imagePath,
-            'content'      => $request->content,
-            'published_at' => now(),
+        // 🟢 PERBAIKAN: Menggunakan Article::create
+        Article::create([
+            'title'    => $request->title,
+            'slug'     => Str::slug($request->title) . '-' . Str::random(5), 
+            'category' => strtoupper($request->category), 
+            'tag'      => $request->tag,
+            'image'    => $imagePath,
+            'content'  => $request->content,
         ]);
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil ditambahkan!');
@@ -71,8 +69,9 @@ class ArticleController extends Controller
      */
     public function edit($id)
     {
-        $blog = Blog::findOrFail($id);
-        return view('pages.admin.articles.edit', compact('blog'));
+        // 🟢 PERBAIKAN: Menggunakan model Article
+        $article = Article::findOrFail($id);
+        return view('pages.admin.articles.edit', compact('article'));
     }
 
     /**
@@ -80,32 +79,38 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $blog = Blog::findOrFail($id);
+        // 🟢 PERBAIKAN: Menggunakan model Article
+        $article = Article::findOrFail($id);
 
         $request->validate([
             'title'    => 'required|string|max:255',
-            'content'  => 'required',
+            'content'  => 'required|string',
             'category' => 'required|string|max:255',
             'tag'      => 'required|string',
             'image'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
+        // 🟢 PERBAIKAN: Menggunakan pola array data seperti ProjectController (Langkah 4)
+        $data = [
+            'title'    => $request->title,
+            'category' => strtoupper($request->category),
+            'tag'      => $request->tag,
+            'content'  => $request->content,
+        ];
+
+        // Kondisi jika judul berubah, slug diperbarui
+        if ($article->title !== $request->title) {
+            $data['slug'] = Str::slug($request->title) . '-' . Str::random(5);
+        }
+
         if ($request->hasFile('image')) {
-            if ($blog->image && Storage::disk('public')->exists($blog->image)) {
-                Storage::disk('public')->delete($blog->image);
+            if ($article->image && Storage::disk('public')->exists($article->image)) {
+                Storage::disk('public')->delete($article->image);
             }
-            $blog->image = $request->file('image')->store('blogs', 'public');
+            $data['image'] = $request->file('image')->store('articles', 'public');
         }
 
-        if ($blog->title !== $request->title) {
-            $blog->slug = Str::slug($request->title) . '-' . Str::random(5);
-        }
-
-        $blog->title    = $request->title;
-        $blog->category = strtoupper($request->category); // Disimpan sebagai huruf besar
-        $blog->tag      = $request->tag;
-        $blog->content  = $request->content;
-        $blog->save();
+        $article->update($data);
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil diperbarui!');
     }
@@ -115,13 +120,14 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        $blog = Blog::findOrFail($id);
+        // 🟢 PERBAIKAN: Menggunakan model Article
+        $article = Article::findOrFail($id);
 
-        if ($blog->image && Storage::disk('public')->exists($blog->image)) {
-            Storage::disk('public')->delete($blog->image);
+        if ($article->image && Storage::disk('public')->exists($article->image)) {
+            Storage::disk('public')->delete($article->image);
         }
 
-        $blog->delete();
+        $article->delete();
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus!');
     }

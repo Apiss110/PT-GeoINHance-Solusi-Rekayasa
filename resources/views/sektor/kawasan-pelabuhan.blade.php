@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kawasan Bandar Udara - GeoINHance</title>
+    <title>Kawasan Pelabuhan - GeoINHance</title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
@@ -51,13 +51,13 @@
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
             <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
-                {{ __('airport.hero_sector') }}
+                {{ __('port.hero_sector') ?? 'Port & Maritime Sector' }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
-                {{ __('airport.hero_title_1') }} <span class="text-blue-400">{{ __('airport.hero_title_2') }}</span>
+                {{ __('port.hero_title_1') ?? 'Infrastruktur' }} <span class="text-blue-400">{{ __('port.hero_title_2') ?? 'Kawasan Pelabuhan' }}</span>
             </h1>
             <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-                {{ __('airport.hero_desc') }}
+                {{ __('port.hero_desc') ?? 'Solusi rekayasa geoteknik dan pemantauan struktural komprehensif untuk menjamin keamanan operasional infrastruktur maritim skala nasional.' }}
             </p>
         </div>
     </section>
@@ -74,7 +74,7 @@
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="{{ __('geodisaster.search_placeholder') }}"
+                    placeholder="{{ __('port.search_placeholder') }}"
                     class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
             </div>
 
@@ -83,53 +83,83 @@
 
     {{-- CONTENT SECTION --}}
     <section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        
-        {{-- PROJECT GRID --}}
+
+        {{-- PROJECT GRID (3-KOLOM UI UNTUK KONSISTENSI SEKTOR) --}}
         <div id="projectGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            {{-- PROJECT CARD 1 (CONTOH DATA BANDARA) --}}
-            <div class="project-item transition-all duration-300" data-name="infrastruktur akses ka bandara yia">
+            {{-- PROYEK CONTOH 1 - JETTY --}}
+            <div class="project-item transition-all duration-300" data-name="stabilisasi tanah lunak terminal petikemas dermaga logistik" data-category="jetty">
                 <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
                     <div>
-                        {{-- Thumbnail Area --}}
                         <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
-                            <i class="fa-solid fa-plane-departure text-[80px] text-blue-500/10 group-hover:scale-110 transition duration-700"></i>
+                            <i class="fa-solid fa-ship text-[80px] text-blue-500/10 group-hover:scale-110 transition duration-700"></i>
                             <div class="absolute top-4 left-4">
                                 <span class="bg-[#002d62] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
-                                    {{ __('airport.card_badge') }}
+                                    {{ __('port.card_badge_1') ?? 'Dermaga Utama' }}
                                 </span>
                             </div>
                         </div>
 
-                        {{-- Content Area --}}
                         <div class="p-6 space-y-3">
                             <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> Yogyakarta, Indonesia
+                                <i class="fa-solid fa-location-dot text-blue-600 mr-1"></i> Tanjung Priok, Jakarta
                             </p>
                             <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem]">
-                                {{ __('airport.card_title') }}
+                                {{ __('port.card_title_1') ?? 'Stabilisasi Tanah Lunak & Piles Terminal Petikemas Utara' }}
                             </h3>
                             <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
-                                {{ __('airport.card_desc') }}
+                                {{ __('port.card_desc_1') ?? 'Analisis daya dukung tanah lateral pantai dan perbaikan tanah menggunakan metode PVD untuk menahan beban peti kemas berat.' }}
                             </div>
                         </div>
                     </div>
 
-                    {{-- Footer/Buttons Area --}}
                     <div class="p-6 pt-0 space-y-4">
                         <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
-                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
-                                Runway Engineering
-                            </span>
-                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
-                                Soil Stabilization
-                            </span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">Deep Foundation</span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">PVD</span>
                         </div>
                         <a href="#" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
-                            {{ __('airport.btn_view_detail') }}
-                            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                            </svg>
+                            {{ __('port.btn_view_project') ?? 'Lihat Proyek' }}
+                            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
+                        </a>
+                    </div>
+                </article>
+            </div>
+
+            {{-- PROYEK CONTOH 2 - BREAKWATER --}}
+            <div class="project-item transition-all duration-300" data-name="perencanaan struktur breakwater penahan gelombang pelabuhan" data-category="breakwater">
+                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
+                    <div>
+                        <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
+                            <i class="fa-solid fa-water text-[80px] text-blue-500/10 group-hover:scale-110 transition duration-700"></i>
+                            <div class="absolute top-4 left-4">
+                                <span class="bg-[#002d62] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
+                                    {{ __('port.card_badge_2') ?? 'Breakwater' }}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="p-6 space-y-3">
+                            <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
+                                <i class="fa-solid fa-location-dot text-blue-600 mr-1"></i> Patimban, Jawa Barat
+                            </p>
+                            <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem]">
+                                {{ __('port.card_title_2') ?? 'Desain Teknis Pemecah Gelombang Sektor Barat' }}
+                            </h3>
+                            <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
+                                {{ __('port.card_desc_2') ?? 'Pemodelan numerik hidrodinamika air laut dan stabilitas tumpukan batu armor terhadap hempasan gelombang ekstrem.' }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="p-6 pt-0 space-y-4">
+                        <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">Hydrodynamics</span>
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">Wave Modeling</span>
+                        </div>
+                        <a href="#" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
+                            {{ __('port.btn_view_project') ?? 'Lihat Proyek' }}
+                            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path></svg>
                         </a>
                     </div>
                 </article>
@@ -141,19 +171,15 @@
     {{-- PAGINATION NAVIGATION INTERFACE --}}
     <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            {{-- Teks Info Kiri --}}
             <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
                 Menampilkan <span id="infoStart" class="font-bold text-slate-800">0</span> sampai <span id="infoEnd" class="font-bold text-slate-800">0</span> dari <span id="infoTotal" class="font-bold text-slate-800">0</span> rekaman proyek
             </div>
             
-            {{-- Tombol Halaman Kanan --}}
             <nav id="paginationControls" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
                 <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
                     <i class="fa-solid fa-chevron-left text-xs"></i>
                 </button>
-                
                 <div id="pageNumbers" class="flex items-center -space-x-px"></div>
-                
                 <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
                     <i class="fa-solid fa-chevron-right text-xs"></i>
                 </button>
@@ -182,28 +208,29 @@
     {{-- FOOTER --}}
     @include('partials.footer')
 
-    {{-- JAVASCRIPT LOGIC: SEARCH & PAGINATION KELIPATAN 6 --}}
+    {{-- JAVASCRIPT LOGIC: SEARCH, FILTER, AND PAGINATION KELIPATAN 6 --}}
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const searchInput = document.getElementById('searchInput');
+            const filterButtons = document.querySelectorAll('.filter-btn');
             const items = Array.from(document.querySelectorAll('.project-item'));
             
             const itemsPerPage = 6; 
             let currentPage = 1;
+            let currentFilter = 'all';
             let currentSearchQuery = '';
             let filteredItems = [...items]; 
 
-            // Fungsi menyaring data input search
-            function applySearch() {
+            function applyFilterAndSearch() {
                 filteredItems = items.filter(item => {
-                    return item.dataset.name.toLowerCase().includes(currentSearchQuery);
+                    const matchesCategory = currentFilter === 'all' || item.dataset.category === currentFilter;
+                    const matchesSearch = item.dataset.name.toLowerCase().includes(currentSearchQuery);
+                    return matchesCategory && matchesSearch;
                 });
-
                 currentPage = 1; 
                 updatePagination();
             }
 
-            // Fungsi memperbarui layout grid card dan tombol angka halaman
             function updatePagination() {
                 const totalItems = filteredItems.length;
                 const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
@@ -214,20 +241,15 @@
                 const startIndex = (currentPage - 1) * itemsPerPage;
                 const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-                // Sembunyikan semua item bawaan grid
                 items.forEach(item => item.style.display = 'none');
-
-                // Tampilkan potongan data sesuai rentang halaman aktif
                 filteredItems.slice(startIndex, endIndex).forEach(item => {
                     item.style.display = 'block';
                 });
 
-                // Update teks info rekaman sebelah kiri bawah
                 document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
                 document.getElementById('infoEnd').textContent = endIndex;
                 document.getElementById('infoTotal').textContent = totalItems;
 
-                // Render tombol angka navigasi halaman
                 const pageNumbersContainer = document.getElementById('pageNumbers');
                 pageNumbersContainer.innerHTML = '';
 
@@ -235,9 +257,7 @@
                     const btn = document.createElement('button');
                     btn.textContent = i;
                     btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
-                        i === currentPage 
-                        ? 'bg-[#002d62] text-white' 
-                        : 'bg-white text-slate-700 hover:bg-slate-50'
+                        i === currentPage ? 'bg-[#002d62] text-white' : 'bg-white text-slate-700 hover:bg-slate-50'
                     }`;
                     btn.addEventListener('click', () => {
                         currentPage = i;
@@ -247,36 +267,36 @@
                     pageNumbersContainer.appendChild(btn);
                 }
 
-                // Mengaktifkan / menonaktifkan tombol panah Prev & Next
                 document.getElementById('btnPrev').disabled = (currentPage === 1);
                 document.getElementById('btnNext').disabled = (currentPage === totalPages);
             }
 
-            // Event handler klik tombol Prev
-            document.getElementById('btnPrev').addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    updatePagination();
-                }
+            filterButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    filterButtons.forEach(btn => {
+                        btn.className = 'filter-btn bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300';
+                    });
+                    this.className = 'filter-btn bg-[#002d62] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all duration-300';
+                    currentFilter = this.dataset.filter;
+                    applyFilterAndSearch();
+                });
             });
 
-            // Event handler klik tombol Next
+            document.getElementById('btnPrev').addEventListener('click', () => {
+                if (currentPage > 1) { currentPage--; updatePagination(); }
+            });
+
             document.getElementById('btnNext').addEventListener('click', () => {
                 const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    updatePagination();
-                }
+                if (currentPage < totalPages) { currentPage++; updatePagination(); }
             });
 
-            // Event handler live sync pencarian data input text
             searchInput.addEventListener('input', function() {
                 currentSearchQuery = this.value.toLowerCase().trim();
-                applySearch();
+                applyFilterAndSearch();
             });
 
-            // Jalankan pemanggilan awal sistem load halaman
-            applySearch();
+            applyFilterAndSearch();
         });
     </script>
 

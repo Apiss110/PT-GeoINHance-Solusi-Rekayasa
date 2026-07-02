@@ -74,21 +74,17 @@
 
 @include('partials.navbar')
 
-<section class="bg-slate-950 text-white py-20 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <nav class="flex mb-4 text-sm text-slate-400 font-medium">
-            <span class="text-slate-500">{{ __('video.breadcrumb_resources') }}</span>
-            <span class="mx-2">/</span>
-            <span class="text-blue-400">{{ __('video.breadcrumb_video') }}</span>
-        </nav>
-        
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
-            {{ __('video.hero_title') }}
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+            Resources
+        </span>
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
+            Video Library
         </h1>
-        <p class="mt-3 text-base text-slate-300 max-w-3xl leading-relaxed">
-            {{ __('video.hero_desc') }}
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+            A collection of field project video documentation, 3D simulation animation visualizations, laboratory testing records, and tutorials on geotechnical and structural numerical analysis.
         </p>
     </div>
 </section>
@@ -110,37 +106,6 @@
                         <input type="text" id="inputNamaVideo" placeholder="{{ __('video.placeholder_search') }}" 
                                class="w-full bg-slate-50 border border-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition">
                     </div>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        {{ __('video.label_category') }}
-                    </label>
-                    <select id="selectKategoriVideo" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
-                        <option value="">{{ __('video.option_all_categories') }}</option>
-                        <option value="3d-simulation-animation">{{ __('video.option_cat_simulasi') }}</option>
-                        <option value="project-documentation">{{ __('video.option_cat_dokumentasi') }}</option>
-                        <option value="technical-tutorials-webinars">{{ __('video.option_cat_tutorial') }}</option>
-                    </select>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        {{ __('video.label_year') }}
-                    </label>
-                    <select id="selectTahunVideo" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
-                        <option value="">{{ __('video.option_all_years') }}</option>
-                        {{-- Mengambil daftar tahun unik langsung dari database secara dinamis --}}
-                        @foreach($videos->pluck('production_year')->unique()->sortDesc() as $year)
-                            <option value="{{ $year }}">{{ $year }}</option>
-                        @endforeach
-                    </select>
-                </div>
-
-                <div>
-                    <button type="submit" class="w-full bg-slate-900 hover:bg-blue-700 text-white font-bold text-xs tracking-widest py-2.5 rounded-lg transition duration-200 shadow-sm uppercase text-center flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-sliders text-[10px]"></i> {{ __('video.btn_filter') }}
-                    </button>
                 </div>
             </form>
         </div>
@@ -210,8 +175,8 @@
 
                         <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-400 font-medium">
                             <span>Year: <strong class="text-slate-600">{{ $video->production_year }}</strong></span>
-                            <a href="{{ $video->video_url }}" target="_blank" class="text-blue-500 hover:text-blue-700 font-semibold flex items-center gap-1">
-                                View Details <i class="fa-solid fa-arrow-right text-[9px]"></i>
+                            <a href="{{ route('resources.video.show', $video->id) }}" class="text-blue-500 hover:text-blue-700">
+                                View Details
                             </a>
                         </div>
                     </div>

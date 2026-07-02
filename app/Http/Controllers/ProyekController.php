@@ -4,13 +4,31 @@ namespace App\Http\Controllers;
 
 use App\Models\Blog;
 use App\Models\StrategicProject; 
-use App\Models\ProjectCategory; // Tambahan: Panggil model kategori baru
+use App\Models\ProjectCategory; 
 use App\Models\Proyek;
+use App\Models\Article;    // Tambahan: Import Model Article
+use App\Models\Video;      // Tambahan: Import Model Video
+use App\Models\CaseStudy;  // Tambahan: Import Model CaseStudy
 use Illuminate\Http\Request;
-
 
 class ProyekController extends Controller
 {
+    /**
+     * Halaman menampilkan semua komponen sumber daya terpadu (All Resources Publik)
+     * Menggabungkan Berita, Artikel, Video, dan Studi Kasus ke satu halaman induk
+     */
+    public function allResources()
+    {
+        // Mengambil data terbaru untuk masing-masing modul
+        $newsEvents  = Blog::latest()->take(3)->get() ?? collect();
+        $articles    = Article::latest()->take(3)->get() ?? collect();
+        $videos      = Video::latest()->take(3)->get() ?? collect();
+        $caseStudies = CaseStudy::latest()->get() ?? collect(); // Diambil semua untuk kebutuhan download library
+
+        // Mengembalikan view terpadu dengan membawa semua data di atas
+        return view('resources.semua-resources', compact('newsEvents', 'articles', 'videos', 'caseStudies'));
+    }
+
     /**
      * Halaman menampilkan semua proyek (Publik)
      */
@@ -25,11 +43,11 @@ class ProyekController extends Controller
      * Halaman detail satu proyek (Publik)
      */
     public function publicShow($id)
-{
-    $proyek = \App\Models\StrategicProject::findOrFail($id);
-    // Kirim data ke file view (misalnya: resources/views/proyek/show.blade.php)
-    return view('proyek.show', compact('proyek'));
-}
+    {
+        $proyek = \App\Models\StrategicProject::findOrFail($id);
+        // Kirim data ke file view (misalnya: resources/views/proyek/show.blade.php)
+        return view('proyek.show', compact('proyek'));
+    }
 
     /**
      * Halaman menampilkan daftar proyek berdasarkan Jenis / Kategori lewat Slug (Publik)

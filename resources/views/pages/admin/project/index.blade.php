@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Manajemen Proyek Strategis (Slider Portofolio)') }}
+            {{ __('Manajemen Proyek Strategis (Slider Portofolio & Sektor)') }}
         </h2>
     </x-slot>
 
@@ -24,7 +24,8 @@
                 <form action="{{ route('admin.project.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        {{-- Input Kategori Proyek --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Proyek <span class="text-red-500">*</span></label>
                             <select name="project_category_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
@@ -39,7 +40,24 @@
                                 <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
                             @enderror
                         </div>
+
+                        {{-- ADDED: Input Kategori Sektor --}}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Sektor Dropsown <span class="text-red-500">*</span></label>
+                            <select name="sector_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Pilih Sektor Halaman --</option>
+                                @foreach($sectors as $sector)
+                                    <option value="{{ $sector->id }}" {{ old('sector_id') == $sector->id ? 'selected' : '' }}>
+                                        {{ $sector->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                            @error('sector_id')
+                                <p class="text-red-500 text-xs mt-1">{{ $message }}</p>
+                            @enderror
+                        </div>
                         
+                        {{-- Input Judul Proyek --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Nama / Judul Proyek <span class="text-red-500">*</span></label>
                             <input type="text" name="title" value="{{ old('title') }}" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: ANALISIS STABILITAS LERENG TOL">
@@ -108,9 +126,15 @@
                                         <img src="{{ asset('storage/' . $project->image_path) }}" class="w-32 h-24 object-cover rounded-md border border-gray-200 dark:border-gray-600" alt="Preview Proyek">
                                     </td>
                                     <td class="px-4 py-3 align-middle">
-                                        <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-red-900/40 dark:text-red-300 uppercase">
-                                            {{ $project->category->name ?? 'Tanpa Kategori' }}
-                                        </span>
+                                        <div class="flex flex-wrap gap-1.5">
+                                            <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-red-900/40 dark:text-red-300 uppercase">
+                                                📁 {{ $project->category->name ?? 'Tanpa Kategori' }}
+                                            </span>
+                                            {{-- Badge Sektor Baru --}}
+                                            <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-blue-900/40 dark:text-blue-300 uppercase">
+                                                ⚓ {{ $project->sector->name ?? 'Tanpa Sektor' }}
+                                            </span>
+                                        </div>
                                         <div class="text-base font-bold text-gray-900 dark:text-white mt-1 uppercase">{{ $project->title }}</div>
                                         
                                         <p class="text-xs text-gray-400 mt-1 line-clamp-2">{!! strip_tags($project->description) !!}</p>
@@ -121,8 +145,9 @@
                                     </td>
                                     <td class="px-4 py-3 text-center whitespace-nowrap align-middle">
                                         <div class="flex items-center justify-center space-x-3">
+                                            {{-- Pembaruan pada objek @click AlpineJS untuk membawa data sector_id --}}
                                             <button type="button" 
-                                                    @click="openEdit = true; currentProject = { id: '{{ $project->id }}', title: '{{ addslashes($project->title) }}', project_category_id: '{{ $project->project_category_id }}', location: '{{ addslashes($project->location) }}', year: '{{ $project->year }}' }; tinymce.get('modalProjectDescription').setContent('{{ addslashes($project->description) }}');"
+                                                    @click="openEdit = true; currentProject = { id: '{{ $project->id }}', title: '{{ addslashes($project->title) }}', project_category_id: '{{ $project->project_category_id }}', sector_id: '{{ $project->sector_id }}', location: '{{ addslashes($project->location) }}', year: '{{ $project->year }}' }; tinymce.get('modalProjectDescription').setContent('{{ addslashes($project->description) }}');"
                                                     class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
                                                 Edit
                                             </button>
@@ -165,14 +190,27 @@
                     @csrf
                     @method('PUT')
 
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Proyek *</label>
-                        <select name="project_category_id" x-model="currentProject.project_category_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                            <option value="">-- Pilih Jenis / Kategori Proyek --</option>
-                            @foreach($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach
-                        </select>
+                    <div class="grid grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Proyek *</label>
+                            <select name="project_category_id" x-model="currentProject.project_category_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Pilih Jenis / Kategori --</option>
+                                @foreach($categories as $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        {{-- ADDED: Edit Kategori Sektor pada Modal --}}
+                        <div>
+                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Sektor *</label>
+                            <select name="sector_id" x-model="currentProject.sector_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
+                                <option value="">-- Pilih Sektor Halaman --</option>
+                                @foreach($sectors as $sector)
+                                    <option value="{{ $sector->id }}">{{ $sector->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                     </div>
 
                     <div>
@@ -215,7 +253,7 @@
         </div>
     </div>
 
-    {{-- Script JavaScript Pendukumg Preview Gambar & Inisialisasi TinyMCE --}}
+    {{-- Script JavaScript Pendukung Preview Gambar & Inisialisasi TinyMCE --}}
     <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {

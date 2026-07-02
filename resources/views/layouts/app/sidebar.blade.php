@@ -46,6 +46,10 @@
                         {{ __('Manajemen Video') }}
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="document-text" :href="route('admin.studi-kasus.index')" :current="request()->routeIs('admin.studi-kasus.*')" wire:navigate>
+                        {{ __('Manajemen Case Study') }}
+                    </flux:sidebar.item>
+
                     {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
                     @if(auth()->check() && auth()->user()->role === 'superadmin')
                         <flux:sidebar.item icon="users" :href="route('admin.kelola-admin.index')" :current="request()->routeIs('admin.kelola-admin.*')" wire:navigate>

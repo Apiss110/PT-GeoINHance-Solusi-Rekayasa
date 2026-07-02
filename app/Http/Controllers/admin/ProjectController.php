@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\StrategicProject;
 use App\Models\ProjectCategory;
+use App\Models\Sector; // Import model Sector
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -15,10 +16,12 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        $projects = StrategicProject::with('category')->latest()->get();
+        // Memuat relasi category dan sector sekaligus
+        $projects = StrategicProject::with(['category', 'sector'])->latest()->get();
         $categories = ProjectCategory::all(); 
+        $sectors = Sector::all(); // Mengambil semua data sektor untuk form input dropdown
 
-        return view('pages.admin.project.index', compact('projects', 'categories'));
+        return view('pages.admin.project.index', compact('projects', 'categories', 'sectors'));
     }
 
     /**
@@ -28,22 +31,24 @@ class ProjectController extends Controller
     {
         $request->validate([
             'project_category_id' => 'required|exists:project_categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'location' => 'required|string|max:255',
-            'year' => 'required|string|max:4',
-            'image' => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
+            'sector_id'           => 'required|exists:sectors,id', // Validasi input sector_id
+            'title'               => 'required|string|max:255',
+            'description'         => 'required|string',
+            'location'            => 'required|string|max:255',
+            'year'                => 'required|string|max:4',
+            'image'               => 'required|image|mimes:jpeg,jpg,png,webp|max:5120',
         ]);
 
         $path = $request->file('image')->store('projects', 'public');
 
         StrategicProject::create([
             'project_category_id' => $request->project_category_id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'location' => $request->location,
-            'year' => $request->year,
-            'image_path' => $path,
+            'sector_id'           => $request->sector_id, // Simpan input sector_id
+            'title'               => $request->title,
+            'description'         => $request->description,
+            'location'            => $request->location,
+            'year'                => $request->year,
+            'image_path'          => $path,
         ]);
 
         return redirect()->route('admin.project.index')->with('success', 'Proyek strategis baru berhasil ditambahkan!');
@@ -58,19 +63,21 @@ class ProjectController extends Controller
 
         $request->validate([
             'project_category_id' => 'required|exists:project_categories,id',
-            'title' => 'required|string|max:255',
-            'description' => 'required|string',
-            'location' => 'required|string|max:255',
-            'year' => 'required|string|max:4',
-            'image' => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
+            'sector_id'           => 'required|exists:sectors,id', // Validasi input sector_id saat update
+            'title'               => 'required|string|max:255',
+            'description'         => 'required|string',
+            'location'            => 'required|string|max:255',
+            'year'                => 'required|string|max:4',
+            'image'               => 'nullable|image|mimes:jpeg,jpg,png,webp|max:5120',
         ]);
 
         $data = [
             'project_category_id' => $request->project_category_id,
-            'title' => $request->title,
-            'description' => $request->description,
-            'location' => $request->location,
-            'year' => $request->year,
+            'sector_id'           => $request->sector_id, // Masukkan sector_id ke dalam array pembaruan
+            'title'               => $request->title,
+            'description'         => $request->description,
+            'location'            => $request->location,
+            'year'                => $request->year,
         ];
 
         if ($request->hasFile('image')) {
@@ -104,12 +111,6 @@ class ProjectController extends Controller
     /**
      * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user (Dinamis)
      */
-/**
-     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user (Dinamis)
-     */
-/**
-     * 5. Menampilkan daftar proyek berdasarkan kategori di halaman user (Dinamis)
-     */
     public function showPublicByCategory($slug)
     {
         // 1. Cari kategori berdasarkan slug asli dari URL
@@ -131,7 +132,7 @@ class ProjectController extends Controller
         }
 
         // 2. Ambil data proyek
-        $projects = StrategicProject::with('category')
+        $projects = StrategicProject::with(['category', 'sector'])
                                     ->where('project_category_id', $category->id)
                                     ->latest()
                                     ->get();
@@ -146,9 +147,8 @@ class ProjectController extends Controller
             'review-design-analysis'        => 'proyek.review-design',
             '3d-fem'                        => 'proyek.3d-fem',
             '3d-fem-analysis'               => 'proyek.3d-fem',
-
             'numerical-analysis'            => 'proyek.numerical-analysis',
-            'numerical-modeling'   => 'proyek.numerical-modeling',
+            'numerical-modeling'            => 'proyek.numerical-modeling',
         ];
 
         $chosenView = $viewMapping[$slug] ?? 'proyek.' . $slug;
@@ -158,5 +158,35 @@ class ProjectController extends Controller
         }
 
         return view($chosenView, compact('category', 'projects'));
+    }
+
+    /**
+     * 6. Menampilkan daftar proyek berdasarkan SEKTOR di halaman user (Dinamis untuk Sektor)
+     * Ditambahkan agar sinkron otomatis tanpa bikin fungsi manual per halaman sektor.
+     */
+    public function showPublicBySector($slug)
+    {
+        // 1. Cari data sektor di DB berdasarkan slug dari URL (contoh: 'mitigasi-geobencana')
+        $sector = Sector::where('slug', $slug)->first();
+
+        if (!$sector) {
+            abort(404, "Sektor dengan slug [{$slug}] tidak ditemukan di database.");
+        }
+
+        // 2. Tarik semua proyek yang didaftarkan pada sektor ini oleh admin
+        $projects = StrategicProject::with(['category', 'sector'])
+                                    ->where('sector_id', $sector->id)
+                                    ->latest()
+                                    ->get();
+
+        // 3. Cari file Bladenya di folder resources/views/sektor/ nama-slug.blade.php
+        $chosenView = 'sektor.' . $slug;
+
+        if (!view()->exists($chosenView)) {
+            abort(404, "File view [resources/views/sektor/{$slug}.blade.php] belum dibuat.");
+        }
+
+        // 4. Return view dan lempar variabel $projects agar terbaca oleh Blade
+        return view($chosenView, compact('sector', 'projects'));
     }
 }
