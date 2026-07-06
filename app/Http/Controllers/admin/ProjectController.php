@@ -93,7 +93,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * 4. Menghapus data proyek
+     * 4. Menghapus data proyek tunggal
      */
     public function destroy($id)
     {
@@ -106,6 +106,36 @@ class ProjectController extends Controller
         $project->delete();
 
         return redirect()->route('admin.project.index')->with('success', 'Proyek strategis berhasil dihapus!');
+    }
+
+    /**
+     * TAMBAHAN: Menghapus banyak data proyek sekaligus (Bulk Delete)
+     */
+    public function bulkDestroy(Request $request)
+    {
+        $request->validate([
+            'ids'   => 'required|array',
+            'ids.*' => 'exists:strategic_projects,id', // Memastikan ID yang dikirim ada di tabel strategic_projects
+        ]);
+
+        try {
+            $projects = StrategicProject::whereIn('id', $request->ids)->get();
+
+            // Loop untuk menghapus file gambar fisik dari storage
+            foreach ($projects as $project) {
+                if (Storage::disk('public')->exists($project->image_path)) {
+                    Storage::disk('public')->delete($project->image_path);
+                }
+                $project->delete();
+            }
+
+            return redirect()->route('admin.project.index')
+                ->with('success', 'Semua proyek yang dipilih berhasil dihapus!');
+                
+        } catch (\Exception $e) {
+            return redirect()->route('admin.project.index')
+                ->with('error', 'Gagal menghapus proyek massal: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -139,9 +169,9 @@ class ProjectController extends Controller
 
         // 3. Peta pencocokan file Blade (Mapping nama file view)
         $viewMapping = [
-            'geotechnical'                  => 'proyek.geotechnical-analysis',
-            'geotechnical-analysis'         => 'proyek.geotechnical-analysis',
-            'ded'                           => 'proyek.detailed-engineering-designed',
+            'geotechnical'              => 'proyek.geotechnical-analysis',
+            'geotechnical-analysis'     => 'proyek.geotechnical-analysis',
+            'ded'                       => 'proyek.detailed-engineering-designed',
             'detailed-engineering-design'   => 'proyek.detailed-engineering-designed',
             'review-design'                 => 'proyek.review-design',
             'review-design-analysis'        => 'proyek.review-design',
@@ -162,7 +192,6 @@ class ProjectController extends Controller
 
     /**
      * 6. Menampilkan daftar proyek berdasarkan SEKTOR di halaman user (Dinamis untuk Sektor)
-     * Ditambahkan agar sinkron otomatis tanpa bikin fungsi manual per halaman sektor.
      */
     public function showPublicBySector($slug)
     {
@@ -188,5 +217,18 @@ class ProjectController extends Controller
 
         // 4. Return view dan lempar variabel $projects agar terbaca oleh Blade
         return view($chosenView, compact('sector', 'projects'));
+    }
+
+    /**
+     * 7. Menampilkan gabungan SELURUH proyek dari semua sektor di halaman public
+     * Ditambahkan untuk menyelesaikan error 'Undefined variable $projects' pada view semua-sektor
+     */
+    public function showAllSectorsPublic()
+    {
+        // Mengambil semua data proyek strategis tanpa filter sektor spesifik
+        $projects = StrategicProject::with(['category', 'sector'])->latest()->get();
+
+        // Memanggil file view resources/views/sektor/semua-sektor.blade.php
+        return view('sektor.semua-sektor', compact('projects'));
     }
 }

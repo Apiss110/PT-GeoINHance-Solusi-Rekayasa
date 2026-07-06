@@ -50,6 +50,12 @@
                         {{ __('Manajemen Case Study') }}
                     </flux:sidebar.item>
 
+                    <flux:sidebar.item icon="academic-cap" :href="route('admin.training.index')" :current="request()->routeIs('admin.training.*')" wire:navigate>
+                        {{ __('Manajemen Training') }}
+                    </flux:sidebar.item>
+
+                    
+
                     {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
                     @if(auth()->check() && auth()->user()->role === 'superadmin')
                         <flux:sidebar.item icon="users" :href="route('admin.kelola-admin.index')" :current="request()->routeIs('admin.kelola-admin.*')" wire:navigate>

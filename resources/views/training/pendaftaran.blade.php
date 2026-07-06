@@ -97,163 +97,142 @@
 
 </section>
 
-<section class="max-w-7xl mx-auto py-24 px-6">
-
-    <div class="text-center mb-20" data-aos="fade-up">
-
-        <span class="inline-block px-5 py-2 rounded-full border border-red-100 bg-red-50 text-red-800 text-xs font-extrabold uppercase tracking-[0.35em] shadow-sm">
-            {{ __('register.prog_badge') }}
-        </span>
-
-        <h2 class="mt-6 text-4xl md:text-5xl font-black uppercase text-slate-900 leading-tight">
-            {{ __('register.prog_title_1') }}
-            <span class="text-red-800">
-                {{ __('register.prog_title_2') }}
-            </span>
-        </h2>
-
-        <p class="max-w-2xl mx-auto mt-6 text-lg leading-8 text-slate-500">
-            {{ __('register.prog_desc') }}
-        </p>
-
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-
-        <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-            <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
-                <span class="material-symbols-outlined text-[60px] text-white">
-                    engineering
-                </span>
-            </div>
-
-            <h3 class="mb-4 text-2xl font-black text-slate-900">
-                {{ __('register.card1_title') }}
-            </h3>
-
-            <p class="leading-8 text-slate-500 mb-6">
-                {{ __('register.card1_desc') }}
-            </p>
-
-            <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
-                {{ __('register.card1_level') }}
-            </span>
-
-        </div>
-
-        <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-            <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
-                <span class="material-symbols-outlined text-[60px] text-white">
-                    dataset
-                </span>
-            </div>
-
-            <h3 class="mb-4 text-2xl font-black text-slate-900">
-                {{ __('register.card2_title') }}
-            </h3>
-
-            <p class="leading-8 text-slate-500 mb-6">
-                {{ __('register.card2_desc') }}
-            </p>
-
-            <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
-                {{ __('register.card2_level') }}
-            </span>
-
-        </div>
-
-        <div class="rounded-3xl border border-slate-200 bg-white p-10 shadow-sm transition duration-300 hover:-translate-y-2 hover:shadow-2xl">
-
-            <div class="mb-8 flex h-24 w-24 items-center justify-center rounded-3xl bg-gradient-to-br from-red-800 to-red-900 shadow-lg">
-                <span class="material-symbols-outlined text-[60px] text-white">
-                    school
-                </span>
-            </div>
-
-            <h3 class="mb-4 text-2xl font-black text-slate-900">
-                {{ __('register.card3_title') }}
-            </h3>
-
-            <p class="leading-8 text-slate-500 mb-6">
-                {{ __('register.card3_desc') }}
-            </p>
-
-            <span class="inline-block bg-red-50 text-red-800 text-xs font-bold px-4 py-2 rounded-full">
-                {{ __('register.card3_level') }}
-            </span>
-
-        </div>
-
-    </div>
-
-</section>
-
 <section class="bg-slate-100 py-24 px-6 border-t border-slate-200">
 
     <div class="max-w-4xl mx-auto bg-white rounded-[2rem] border border-slate-200 shadow-sm p-10 md:p-14">
 
         <div class="mb-12 text-center">
-
             <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
                 {{ __('register.form_badge') }}
             </span>
-
             <h2 class="text-4xl font-black uppercase text-slate-900">
                 {{ __('register.form_title') }}
             </h2>
-
         </div>
 
-        <form class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {{-- NOTIFIKASI SUKSES SETELAH BERHASIL DAFTAR --}}
+        @if(session('success'))
+            <div class="mb-8 p-5 bg-green-50 border border-green-200 text-green-800 rounded-2xl flex items-center gap-3 text-sm font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
+                    <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                </svg>
+                {{ session('success') }}
+            </div>
+        @endif
 
+        {{-- INTEGRASI BACKEND: Ditambahkan method="POST" dan action ke rute penampung data --}}
+        <form action="{{ route('training.pendaftaran.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            @csrf
+
+            {{-- 1. NAMA LENGKAP (REQUIRED) --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    {{ __('register.label_name') }}
+                    {{ __('register.label_name') }} <span class="text-red-600">*</span>
                 </label>
-                <input type="text"
-                       class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
+                <input type="text" name="name" value="{{ old('name') }}" required
+                       class="w-full rounded-2xl border @error('name') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                @error('name')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
+                @enderror
             </div>
 
+            {{-- 2. EMAIL (REQUIRED) --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    {{ __('register.label_email') }}
+                    {{ __('register.label_email') }} <span class="text-red-600">*</span>
                 </label>
-                <input type="email"
-                       class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
+                <input type="email" name="email" value="{{ old('email') }}" required
+                       class="w-full rounded-2xl border @error('email') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                @error('email')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
+                @enderror
             </div>
 
+            {{-- 3. NOMOR WHATSAPP (REQUIRED - Name disesuaikan menjadi 'whatsapp_number') --}}
+            <div>
+                <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
+                    Nomor WhatsApp <span class="text-red-600">*</span>
+                </label>
+                <div class="relative flex items-center">
+                    <input type="tel" name="whatsapp_number" value="{{ old('whatsapp_number') }}" required placeholder="08123456789"
+                        pattern="[0-9]{10,13}" title="Masukkan nomor ponsel yang valid (contoh: 08123456789)"
+                        class="w-full rounded-2xl border @error('whatsapp_number') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                </div>
+                @error('whatsapp_number')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
+                @enderror
+            </div>
+
+            {{-- 4. PERUSAHAAN / INSTITUSI (OPTIONAL) --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_company') }}
                 </label>
-                <input type="text"
-                       class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
+                <input type="text" name="company" value="{{ old('company') }}"
+                       class="w-full rounded-2xl border @error('company') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                @error('company')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
+                @enderror
             </div>
 
-            <div>
+            {{-- 5. PILIH TRAINING (REQUIRED - Name disesuaikan menjadi 'training_program') --}}
+            <div class="md:col-span-2">
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    {{ __('register.label_select') }}
+                    {{ __('register.label_select') }} <span class="text-red-600">*</span>
                 </label>
-                <select class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800">
-                    <option>{{ __('register.card1_title') }}</option>
-                    <option>{{ __('register.card2_title') }}</option>
-                    <option>{{ __('register.card3_title') }}</option>
+                <select name="training_program" required
+                        class="w-full rounded-2xl border @error('training_program') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2 bg-white">
+                    <option value="" disabled {{ old('training_program') ? '' : 'selected' }}>-- Pilih Program Training --</option>
+                    <option value="Card 1 Title" {{ old('training_program') == 'Card 1 Title' ? 'selected' : '' }}>{{ __('register.card1_title') }}</option>
+                    <option value="Card 2 Title" {{ old('training_program') == 'Card 2 Title' ? 'selected' : '' }}>{{ __('register.card2_title') }}</option>
+                    <option value="Card 3 Title" {{ old('training_program') == 'Card 3 Title' ? 'selected' : '' }}>{{ __('register.card3_title') }}</option>
                 </select>
+                @error('training_program')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
+                @enderror
             </div>
 
+            {{-- 6. PESAN TAMBAHAN (OPTIONAL) --}}
             <div class="md:col-span-2">
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_message') }}
                 </label>
-                <textarea rows="5"
-                          class="w-full rounded-2xl border border-slate-200 px-5 py-4 focus:outline-none focus:ring-2 focus:ring-red-800"></textarea>
+                <textarea name="message" rows="4"
+                          class="w-full rounded-2xl border @error('message') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">{{ old('message') }}</textarea>
+                @error('message')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
+                @enderror
             </div>
 
-            <div class="md:col-span-2 text-center mt-4">
+            {{-- 7. CAPTCHA CONTAINER --}}
+            <div class="md:col-span-2 flex flex-col items-center justify-center my-2">
+                <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
+                @error('g-recaptcha-response')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">Silakan selesaikan verifikasi captcha.</span>
+                @enderror
+            </div>
+
+            {{-- 8. ASPEK LEGALITAS & PERSETUJUAN CHECKBOX --}}
+            <div class="md:col-span-2 flex flex-col mt-2">
+                <div class="flex items-start gap-3">
+                    <input type="checkbox" id="terms" name="terms" required
+                           class="mt-1 h-4 w-4 rounded border-slate-300 text-red-800 focus:ring-red-800 accent-red-800 cursor-pointer">
+                    <label for="terms" class="text-xs text-slate-500 leading-relaxed cursor-pointer select-none">
+                        Saya menyetujui 
+                        <a href="{{ route('terms') }}" class="text-red-800 underline hover:text-red-700 font-medium">Syarat & Ketentuan</a> serta 
+                        <a href="{{ route('privacy') }}" class="text-red-800 underline hover:text-red-700 font-medium">Kebijakan Privasi</a> 
+                        yang berlaku di PT GeoINHance Solusi Rekayasa. <span class="text-red-600">*</span>
+                    </label>
+                </div>
+                @error('terms')
+                    <span class="text-xs text-red-600 font-semibold mt-1 block pl-7">{{ $message }}</span>
+                @enderror
+            </div>
+
+            {{-- BUTTON SUBMIT --}}
+            <div class="md:col-span-2 text-center mt-6">
                 <button type="submit"
-                        class="bg-red-800 hover:bg-red-700 text-white font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1">
+                        class="bg-red-800 hover:bg-red-700 text-white font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
                     {{ __('register.btn_submit') }}
                 </button>
             </div>

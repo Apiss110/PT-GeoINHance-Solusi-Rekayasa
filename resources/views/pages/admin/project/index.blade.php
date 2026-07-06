@@ -5,8 +5,20 @@
         </h2>
     </x-slot>
 
-    {{-- Inisialisasi Alpine.js pada Container Utama untuk mengontrol Modal --}}
-    <div class="py-12" x-data="{ openEdit: false, currentProject: {} }">
+    {{-- Inisialisasi Alpine.js pada Container Utama untuk mengontrol Modal & Bulk Selection --}}
+    <div class="py-12" x-data="{ 
+        openEdit: false, 
+        currentProject: {}, 
+        selectedIds: [],
+        allIds: [],
+        toggleAll() {
+            if (this.selectedIds.length === this.allIds.length) {
+                this.selectedIds = [];
+            } else {
+                this.selectedIds = [...this.allIds];
+            }
+        }
+    }" x-init="allIds = [ @foreach($projects as $p) '{{ $p->id }}', @endforeach ]">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
             
             @if(session('success'))
@@ -41,7 +53,7 @@
                             @enderror
                         </div>
 
-                        {{-- ADDED: Input Kategori Sektor --}}
+                        {{-- Input Kategori Sektor --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Sektor Dropsown <span class="text-red-500">*</span></label>
                             <select name="sector_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
@@ -104,78 +116,92 @@
                 </form>
             </div>
 
-            {{-- 2. BAGIAN BAWAH: Daftar Proyek Aktif (Full Width / Lebar) --}}
+            {{-- 2. BAGIAN BAWAH: Daftar Proyek Aktif dengan Fitur Hapus Massal Terintegrasi --}}
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                <h2 class="text-xl font-semibold mb-4 text-gray-700 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">
-                    Daftar Proyek Aktif (Slider Portofolio)
-                </h2>
                 
-                <div class="overflow-x-auto">
-                    <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
-                            <tr>
-                                <th scope="col" class="px-4 py-3 w-40">Preview</th>
-                                <th scope="col" class="px-4 py-3">Detail Proyek</th>
-                                <th scope="col" class="px-4 py-3 text-center w-32">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @forelse($projects as $project)
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                                    <td class="px-4 py-3 whitespace-nowrap align-middle">
-                                        <img src="{{ asset('storage/' . $project->image_path) }}" class="w-32 h-24 object-cover rounded-md border border-gray-200 dark:border-gray-600" alt="Preview Proyek">
-                                    </td>
-                                    <td class="px-4 py-3 align-middle">
-                                        <div class="flex flex-wrap gap-1.5">
-                                            <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-red-900/40 dark:text-red-300 uppercase">
-                                                📁 {{ $project->category->name ?? 'Tanpa Kategori' }}
-                                            </span>
-                                            {{-- Badge Sektor Baru --}}
-                                            <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-blue-900/40 dark:text-blue-300 uppercase">
-                                                ⚓ {{ $project->sector->name ?? 'Tanpa Sektor' }}
-                                            </span>
-                                        </div>
-                                        <div class="text-base font-bold text-gray-900 dark:text-white mt-1 uppercase">{{ $project->title }}</div>
-                                        
-                                        <p class="text-xs text-gray-400 mt-1 line-clamp-2">{!! strip_tags($project->description) !!}</p>
-                                        
-                                        <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 font-mono">
-                                            📍 {{ $project->location }} | 🗓️ Th. {{ $project->year }}
-                                        </div>
-                                    </td>
-                                    <td class="px-4 py-3 text-center whitespace-nowrap align-middle">
-                                        <div class="flex items-center justify-center space-x-3">
-                                            {{-- Pembaruan pada objek @click AlpineJS untuk membawa data sector_id --}}
-                                            <button type="button" 
-                                                    @click="openEdit = true; currentProject = { id: '{{ $project->id }}', title: '{{ addslashes($project->title) }}', project_category_id: '{{ $project->project_category_id }}', sector_id: '{{ $project->sector_id }}', location: '{{ addslashes($project->location) }}', year: '{{ $project->year }}' }; tinymce.get('modalProjectDescription').setContent('{{ addslashes($project->description) }}');"
-                                                    class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
-                                                Edit
-                                            </button>
+                {{-- Form Induk Pembungkus untuk Menangani Aksi Hapus Massal --}}
+                <form id="bulkDeleteForm" action="{{ route('admin.project.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus semua data proyek yang dicentang?')">
+                    @csrf
+                    @method('DELETE')
 
-                                            <span class="text-gray-300 dark:text-gray-600">|</span>
-
-                                            <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data proyek portofolio ini?')">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 bg-transparent border-0 cursor-pointer transition">
-                                                    Hapus
-                                                </button>
-                                            </form>
-                                        </div>
-                                    </td>
-                                </tr>
-                            @empty
+                    {{-- Header Tabel: Menggunakan susunan Flexbox untuk meletakkan tombol di sudut kanan atas --}}
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-100 dark:border-gray-700 pb-3 mb-4 gap-2">
+                        <h2 class="text-xl font-semibold text-gray-700 dark:text-white">
+                            Daftar Proyek Aktif (Slider Portofolio)
+                        </h2>
+                        
+                        {{-- Tombol Aksi Hapus Massal: Hanya tampil jika minimal ada satu baris yang dicentang --}}
+                        <div x-show="selectedIds.length > 0" x-cloak x-transition>
+                            <button type="submit" class="inline-flex items-center space-x-1.5 text-xs font-bold uppercase tracking-wider text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition-all duration-300 shadow-sm">
+                                <i class="fa-solid fa-trash-can text-[10px]"></i>
+                                <span>Hapus Terpilih (<span x-text="selectedIds.length"></span>)</span>
+                            </button>
+                        </div>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                            <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                                 <tr>
-                                    <td colspan="3" class="px-4 py-6 text-center text-gray-500 dark:text-gray-400">
-                                        Belum ada portofolio proyek strategis yang ditambahkan.
-                                    </td>
+                                    {{-- Kolom Checkbox Utama --}}
+                                    <th scope="col" class="p-4 w-10 text-center">
+                                        <input type="checkbox" @click="toggleAll()" :checked="selectedIds.length === allIds.length && allIds.length > 0" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+                                    </th>
+                                    <th scope="col" class="px-4 py-3 w-40">Preview</th>
+                                    <th scope="col" class="px-4 py-3">Detail Proyek</th>
+                                    <th scope="col" class="px-4 py-3 text-center w-32">Aksi</th>
                                 </tr>
-                            @endforelse
-                        </tbody>
-                    </table>
-                </div>
-            </div>
+                            </thead>
+                            <tbody>
+                                @forelse($projects as $project)
+                                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
+                                        {{-- Checkbox per baris data --}}
+                                        <td class="p-4 text-center align-middle">
+                                            <input type="checkbox" name="ids[]" value="{{ $project->id }}" x-model="selectedIds" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+                                        </td>
+                                        <td class="px-4 py-3 whitespace-nowrap align-middle">
+                                            <img src="{{ asset('storage/' . $project->image_path) }}" class="w-32 h-24 object-cover rounded-md border border-gray-200 dark:border-gray-600" alt="Preview Proyek">
+                                        </td>
+                                        <td class="px-4 py-3 align-middle">
+                                            <div class="flex flex-wrap gap-1.5">
+                                                <span class="bg-red-100 text-red-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-red-900/40 dark:text-red-300 uppercase">
+                                                    📁 {{ $project->category->name ?? 'Tanpa Kategori' }}
+                                                </span>
+                                                <span class="bg-blue-100 text-blue-800 text-[10px] font-bold px-2 py-0.5 rounded dark:bg-blue-900/40 dark:text-blue-300 uppercase">
+                                                    ⚓ {{ $project->sector->name ?? 'Tanpa Sektor' }}
+                                                </span>
+                                            </div>
+                                            <div class="text-base font-bold text-gray-900 dark:text-white mt-1 uppercase">{{ $project->title }}</div>
+                                            
+                                            <p class="text-xs text-gray-400 mt-1 line-clamp-2">{!! strip_tags($project->description) !!}</p>
+                                            
+                                            <div class="text-[11px] text-gray-500 dark:text-gray-400 mt-2 font-mono">
+                                                📍 {{ $project->location }} | 🗓️ Th. {{ $project->year }}
+                                            </div>
+                                        </td>
+                                        <td class="px-4 py-3 text-center whitespace-nowrap align-middle">
+                                            <div class="flex items-center justify-center space-x-3">
+                                                <button type="button" 
+                                                        @click="openEdit = true; currentProject = { id: '{{ $project->id }}', title: '{{ addslashes($project->title) }}', project_category_id: '{{ $project->project_category_id }}', sector_id: '{{ $project->sector_id }}', location: '{{ addslashes($project->location) }}', year: '{{ $project->year }}' }; tinymce.get('modalProjectDescription').setContent('{{ addslashes($project->description) }}');"
+                                                        class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
+                                                    Edit
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                @empty
+                                    <tr>
+                                        <td colspan="4" class="px-4 py-6 text-center text-gray-500 dark:text-gray-400">
+                                            Belum ada portofolio proyek strategis yang ditambahkan.
+                                        </td>
+                                    </tr>
+                                @endforelse
+                            </tbody>
+                        </table>
+                    </div>
+                </form>
 
+            </div>
         </div>
 
         {{-- 🟢 MODAL POP-UP EDIT PORTFOLIO PROYEK --}}
@@ -201,7 +227,6 @@
                             </select>
                         </div>
 
-                        {{-- ADDED: Edit Kategori Sektor pada Modal --}}
                         <div>
                             <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Kategori Sektor *</label>
                             <select name="sector_id" x-model="currentProject.sector_id" required class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">

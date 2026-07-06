@@ -6,12 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Models\CaseStudy; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 
 class CaseStudyController extends Controller
 {
     public function index()
     {
-        // Mengambil data terbaru dari database
         $caseStudies = CaseStudy::latest()->get();
         return view('pages.admin.studi-kasus.index', compact('caseStudies'));
     }
@@ -23,39 +23,97 @@ class CaseStudyController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi Input Form
         $request->validate([
             'title'       => 'required|string|max:255',
             'sector'      => 'required|string',
-            'year'        => 'required|integer|min:2000', // Tetap 'year' mengikuti name atribut HTML form kamu
-            'file_pdf'    => 'required|file|mimes:pdf|max:10240', // Maksimal 10MB
+            'year'        => 'required|integer|min:2000', 
+            'file_pdf'    => 'required|file|mimes:pdf|max:10240',
             'description' => 'nullable|string',
         ]);
 
-        // 2. Handle Upload File PDF & Hitung Ukurannya
+        $filePath = null;
+        $fileSizeStr = '0 MB';
+        
         if ($request->hasFile('file_pdf')) {
             $file = $request->file('file_pdf');
-            
-            // Hitung ukuran file dalam MB agar rapi di tabel index
             $bytes = $file->getSize();
             $fileSizeStr = round($bytes / 1024 / 1024, 1) . ' MB';
-
-            // Simpan file ke direktori storage/app/public/case_studies
             $filePath = $file->store('case_studies', 'public');
         }
 
-        // 3. Simpan ke Database (PERBAIKAN: Mapping input 'year' ke kolom 'publication_year')
+        // KEMBALIKAN KE 'publication_year' agar tidak melanggar constraint database
         CaseStudy::create([
             'title'            => $request->title,
+            'slug'             => Str::slug($request->title), 
             'sector'           => $request->sector,
-            'publication_year' => $request->year, // <--- Diubah ke 'publication_year' agar sesuai struktur migration
-            'file_path'        => $filePath ?? null,
-            'file_size'        => $fileSizeStr ?? '0 MB',
+            'publication_year' => $request->year, // <--- Diperbaiki di sini
+            'file_path'        => $filePath,
+            'file_size'        => $fileSizeStr,
             'description'      => $request->description,
         ]);
 
-        // 4. Return redirect ke halaman utama setelah sukses
         return redirect()->route('admin.studi-kasus.index')
                          ->with('success', 'Studi kasus baru berhasil disimpan!');
+    }
+
+    public function edit($id)
+    {
+        $caseStudy = CaseStudy::findOrFail($id);
+        return view('pages.admin.studi-kasus.edit', compact('caseStudy'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $caseStudy = CaseStudy::findOrFail($id);
+
+        $request->validate([
+            'title'       => 'required|string|max:255',
+            'sector'      => 'required|string',
+            'year'        => 'required|integer|min:2000',
+            'file_pdf'    => 'nullable|file|mimes:pdf|max:10240',
+            'description' => 'nullable|string',
+        ]);
+
+        $caseStudy->title            = $request->title;
+        $caseStudy->sector           = $request->sector;
+        $caseStudy->publication_year = $request->year; // <--- Diperbaiki di sini
+        $caseStudy->description      = $request->description;
+
+        if ($request->hasFile('file_pdf')) {
+            if ($caseStudy->file_path && Storage::disk('public')->exists($caseStudy->file_path)) {
+                Storage::disk('public')->delete($caseStudy->file_path);
+            }
+
+            $file = $request->file('file_pdf');
+            $bytes = $file->getSize();
+            
+            $caseStudy->file_size = round($bytes / 1024 / 1024, 1) . ' MB';
+            $caseStudy->file_path = $file->store('case_studies', 'public');
+        }
+
+        $caseStudy->save();
+
+        return redirect()->route('admin.studi-kasus.index')
+                         ->with('success', 'Studi kasus berhasil diperbarui!');
+    }
+
+    public function destroy($id)
+    {
+        $caseStudy = CaseStudy::findOrFail($id);
+
+        try {
+            if ($caseStudy->file_path && Storage::disk('public')->exists($caseStudy->file_path)) {
+                Storage::disk('public')->delete($caseStudy->file_path);
+            }
+
+            $caseStudy->delete();
+
+            return redirect()->route('admin.studi-kasus.index')
+                             ->with('success', 'Studi kasus berhasil dihapus!');
+                             
+        } catch (\Exception $e) {
+            return redirect()->route('admin.studi-kasus.index')
+                             ->with('error', 'Gagal menghapus data: ' . $e->getMessage());
+        }
     }
 }

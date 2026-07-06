@@ -16,6 +16,8 @@ use App\Http\Controllers\Admin\ArticleController;
 use App\Http\Controllers\VideoController; // Controller Video Publik
 use App\Http\Controllers\Admin\VideoController as AdminVideoController; // Controller Video Admin
 use App\Http\Controllers\Admin\CaseStudyController;
+use App\Http\Controllers\Admin\TrainingAdminController;
+use App\Http\Controllers\TrainingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -52,6 +54,10 @@ Route::get('/legalitas', function () { return view('legalitas'); })->name('legal
 Route::get('/privacy-policy', function () { return view('privacy'); })->name('privacy.policy');
 Route::get('/terms-of-service', function () { return view('terms'); })->name('terms.service');
 
+// Perubahan menggunakan Route::view dengan shortcut name sesuai keinginanmu
+Route::view('/terms-and-conditions', 'terms')->name('terms');
+Route::view('/privacy-policy', 'privacy')->name('privacy');
+
 Route::get('email/verify', function () {
     return redirect()->route('verification.notice');
 })->name('fortify.verification.notice'); // Ubah namanya agar tidak bentrok
@@ -68,11 +74,12 @@ Route::get('/product/geostudio-flow', function () { return view('products.geostu
 
 /*
 |--------------------------------------------------------------------------
-| SIGNALS / SEKTOR (UPDATED & SYNCED TO ADMIN)
+| SIGNALS / SEKTOR (UPDATED & SYNCED TO DATABASE)
 |--------------------------------------------------------------------------
 */
 Route::prefix('sektor')->group(function () {
-    Route::get('/semua-sektor', [SektorController::class, 'semuaSektor'])->name('sektor.semua-sektor');
+    // Diarahkan ke ProjectController@showAllSectorsPublic agar query database $projects tereksekusi dengan benar
+    Route::get('/semua-sektor', [ProjectController::class, 'showAllSectorsPublic'])->name('sektor.semua-sektor');
     
     // Alihkan rute statis view() ke fungsi dinamis showPublicBySector di ProjectController
     Route::get('/mitigasi-geobencana', [ProjectController::class, 'showPublicBySector'])
@@ -155,6 +162,7 @@ Route::get('/proyek/slope-stability-analysis', [ProjectController::class, 'showP
     ->name('proyek.slope-stability');
 Route::get('/proyek/semua-proyek', [ProyekController::class, 'semuaProyek'])->name('proyek.semua');
 
+// Rute dengan parameter ditaruh di bawah agar tidak memblokir rute statis
 Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proyek.detail')->whereNumber('id');
 Route::get('/proyek/{slug}', [ProjectController::class, 'showPublicByCategory'])->name('proyek.category');
 
@@ -166,7 +174,6 @@ Route::get('/proyek/{slug}', [ProjectController::class, 'showPublicByCategory'])
 // Mengarah ke daftar kumpulan artikel publik
 Route::get('/resources/articles', [ArticleController::class, 'publicIndex'])->name('blog.index');
 
-// 🟢 PERBAIKAN DI SINI: Mengubah nama route dari 'resources.article-detail-baru' menjadi 'resources.article-detail'
 Route::get('/resources/artikel/{slug}', function($slug) {
     $article = \App\Models\Article::where('slug', $slug)->firstOrFail();
     return view('resources.article-detail', ['blog' => $article]); 
@@ -181,18 +188,29 @@ Route::get('/resources/consulting-services', function () { return view('resource
 Route::get('/resources/perpus-dokumen', function () { return view('resources.perpus-dokumen'); })->name('resources.perpus-dokumen');
 Route::get('/resources/semua-resources', [ProyekController::class, 'allResources'])->name('resources.semua');
 
+// Halaman list semua studi kasus publik
 Route::get('/resources/studi-kasus', function () {
-    $caseStudies = \App\Models\CaseStudy::latest()->get();
+    $caseStudies = \App\Models\CaseStudy::latest()->get(); 
     return view('resources.studi-kasus', compact('caseStudies'));
 })->name('resources.studi-kasus');
+
+// Pencarian Detail Kasus yang Fleksibel
+Route::get('/resources/studi-kasus/{slug}', function ($slug) {
+    $caseStudy = \App\Models\CaseStudy::where('slug', $slug)
+        ->orWhere('id', $slug)
+        ->firstOrFail();
+    return view('resources.case-study-detail', compact('caseStudy'));
+})->name('resources.studi-kasus.detail');
 
 Route::get('/resources/video', [VideoController::class, 'index'])->name('resources.video');
 Route::get('/resources/video/{id}', [VideoController::class, 'show'])->name('resources.video.show')->whereNumber('id');
 
-// Training
-Route::get('/training/pendaftaran', function () { return view('training.pendaftaran'); })->name('training.pendaftaran');
+// Training Sisi Publik
+Route::get('/training/pendaftaran', [TrainingController::class, 'pendaftaran'])->name('training.pendaftaran');
+Route::post('/training/pendaftaran', [TrainingController::class, 'storeRegistration'])->name('training.pendaftaran.store');
+
 Route::prefix('training')->group(function () {
-    Route::view('/silabus-materi', 'training.silabus-materi')->name('training.silabus');
+    Route::get('/silabus-materi', [\App\Http\Controllers\SyllabusController::class, 'publicIndex'])->name('training.silabus');
     Route::view('/fasilitas', 'training.fasilitas')->name('training.fasilitas');
 });
 
@@ -231,6 +249,12 @@ Route::get('logout', function () {
 */
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     
+    // ==========================================
+    // RUTE BULK DELETE (WAJIB DI PALING ATAS AGAR TIDAK BENTROK)
+    // ==========================================
+    Route::delete('/project/bulk-delete', [ProjectController::class, 'bulkDestroy'])->name('project.destroy.bulk');
+    Route::delete('/slider/bulk-delete', [SliderController::class, 'bulkDestroy'])->name('slider.destroy.bulk');
+    
     // 1. Kelola Hero Slider Banner
     Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');     
     Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');    
@@ -261,6 +285,10 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/studi-kasus/{id}', [CaseStudyController::class, 'update'])->name('studi-kasus.update');
     Route::delete('/studi-kasus/{id}', [CaseStudyController::class, 'destroy'])->name('studi-kasus.destroy');
 
+    // Rute Manajemen Training Terintegrasi Tanpa Overlap Nesting Group
+    Route::get('/training', [TrainingAdminController::class, 'index'])->name('training.index');
+    Route::delete('/training/{id}', [TrainingAdminController::class, 'destroy'])->name('training.destroy');
+
     // 5. Kelola Akun Admin (Khusus Superadmin)
     Route::middleware([IsSuperadmin::class])->group(function () {
         Route::get('/kelola-admin', [AdminController::class, 'index'])->name('kelola-admin.index');
@@ -270,6 +298,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::put('/kelola-admin/{id}', [AdminController::class, 'update'])->name('kelola-admin.update');
         Route::delete('/kelola-admin/{id}', [AdminController::class, 'destroy'])->name('kelola-admin.destroy');
     });
+
+    // 6. Kelola Silabus & Materi Training (Bisa diakses seluruh Admin)
+    Route::resource('syllabus', \App\Http\Controllers\SyllabusController::class);
 
 });
 

@@ -66,4 +66,30 @@ class SliderController extends Controller
 
         return redirect()->back()->with('success', 'Foto banner berhasil dihapus!');
     }
+        public function bulkDestroy(Request $request)
+    {
+        $request->validate([
+            'ids'   => 'required|array',
+            'ids.*' => 'exists:hero_sliders,id', // Ganti 'hero_sliders' sesuaikan dengan nama tabel slider Anda
+        ]);
+
+        try {
+            // Ambil data untuk membaca path gambar sebelum dihapus
+            $sliders = \App\Models\HeroSlider::whereIn('id', $request->ids)->get();
+
+            foreach ($sliders as $slider) {
+                if ($slider->image_path && \Illuminate\Support\Facades\Storage::disk('public')->exists($slider->image_path)) {
+                    \Illuminate\Support\Facades\Storage::disk('public')->delete($slider->image_path);
+                }
+                $slider->delete();
+            }
+
+            return redirect()->route('admin.slider.index')
+                ->with('success', count($request->ids) . ' foto banner utama berhasil dihapus sekaligus!');
+                
+        } catch (\Exception $e) {
+            return redirect()->route('admin.slider.index')
+                ->with('error', 'Gagal menghapus banner massal: ' . $e->getMessage());
+        }
+    }
 }

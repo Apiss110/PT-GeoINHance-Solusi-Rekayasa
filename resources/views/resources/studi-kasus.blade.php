@@ -96,6 +96,7 @@
 <section class="py-12 bg-slate-50 min-h-[60vh]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
+        {{-- INPUT FILTERS --}}
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80 mb-10">
             <form id="filterFormCaseStudy" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
                 
@@ -118,9 +119,9 @@
                     </label>
                     <select id="selectKategoriCaseStudy" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('casestudy.option_sector_all') }}</option>
-                        <option value="geoteknik">{{ __('casestudy.option_sec_geo') }}</option>
-                        <option value="struktural">{{ __('casestudy.option_sec_struct') }}</option>
-                        <option value="forensik">{{ __('casestudy.option_sec_forensic') }}</option>
+                        <option value="geotechnical">{{ __('casestudy.option_sec_geo') }}</option>
+                        <option value="structural">{{ __('casestudy.option_sec_struct') }}</option>
+                        <option value="infrastructure">{{ __('casestudy.option_sec_forensic') }}</option>
                     </select>
                 </div>
 
@@ -130,9 +131,9 @@
                     </label>
                     <select id="selectTahunCaseStudy" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
                         <option value="">{{ __('casestudy.option_year_all') }}</option>
+                        <option value="2026">2026</option>
                         <option value="2025">2025</option>
                         <option value="2024">2024</option>
-                        <option value="2023">2023</option>
                     </select>
                 </div>
 
@@ -150,57 +151,58 @@
             </span>
         </div>
 
+        {{-- GRID DATA --}}
         <div id="caseStudyGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-    
-    @forelse($caseStudies as $study)
-        {{-- CARD DINAMIS --}}
-        <div class="case-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-             data-nama="{{ strtolower($study->title) }}"
-             data-kategori="{{ Str::slug($study->sector) }}"
-             data-tahun="{{ $study->publication_year }}">
-            <div>
-                <div class="flex items-start justify-between gap-4 mb-4">
-                    <div class="p-3 bg-red-50 rounded-lg text-red-600">
-                        <i class="fa-solid fa-file-pdf text-2xl"></i>
+            @forelse($caseStudies as $study)
+                {{-- CARD DINAMIS --}}
+                <div class="case-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
+                     data-nama="{{ strtolower($study->title) }}"
+                     data-kategori="{{ Str::slug($study->sector) }}"
+                     data-tahun="{{ $study->year }}">
+                    <div>
+                        <div class="flex items-start justify-between gap-4 mb-4">
+                            <div class="p-3 bg-red-50 rounded-lg text-red-600">
+                                <i class="fa-solid fa-file-pdf text-2xl"></i>
+                            </div>
+                            <span class="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200 uppercase">
+                                PDF - {{ $study->file_size ?? 'N/A' }}
+                            </span>
+                        </div>
+                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
+                            {{ $study->title }}
+                        </h3>
+                        <p class="text-xs text-slate-500 line-clamp-2 mb-4">
+                            {{ $study->description ?? 'Tidak ada deskripsi.' }}
+                        </p>
                     </div>
-                    <span class="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200 uppercase">
-                        PDF - {{ $study->file_size }}
-                    </span>
+                    <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
+                        <div>
+                            {{ __('casestudy.label_year_card') }} 
+                            <span class="font-semibold text-slate-700">{{ $study->year }}</span>
+                        </div>
+                        
+                        {{-- PERBAIKAN: Mengubah Tautan Download Berkas Menjadi Halaman Detail Studi Kasus --}}
+                        <a href="{{ route('resources.studi-kasus.detail', $study->slug ?? $study->id) }}" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
+                            <i class="fa-solid fa-book-open"></i> Baca Selengkapnya
+                        </a>
+                    </div>
                 </div>
-                <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                    {{ $study->title }}
-                </h3>
-                <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                    {{ $study->description ?? 'Tidak ada deskripsi.' }}
-                </p>
-            </div>
-            <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
-                <div>
-                    {{ __('casestudy.label_year_card') }} 
-                    <span class="font-semibold text-slate-700">{{ $study->publication_year }}</span>
+            @empty
+                {{-- Tampilan jika database kosong --}}
+                <div class="col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
+                    <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
+                    {{ __('casestudy.empty_message') }}
                 </div>
-                {{-- Link Download mengarah ke berkas storage --}}
-                <a href="{{ asset('storage/' . $study->file_path) }}" target="_blank" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
-                    <i class="fa-solid fa-cloud-arrow-down"></i> {{ __('casestudy.btn_download') }}
-                </a>
+            @endforelse
+
+            {{-- Pesan fallback murni untuk penanganan filtering Javascript --}}
+            <div id="noCaseStudyMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
+                <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
+                {{ __('casestudy.empty_message') }}
             </div>
         </div>
-    @empty
-        {{-- Tampilan jika database masih kosong atau tidak ada data cocok --}}
-        <div id="noCaseStudyMessage" class="col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
-            <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-            {{ __('casestudy.empty_message') }}
-        </div>
-    @endforelse
 
-    {{-- Pesan fallback untuk filtering JavaScript (Tetap dipertahankan jika Anda memakai JS filter) --}}
-    <div id="noCaseStudyMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
-        <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-        {{ __('casestudy.empty_message') }}
-    </div>
-
-</div>
-
+        {{-- PAGINATION --}}
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
                 {{ __('casestudy.footer_showing') }} <span id="countDisplayedCaseStudy" class="text-slate-700 font-bold">0</span> {{ __('casestudy.footer_of') }} <span id="countTotalCaseStudy" class="text-slate-700 font-bold">0</span> {{ __('casestudy.footer_records') }}

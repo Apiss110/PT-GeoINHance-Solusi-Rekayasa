@@ -44,7 +44,7 @@
 <body class="bg-slate-50 font-sans antialiased text-slate-900">
 
     {{-- NAVBAR --}}
-        @include('partials.navbar')
+    @include('partials.navbar')
 
     {{-- HERO SECTION --}}
     <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden pt-36">
@@ -54,7 +54,7 @@
                 {{ __('all_sectors.hero_sector') }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
-                {{ __('all_sectors.hero_title_1') }} <span class="text-blue-400">{{ __('all_sectors.hero_title_2') }}</span>
+                {{ __('all_sectors.hero_title_1') }}
             </h1>
             <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
                 {{ __('all_sectors.hero_desc') }}
@@ -74,7 +74,7 @@
                 <input
                     type="text"
                     id="searchInput"
-                    placeholder="{{ __('all_sectors.search_placeholder') }}"
+                    placeholder="{{ __('all_sectors.search_placeholder') ?? 'Cari Semua Proyek Sektor...' }}"
                     class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
             </div>
 
@@ -86,52 +86,49 @@
         
         <div id="sectorGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            @foreach($sectors as $sector)
-            {{-- ITEM COMPONENT --}}
+            {{-- LOOPING GABUNGAN SELURUH DATA SEKTOR DARI DATABASE --}}
+            @forelse($projects as $project)
             <div class="sector-item transition-all duration-300" 
-                 data-name="{{ strtolower(__($sector['name'])) }}"
-                 data-category="{{ $sector['category'] }}">
+                 data-name="{{ strtolower($project->title) }}">
                 
-                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[460px]">
+                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
                     <div>
                         {{-- Thumbnail Area --}}
-                        <div class="relative overflow-hidden h-52 bg-slate-900 flex items-center justify-center">
-                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                            <i class="fa-solid {{ $sector['icon'] }} text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
-                            
-                            <div class="absolute bottom-4 left-4 z-20">
-                                <span class="bg-[#002d62] text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-md">
-                                    {{ __($sector['badge']) }}
-                                </span>
-                            </div>
+                        <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
+                            @if($project->image_path)
+                                <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            @else
+                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                                <i class="fa-solid fa-folder-open text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
+                            @endif
                         </div>
 
                         {{-- Content Area --}}
                         <div class="p-6 space-y-3">
                             <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> Kendari, Indonesia
+                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> {{ $project->location }}
                             </p>
-                            <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem]">
-                                {{ __($sector['name']) }}
+                            <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
+                                {{ $project->title }}
                             </h3>
                             <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
-                                {{ __($sector['description']) }}
+                                {!! strip_tags($project->description) !!}
                             </div>
                         </div>
                     </div>
 
-                    {{-- Action Button Area --}}
+                    {{-- Action Button & Tags Area --}}
                     <div class="p-6 pt-0 space-y-4">
                         <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
-                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
-                                {{ __('geodisaster.tag_slope_stability') }}
+                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200 uppercase tracking-wider">
+                                {{ $project->category->name ?? 'Sektor' }}
                             </span>
                             <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
-                                {{ __('geodisaster.tag_plaxis_2d') }}
+                                {{ $project->year }}
                             </span>
                         </div>
                         <a href="#" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
-                            {{ __('all_sectors.btn_view_detail') }}
+                            {{ __('all_sectors.btn_view_detail') ?? 'Lihat Detail' }}
                             <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>
@@ -139,12 +136,18 @@
                     </div>
                 </article>
             </div>
-            @endforeach
+            @empty
+            {{-- DATA EMPTY STATE --}}
+            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
+                <i class="fa-solid fa-folder-open text-slate-300 text-5xl mb-3"></i>
+                <p class="text-sm text-slate-500 font-medium">Belum ada data rekaman proyek pada seluruh sektor.</p>
+            </div>
+            @endforelse
 
         </div>
     </section>
 
-        {{-- BACKEND NATIVE PAGINATION INTERFACE --}}
+    {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
     <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             {{-- Teks Info Kiri --}}
@@ -170,124 +173,131 @@
     {{-- FOOTER --}}
     @include('partials.footer')
 
-    {{-- JAVASCRIPT LOGIC: COMBINED SYNCHRONIZED SEARCH, FILTERS & PAGINATION KELIPATAN 6 --}}
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            // Inisialisasi AOS Animasi
-            AOS.init({ duration: 800, once: true });
+{{-- JAVASCRIPT LOGIC: COMBINED SYNCHRONIZED SEARCH & PAGINATION KELIPATAN 6 --}}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inisialisasi AOS Animasi
+        AOS.init({ duration: 800, once: true });
 
-            const searchInput = document.getElementById('searchInput');
-            const filterButtons = document.querySelectorAll('.filter-btn');
-            const items = Array.from(document.querySelectorAll('.sector-item'));
+        const searchInput = document.getElementById('searchInput');
+        const items = Array.from(document.querySelectorAll('.sector-item'));
 
-            const itemsPerPage = 6; 
-            let currentPage = 1;
-            let currentCategory = 'all';
-            let currentSearchQuery = '';
-            let filteredItems = [...items]; 
+        const itemsPerPage = 6; 
+        let currentPage = 1;
+        let currentSearchQuery = '';
+        let filteredItems = [...items]; 
 
-            // Kontrol terpadu kombinasi Filter Kategori & Input Pencarian
-            function applyFilterAndSearch() {
-                filteredItems = items.filter(item => {
-                    const matchesCategory = currentCategory === 'all' || item.dataset.category === currentCategory;
-                    const matchesSearch = item.dataset.name.includes(currentSearchQuery);
-                    return matchesCategory && matchesSearch;
+        // Kontrol terpadu Input Pencarian
+        function applySearch() {
+            filteredItems = items.filter(item => {
+                return item.dataset.name.includes(currentSearchQuery);
+            });
+
+            currentPage = 1; // Reset halaman ke 1 setiap kali query pencarian berubah
+            updatePagination();
+        }
+
+        // Fungsi Sinkronisasi Logika Render Grid Card & Pagination Angka Kontrol
+        function updatePagination() {
+            const totalItems = filteredItems.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+            // Sembunyikan seluruh elemen item bawaan terlebih dahulu
+            items.forEach(item => item.style.display = 'none');
+
+            // Tampilkan hanya item yang masuk dalam rentang indeks halaman aktif
+            filteredItems.slice(startIndex, endIndex).forEach(item => {
+                item.style.display = 'block';
+            });
+
+            // Perbarui Teks Informasi Rekam Data Sektor di Kiri Bawah
+            document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
+            document.getElementById('infoEnd').textContent = endIndex;
+            document.getElementById('infoTotal').textContent = totalItems;
+
+            // Render Komponen Navigasi Angka Halaman Kanan Secara Dinamis
+            const pageNumbersContainer = document.getElementById('pageNumbers');
+            pageNumbersContainer.innerHTML = '';
+
+            // --- LOGIKA SMART TRUNCATION (TITIK-TITIK) ---
+            const range = 1; // Jumlah angka yang tampil di kiri & kanan halaman aktif
+            let pagesToRender = [];
+
+            for (let i = 1; i <= totalPages; i++) {
+                // Selalu tampilkan halaman pertama, terakhir, dan jarak dekat di sekitar currentPage
+                if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+                    pagesToRender.push(i);
+                }
+            }
+
+            let lastPageAdded = null;
+            pagesToRender.forEach(page => {
+                // Jika ada lompatan angka halaman, sisipkan elemen titik-titik "..."
+                if (lastPageAdded !== null && page - lastPageAdded > 1) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.className = 'px-3 py-2 text-xs font-medium text-slate-400 bg-white border-r border-slate-200 select-none';
+                    pageNumbersContainer.appendChild(dots);
+                }
+
+                // Render tombol halaman
+                const btn = document.createElement('button');
+                btn.textContent = page;
+                btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
+                    page === currentPage 
+                    ? 'bg-[#002d62] text-white' 
+                    : 'bg-white text-slate-700 hover:bg-slate-50'
+                }`;
+                btn.addEventListener('click', () => {
+                    currentPage = page;
+                    updatePagination();
+                    document.getElementById('sectorGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
                 });
+                pageNumbersContainer.appendChild(btn);
+                
+                lastPageAdded = page;
+            });
+            // ----------------------------------------------
 
-                currentPage = 1; // Reset halaman ke 1 setiap kali filter berubah
+            // Kelola Status Validasi Aktif/Mati Tombol Panah Prev & Next
+            document.getElementById('btnPrev').disabled = (currentPage === 1);
+            document.getElementById('btnNext').disabled = (currentPage === totalPages);
+        }
+
+        // Event Handler: Tombol Klik Panah Kiri (Prev)
+        document.getElementById('btnPrev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
                 updatePagination();
             }
-
-            // Fungsi Sinkronisasi Logika Render Grid Card & Pagination Angka Kontrol
-            function updatePagination() {
-                const totalItems = filteredItems.length;
-                const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
-
-                if (currentPage > totalPages) currentPage = totalPages;
-                if (currentPage < 1) currentPage = 1;
-
-                const startIndex = (currentPage - 1) * itemsPerPage;
-                const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
-
-                // Sembunyikan seluruh elemen item bawaan terlebih dahulu
-                items.forEach(item => item.style.display = 'none');
-
-                // Tampilkan hanya item yang masuk dalam rentang indeks halaman aktif
-                filteredItems.slice(startIndex, endIndex).forEach(item => {
-                    item.style.display = 'block';
-                });
-
-                // Perbarui Teks Informasi Rekam Data Sektor di Kiri Bawah
-                document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
-                document.getElementById('infoEnd').textContent = endIndex;
-                document.getElementById('infoTotal').textContent = totalItems;
-
-                // Render Komponen Navigasi Angka Halaman Kanan Secara Dinamis
-                const pageNumbersContainer = document.getElementById('pageNumbers');
-                pageNumbersContainer.innerHTML = '';
-
-                for (let i = 1; i <= totalPages; i++) {
-                    const btn = document.createElement('button');
-                    btn.textContent = i;
-                    btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
-                        i === currentPage 
-                        ? 'bg-[#002d62] text-white' 
-                        : 'bg-white text-slate-700 hover:bg-slate-50'
-                    }`;
-                    btn.addEventListener('click', () => {
-                        currentPage = i;
-                        updatePagination();
-                        document.getElementById('sectorGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    });
-                    pageNumbersContainer.appendChild(btn);
-                }
-
-                // Kelola Status Validasi Aktif/Mati Tombol Panah Prev & Next
-                document.getElementById('btnPrev').disabled = (currentPage === 1);
-                document.getElementById('btnNext').disabled = (currentPage === totalPages);
-            }
-
-            // Event Handler: Navigasi Klik Tombol Filter Kategori Atas
-            filterButtons.forEach(button => {
-                button.addEventListener('click', function() {
-                    filterButtons.forEach(btn => {
-                        btn.className = 'filter-btn bg-slate-100 text-slate-600 hover:bg-slate-200 px-4 py-2 rounded-xl text-xs font-bold transition-all duration-300';
-                    });
-                    this.className = 'filter-btn bg-[#002d62] text-white px-4 py-2 rounded-xl text-xs font-bold shadow-sm transition-all duration-300';
-
-                    currentCategory = this.dataset.category;
-                    applyFilterAndSearch();
-                });
-            });
-
-            // Event Handler: Tombol Klik Panah Kiri (Prev)
-            document.getElementById('btnPrev').addEventListener('click', () => {
-                if (currentPage > 1) {
-                    currentPage--;
-                    updatePagination();
-                }
-            });
-
-            // Event Handler: Tombol Klik Panah Kanan (Next)
-            document.getElementById('btnNext').addEventListener('click', () => {
-                const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-                if (currentPage < totalPages) {
-                    currentPage++;
-                    updatePagination();
-                }
-            });
-
-            // Event Handler: Sinkronisasi Input Teks Pencarian Real-time
-            searchInput.addEventListener('input', function() {
-                currentSearchQuery = this.value.toLowerCase().trim();
-                applyFilterAndSearch();
-            });
-
-            // Inisialisasi awal pemanggilan sistem render pagination saat load halaman pertama kali
-            applyFilterAndSearch();
         });
-    </script>
+
+        // Event Handler: Tombol Klik Panah Kanan (Next)
+        document.getElementById('btnNext').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+            }
+        });
+
+        // Event Handler: Sinkronisasi Input Teks Pencarian Real-time
+        searchInput.addEventListener('input', function() {
+            currentSearchQuery = this.value.toLowerCase().trim();
+            applySearch();
+        });
+
+        // Inisialisasi awal pemanggilan sistem render pagination saat load halaman pertama kali
+        applySearch();
+    });
+</script>
     @livewireScripts
 </body>
 </html>

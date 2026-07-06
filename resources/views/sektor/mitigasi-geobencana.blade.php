@@ -54,7 +54,7 @@
                 {{ __('geodisaster.hero_sector') }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
-                {{ __('geodisaster.hero_title_1') }} <span class="text-blue-400">{{ __('geodisaster.hero_title_2') }}</span>
+                {{ __('geodisaster.hero_title_1') }}
             </h1>
             <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
                 {{ __('geodisaster.hero_desc') }}
@@ -103,7 +103,7 @@
                         {{-- Content Area --}}
                         <div class="p-6 space-y-3">
                             <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> {{ $project->location }}, Indonesia
+                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> {{ $project->location }}
                             </p>
                             <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
                                 {{ $project->title }}
@@ -189,102 +189,142 @@
     @include('partials.footer')
 
     {{-- JAVASCRIPT LOGIC: SEARCH FILTER & PAGINATION KELIPATAN 6 --}}
-    <script>
-        const searchInput = document.getElementById('searchInput');
-        const items = Array.from(document.querySelectorAll('.project-item'));
-        
-        const itemsPerPage = 6; // Aturan layout: Batasi maksimal 6 item per halaman
-        let currentPage = 1;
-        let filteredItems = [...items]; 
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const items = Array.from(document.querySelectorAll('.project-item'));
+    
+    const itemsPerPage = 6; // Aturan layout: Batasi maksimal 6 item per halaman
+    let currentPage = 1;
+    let filteredItems = [...items]; 
 
-        function updatePagination() {
-            const totalItems = filteredItems.length;
-            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+    function updatePagination() {
+        const totalItems = filteredItems.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
-            if (currentPage > totalPages) currentPage = totalPages;
-            if (currentPage < 1) currentPage = 1;
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
 
-            const startIndex = (currentPage - 1) * itemsPerPage;
-            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-            // Sembunyikan seluruh items bawaan
-            items.forEach(item => item.style.display = 'none');
+        // Sembunyikan seluruh items bawaan
+        items.forEach(item => item.style.display = 'none');
 
-            // Tampilkan items yang sesuai filter pencarian & halaman saat ini
-            filteredItems.slice(startIndex, endIndex).forEach(item => {
-                item.style.display = 'block';
-            });
+        // Tampilkan items yang sesuai filter pencarian & halaman saat ini
+        filteredItems.slice(startIndex, endIndex).forEach(item => {
+            item.style.display = 'block';
+        });
 
-            // Update keterangan text info kiri
-            document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
-            document.getElementById('infoEnd').textContent = endIndex;
-            document.getElementById('infoTotal').textContent = totalItems;
+        // Update keterangan text info kiri
+        document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
+        document.getElementById('infoEnd').textContent = endIndex;
+        document.getElementById('infoTotal').textContent = totalItems;
 
-            // Generate nomor halaman angka
-            const pageNumbersContainer = document.getElementById('pageNumbers');
-            pageNumbersContainer.innerHTML = '';
+        // Generate nomor halaman angka
+        const pageNumbersContainer = document.getElementById('pageNumbers');
+        pageNumbersContainer.innerHTML = '';
 
-            for (let i = 1; i <= totalPages; i++) {
-                const btn = document.createElement('button');
-                btn.textContent = i;
-                btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
-                    i === currentPage 
-                    ? 'bg-[#002d62] text-white' 
-                    : 'bg-white text-slate-700 hover:bg-slate-50'
-                }`;
-                btn.addEventListener('click', () => {
-                    currentPage = i;
-                    updatePagination();
-                    document.getElementById('projectGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
-                });
-                pageNumbersContainer.appendChild(btn);
+        // --- KODE LOGIKA SMART TRUNCATION (TITIK-TITIK) - FIX DUPLIKAT ---
+        const range = 1; // Jumlah angka penengah yang tampil di kiri & kanan halaman aktif
+        let rawPages = [];
+
+        // 1. Kumpulkan semua kandidat halaman yang memenuhi syarat
+        for (let i = 1; i <= totalPages; i++) {
+            // Selalu tampilkan halaman pertama (1), terakhir (totalPages), dan rentang dekat currentPage
+            if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+                rawPages.push(i);
             }
-
-            // Lock / unlock status state tombol prev & next
-            document.getElementById('btnPrev').disabled = (currentPage === 1);
-            document.getElementById('btnNext').disabled = (currentPage === totalPages);
         }
 
-        // Action tombol Prev
-        document.getElementById('btnPrev').addEventListener('click', () => {
-            if (currentPage > 1) {
-                currentPage--;
-                updatePagination();
-            }
-        });
+        // FIX: Saring kandidat agar angka duplikat (misal 1 2 1 2) otomatis dibuang jika halaman sedikit
+        let pagesToRender = [...new Set(rawPages)];
 
-        // Action tombol Next
-        document.getElementById('btnNext').addEventListener('click', () => {
-            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
-            if (currentPage < totalPages) {
-                currentPage++;
-                updatePagination();
+        // 2. Lakukan perulangan untuk merender elemen ke HTML berdasarkan daftar filter unik
+        let lastPageAdded = null;
+        pagesToRender.forEach(page => {
+            // Jika ada lompatan angka halaman (selisih > 1), sisipkan elemen text "..."
+            if (lastPageAdded !== null && page - lastPageAdded > 1) {
+                const dots = document.createElement('span');
+                dots.textContent = '...';
+                dots.className = 'px-3 py-2 text-xs font-medium text-slate-400 bg-white border-r border-slate-200 select-none';
+                pageNumbersContainer.appendChild(dots);
             }
-        });
 
-        // Live Search Sync Filter
-        searchInput.addEventListener('input', function(){
-            let value = this.value.toLowerCase().trim();
+            // 3. Buat dan render tombol angka halaman
+            const btn = document.createElement('button');
+            btn.textContent = page;
             
-            filteredItems = items.filter(item => {
-                let name = item.dataset.name.toLowerCase();
-                return name.includes(value);
+            // Logika pewarnaan tombol aktif (kondisional class)
+            btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
+                page === currentPage 
+                ? 'bg-[#002d62] text-white' // Style saat tombol aktif terpilih
+                : 'bg-white text-slate-700 hover:bg-slate-50' // Style normal biasa
+            }`;
+
+            // Event listener ketika tombol angka diklik
+            btn.addEventListener('click', () => {
+                currentPage = page;
+                updatePagination(); // Panggil kembali fungsi render utama Anda
+                
+                // Coba scroll otomatis ke grid (cek projectGrid dulu, jika tidak ada fallback ke sectorGrid)
+                const gridElement = document.getElementById('projectGrid') || document.getElementById('sectorGrid');
+                if (gridElement) {
+                    gridElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
             });
 
-            currentPage = 1; // Kembali ke halaman awal setiap melakukan pencarian
+            pageNumbersContainer.appendChild(btn);
+            
+            // Simpan history halaman terakhir yang sukses dibuat untuk mendeteksi lompatan di iterasi berikutnya
+            lastPageAdded = page;
+        });
+        // -----------------------------------------------------------------
+
+        // Lock / unlock status state tombol prev & next
+        document.getElementById('btnPrev').disabled = (currentPage === 1);
+        document.getElementById('btnNext').disabled = (currentPage === totalPages);
+    }
+
+    // Action tombol Prev
+    document.getElementById('btnPrev').addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
             updatePagination();
+        }
+    });
+
+    // Action tombol Next
+    document.getElementById('btnNext').addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePagination();
+        }
+    });
+
+    // Live Search Sync Filter
+    searchInput.addEventListener('input', function(){
+        let value = this.value.toLowerCase().trim();
+        
+        filteredItems = items.filter(item => {
+            let name = item.dataset.name.toLowerCase();
+            return name.includes(value);
         });
 
-        // Trigger inisialisasi awal saat DOM siap
-        document.addEventListener('DOMContentLoaded', () => {
-            updatePagination();
-        });
-    </script>
+        currentPage = 1; // Kembali ke halaman awal setiap melakukan pencarian
+        updatePagination();
+    });
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-    <script>
-        AOS.init({ duration: 800, once: true });
-    </script>
+    // Trigger inisialisasi awal saat DOM siap
+    document.addEventListener('DOMContentLoaded', () => {
+        updatePagination();
+    });
+</script>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    AOS.init({ duration: 800, once: true });
+</script>
     @livewireScripts
 </body>
 </html>
