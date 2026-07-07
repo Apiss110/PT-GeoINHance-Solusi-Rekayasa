@@ -20,6 +20,11 @@ class Syllabus extends Model
         'icon',
     ];
 
+    protected $casts = [
+    'modul_materi' => 'array',
+    'faq_list' => 'array',
+    ];
+    
     // Otomatis membuat slug saat title diisi atau diubah
     protected static function boot()
     {

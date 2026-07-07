@@ -120,9 +120,8 @@
                                     {{ $item->modules_count }} Modul
                                 </span>
                             </div>
-                            <a href="#" class="inline-flex items-center text-sm font-bold text-[#0e1d82] hover:text-red-600 transition group">
-                                Lihat Materi 
-                                <span class="ml-1.5 transform group-hover:translate-x-1 transition duration-200">&rarr;</span>
+                            <a href="{{ route('training.syllabus.show', $item->id) }}" class="text-sm font-semibold text-slate-700 hover:text-red-600 transition flex items-center gap-1">
+                                Lihat Materi <i class="fa-solid fa-arrow-right text-xs"></i>
                             </a>
                         </div>
                     </div>

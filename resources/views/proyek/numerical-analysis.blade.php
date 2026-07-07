@@ -136,7 +136,7 @@
                         <div class="flex flex-wrap gap-1">
                             <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">PLAXIS 3D</span>
                         </div>
-                        <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                        <a href="{{ route('proyek.detail', $project->id) }}" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
                             Read More
                         </a>
                     </div>

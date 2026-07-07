@@ -2,7 +2,7 @@
     <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-white/10 pb-16">
         <div class="col-span-1 md:col-span-2">
             <div class="flex items-center mb-6">
-                <img src="../images/logo_inh.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
+                <img src="{{ asset('images/logo_inh.png') }}" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
             </div>
             <p class="text-slate-400 leading-relaxed mb-8 max-w-sm">
                 {{ __('footer.desc') }}

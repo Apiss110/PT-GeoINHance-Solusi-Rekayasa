@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\VideoController as AdminVideoController; // Contr
 use App\Http\Controllers\Admin\CaseStudyController;
 use App\Http\Controllers\Admin\TrainingAdminController;
 use App\Http\Controllers\TrainingController;
+use App\Http\Controllers\SyllabusController;
 
 /*
 |--------------------------------------------------------------------------
@@ -205,12 +206,21 @@ Route::get('/resources/studi-kasus/{slug}', function ($slug) {
 Route::get('/resources/video', [VideoController::class, 'index'])->name('resources.video');
 Route::get('/resources/video/{id}', [VideoController::class, 'show'])->name('resources.video.show')->whereNumber('id');
 
-// Training Sisi Publik
+/*
+|--------------------------------------------------------------------------
+| TRAINING & SYLLABUS (PUBLIC ROUTES)
+|--------------------------------------------------------------------------
+*/
 Route::get('/training/pendaftaran', [TrainingController::class, 'pendaftaran'])->name('training.pendaftaran');
 Route::post('/training/pendaftaran', [TrainingController::class, 'storeRegistration'])->name('training.pendaftaran.store');
 
 Route::prefix('training')->group(function () {
-    Route::get('/silabus-materi', [\App\Http\Controllers\SyllabusController::class, 'publicIndex'])->name('training.silabus');
+    // Halaman list utama silabus publik
+    Route::get('/silabus-materi', [SyllabusController::class, 'publicIndex'])->name('training.silabus');
+    
+    // 🟢 PEMBENAHAN: Rute Detail Silabus ditaruh di sini agar bisa diakses Publik tanpa Auth & memiliki nama rute yang tepat
+    Route::get('/silabus-materi/{id}', [SyllabusController::class, 'publicShow'])->name('training.syllabus.show');
+    
     Route::view('/fasilitas', 'training.fasilitas')->name('training.fasilitas');
 });
 
@@ -263,6 +273,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     // 2. Kelola Proyek Strategis
     Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
     Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
+    Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proyek.detail')->whereNumber('id');
     Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update'); 
     Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
     Route::post('/blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.upload.image');
@@ -289,6 +300,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/training', [TrainingAdminController::class, 'index'])->name('training.index');
     Route::delete('/training/{id}', [TrainingAdminController::class, 'destroy'])->name('training.destroy');
 
+    // 💥 DISINI SEBELUMNYA ADA DUPLIKASI RUTE PUBLIK YANG SALAH DAN SUDAH DIHAPUS 💥
+
     // 5. Kelola Akun Admin (Khusus Superadmin)
     Route::middleware([IsSuperadmin::class])->group(function () {
         Route::get('/kelola-admin', [AdminController::class, 'index'])->name('kelola-admin.index');
@@ -299,7 +312,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::delete('/kelola-admin/{id}', [AdminController::class, 'destroy'])->name('kelola-admin.destroy');
     });
 
-    // 6. Kelola Silabus & Materi Training (Bisa diakses seluruh Admin)
+    // 6. Kelola Silabus & Materi Training Back-End (Bisa diakses seluruh Admin untuk CRUD)
     Route::resource('syllabus', \App\Http\Controllers\SyllabusController::class);
 
 });

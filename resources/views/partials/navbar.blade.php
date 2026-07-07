@@ -95,7 +95,7 @@
             <div class="flex items-center">
                 <div class="leading-none" style="cursor: pointer;" onclick="window.location.href='/'">
                     <!-- <span class="font-black text-xl tracking-tighter text-slate-900 block uppercase">Geo<span class="text-red-800">INHance</span></span> -->
-                    <img src="../images/inh 2.png" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
+                    <img src="{{ asset('images/inh 2.png') }}" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
                     <!-- <span class="text-[9px] font-bold text-slate-500 tracking-[0.2em] uppercase">geotechnical insights, engineering solutions</span> -->
                 </div>
             </div>

@@ -136,7 +136,7 @@
                                 {{ $project->software_used ?? 'NUMERICAL' }}
                             </span>
                         </div>
-                        <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                        <a href="{{ route('proyek.detail', $project->id) }}" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
                             Read More
                         </a>
                     </div>

@@ -138,7 +138,7 @@
                                 <span class="bg-slate-50 text-slate-600 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">{{ $project->software_used }}</span>
                             </div>
                         @endif
-                        <a href="#" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
+                        <a href="{{ route('proyek.detail', $project->id) }}" class="block text-center bg-slate-900 text-white py-2 rounded-lg text-xs font-semibold hover:bg-red-800 transition">
                             {{ __('portfolio.read_more') }}
                         </a>
                     </div>

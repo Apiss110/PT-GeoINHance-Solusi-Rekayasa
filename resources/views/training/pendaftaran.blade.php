@@ -7,8 +7,10 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    {{-- Memuat script reCAPTCHA jika diperlukan --}}
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
 
@@ -41,14 +43,6 @@
         }
         [x-cloak] { display: none !important; }
 
-            @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -56,49 +50,32 @@
         .animate-marquee {
             animation: marquee 30s linear infinite;
         }
-
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 25s linear infinite;
-        }
         /* Pause jalan logo saat kursor user menempel di atasnya */
         .animate-marquee:hover {
             animation-play-state: paused;
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
 @include('partials.navbar')
 
-    <!-- HERO -->
 <section class="bg-[#002d62] text-white py-24 px-6 text-center relative overflow-hidden">
-
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-
     <div class="relative z-10 max-w-4xl mx-auto" data-aos="zoom-in">
-
         <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
             {{ __('register.hero_badge') }}
         </span>
-
         <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight">
             {{ __('register.hero_title_1') }} <br>
             {{ __('register.hero_title_2') }}
         </h1>
-
         <p class="text-slate-300 mt-6 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
             {{ __('register.hero_desc') }}
         </p>
-
     </div>
-
 </section>
 
 <section class="bg-slate-100 py-24 px-6 border-t border-slate-200">
-
     <div class="max-w-4xl mx-auto bg-white rounded-[2rem] border border-slate-200 shadow-sm p-10 md:p-14">
 
         <div class="mb-12 text-center">
@@ -120,11 +97,10 @@
             </div>
         @endif
 
-        {{-- INTEGRASI BACKEND: Ditambahkan method="POST" dan action ke rute penampung data --}}
         <form action="{{ route('training.pendaftaran.store') }}" method="POST" class="grid grid-cols-1 md:grid-cols-2 gap-6">
             @csrf
 
-            {{-- 1. NAMA LENGKAP (REQUIRED) --}}
+            {{-- 1. NAMA LENGKAP --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_name') }} <span class="text-red-600">*</span>
@@ -136,7 +112,7 @@
                 @enderror
             </div>
 
-            {{-- 2. EMAIL (REQUIRED) --}}
+            {{-- 2. EMAIL --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_email') }} <span class="text-red-600">*</span>
@@ -148,22 +124,20 @@
                 @enderror
             </div>
 
-            {{-- 3. NOMOR WHATSAPP (REQUIRED - Name disesuaikan menjadi 'whatsapp_number') --}}
+            {{-- 3. NOMOR WHATSAPP --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     Nomor WhatsApp <span class="text-red-600">*</span>
                 </label>
-                <div class="relative flex items-center">
-                    <input type="tel" name="whatsapp_number" value="{{ old('whatsapp_number') }}" required placeholder="08123456789"
-                        pattern="[0-9]{10,13}" title="Masukkan nomor ponsel yang valid (contoh: 08123456789)"
-                        class="w-full rounded-2xl border @error('whatsapp_number') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
-                </div>
+                <input type="tel" name="whatsapp_number" value="{{ old('whatsapp_number') }}" required placeholder="08123456789"
+                       pattern="[0-9]{10,13}" title="Masukkan nomor ponsel yang valid (contoh: 08123456789)"
+                       class="w-full rounded-2xl border @error('whatsapp_number') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
                 @error('whatsapp_number')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
             </div>
 
-            {{-- 4. PERUSAHAAN / INSTITUSI (OPTIONAL) --}}
+            {{-- 4. PERUSAHAAN / INSTITUSI --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_company') }}
@@ -175,24 +149,26 @@
                 @enderror
             </div>
 
-            {{-- 5. PILIH TRAINING (REQUIRED - Name disesuaikan menjadi 'training_program') --}}
+            {{-- 5. PILIH TRAINING (DIUBAH MENJADI DINAMIS BERDASARKAN DATABASE) --}}
             <div class="md:col-span-2">
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_select') }} <span class="text-red-600">*</span>
                 </label>
-                <select name="training_program" required
-                        class="w-full rounded-2xl border @error('training_program') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2 bg-white">
-                    <option value="" disabled {{ old('training_program') ? '' : 'selected' }}>-- Pilih Program Training --</option>
-                    <option value="Card 1 Title" {{ old('training_program') == 'Card 1 Title' ? 'selected' : '' }}>{{ __('register.card1_title') }}</option>
-                    <option value="Card 2 Title" {{ old('training_program') == 'Card 2 Title' ? 'selected' : '' }}>{{ __('register.card2_title') }}</option>
-                    <option value="Card 3 Title" {{ old('training_program') == 'Card 3 Title' ? 'selected' : '' }}>{{ __('register.card3_title') }}</option>
+                <select name="syllabus_id" required
+                        class="w-full rounded-2xl border @error('syllabus_id') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2 bg-white">
+                    <option value="" disabled {{ old('syllabus_id', $selectedSyllabusId) ? '' : 'selected' }}>-- Pilih Program Training --</option>
+                    @foreach($syllabi as $sys)
+                        <option value="{{ $sys->id }}" {{ old('syllabus_id', $selectedSyllabusId) == $sys->id ? 'selected' : '' }}>
+                            {{ $sys->title }} ({{ $sys->software_category }})
+                        </option>
+                    @endforeach
                 </select>
-                @error('training_program')
+                @error('syllabus_id')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
             </div>
 
-            {{-- 6. PESAN TAMBAHAN (OPTIONAL) --}}
+            {{-- 6. PESAN TAMBAHAN --}}
             <div class="md:col-span-2">
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_message') }}
@@ -240,16 +216,11 @@
         </form>
 
     </div>
-
 </section>
 
-</div>
-
-<!-- FOOTER -->
 @include('partials.footer')
 
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
-
 <script>
     AOS.init({
         duration: 800,

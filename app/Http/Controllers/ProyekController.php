@@ -44,9 +44,11 @@ class ProyekController extends Controller
      */
     public function publicShow($id)
     {
-        $proyek = \App\Models\StrategicProject::findOrFail($id);
-        // Kirim data ke file view (misalnya: resources/views/proyek/show.blade.php)
-        return view('proyek.show', compact('proyek'));
+        // Mengambil data proyek strategis berdasarkan ID
+        $proyek = StrategicProject::findOrFail($id);
+        
+        // Diarahkan ke file view detail proyek: resources/views/proyek/detail.blade.php
+        return view('proyek.detail', compact('proyek'));
     }
 
     /**

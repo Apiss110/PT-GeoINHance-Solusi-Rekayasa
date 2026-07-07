@@ -4,13 +4,20 @@ namespace App\Http\Controllers;
 
 use App\Models\TrainingRegistration;
 use Illuminate\Http\Request;
+use App\Models\Syllabus;
 
 class TrainingController extends Controller
 {
     // Menampilkan halaman form pendaftaran (sesuaikan dengan return view asli Anda)
-    public function pendaftaran()
+    public function pendaftaran(Request $request)
     {
-        return view('training.pendaftaran'); 
+    // Tangkap ID silabus dari tombol yang diklik
+    $selectedSyllabusId = $request->query('syllabus_id');
+
+    // Ambil semua daftar silabus untuk pilihan dropdown di form pendaftaran
+    $syllabi = Syllabus::all();
+
+    return view('training.pendaftaran', compact('syllabi', 'selectedSyllabusId'));
     }
 
     // Menyimpan data pendaftaran dari pengunjung website
