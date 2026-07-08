@@ -59,15 +59,12 @@
                     @if($syllabus->modul_materi && is_array($syllabus->modul_materi))
                         @foreach($syllabus->modul_materi as $index => $modul)
                             <details class="group border border-gray-200 rounded-lg" {{ $index == 0 ? 'open' : '' }}>
-                                <summary class="flex justify-between items-center font-semibold p-4 text-slate-700 bg-slate-50 hover:bg-slate-100 cursor-pointer list-none transition">
+                                <summary class="flex justify-between items-center font-semibold p-4 text-slate-700 bg-slate-50 hover:bg-slate-100 cursor-pointer list-none transition [&::-webkit-details-marker]:hidden">
                                     <span>{{ $modul }}</span>
                                     <span class="transition group-open:rotate-180 text-slate-400">
                                         <i class="fa-solid fa-chevron-down text-xs"></i>
                                     </span>
                                 </summary>
-                                <div class="p-4 border-t border-gray-100 text-sm text-slate-600 leading-relaxed bg-white">
-                                    Sesi ini mencakup pemaparan teori fundamental geoteknik, pengerjaan studi kasus terarah menggunakan software terkait, pemodelan geometri, peninjauan hasil simulasi numerik, hingga langkah interpretasi grafik untuk laporan rekayasa.
-                                </div>
                             </details>
                         @endforeach
                     @else
@@ -84,7 +81,7 @@
                     @if($syllabus->faq_list && is_array($syllabus->faq_list))
                         @foreach($syllabus->faq_list as $faq)
                             <details class="group border-b border-gray-200 pb-3">
-                                <summary class="flex justify-between items-center font-medium py-2 text-slate-800 hover:text-red-600 cursor-pointer list-none transition">
+                                <summary class="flex justify-between items-center font-medium py-2 text-slate-800 hover:text-red-600 cursor-pointer list-none transition [&::-webkit-details-marker]:hidden">
                                     <span class="text-base font-semibold">{{ $faq['pertanyaan'] ?? '' }}</span>
                                     <span class="transition group-open:rotate-180 text-slate-400">
                                         <i class="fa-solid fa-plus text-xs group-open:hidden"></i>
@@ -118,6 +115,7 @@
                     </div>
                 </div>
 
+                {{-- Pencocokan parameter query string (?syllabus_id=x) sesuai dengan TrainingController --}}
                 <a href="{{ route('training.pendaftaran', ['syllabus_id' => $syllabus->id]) }}" class="block w-full text-center bg-red-600 hover:bg-red-700 text-white font-semibold py-3 px-4 rounded-lg transition shadow-sm mb-4">
                     Daftar Training Sekarang <i class="fa-solid fa-arrow-right text-xs ml-1"></i>
                 </a>

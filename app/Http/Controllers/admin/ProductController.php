@@ -1,0 +1,163 @@
+<?php
+
+namespace App\Http\Controllers\admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
+
+class ProductController extends Controller
+{
+    public function index()
+    {
+        $products = Product::latest()->paginate(10);
+        return view('pages.admin.products.index', compact('products'));
+    }
+
+    public function create()
+    {
+        return view('pages.admin.products.create');
+    }
+
+    public function store(Request $request)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'features' => 'nullable|array',
+            'faqs' => 'nullable|array',
+            'licenses' => 'nullable|array',
+        ]);
+
+        // 🟢 PERBAIKAN: Merapikan duplikasi key array & parsing otomatis ID YouTube dengan default fallback
+        $jsonData = [
+            'hero_badge'         => $request->input('hero_badge', 'Geotechnical Software'),
+            'hero_description'   => $request->input('description'),
+            'about_title'        => $request->input('about_title', 'Solusi Andal Analisis Geoteknik'),
+            'about_p1'           => $request->input('about_p1'),
+            'about_p2'           => $request->input('about_p2'),
+            'about_partner_note' => $request->input('about_partner_note'),
+            'video_url'          => $request->input('video_url'), 
+            'youtube_id'         => $this->getYoutubeId($request->input('video_url')) ?? 'dQw4w9WgXcQ', 
+            'video_title'        => $request->input('video_title', 'Saksikan Demonstrasi Perangkat Lunak'),
+            'features_list'      => $request->input('features'),
+            'faqs_list'          => $request->input('faqs'),
+            'licenses_list'      => $request->input('licenses'), 
+        ];
+
+        $product = new Product();
+        $product->name = $request->name;
+        
+        // 🟢 PERBAIKAN UTAMA (Solusi 1): Tambahkan string acak agar slug selalu unik di database
+        $product->slug = Str::slug($request->name) . '-' . Str::lower(Str::random(5));
+        
+        $product->description = json_encode($jsonData);
+        $product->is_active = $request->has('is_active');
+        
+        if ($request->hasFile('image')) {
+            $product->image_path = $request->file('image')->store('products', 'public');
+        }
+        
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dibuat.');
+    }
+
+    public function edit(Product $product)
+    {
+        return view('pages.admin.products.edit', compact('product'));
+    }
+
+    public function update(Request $request, Product $product)
+    {
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'features' => 'nullable|array',
+            'faqs' => 'nullable|array',
+            'licenses' => 'nullable|array',
+        ]);
+
+        // 🟢 PERBAIKAN: Merapikan struktur array agar bersih dari duplikasi key
+        $jsonData = [
+            'hero_badge'         => $request->input('hero_badge', 'Geotechnical Software'),
+            'hero_description'   => $request->input('description'), 
+            'about_title'        => $request->input('about_title', 'Solusi Andal Analisis Geoteknik'),
+            'about_p1'           => $request->input('about_p1'),
+            'about_p2'           => $request->input('about_p2'),
+            'about_partner_note' => $request->input('about_partner_note'),
+            'video_url'          => $request->input('video_url'), 
+            'youtube_id'         => $this->getYoutubeId($request->input('video_url')) ?? 'dQw4w9WgXcQ', 
+            'video_title'        => $request->input('video_title', 'Saksikan Demonstrasi Perangkat Lunak'),  
+            'features_list'      => $request->input('features'), 
+            'faqs_list'          => $request->input('faqs'),
+            'licenses_list'      => $request->input('licenses'),   
+        ];
+
+        if ($request->hasFile('image')) {
+            if ($product->image_path) {
+                Storage::disk('public')->delete($product->image_path);
+            }
+            $product->image_path = $request->file('image')->store('products', 'public');
+        }
+
+        // 🟢 PERBAIKAN AMAN: Hanya ganti slug baru jika Admin mengubah nama produknya
+        // Jika nama produk tetap sama saat disimpan, slug lama dipertahankan agar link detail tidak rusak/berubah
+        if ($product->name !== $request->name) {
+            $product->slug = Str::slug($request->name) . '-' . Str::lower(Str::random(5));
+        }
+
+        $product->name = $request->name;
+        $product->description = json_encode($jsonData);
+        $product->is_active = $request->has('is_active');
+        $product->save();
+
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil diperbarui!');
+    }
+
+    public function destroy(Product $product)
+    {
+        if ($product->image_path) {
+            Storage::disk('public')->delete($product->image_path);
+        }
+        $product->delete();
+        return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus!');
+    }
+
+    public function show($idOrSlug)
+    {
+        $product = Product::where('id', $idOrSlug)
+            ->orWhere('slug', $idOrSlug)
+            ->firstOrFail();
+
+        $details = json_decode($product->description, true) ?? [];
+
+        $data = [
+            'product'            => $product,
+            'hero_badge'         => $details['hero_badge'] ?? 'PREMIUM SOLUTION',
+            'hero_description'   => $details['hero_description'] ?? '',
+            'about_title'        => $details['about_title'] ?? 'TENTANG PRODUK',
+            'about_p1'           => $details['about_p1'] ?? '',
+            'about_p2'           => $details['about_p2'] ?? '',
+            'about_partner_note' => $details['about_partner_note'] ?? '',
+            'youtube_id'         => $details['youtube_id'] ?? 'dQw4w9WgXcQ',
+            'video_title'        => $details['video_title'] ?? 'Video Demonstrasi Produk',
+            'features'           => $details['features_list'] ?? [], 
+            'faqs'               => $details['faqs_list'] ?? [],
+            'licenses'           => $details['licenses_list'] ?? [],     
+        ];
+
+        return view('products.detail', $data);
+    }
+
+    private function getYoutubeId($url)
+    {
+        if (empty($url)) return null;
+        preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/', $url, $matches);
+        return $matches[1] ?? null;
+    }
+}

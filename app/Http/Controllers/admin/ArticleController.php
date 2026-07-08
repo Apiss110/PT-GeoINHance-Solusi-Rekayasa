@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article; // 🟢 PERBAIKAN: Menggunakan model Article yang baru, bukan Blog lagi
+use App\Models\Article; // 🟢 Menggunakan model Article yang baru
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -14,20 +14,19 @@ class ArticleController extends Controller
      * Menampilkan halaman index Artikel & Insight (Halaman Publik / Depan)
      */
     public function publicIndex()
-{
-    // Mengambil semua data artikel dari model Article
-    $blogs = \App\Models\Article::latest()->get();
+    {
+        // Mengambil semua data artikel dari model Article
+        $blogs = Article::latest()->get();
 
-    // Pastikan melemparnya menggunakan nama 'blogs' agar cocok dengan file blade
-    return view('resources.articles', compact('blogs'));
-}
+        // Pastikan melemparnya menggunakan nama 'blogs' agar cocok dengan file blade
+        return view('resources.articles', compact('blogs'));
+    }
 
     /**
      * Menampilkan halaman index Artikel di Dashboard Admin
      */
     public function index()
     {
-        // 🟢 PERBAIKAN: Mengambil data dari model Article
         $articles = Article::latest()->get();
 
         return view('pages.admin.articles.index', compact('articles'));
@@ -48,10 +47,9 @@ class ArticleController extends Controller
 
         $imagePath = null;
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('articles', 'public'); // 🟢 Folder disesuaikan ke 'articles'
+            $imagePath = $request->file('image')->store('articles', 'public');
         }
 
-        // 🟢 PERBAIKAN: Menggunakan Article::create
         Article::create([
             'title'    => $request->title,
             'slug'     => Str::slug($request->title) . '-' . Str::random(5), 
@@ -65,11 +63,24 @@ class ArticleController extends Controller
     }
 
     /**
+     * Menampilkan halaman detail satu Artikel berdasarkan slug (Halaman Publik)
+     */
+    public function publicShow($slug)
+    {
+        // 1. Cari artikel berdasarkan slug, jika tidak ada langsung return 404
+        // 🟢 PERBAIKAN: Nama variabel diubah dari $article menjadi $blog
+        $blog = Article::where('slug', $slug)->firstOrFail();
+
+        // 2. 🟢 PERBAIKAN: Melempar variabel $blog menggunakan compact('blog') 
+        // agar terbaca dengan sempurna oleh variabel $blog di file article-detail.blade.php
+        return view('resources.article-detail', compact('blog'));
+    }
+
+    /**
      * Mengarahkan ke halaman edit artikel
      */
     public function edit($id)
     {
-        // 🟢 PERBAIKAN: Menggunakan model Article
         $article = Article::findOrFail($id);
         return view('pages.admin.articles.edit', compact('article'));
     }
@@ -79,7 +90,6 @@ class ArticleController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // 🟢 PERBAIKAN: Menggunakan model Article
         $article = Article::findOrFail($id);
 
         $request->validate([
@@ -90,7 +100,6 @@ class ArticleController extends Controller
             'image'    => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
         ]);
 
-        // 🟢 PERBAIKAN: Menggunakan pola array data seperti ProjectController (Langkah 4)
         $data = [
             'title'    => $request->title,
             'category' => strtoupper($request->category),
@@ -98,7 +107,6 @@ class ArticleController extends Controller
             'content'  => $request->content,
         ];
 
-        // Kondisi jika judul berubah, slug diperbarui
         if ($article->title !== $request->title) {
             $data['slug'] = Str::slug($request->title) . '-' . Str::random(5);
         }
@@ -120,7 +128,6 @@ class ArticleController extends Controller
      */
     public function destroy($id)
     {
-        // 🟢 PERBAIKAN: Menggunakan model Article
         $article = Article::findOrFail($id);
 
         if ($article->image && Storage::disk('public')->exists($article->image)) {

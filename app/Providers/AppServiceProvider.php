@@ -5,9 +5,11 @@ namespace App\Providers;
 use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Event; // Ditambahkan untuk mendukung Event::listen
+use Illuminate\Support\Facades\Event; 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Validation\Rules\Password;
+use Illuminate\Support\Facades\View; 
+use App\Models\Product; //  SEKARANG MEMANGGIL MODEL PRODUK
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -31,6 +33,15 @@ class AppServiceProvider extends ServiceProvider
             \SocialiteProviders\Manager\SocialiteWasCalled::class,
             \SocialiteProviders\Apple\AppleExtendSocialite::class . '@handle'
         );
+
+        //  SINKRONISASI DROPDOWN KHUSUS PRODUK
+        View::composer(['partials.navbar', 'products.semua-produk'], function ($view) {
+            // Kita kirim dua variabel sekaligus agar navbar dan halaman semua-produk sama-sama aman
+            $productsData = Product::where('is_active', true)->latest()->get();
+            
+            $view->with('allProductsNavbar', $productsData)
+                ->with('products', $productsData); // Tambahkan baris ini
+        });
     }
 
     /**

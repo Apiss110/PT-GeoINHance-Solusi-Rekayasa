@@ -21,8 +21,9 @@
             </h4>
             <ul class="space-y-4 text-slate-400 text-sm">
                 <li><a href="/" class="hover:text-white transition">{{ __('footer.home') }}</a></li>
-                <li><a href="/#services" class="hover:text-white transition">{{ __('footer.services') }}</a></li>
-                <li><a href="/#portfolio" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
+                <li><a href="/profil" class="hover:text-white transition">{{ __('footer.profile') }}</a></li>
+                <li><a href="/proyek/semua-proyek" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
+                <li><a href="/product/all-product" class="hover:text-white transition">{{ __('footer.product') }}</a></li>
                 <li><a href="/karir" class="hover:text-white transition">{{ __('footer.career') }}</a></li>
                 <li><a href="/kontak" class="hover:text-white transition">{{ __('footer.contact') }}</a></li>
             </ul>

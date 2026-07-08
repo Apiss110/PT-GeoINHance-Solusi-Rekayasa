@@ -119,7 +119,8 @@
                 </div>
                 <div class="mt-4">
                     <label class="block text-sm font-medium text-gray-600 mb-1">Pengalaman / Riwayat Proyek Instruktur</label>
-                    <textarea name="proyek_instruktur" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Tuliskan pengalaman atau proyek geoteknik besar yang pernah ditangani..."></textarea>
+                    {{-- 🟢 PERBAIKAN: Menambahkan old() agar input teks pengalaman proyek tidak hilang saat eror --}}
+                    <textarea name="proyek_instruktur" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Tuliskan pengalaman atau proyek geoteknik besar yang pernah ditangani...">{{ old('proyek_instruktur') }}</textarea>
                 </div>
             </div>
 
@@ -144,7 +145,8 @@
                 </div>
                 <div id="module-container" class="space-y-3">
                     <div class="flex gap-2 items-center">
-                        <input type="text" name="modul_materi[]" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Modul 1: Penyelidikan Tanah & Uji Lapangan (SPT, CPTu)">
+                        {{-- 🟢 PERBAIKAN UX: Menggunakan old() untuk mempertahankan data modul indeks pertama jika validasi gagal --}}
+                        <input type="text" name="modul_materi[]" value="{{ old('modul_materi.0') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Modul 1: Penyelidikan Tanah & Uji Lapangan (SPT, CPTu)">
                         <button type="button" class="remove-btn text-red-600 font-bold px-2 hover:text-red-800">X</button>
                     </div>
                 </div>
@@ -160,11 +162,13 @@
                         <button type="button" class="remove-btn absolute top-2 right-3 text-red-600 font-bold hover:text-red-800">X</button>
                         <div>
                             <label class="block text-xs font-semibold text-gray-500 mb-1">Pertanyaan</label>
-                            <input type="text" name="faq_list[0][pertanyaan]" class="w-full p-2 border rounded bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Apakah kelas ini menyediakan rekaman?">
+                            {{-- 🟢 PERBAIKAN UX: Menggunakan old() untuk mempertahankan data FAQ indeks pertama --}}
+                            <input type="text" name="faq_list[0][pertanyaan]" value="{{ old('faq_list.0.pertanyaan') }}" class="w-full p-2 border rounded bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Apakah kelas ini menyediakan rekaman?">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-500 mb-1">Jawaban</label>
-                            <textarea name="faq_list[0][jawaban]" rows="2" class="w-full p-2 border rounded bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Ya, rekaman resolusi tinggi disediakan dan bisa diakses selamanya."></textarea>
+                            {{-- 🟢 PERBAIKAN UX: Menggunakan old() untuk mempertahankan data FAQ indeks pertama --}}
+                            <textarea name="faq_list[0][jawaban]" rows="2" class="w-full p-2 border rounded bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Ya, rekaman resolusi tinggi disediakan dan bisa diakses selamanya.">{{ old('faq_list.0.jawaban') }}</textarea>
                         </div>
                     </div>
                 </div>

@@ -198,87 +198,99 @@
 </section>
 
         <section id="alamat-kantor" class="bg-slate-100 py-24 px-6 border-t border-b border-slate-200">
-            <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
-                
-                <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
-                    <div>
-                        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('contact.connect_us') }}</span>
-                        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('contact.office_title') }}</h2>
-                    </div>
-                    
-                    <div class="space-y-4">
-                        <div class="flex items-start space-x-4 p-4 rounded-xl bg-white border border-slate-200 card-shadow transition duration-300">
-                            <div class="text-red-800 mt-1">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
-                            </div>
-                            <div>
-                                <h4 class="font-bold text-slate-900 text-sm">{{ __('contact.office_main_title') }}</h4>
-                                <p class="text-slate-600 text-xs mt-1 leading-relaxed">
-                                    {!! __('contact.office_mail_desc') !!}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w-full h-[430px] bg-slate-200 rounded-2xl overflow-hidden shadow-inner border border-slate-300">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.179677288787!2d107.57586307515795!3d-6.869061567208323!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e69f6b4b3f17%3A0xfd3bedcb52ef4602!2sJl.%20Cijerokaso%20No.94%2C%20Sarijadi%2C%20Kec.%20Sukasari%2C%20Kota%20Bandung%2C%20Jawa%20Barat%2040151!5e0!3m2!1sid!2sid!4v1782901359740!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-                    </div>
-                </div>
-
-                <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xl" data-aos="fade-left">
-                    <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-2">{{ __('contact.form_title') }}</h3>
-                    <p class="text-slate-500 text-xs mb-8">{{ __('contact.form_desc') }}</p>
-                    
-                    <form action="#" method="POST" class="space-y-6">
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_name') }}</label>
-                                <input type="text" required placeholder="{{ __('contact.placeholder_name') }}" 
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_email') }}</label>
-                                <input type="email" required placeholder="{{ __('contact.placeholder_email') }}" 
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                            <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_phone') }}</label>
-                                <input type="tel" required placeholder="{{ __('contact.placeholder_phone') }}" 
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
-                            </div>
-                            <div>
-                                <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_company') }}</label>
-                                <input type="text" placeholder="{{ __('contact.placeholder_company') }}" 
-                                    class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_subject') }}</label>
-                            <input type="text" placeholder="{{ __('contact.placeholder_subject') }}" 
-                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
-                        </div>
-
-                        <div>
-                            <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_message') }}</label>
-                            <textarea required rows="4" placeholder="{{ __('contact.placeholder_message') }}" 
-                                class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition resize-none"></textarea>
-                        </div>
-
-                        <div class="pt-2">
-                            <button type="submit" 
-                                class="w-full bg-slate-900 text-white font-bold uppercase text-xs tracking-widest py-4 rounded-xl shadow-lg hover:bg-red-800 transition duration-300 transform hover:-translate-y-0.5">
-                                {{ __('contact.btn_submit') }}
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
+    <div class="max-w-7xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+        
+        <div class="lg:col-span-5 space-y-8" data-aos="fade-right">
+            <div>
+                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('contact.connect_us') }}</span>
+                <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('contact.office_title') }}</h2>
             </div>
-        </section>
+            
+            <div class="space-y-4">
+                <div class="flex items-start space-x-4 p-4 rounded-xl bg-white border border-slate-200 card-shadow transition duration-300">
+                    <div class="text-red-800 mt-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                    </div>
+                    <div>
+                        <h4 class="font-bold text-slate-900 text-sm">{{ __('contact.office_main_title') }}</h4>
+                        <p class="text-slate-600 text-xs mt-1 leading-relaxed">
+                            {!! __('contact.office_mail_desc') !!}
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="w-full h-[430px] bg-slate-200 rounded-2xl overflow-hidden shadow-inner border border-slate-300">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.179677288787!2d107.57586307515795!3d-6.869061567208323!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e68e69f6b4b3f17%3A0xfd3bedcb52ef4602!2sJl.%20Cijerokaso%20No.94%2C%20Sarijadi%2C%20Kec.%20Sukasari%2C%20Kota%20Bandung%2C%20Jawa%20Barat%2040151!5e0!3m2!1sid!2sid!4v1782901359740!5m2!1sid!2sid" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+            </div>
+        </div>
+
+        <div class="lg:col-span-7 bg-white p-8 md:p-10 rounded-3xl border border-slate-200 shadow-xl" data-aos="fade-left">
+            <h3 class="text-xl font-black uppercase text-slate-900 tracking-tight mb-2">{{ __('contact.form_title') }}</h3>
+            <p class="text-slate-500 text-xs mb-8">{{ __('contact.form_desc') }}</p>
+            
+            @if(session('success'))
+                <div class="mb-6 p-4 bg-green-50 border border-green-200 text-green-700 rounded-xl text-xs font-semibold flex items-center space-x-2">
+                    <svg class="w-4 h-4 text-green-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>{{ session('success') }}</span>
+                </div>
+            @endif
+
+            <form action="{{ route('kontak.send') }}" method="POST" class="space-y-6">
+                @csrf <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_name') }} *</label>
+                        <input type="text" name="full_name" required value="{{ old('full_name') }}" placeholder="{{ __('contact.placeholder_name') }}" 
+                            class="w-full bg-slate-50 border @error('full_name') border-red-500 @else border-slate-200 @enderror rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
+                        @error('full_name') <span class="text-red-500 text-[11px] mt-1 block font-medium">{{ $message }}</span> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_email') }} *</label>
+                        <input type="email" name="email" required value="{{ old('email') }}" placeholder="{{ __('contact.placeholder_email') }}" 
+                            class="w-full bg-slate-50 border @error('email') border-red-500 @else border-slate-200 @enderror rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
+                        @error('email') <span class="text-red-500 text-[11px] mt-1 block font-medium">{{ $message }}</span> @enderror
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_phone') }} *</label>
+                        <input type="tel" name="phone" required value="{{ old('phone') }}" placeholder="{{ __('contact.placeholder_phone') }}" 
+                            class="w-full bg-slate-50 border @error('phone') border-red-500 @else border-slate-200 @enderror rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
+                        @error('phone') <span class="text-red-500 text-[11px] mt-1 block font-medium">{{ $message }}</span> @enderror
+                    </div>
+                    <div>
+                        <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_company') }}</label>
+                        <input type="text" name="company" value="{{ old('company') }}" placeholder="{{ __('contact.placeholder_company') }}" 
+                            class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
+                    </div>
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_subject') }} *</label>
+                    <input type="text" name="subject" required value="{{ old('subject') }}" placeholder="{{ __('contact.placeholder_subject') }}" 
+                        class="w-full bg-slate-50 border @error('subject') border-red-500 @else border-slate-200 @enderror rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition">
+                    @error('subject') <span class="text-red-500 text-[11px] mt-1 block font-medium">{{ $message }}</span> @enderror
+                </div>
+
+                <div>
+                    <label class="block text-[10px] font-bold uppercase tracking-wider text-slate-500 mb-2">{{ __('contact.label_message') }} *</label>
+                    <textarea name="message_details" required rows="4" placeholder="{{ __('contact.placeholder_message') }}" 
+                        class="w-full bg-slate-50 border @error('message_details') border-red-500 @else border-slate-200 @enderror rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-red-800 focus:bg-white transition resize-none">{{ old('message_details') }}</textarea>
+                    @error('message_details') <span class="text-red-500 text-[11px] mt-1 block font-medium">{{ $message }}</span> @enderror
+                </div>
+
+                <div class="pt-2">
+                    <button type="submit" 
+                        class="w-full bg-slate-900 text-white font-bold uppercase text-xs tracking-widest py-4 rounded-xl shadow-lg hover:bg-red-800 transition duration-300 transform hover:-translate-y-0.5">
+                        {{ __('contact.btn_submit') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</section>
 
 @include('partials.footer')
     </div>

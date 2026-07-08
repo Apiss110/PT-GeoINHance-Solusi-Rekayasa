@@ -21,6 +21,11 @@
                         {{ __('Banner Slider Front') }}
                     </flux:sidebar.item>
 
+                    {{-- 🟢 MODUL BARU: KELOLA PRODUK ADMIN (DI ATAS PORTOFOLIO PROYEK) --}}
+                    <flux:sidebar.item icon="cube" :href="route('admin.products.index')" :current="request()->routeIs('admin.products.*')" wire:navigate>
+                        {{ __('Kelola Produk Admin') }}
+                    </flux:sidebar.item>
+
                     {{-- 2. MODUL PORTOFOLIO PROYEK --}}
                     <flux:sidebar.item icon="briefcase" :href="route('admin.project.index')" :current="request()->routeIs('admin.project.*')" wire:navigate>
                         {{ __('Portofolio Proyek') }}
@@ -54,7 +59,9 @@
                         {{ __('Manajemen Training') }}
                     </flux:sidebar.item>
 
-                    
+                    <flux:sidebar.item icon="envelope" :href="route('admin.messages.index')" :current="request()->routeIs('admin.messages.*')" wire:navigate>
+                        {{ __('Pesan Masuk') }}
+                    </flux:sidebar.item>
 
                     {{-- MENU KELOLA ADMIN - HANYA UNTUK SUPERADMIN --}}
                     @if(auth()->check() && auth()->user()->role === 'superadmin')

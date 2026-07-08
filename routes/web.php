@@ -13,12 +13,15 @@ use App\Http\Controllers\ProyekController;
 use App\Http\Controllers\SektorController;
 use App\Livewire\BranchManager;
 use App\Http\Controllers\Admin\ArticleController;
-use App\Http\Controllers\VideoController; // Controller Video Publik
-use App\Http\Controllers\Admin\VideoController as AdminVideoController; // Controller Video Admin
+use App\Http\Controllers\VideoController; 
+use App\Http\Controllers\Admin\VideoController as AdminVideoController; 
 use App\Http\Controllers\Admin\CaseStudyController;
 use App\Http\Controllers\Admin\TrainingAdminController;
 use App\Http\Controllers\TrainingController;
 use App\Http\Controllers\SyllabusController;
+use App\Http\Controllers\Admin\ProductController as AdminProductController;
+use App\Http\Controllers\ContactController;
+use App\Http\Controllers\Admin\MessageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -30,17 +33,35 @@ use App\Http\Controllers\SyllabusController;
 Route::get('/auth/{provider}/redirect', [SocialiteController::class, 'redirect'])->name('social.redirect');
 Route::get('/auth/{provider}/callback', [SocialiteController::class, 'callback'])->name('social.callback');
 
-// PERBAIKAN EMERGENSI: Menggunakan try-catch agar halaman depan TIDAK AKAN PERNAH Error 500 saat presentasi meskipun database kosong
+// 🟢 PERBAIKAN DAN PENGGABUNGAN RUTE HOME (WELCOME PAGE)
+// Menyambungkan data Banner Slider, Cabang Map Leaflet, serta Kombinasi Berita & Artikel secara aman (Anti Error 500)
 Route::get('/', function () {
     try {
         $sliders = \App\Models\HeroSlider::all() ?? collect();
-        $blogs = \App\Models\Blog::latest()->take(3)->get() ?? collect();
-        // Ambil data kantor cabang untuk peta Leaflet
         $branchesData = \App\Models\Branch::all() ?? collect(); 
+        
+        // Ambil data berita dan artikel terbaru (maksimal 6)
+        $news = \App\Models\Blog::latest()->take(6)->get() ?? collect();
+        $articles = \App\Models\Article::latest()->take(6)->get() ?? collect();
+
+        // Suntik properti tipe dan URL tujuan secara dinamis
+        foreach ($news as $item) {
+            $item->tipe_konten = 'berita';
+            $item->url_detail = route('blog.show', $item->slug);
+        }
+
+        foreach ($articles as $item) {
+            $item->tipe_konten = 'artikel';
+            $item->url_detail = route('article.show', $item->slug); 
+        }
+
+        // Gabungkan, urutkan berdasarkan tanggal terbaru kronologis, potong jadi 6 data teratas
+        $blogs = $news->concat($articles)->sortByDesc('created_at')->take(6);
+
     } catch (\Exception $e) {
+        // Fallback kosong jika database bermasalah/kosong agar presentasi tetap aman berjalan
         $sliders = collect();
         $blogs = collect();
-        // Fallback jika terjadi error agar halaman landing page tidak crash
         $branchesData = collect(); 
     }
     
@@ -52,135 +73,80 @@ Route::get('/profil', function () { return view('profil'); })->name('profil');
 Route::get('/kontak', function () { return view('kontak'); })->name('kontak');
 Route::get('/karir', function () { return view('karir'); })->name('karir');
 Route::get('/legalitas', function () { return view('legalitas'); })->name('legalitas');
-Route::get('/privacy-policy', function () { return view('privacy'); })->name('privacy.policy');
-Route::get('/terms-of-service', function () { return view('terms'); })->name('terms.service');
 
-// Perubahan menggunakan Route::view dengan shortcut name sesuai keinginanmu
+// 🟢 PERBAIKAN UTAMA: Route pengiriman pesan ditaruh di sini (Sisi Publik, di luar grup Admin)
+Route::post('/kontak/send', [ContactController::class, 'store'])->name('kontak.send');
+
 Route::view('/terms-and-conditions', 'terms')->name('terms');
 Route::view('/privacy-policy', 'privacy')->name('privacy');
 
 Route::get('email/verify', function () {
     return redirect()->route('verification.notice');
-})->name('fortify.verification.notice'); // Ubah namanya agar tidak bentrok
+})->name('fortify.verification.notice');
 
 /*
 |--------------------------------------------------------------------------
-| PRODUCTS
+| PRODUCTS (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
 Route::get('/product/plaxis-2d', function () { return view('products.plaxis-2d'); })->name('product.plaxis2d');
 Route::get('/product/plaxis-3d', function () { return view('products.plaxis-3d'); })->name('product.plaxis3d');
 Route::get('/product/staad-pro', function () { return view('products.staad-pro'); })->name('product.staadpro');
-Route::get('/product/geostudio-flow', function () { return view('products.geostudio-flow'); })->name('product.geostudio');
+Route::get('/product/geostudio-flow', function () { return view('products.geostudio'); })->name('product.geostudio');
+Route::get('/product/all-products', function () { return view('products.semua-produk'); })->name('product.all');
+
+// Route detail produk publik dinamis (Gunakan Slug / ID Fleksibel)
+Route::get('/product/{idOrSlug}', [AdminProductController::class, 'show'])->name('produk.detail');
 
 /*
 |--------------------------------------------------------------------------
-| SIGNALS / SEKTOR (UPDATED & SYNCED TO DATABASE)
+| SEKTOR (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
 Route::prefix('sektor')->group(function () {
-    // Diarahkan ke ProjectController@showAllSectorsPublic agar query database $projects tereksekusi dengan benar
     Route::get('/semua-sektor', [ProjectController::class, 'showAllSectorsPublic'])->name('sektor.semua-sektor');
     
-    // Alihkan rute statis view() ke fungsi dinamis showPublicBySector di ProjectController
-    Route::get('/mitigasi-geobencana', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'mitigasi-geobencana')
-        ->name('sektor.mitigasi-geobencana');
+    Route::get('/mitigasi-geobencana', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'mitigasi-geobencana')->name('sektor.mitigasi-geobencana');
+    Route::get('/infrastruktur-transportasi', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'infrastruktur-transportasi')->name('sektor.infrastruktur-transportasi');
+    Route::get('/rekayasa-bawah-tanah', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'rekayasa-bawah-tanah')->name('sektor.rekayasa-bawah-tanah');
+    Route::get('/pembangkit-energi', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'pembangkit-energi')->name('sektor.pembangkit-energi');
+    Route::get('/infrastruktur-air', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'infrastruktur-air')->name('sektor.infrastruktur-air');
+    Route::get('/minyak-bumi-gas', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'minyak-bumi-gas')->name('sektor.minyak-bumi-gas');
+    Route::get('/kawasan-industri', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'kawasan-industri')->name('sektor.kawasan-industri');
+    Route::get('/infrastruktur-jalan', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'infrastruktur-jalan')->name('sektor.infrastruktur-jalan');
+    Route::get('/jalur-kereta-api', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'jalur-kereta-api')->name('sektor.jalur-kereta-api');
+    Route::get('/kawasan-bandar-udara', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'kawasan-bandar-udara')->name('sektor.kawasan-bandar-udara');
+    Route::get('/fasilitas-pendidikan', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'fasilitas-pendidikan')->name('sektor.fasilitas-pendidikan');
+    Route::get('/kawasan-pelabuhan', [ProjectController::class, 'showPublicBySector'])->defaults('slug', 'kawasan-pelabuhan')->name('sektor.kawasan-pelabuhan');
 
-    Route::get('/infrastruktur-transportasi', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'infrastruktur-transportasi')
-        ->name('sektor.infrastruktur-transportasi');
-
-    Route::get('/rekayasa-bawah-tanah', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'rekayasa-bawah-tanah')
-        ->name('sektor.rekayasa-bawah-tanah');
-
-    Route::get('/pembangkit-energi', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'pembangkit-energi')
-        ->name('sektor.pembangkit-energi');
-
-    Route::get('/infrastruktur-air', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'infrastruktur-air')
-        ->name('sektor.infrastruktur-air');
-
-    Route::get('/minyak-bumi-gas', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'minyak-bumi-gas')
-        ->name('sektor.minyak-bumi-gas');
-
-    Route::get('/kawasan-industri', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'kawasan-industri')
-        ->name('sektor.kawasan-industri');
-
-    Route::get('/infrastruktur-jalan', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'infrastruktur-jalan')
-        ->name('sektor.infrastruktur-jalan');
-
-    Route::get('/jalur-kereta-api', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'jalur-kereta-api')
-        ->name('sektor.jalur-kereta-api');
-
-    Route::get('/kawasan-bandar-udara', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'kawasan-bandar-udara')
-        ->name('sektor.kawasan-bandar-udara');
-
-    Route::get('/fasilitas-pendidikan', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'fasilitas-pendidikan')
-        ->name('sektor.fasilitas-pendidikan');
-
-    Route::get('/kawasan-pelabuhan', [ProjectController::class, 'showPublicBySector'])
-        ->defaults('slug', 'kawasan-pelabuhan')
-        ->name('sektor.kawasan-pelabuhan');
-
-    // Rute penangkap cadangan dinamis global untuk sektor baru di masa depan
     Route::get('/{slug}', [ProjectController::class, 'showPublicBySector'])->name('sektor.dynamic.show');
 });
 
 /*
 |--------------------------------------------------------------------------
-| PROYEK (PUBLIC PORTFOLIO)
+| PROYEK / PORTFOLIO (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
-Route::get('/proyek/detailed-engineering-design', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', 'detailed-engineering-design')
-    ->name('proyek.detailed-engineering-design');
-Route::get('/proyek/review-design', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', 'review-design')
-    ->name('proyek.review-design');
-Route::get('/proyek/structural-analysis', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', 'structural-analysis')
-    ->name('proyek.structural-analysis');
-Route::get('/proyek/3d-fem-analysis', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', '3d-fem') 
-    ->name('proyek.3d-fem-analysis');
-Route::get('/proyek/numerical-analysis-plaxis-3d', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', 'numerical-analysis') 
-    ->name('proyek.numerical-analysis');
-Route::get('/proyek/numerical-modeling-analysis', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', 'numerical-modeling')
-    ->name('proyek.numerical-modeling');
-Route::get('/proyek/slope-stability-analysis', [ProjectController::class, 'showPublicByCategory'])
-    ->defaults('slug', 'slope-stability')
-    ->name('proyek.slope-stability');
+Route::get('/proyek/detailed-engineering-design', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', 'detailed-engineering-design')->name('proyek.detailed-engineering-design');
+Route::get('/proyek/review-design', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', 'review-design')->name('proyek.review-design');
+Route::get('/proyek/structural-analysis', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', 'structural-analysis')->name('proyek.structural-analysis');
+Route::get('/proyek/3d-fem-analysis', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', '3d-fem')->name('proyek.3d-fem-analysis');
+Route::get('/proyek/numerical-analysis-plaxis-3d', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', 'numerical-analysis')->name('proyek.numerical-analysis');
+Route::get('/proyek/numerical-modeling-analysis', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', 'numerical-modeling')->name('proyek.numerical-modeling');
+Route::get('/proyek/slope-stability-analysis', [ProjectController::class, 'showPublicByCategory'])->defaults('slug', 'slope-stability')->name('proyek.slope-stability');
 Route::get('/proyek/semua-proyek', [ProyekController::class, 'semuaProyek'])->name('proyek.semua');
 
-// Rute dengan parameter ditaruh di bawah agar tidak memblokir rute statis
+// Rute Detail Proyek Publik Dinamis 
 Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proyek.detail')->whereNumber('id');
 Route::get('/proyek/{slug}', [ProjectController::class, 'showPublicByCategory'])->name('proyek.category');
 
 /*
 |--------------------------------------------------------------------------
-| RESOURCES (PUBLIC ARTIKEL, NEWS, & EVENTS)
+| RESOURCES (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
-// Mengarah ke daftar kumpulan artikel publik
 Route::get('/resources/articles', [ArticleController::class, 'publicIndex'])->name('blog.index');
-
-Route::get('/resources/artikel/{slug}', function($slug) {
-    $article = \App\Models\Article::where('slug', $slug)->firstOrFail();
-    return view('resources.article-detail', ['blog' => $article]); 
-})->name('resources.article-detail');
-
-// Mengarah ke daftar berita / news publik
+Route::get('/resources/artikel/{slug}', [ArticleController::class, 'publicShow'])->name('article.show');
 Route::get('/resources/news-events', [ProyekController::class, 'newsEvents'])->name('resources.news-events');
 Route::get('/blog/{slug}', [ProyekController::class, 'showBlog'])->name('blog.show');
 
@@ -189,17 +155,13 @@ Route::get('/resources/consulting-services', function () { return view('resource
 Route::get('/resources/perpus-dokumen', function () { return view('resources.perpus-dokumen'); })->name('resources.perpus-dokumen');
 Route::get('/resources/semua-resources', [ProyekController::class, 'allResources'])->name('resources.semua');
 
-// Halaman list semua studi kasus publik
 Route::get('/resources/studi-kasus', function () {
     $caseStudies = \App\Models\CaseStudy::latest()->get(); 
     return view('resources.studi-kasus', compact('caseStudies'));
 })->name('resources.studi-kasus');
 
-// Pencarian Detail Kasus yang Fleksibel
 Route::get('/resources/studi-kasus/{slug}', function ($slug) {
-    $caseStudy = \App\Models\CaseStudy::where('slug', $slug)
-        ->orWhere('id', $slug)
-        ->firstOrFail();
+    $caseStudy = \App\Models\CaseStudy::where('slug', $slug)->orWhere('id', $slug)->firstOrFail();
     return view('resources.case-study-detail', compact('caseStudy'));
 })->name('resources.studi-kasus.detail');
 
@@ -208,27 +170,21 @@ Route::get('/resources/video/{id}', [VideoController::class, 'show'])->name('res
 
 /*
 |--------------------------------------------------------------------------
-| TRAINING & SYLLABUS (PUBLIC ROUTES)
+| TRAINING & SYLLABUS (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
 Route::get('/training/pendaftaran', [TrainingController::class, 'pendaftaran'])->name('training.pendaftaran');
 Route::post('/training/pendaftaran', [TrainingController::class, 'storeRegistration'])->name('training.pendaftaran.store');
 
 Route::prefix('training')->group(function () {
-    // Halaman list utama silabus publik
     Route::get('/silabus-materi', [SyllabusController::class, 'publicIndex'])->name('training.silabus');
-    
-    // 🟢 PEMBENAHAN: Rute Detail Silabus ditaruh di sini agar bisa diakses Publik tanpa Auth & memiliki nama rute yang tepat
     Route::get('/silabus-materi/{id}', [SyllabusController::class, 'publicShow'])->name('training.syllabus.show');
-    
     Route::view('/fasilitas', 'training.fasilitas')->name('training.fasilitas');
 });
 
 // Multi-language Switcher
 Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['id', 'en'])) {
-        Session::put('locale', $locale);
-    }
+    if (in_array($locale, ['id', 'en'])) { Session::put('locale', $locale); }
     return redirect()->back();
 })->name('lang.switch');
 
@@ -237,9 +193,7 @@ Route::get('/lang/{locale}', function ($locale) {
 | Authenticated Routes (Dashboard & Profile Managements)
 |--------------------------------------------------------------------------
 */
-Route::get('/dashboard', function () {
-    return view('pages.admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard', function () { return view('pages.admin.dashboard'); })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -259,9 +213,7 @@ Route::get('logout', function () {
 */
 Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
     
-    // ==========================================
-    // RUTE BULK DELETE (WAJIB DI PALING ATAS AGAR TIDAK BENTROK)
-    // ==========================================
+    // RUTE BULK DELETE
     Route::delete('/project/bulk-delete', [ProjectController::class, 'bulkDestroy'])->name('project.destroy.bulk');
     Route::delete('/slider/bulk-delete', [SliderController::class, 'bulkDestroy'])->name('slider.destroy.bulk');
     
@@ -270,23 +222,31 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');    
     Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('slider.destroy'); 
 
+    // Kelola Produk Admin Terintegrasi (CRUD Resource)
+    Route::resource('products', AdminProductController::class);
+
     // 2. Kelola Proyek Strategis
     Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
     Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
-    Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proyek.detail')->whereNumber('id');
     Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update'); 
     Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
     Route::post('/blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.upload.image');
 
     // 3. Kelola Blog & News Admin serta Artikel (CRUD Resource)
     Route::resource('blog', BlogController::class);
+    Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
     Route::resource('articles', ArticleController::class); 
-
+    
     // Kelola Galeri Video Teknis Admin (CRUD Resource)
     Route::resource('video', AdminVideoController::class);
 
     // 4. Kelola Cabang Perusahaan (Branch Manager)
     Route::get('/branches', BranchManager::class)->name('branch.branch-manager');
+
+    // 🟢 PERBAIKAN: Manajemen Pesan Masuk Admin (Dibersihkan dari double nesting group)
+    Route::get('/messages', [MessageController::class, 'index'])->name('messages.index');
+    Route::get('/messages/{message}', [MessageController::class, 'show'])->name('messages.show');
+    Route::delete('/messages/{message}', [MessageController::class, 'destroy'])->name('messages.destroy');
 
     // Kelola Studi Kasus
     Route::get('/studi-kasus', [CaseStudyController::class, 'index'])->name('studi-kasus.index');
@@ -296,11 +256,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::put('/studi-kasus/{id}', [CaseStudyController::class, 'update'])->name('studi-kasus.update');
     Route::delete('/studi-kasus/{id}', [CaseStudyController::class, 'destroy'])->name('studi-kasus.destroy');
 
-    // Rute Manajemen Training Terintegrasi Tanpa Overlap Nesting Group
+    // Rute Manajemen Training Terintegrasi
     Route::get('/training', [TrainingAdminController::class, 'index'])->name('training.index');
     Route::delete('/training/{id}', [TrainingAdminController::class, 'destroy'])->name('training.destroy');
-
-    // 💥 DISINI SEBELUMNYA ADA DUPLIKASI RUTE PUBLIK YANG SALAH DAN SUDAH DIHAPUS 💥
 
     // 5. Kelola Akun Admin (Khusus Superadmin)
     Route::middleware([IsSuperadmin::class])->group(function () {
@@ -312,9 +270,8 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::delete('/kelola-admin/{id}', [AdminController::class, 'destroy'])->name('kelola-admin.destroy');
     });
 
-    // 6. Kelola Silabus & Materi Training Back-End (Bisa diakses seluruh Admin untuk CRUD)
-    Route::resource('syllabus', \App\Http\Controllers\SyllabusController::class);
-
+    // 6. Kelola Silabus & Materi Training Back-End
+    Route::resource('syllabus', SyllabusController::class);
 });
 
 /*

@@ -375,33 +375,39 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="mb-10">
-            <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">Our Blog</span>
+            <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">Updates & Insights</span>
             <div class="flex flex-wrap justify-between items-end">
                 <div>
                     <h2 class="text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                        {{ __('home.blog.title1') }} <span class="text-slate-900">{{ __('home.blog.title2') }}</span>
+                        Artikel <span class="text-slate-900">& Berita Terbaru</span>
                     </h2>
                     <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
                 
                 <div class="flex space-x-2">
-                    <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition">
+                    <button id="slide-left" class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition active:scale-95">
                         &#10094;
                     </button>
-                    <button class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition">
+                    <button id="slide-right" class="w-10 h-10 rounded-full border border-slate-300 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition active:scale-95">
                         &#10095;
                     </button>
                 </div>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div id="slider-container" class="flex flex-row flex-nowrap overflow-x-auto gap-6 pb-6 scroll-smooth snap-x snap-mandatory" style="scrollbar-width: none; -ms-overflow-style: none;">
+            
+            <style>
+                #slider-container::-webkit-scrollbar { display: none; }
+            </style>
             
             @foreach($blogs as $blog)
-                <div class="bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition duration-300">
+                <div class="w-full sm:w-1/2 md:w-[31.5%] flex-shrink-0 snap-start bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition duration-300">
+                    
                     <div class="relative h-64 overflow-hidden bg-slate-900">
                         <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ $blog->title }}">
-                        <span class="absolute top-4 left-4 bg-[#c80000] text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm">
+                        
+                        <span class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm {{ $blog->tipe_konten == 'berita' ? 'bg-[#c80000]' : 'bg-slate-800' }}">
                             {{ $blog->category }}
                         </span>
                     </div>
@@ -419,7 +425,7 @@
                             </p>
                         </div>
                         
-                        <a href="{{ route('blog.show', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition">
+                        <a href="{{ $blog->url_detail }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition">
                             Pelajari Selengkapnya
                             <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
@@ -433,6 +439,30 @@
 
     </div>
 </section>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const container = document.getElementById('slider-container');
+        const btnLeft = document.getElementById('slide-left');
+        const btnRight = document.getElementById('slide-right');
+
+        if (container && btnLeft && btnRight) {
+            // Mengambil ukuran lebar satu card ditambah dengan gap-nya
+            const getScrollAmount = () => {
+                const card = container.querySelector('.flex-shrink-0');
+                return card ? card.offsetWidth + 24 : 400; 
+            };
+
+            btnLeft.addEventListener('click', () => {
+                container.scrollBy({ left: -getScrollAmount(), behavior: 'smooth' });
+            });
+
+            btnRight.addEventListener('click', () => {
+                container.scrollBy({ left: getScrollAmount(), behavior: 'smooth' });
+            });
+        }
+    });
+</script>
 @endisset
 
 @include('partials.footer')

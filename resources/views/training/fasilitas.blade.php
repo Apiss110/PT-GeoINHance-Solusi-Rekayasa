@@ -45,7 +45,7 @@
                         Kami tidak hanya memberikan materi teori, tetapi juga memastikan Anda mendapatkan fasilitas pendukung terbaik agar siap mengaplikasikan ilmu geoteknik dan rekayasa struktur di dunia kerja nyata.
                     </p>
                     <div class="flex flex-wrap gap-4">
-                        <a href="{{ route('training.fasilitas') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md transition shadow-lg shadow-blue-500/30 flex items-center gap-2">
+                        <a href="{{ route('training.pendaftaran') }}" class="bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-md transition shadow-lg shadow-blue-500/30 flex items-center gap-2">
                             <i class="fa-solid fa-user-plus"></i> Daftar Sekarang
                         </a>
                         <a href="{{ route('training.silabus') }}" class="bg-transparent border border-gray-400 hover:border-white text-white font-semibold py-3 px-6 rounded-md transition flex items-center gap-2">
