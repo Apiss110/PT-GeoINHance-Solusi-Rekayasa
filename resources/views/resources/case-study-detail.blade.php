@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ $caseStudy->title }} | GeoINHance</title>
+    <title>{{ auto_translate($caseStudy->title) }} | GeoINHance</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -64,10 +62,10 @@
         
         <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <span class="inline-block bg-red-600 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded mb-4">
-                {{ $caseStudy->sector ?? 'Studi Kasus' }}
+                {{ $caseStudy->sector ? auto_translate($caseStudy->sector) : 'Studi Kasus' }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight drop-shadow-md uppercase">
-                {{ $caseStudy->title }}
+                {{ auto_translate($caseStudy->title) }}
             </h1>
         </div>
     </section>
@@ -85,7 +83,7 @@
             </div>
 
             <div class="geo-article-container font-light">
-                {!! $caseStudy->content !!}
+                {!! auto_translate($caseStudy->content) !!}
             </div>
 
             {{-- ==================== PDF COMPONENT WINDOW (FIXED DATABASE COLUMN) ==================== --}}

@@ -10,8 +10,8 @@ class StrategicProject extends Model
     use HasFactory;
 
     protected $fillable = [
-        'project_category_id', // Menghubungkan ke Kategori Proyek (Slider Portofolio)
-        'sector_id',           // ADDED: Menghubungkan ke Kategori Sektor (Dropdown Sektor)
+        'project_category_id', // Menyimpan ID dari halaman dinamis (ProjectPage)
+        'sector_id',           // Menghubungkan ke Kategori Sektor (Dropdown Sektor)
         'title',
         'description',
         'location',
@@ -20,11 +20,22 @@ class StrategicProject extends Model
     ];
 
     /**
-     * Relasi ke Model ProjectCategory (Many to One)
+     * Relasi ke Model ProjectPage (Halaman Dinamis)
+     * Menggunakan foreign key 'project_category_id' agar tidak perlu mengubah struktur database yang ada.
+     */
+    public function projectPage()
+    {
+        return $this->belongsTo(ProjectPage::class, 'project_category_id');
+    }
+
+    /**
+     * Fallback / Alias Relasi Lama (Opsional)
+     * Tetap mempertahankan fungsi category() agar jika ada script lama yang memanggil 
+     * $project->category->name tidak langsung menyebabkan error crash.
      */
     public function category()
     {
-        return $this->belongsTo(ProjectCategory::class, 'project_category_id');
+        return $this->belongsTo(ProjectPage::class, 'project_category_id');
     }
 
     /**

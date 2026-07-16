@@ -82,70 +82,70 @@
     </section>
 
     {{-- GRID SECTOR SECTION --}}
-    <section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
-        
-        <div id="sectorGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+<section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+    
+    <div id="sectorGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-            {{-- LOOPING GABUNGAN SELURUH DATA SEKTOR DARI DATABASE --}}
-            @forelse($projects as $project)
-            <div class="sector-item transition-all duration-300" 
-                 data-name="{{ strtolower($project->title) }}">
-                
-                <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
-                    <div>
-                        {{-- Thumbnail Area --}}
-                        <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
-                            @if($project->image_path)
-                                <img src="{{ asset('storage/' . $project->image_path) }}" alt="{{ $project->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
-                            @else
-                                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                                <i class="fa-solid fa-folder-open text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
-                            @endif
-                        </div>
-
-                        {{-- Content Area --}}
-                        <div class="p-6 space-y-3">
-                            <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                                <i class="fa-solid fa-location-dot text-blue-500 mr-1"></i> {{ $project->location }}
-                            </p>
-                            <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
-                                {{ $project->title }}
-                            </h3>
-                            <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
-                                {!! strip_tags($project->description) !!}
-                            </div>
-                        </div>
+        {{-- LOOPING DATA SEKTOR DARI DATABASE --}}
+        @forelse($sectors as $sector)
+        <div class="sector-item transition-all duration-300" 
+             data-name="{{ strtolower(auto_translate($sector->name)) }}">
+            
+            <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[450px]">
+                <div>
+                    {{-- Thumbnail / Banner Area Sektor --}}
+                    <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
+                        {{-- PERBAIKAN: Menggunakan banner_image sesuai database Sektor --}}
+                        @if($sector->banner_image)
+                            <img src="{{ asset('storage/' . $sector->banner_image) }}" alt="{{ auto_translate($sector->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                        @else
+                            <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                            <i class="fa-solid fa-folder-open text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
+                        @endif
                     </div>
 
-                    {{-- Action Button & Tags Area --}}
-                    <div class="p-6 pt-0 space-y-4">
-                        <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
-                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200 uppercase tracking-wider">
-                                {{ $project->category->name ?? 'Sektor' }}
-                            </span>
-                            <span class="bg-slate-100 text-slate-700 text-[10px] font-semibold px-2.5 py-1 rounded-md border border-slate-200">
-                                {{ $project->year }}
-                            </span>
+                    {{-- Content Area Sektor --}}
+                    <div class="p-6 space-y-3">
+                        <p class="text-blue-600 text-[11px] font-bold tracking-widest uppercase flex items-center">
+                            <i class="fa-solid fa-layer-group mr-1.5"></i> Sektor Layanan
+                        </p>
+                        <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
+                            {{ auto_translate($sector->name) }}
+                        </h3>
+                        <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
+                            {!! auto_translate(strip_tags($sector->description)) !!}
                         </div>
-                        <a href="#" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
-                            {{ __('all_sectors.btn_view_detail') ?? 'Lihat Detail' }}
-                            <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </a>
                     </div>
-                </article>
-            </div>
-            @empty
-            {{-- DATA EMPTY STATE --}}
-            <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
-                <i class="fa-solid fa-folder-open text-slate-300 text-5xl mb-3"></i>
-                <p class="text-sm text-slate-500 font-medium">Belum ada data rekaman proyek pada seluruh sektor.</p>
-            </div>
-            @endforelse
+                </div>
 
+                {{-- Action Button & Informasi Jumlah Proyek --}}
+                <div class="p-6 pt-0 space-y-4">
+                    <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
+                        <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2.5 py-1 rounded-md border border-blue-100 uppercase tracking-wider">
+                            {{ $sector->projects->count() ?? 0 }} Proyek Terintegrasi
+                        </span>
+                    </div>
+                    
+                    {{-- PERBAIKAN: Mengubah teks tombol secara langsung agar tidak tertulis PROJECT DETAILS --}}
+                    <a href="/sektor/{{ $sector->slug ?? $sector->id }}" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
+                        SECTOR DETAILS
+                        <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </a>
+                </div>
+            </article>
         </div>
-    </section>
+        @empty
+        {{-- DATA EMPTY STATE SEKTOR --}}
+        <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
+            <i class="fa-solid fa-folder-open text-slate-300 text-5xl mb-3"></i>
+            <p class="text-sm text-slate-500 font-medium">Belum ada data sektor yang tersedia saat ini.</p>
+        </div>
+        @endforelse
+
+    </div>
+</section>
 
     {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
     <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">

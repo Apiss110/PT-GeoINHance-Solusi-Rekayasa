@@ -3,29 +3,29 @@
 <div class="bg-slate-900 text-white py-12 border-b border-slate-800">
     <div class="container mx-auto px-4 max-w-6xl">
         <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded">{{ $syllabus->software_category }}</span>
-            <span class="bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded">Level: {{ $syllabus->level }}</span>
+            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded">{{ auto_translate($syllabus->software_category) }}</span>
+            <span class="bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded">Level: {{ auto_translate($syllabus->level) }}</span>
         </div>
-        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight max-w-4xl">{{ $syllabus->title }}</h1>
-        <p class="text-slate-400 mt-3 text-base md:text-lg max-w-3xl leading-relaxed">{{ $syllabus->description }}</p>
+        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight max-w-4xl">{{ auto_translate($syllabus->title) }}</h1>
+        <p class="text-slate-400 mt-3 text-base md:text-lg max-w-3xl leading-relaxed">{{ auto_translate($syllabus->description) }}</p>
         
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-800 text-sm">
             <div>
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Durasi Kelas</span>
                 <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-regular fa-clock text-red-500"></i> {{ $syllabus->durasi ?? '-' }}
+                    <i class="fa-regular fa-clock text-red-500"></i> {{ $syllabus->durasi ? auto_translate($syllabus->durasi) : '-' }}
                 </span>
             </div>
             <div>
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Jadwal Terdekat</span>
                 <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-regular fa-calendar text-red-500"></i> {{ $syllabus->jadwal_terdekat ?? '-' }}
+                    <i class="fa-regular fa-calendar text-red-500"></i> {{ $syllabus->jadwal_terdekat ? auto_translate($syllabus->jadwal_terdekat) : '-' }}
                 </span>
             </div>
             <div>
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Format Pembelajaran</span>
                 <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-solid fa-video text-red-500"></i> {{ $syllabus->format_kelas }}
+                    <i class="fa-solid fa-video text-red-500"></i> {{ auto_translate($syllabus->format_kelas) }}
                 </span>
             </div>
             <div>
@@ -46,7 +46,7 @@
                 <h2 class="text-xl font-bold text-slate-800 mb-3 flex items-center gap-2">
                     <span class="w-1 h-6 bg-red-600 rounded"></span> Overview & Manfaat Kursus
                 </h2>
-                <p class="text-slate-600 leading-relaxed whitespace-pre-line">{{ $syllabus->manfaat_kursus ?? $syllabus->description }}</p>
+                <p class="text-slate-600 leading-relaxed whitespace-pre-line">{{ auto_translate($syllabus->manfaat_kursus ?? $syllabus->description) }}</p>
             </div>
 
             <div class="bg-white p-6 rounded-xl border border-gray-100 shadow-sm">
@@ -60,7 +60,7 @@
                         @foreach($syllabus->modul_materi as $index => $modul)
                             <details class="group border border-gray-200 rounded-lg" {{ $index == 0 ? 'open' : '' }}>
                                 <summary class="flex justify-between items-center font-semibold p-4 text-slate-700 bg-slate-50 hover:bg-slate-100 cursor-pointer list-none transition [&::-webkit-details-marker]:hidden">
-                                    <span>{{ $modul }}</span>
+                                    <span>{{ auto_translate($modul) }}</span>
                                     <span class="transition group-open:rotate-180 text-slate-400">
                                         <i class="fa-solid fa-chevron-down text-xs"></i>
                                     </span>
@@ -82,14 +82,14 @@
                         @foreach($syllabus->faq_list as $faq)
                             <details class="group border-b border-gray-200 pb-3">
                                 <summary class="flex justify-between items-center font-medium py-2 text-slate-800 hover:text-red-600 cursor-pointer list-none transition [&::-webkit-details-marker]:hidden">
-                                    <span class="text-base font-semibold">{{ $faq['pertanyaan'] ?? '' }}</span>
+                                    <span class="text-base font-semibold">{{ isset($faq['pertanyaan']) ? auto_translate($faq['pertanyaan']) : '' }}</span>
                                     <span class="transition group-open:rotate-180 text-slate-400">
                                         <i class="fa-solid fa-plus text-xs group-open:hidden"></i>
                                         <i class="fa-solid fa-minus text-xs hidden group-open:inline"></i>
                                     </span>
                                 </summary>
                                 <div class="mt-2 text-sm text-slate-600 leading-relaxed pl-1">
-                                    {{ $faq['jawaban'] ?? '' }}
+                                    {{ isset($faq['jawaban']) ? auto_translate($faq['jawaban']) : '' }}
                                 </div>
                             </details>
                         @endforeach
@@ -125,14 +125,14 @@
                         <i class="fa-solid fa-laptop text-slate-400 mt-0.5"></i>
                         <div>
                             <strong class="text-slate-700 block">Kebutuhan Hardware:</strong>
-                            {{ $syllabus->minimal_ram ?? 'RAM Minimal 8GB' }}
+                            {{ $syllabus->minimal_ram ? auto_translate($syllabus->minimal_ram) : 'RAM Minimal 8GB' }}
                         </div>
                     </div>
                     <div class="flex items-start gap-2">
                         <i class="fa-solid fa-key text-slate-400 mt-0.5"></i>
                         <div>
                             <strong class="text-slate-700 block">Lisensi Software:</strong>
-                            {{ $syllabus->lisensi_software ?? 'Disediakan oleh tim teknis panitia' }}
+                            {{ $syllabus->lisensi_software ? auto_translate($syllabus->lisensi_software) : 'Disediakan oleh tim teknis panitia' }}
                         </div>
                     </div>
                 </div>
@@ -149,23 +149,23 @@
                         </div>
                     @endif
                     <div>
-                        <h5 class="font-bold text-slate-800 text-sm leading-tight">{{ $syllabus->nama_instruktur ?? 'Expert Trainer GeoINHance' }}</h5>
+                        <h5 class="font-bold text-slate-800 text-sm leading-tight">{{ $syllabus->nama_instruktur ? auto_translate($syllabus->nama_instruktur) : 'Expert Trainer GeoINHance' }}</h5>
                         <span class="text-xs text-red-600 font-semibold">Geotechnical Expert</span>
                     </div>
                 </div>
                 <p class="text-xs text-slate-500 leading-relaxed whitespace-pre-line border-t border-gray-100 pt-2">
-                    {{ $syllabus->proyek_instruktur ?? 'Praktisi senior dengan jam terbang tinggi di bidang pemodelan numerik elemen hingga dan rekayasa infrastruktur sipil.' }}
+                    {{ $syllabus->proyek_instruktur ? auto_translate($syllabus->proyek_instruktur) : 'Praktisi senior dengan jam terbang tinggi di bidang pemodelan numerik elemen hingga dan rekayasa infrastruktur sipil.' }}
                 </p>
             </div>
             
             <div class="bg-slate-50 p-5 rounded-xl border border-gray-200 text-xs space-y-3">
                 <div>
                     <span class="font-bold text-slate-700 block mb-1">💡 Target Peserta:</span>
-                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->target_peserta ?? '-' }}</p>
+                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->target_peserta ? auto_translate($syllabus->target_peserta) : '-' }}</p>
                 </div>
                 <div class="border-t border-gray-200 pt-2">
                     <span class="font-bold text-slate-700 block mb-1">📘 Prasyarat Dasar:</span>
-                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->prasyarat_peserta ?? '-' }}</p>
+                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->prasyarat_peserta ? auto_translate($syllabus->prasyarat_peserta) : '-' }}</p>
                 </div>
             </div>
 
@@ -173,4 +173,4 @@
         
     </div>
 </div>
-@include('partials.footer')
+@include('partials.footer') 

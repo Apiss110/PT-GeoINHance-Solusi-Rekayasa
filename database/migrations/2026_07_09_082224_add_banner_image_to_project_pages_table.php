@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('sectors', function (Blueprint $table) {
-            $table->id();
-            $table->string('name'); // Nama Sektor, contoh: Infrastruktur, Energi, dll.
-            $table->string('slug')->unique(); // Slug untuk URL halaman nanti
-            $table->timestamps();
+        Schema::table('project_pages', function (Blueprint $table) {
+            // Menambahkan kolom banner_image setelah kolom description
+            $table->string('banner_image')->nullable()->after('description');
         });
     }
 
@@ -24,6 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sectors');
+        Schema::table('project_pages', function (Blueprint $table) {
+            $table->dropColumn('banner_image');
+        });
     }
 };

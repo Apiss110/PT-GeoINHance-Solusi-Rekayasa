@@ -1,65 +1,93 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Katalog Produk & Solusi - PT GeoINHance</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
-                    },
-                    colors: {
-                        'geo-dark': '#071c35',
-                        'geo-blue': '#1e40af',
-                    }
-                }
-            }
-        }
-    </script>
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased font-sans flex flex-col min-h-screen">
 
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @livewireStyles
+
+    <style>
+        /* Navbar Glass Effect */
+        .nav-glass {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(8px);
+        }
+        /* Underline animation */
+        .nav-link {
+            position: relative;
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -4px;
+            left: 0;
+            background-color: #002d62;
+            transition: width 0.3s ease;
+        }
+        .nav-link:hover::after {
+            width: 100%;
+        }
+        .card-shadow {
+            box-shadow: 0 10px 30px -12px rgba(0, 0, 0, 0.05);
+        }
+        [x-cloak] { display: none !important; }
+    </style>
+</head>
+<body class="bg-slate-50 font-sans antialiased text-slate-900 flex flex-col min-h-screen">
+
+    {{-- NAVBAR --}}
     @include('partials.navbar')
 
     <main class="flex-grow">
-        
-        <section class="relative bg-geo-dark text-white py-16 overflow-hidden border-b-4 border-red-700">
-            <div class="absolute inset-0 opacity-10" style="background-image: radial-gradient(#ffffff 1px, transparent 1px); background-size: 20px 20px;"></div>
-            
-            <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                <span class="text-red-500 font-bold tracking-widest text-sm uppercase mb-3 block">Instrumen & Teknologi</span>
-                <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
+        {{-- HERO SECTION --}}
+        <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden pt-36">
+            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+                <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+                    Instrumen & Teknologi
+                </span>
+                <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
                     Katalog Produk Solusi Geoteknik
                 </h1>
-                <p class="text-gray-300 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
+                <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
                     Kami menyediakan berbagai instrumen pemantauan, perangkat keras rekayasa, dan perangkat lunak analisis mutakhir untuk menjamin keberhasilan dan keamanan proyek infrastruktur Anda.
                 </p>
             </div>
         </section>
 
-        <section class="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            
-            <div class="flex flex-col md:flex-row justify-between items-center mb-10 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
-                <div class="text-sm font-semibold text-gray-600 mb-3 md:mb-0">
-                    Menampilkan seluruh produk tersedia
-                </div>
-                <div class="flex space-x-2">
-                    <input type="text" placeholder="Cari instrumen..." class="text-sm border border-gray-300 rounded-md px-3 py-2 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
-                    <button class="bg-geo-dark text-white px-4 py-2 rounded-md text-sm font-bold hover:bg-blue-900 transition">
-                        <i class="fa-solid fa-search"></i>
-                    </button>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {{-- NAVIGATION BAR: SEARCH FILTER --}}
+        <section class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm py-5 transition-all duration-300">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-center">
                 
+                {{-- SEARCH BAR --}}
+                <div class="relative w-full sm:w-80">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="Cari instrumen atau produk..."
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
+                </div>
+
+            </div>
+        </section>
+
+        {{-- GRID PRODUK SECTION --}}
+        <section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+            
+            <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+
+                {{-- LOOPING DATA PRODUK DARI DATABASE --}}
                 @forelse($allProductsNavbar as $product)
                 @php
                     // Decode JSON description
@@ -71,56 +99,212 @@
                     
                     // Bersihkan dari tag HTML/Spasi berlebih
                     $cleanedDesc = strip_tags($rawDesc);
-                @endphp
-                <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden flex flex-col group hover:shadow-xl transition-shadow duration-300">
                     
-                    <div class="relative h-56 overflow-hidden bg-gray-100 flex items-center justify-center">
-                        <img src="{{ isset($product->image_path) && $product->image_path ? asset('storage/' . $product->image_path) : asset('images/default-product.jpg') }}" 
-                             alt="{{ $product->title ?? $product->name }}" 
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300">
-                        
-                        <div class="absolute top-3 left-3 bg-red-700 text-white text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded shadow-md">
-                            {{ is_object($product->category) ? $product->category->name : ($product->category['name'] ?? 'Peralatan') }}
-                        </div>
-                    </div>
+                    // Ambil kategori produk aman
+                    $categoryName = is_object($product->category) ? $product->category->name : ($product->category['name'] ?? 'Peralatan');
+                @endphp
 
-                    <div class="p-6 flex-grow flex flex-col">
-                        <h3 class="text-xl font-bold text-geo-dark mb-2 leading-tight">
-                            {{ $product->title ?? $product->name }}
-                        </h3>
-                        
-                        <p class="text-gray-600 text-sm mb-6 flex-grow line-clamp-3">
-                            {{ Str::limit($cleanedDesc, 110, '...') }}
-                        </p>
-                        
-                        <div class="mt-auto pt-4 border-t border-gray-100">
-                            <a href="{{ route('produk.detail', $product->id) }}" class="flex items-center justify-between w-full bg-blue-50 text-blue-700 hover:bg-blue-600 hover:text-white text-sm font-bold py-2.5 px-4 rounded transition-colors duration-300">
-                                <span>Lihat Spesifikasi</span>
-                                <i class="fa-solid fa-arrow-right"></i>
+                <div class="product-item transition-all duration-300" 
+                     data-name="{{ strtolower(auto_translate($product->title ?? $product->name)) }}">
+                    
+                    <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[450px]">
+                        <div>
+                            {{-- Thumbnail / Banner Area Produk --}}
+                            <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
+                                @if(isset($product->image_path) && $product->image_path)
+                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->title ?? $product->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                @else
+                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
+                                    <i class="fa-solid fa-box-open text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
+                                @endif
+                            </div>
+
+                            {{-- Content Area Produk --}}
+                            <div class="p-6 space-y-3">
+                                <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
+                                    {{ auto_translate($product->title ?? $product->name) }}
+                                </h3>
+                                <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
+                                    {{ Str::limit(auto_translate($cleanedDesc), 110, '...') }}
+                                </div>
+                            </div>
+                        </div>
+
+                        {{-- Action Button Area --}}
+                        <div class="p-6 pt-0 space-y-4">
+                            
+                            <a href="{{ route('produk.detail', $product->id) }}" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
+                                LIHAT SPESIFIKASI
+                                <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
+                                </svg>
                             </a>
                         </div>
-                    </div>
+                    </article>
                 </div>
                 @empty
-                <div class="col-span-full text-center py-20 bg-white rounded-xl border border-dashed border-gray-300">
-                    <i class="fa-solid fa-box-open text-6xl text-gray-300 mb-4"></i>
-                    <h3 class="text-lg font-bold text-gray-500">Belum Ada Produk</h3>
-                    <p class="text-gray-400 text-sm mt-2">Data produk akan muncul di sini setelah ditambahkan melalui panel admin.</p>
+                {{-- DATA EMPTY STATE PRODUK --}}
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
+                    <i class="fa-solid fa-box-open text-slate-300 text-5xl mb-3"></i>
+                    <p class="text-sm text-slate-500 font-medium">Belum ada data produk instrumen yang tersedia saat ini.</p>
                 </div>
                 @endforelse
-                
-            </div>
-            
-            @if(isset($products) && method_exists($products, 'links'))
-            <div class="mt-12 flex justify-center">
-                {{ $products->links('pagination::tailwind') }}
-            </div>
-            @endif
 
+            </div>
+        </section>
+
+        {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
+        <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                {{-- Teks Info Kiri --}}
+                <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
+                    Menampilkan <span id="infoStart" class="font-bold text-slate-800">0</span> sampai <span id="infoEnd" class="font-bold text-slate-800">0</span> dari <span id="infoTotal" class="font-bold text-slate-800">0</span> rekaman produk
+                </div>
+                
+                {{-- Tombol Halaman Kanan --}}
+                <nav id="paginationControls" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
+                    <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                        <i class="fa-solid fa-chevron-left text-xs"></i>
+                    </button>
+                    
+                    <div id="pageNumbers" class="flex items-center -space-x-px"></div>
+                    
+                    <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                        <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </button>
+                </nav>
+            </div>
         </section>
     </main>
 
+    {{-- FOOTER --}}
     @include('partials.footer')
 
+{{-- JAVASCRIPT LOGIC: COMBINED SYNCHRONIZED SEARCH & PAGINATION KELIPATAN 6 --}}
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Inisialisasi AOS Animasi
+        AOS.init({ duration: 800, once: true });
+
+        const searchInput = document.getElementById('searchInput');
+        const items = Array.from(document.querySelectorAll('.product-item'));
+
+        const itemsPerPage = 6; 
+        let currentPage = 1;
+        let currentSearchQuery = '';
+        let filteredItems = [...items]; 
+
+        // Kontrol terpadu Input Pencarian
+        function applySearch() {
+            filteredItems = items.filter(item => {
+                return item.dataset.name.includes(currentSearchQuery);
+            });
+
+            currentPage = 1; // Reset halaman ke 1 setiap kali query pencarian berubah
+            updatePagination();
+        }
+
+        // Fungsi Sinkronisasi Logika Render Grid Card & Pagination Angka Kontrol
+        function updatePagination() {
+            const totalItems = filteredItems.length;
+            const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+            if (currentPage > totalPages) currentPage = totalPages;
+            if (currentPage < 1) currentPage = 1;
+
+            const startIndex = (currentPage - 1) * itemsPerPage;
+            const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+            // Sembunyikan seluruh elemen item bawaan terlebih dahulu
+            items.forEach(item => item.style.display = 'none');
+
+            // Tampilkan hanya item yang masuk dalam rentang indeks halaman aktif
+            filteredItems.slice(startIndex, endIndex).forEach(item => {
+                item.style.display = 'block';
+            });
+
+            // Perbarui Teks Informasi Rekam Data Produk di Kiri Bawah
+            document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
+            document.getElementById('infoEnd').textContent = endIndex;
+            document.getElementById('infoTotal').textContent = totalItems;
+
+            // Render Komponen Navigasi Angka Halaman Kanan Secara Dinamis
+            const pageNumbersContainer = document.getElementById('pageNumbers');
+            pageNumbersContainer.innerHTML = '';
+
+            // --- LOGIKA SMART TRUNCATION (TITIK-TITIK) ---
+            const range = 1; // Jumlah angka yang tampil di kiri & kanan halaman aktif
+            let pagesToRender = [];
+
+            for (let i = 1; i <= totalPages; i++) {
+                // Selalu tampilkan halaman pertama, terakhir, dan jarak dekat di sekitar currentPage
+                if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
+                    pagesToRender.push(i);
+                }
+            }
+
+            let lastPageAdded = null;
+            pagesToRender.forEach(page => {
+                // Jika ada lompatan angka halaman, sisipkan elemen titik-titik "..."
+                if (lastPageAdded !== null && page - lastPageAdded > 1) {
+                    const dots = document.createElement('span');
+                    dots.textContent = '...';
+                    dots.className = 'px-3 py-2 text-xs font-medium text-slate-400 bg-white border-r border-slate-200 select-none';
+                    pageNumbersContainer.appendChild(dots);
+                }
+
+                // Render tombol halaman
+                const btn = document.createElement('button');
+                btn.textContent = page;
+                btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
+                    page === currentPage 
+                    ? 'bg-[#002d62] text-white' 
+                    : 'bg-white text-slate-700 hover:bg-slate-50'
+                }`;
+                btn.addEventListener('click', () => {
+                    currentPage = page;
+                    updatePagination();
+                    document.getElementById('productGrid').scrollIntoView({ behavior: 'smooth', block: 'center' });
+                });
+                pageNumbersContainer.appendChild(btn);
+                
+                lastPageAdded = page;
+            });
+            // ----------------------------------------------
+
+            // Kelola Status Validasi Aktif/Mati Tombol Panah Prev & Next
+            document.getElementById('btnPrev').disabled = (currentPage === 1);
+            document.getElementById('btnNext').disabled = (currentPage === totalPages);
+        }
+
+        // Event Handler: Tombol Klik Panah Kiri (Prev)
+        document.getElementById('btnPrev').addEventListener('click', () => {
+            if (currentPage > 1) {
+                currentPage--;
+                updatePagination();
+            }
+        });
+
+        // Event Handler: Tombol Klik Panah Kanan (Next)
+        document.getElementById('btnNext').addEventListener('click', () => {
+            const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
+            if (currentPage < totalPages) {
+                currentPage++;
+                updatePagination();
+            }
+        });
+
+        // Event Handler: Sinkronisasi Input Teks Pencarian Real-time
+        searchInput.addEventListener('input', function() {
+            currentSearchQuery = this.value.toLowerCase().trim();
+            applySearch();
+        });
+
+        // Inisialisasi awal pemanggilan sistem render pagination saat load halaman pertama kali
+        applySearch();
+    });
+</script>
+    @livewireScripts
 </body>
 </html>

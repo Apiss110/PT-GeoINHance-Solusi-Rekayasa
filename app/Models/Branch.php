@@ -19,14 +19,8 @@ class Branch extends Model
      * Kolom-kolom yang diizinkan untuk diisi secara massal oleh Admin.
      */
     protected $fillable = [
-        'daerah',
-        'title',
-        'desc',
-        'img',
-        'lat',
-        'lng',
-        'link'
-    ];
+    'daerah', 'title', 'desc', 'lat', 'lng', 'link', 'img', 'project_id'
+];
 
     /**
      * Casting tipe data koordinat agar selalu dibaca sebagai float/angka desimal 

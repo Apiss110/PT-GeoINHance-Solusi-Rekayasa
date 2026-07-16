@@ -18,20 +18,22 @@ class HomeSlider extends Component
         $dbSlides = HeroSlider::all();
 
         if ($dbSlides->isEmpty()) {
+            // Menggunakan helper auto_translate untuk data fallback
             $this->slides = [   
                 [
                     'image' => 'https://images.unsplash.com/photo-1517089152318-42ec560349c0?q=80&w=1920&auto=format&fit=crop',
-                    'top_text' => 'PT GeoINHance Solusi Rekayasa',
-                    'main_title' => 'ANALISIS TANAH & FONDASI PRESISI',
+                    'top_text' => auto_translate('PT GeoINHance Solusi Rekayasa'),
+                    'main_title' => auto_translate('ANALISIS TANAH & FONDASI PRESISI'),
                     'link' => '#services',
                 ],
             ];
         } else {
+            // Menggunakan helper auto_translate untuk seluruh data yang ditarik dari database
             $this->slides = $dbSlides->map(function ($item) {
                 return [
                     'image' => asset('storage/' . $item->image_path),
-                    'top_text' => $item->subtitle ?? 'PT GeoINHance Solusi Rekayasa',
-                    'main_title' => $item->title ?? 'Engineering Solutions',
+                    'top_text' => auto_translate($item->subtitle ?? 'PT GeoINHance Solusi Rekayasa'),
+                    'main_title' => auto_translate($item->title ?? 'Engineering Solutions'),
                     'link' => $item->link_url ?? '#services',
                 ];
             })->toArray();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -84,7 +84,7 @@
 
     {{-- CONTENT CARDS --}}
     <section class="py-16">
-        <div class="max-w-7xl mx-auto px-6"> {{-- 🟢 Pembungkus pembatas grid dikembalikan agar letak tidak berantakan --}}
+        <div class="max-w-7xl mx-auto px-6">
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                 @forelse($syllabi as $item)
@@ -101,20 +101,20 @@
                                     @endif
                                 </div>
                                 <span class="text-[11px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md bg-red-50 text-red-600 border border-red-100">
-                                    {{ $item->software_category }}
+                                    {{ auto_translate($item->software_category) }}
                                 </span>
                             </div>
 
-                            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ $item->title }}</h3>
+                            <h3 class="text-xl font-bold text-slate-900 mb-2">{{ auto_translate($item->title) }}</h3>
                             <p class="text-sm text-slate-600 line-clamp-3 mb-5 leading-relaxed font-light">
-                                {{ $item->description }}
+                                {{ auto_translate($item->description) }}
                             </p>
                         </div>
 
                         <div class="border-t border-gray-100 pt-4 mt-2">
                             <div class="flex items-center space-x-3 mb-4">
                                 <span class="text-xs font-bold px-2.5 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">
-                                    {{ $item->level }}
+                                    {{ auto_translate($item->level) }}
                                 </span>
                                 <span class="text-xs text-slate-400 font-medium">
                                     {{ $item->modules_count }} Modul
@@ -135,24 +135,18 @@
         </div>
     </section>
 
-</body>
-</html>
-
     {{-- FOOTER --}}
     @include('partials.footer')
 
     <script>
-
         const searchInput = document.getElementById('searchInput');
         const items = document.querySelectorAll('.training-item');
         const buttons = document.querySelectorAll('.filter-btn');
 
         searchInput.addEventListener('keyup', function(){
-
             let value = this.value.toLowerCase();
 
             items.forEach(item => {
-
                 let name = item.dataset.name.toLowerCase();
 
                 if(name.includes(value)){
@@ -160,20 +154,14 @@
                 } else {
                     item.style.display = 'none';
                 }
-
             });
-
         });
 
         buttons.forEach(button => {
-
             button.addEventListener('click', function(){
-
                 buttons.forEach(btn => {
-
                     btn.classList.remove('bg-red-800','text-white');
                     btn.classList.add('bg-gray-100','text-gray-600');
-
                 });
 
                 this.classList.remove('bg-gray-100','text-gray-600');
@@ -182,27 +170,16 @@
                 const category = this.dataset.category;
 
                 items.forEach(item => {
-
                     if(category === 'all'){
-
                         item.style.display = 'block';
-
                     } else if(item.dataset.category === category){
-
                         item.style.display = 'block';
-
                     } else {
-
                         item.style.display = 'none';
-
                     }
-
                 });
-
             });
-
         });
-
     </script>
 
 </body>

@@ -90,9 +90,6 @@
     <section class="bg-white py-20 px-6">
         <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
             <div data-aos="fade-right">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">
-                    {{ __('profile.who_we_are_sub') }}
-                </span>
                 <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
                     {!! __('profile.who_we_are_title') !!}
                 </h2>
@@ -359,9 +356,7 @@
                 </div>
                 
                 <div data-aos="fade-left">
-                    <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">
-                        {{ __('profile.expertise_sub') }}
-                    </span>
+                    <div class="w-12 h-0.5 bg-red-900 mt-3"></div>
                     <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
                         {!! __('profile.expertise_title') !!}
                     </h2>
@@ -376,9 +371,7 @@
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-16 items-center pt-4">
                 <div class="order-2 md:order-1" data-aos="fade-right">
-                    <span class="text-[#002d62] font-bold uppercase text-xs tracking-[0.3em] block mb-2">
-                        {{ __('profile.approach_sub') }}
-                    </span>
+                    <div class="w-12 h-0.5 bg-blue-900 mt-3"></div>
                     <h2 class="text-3xl md:text-4xl font-black text-slate-900 leading-tight mb-6 uppercase tracking-tight">
                         {!! __('profile.approach_title') !!}
                     </h2>
@@ -401,9 +394,6 @@
         <div class="max-w-6xl mx-auto">
             
             <div class="text-center max-w-3xl mx-auto mb-16" data-aos="fade-up">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">
-                    {{ __('profile.commitment_sub') }}
-                </span>
                 <h2 class="text-3xl md:text-4xl font-black text-slate-900 uppercase tracking-tight">
                     {{ __('profile.commitment_title') }}
                 </h2>

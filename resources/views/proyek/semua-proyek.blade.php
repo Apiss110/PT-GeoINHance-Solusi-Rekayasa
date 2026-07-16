@@ -15,11 +15,9 @@
     </div>
 </section>
 
-<!-- Filter Kategori & Pencarian Real-time -->
 <section class="py-8 bg-white border-b border-gray-200 sticky top-16 z-40 shadow-sm">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row gap-4 justify-between items-center">
         
-        {{-- UPDATE: Menambahkan class 'filter-btn' dan 'data-category' untuk aksi JavaScript --}}
         <div class="flex flex-wrap gap-2 w-full md:w-auto">
             <button class="filter-btn bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-semibold shadow-sm transition" data-category="all">
                 {{ __('portfolio.filter_all') }}
@@ -35,7 +33,6 @@
             </button>
         </div>
 
-        {{-- UPDATE: Input pencarian diberikan ID khusus agar bisa dideteksi saat mengetik --}}
         <div class="relative w-full md:w-72">
             <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-gray-400">
                 <i class="fa-solid fa-magnifying-glass text-xs"></i>
@@ -49,41 +46,38 @@
 <section class="py-16 bg-gray-50">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <!-- Project Grid Container -->
-    <div id="allProjectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="allProjectsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
 
-        @foreach($projects as $project)
-        {{-- UPDATE: Atribut data-nama sudah diperbaiki tanpa fungsi honesty_null --}}
-        <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
-            data-nama="{{ strtolower(trim($project->title ?? '')) }}"
-            data-kategori="{{ strtolower(trim($project->category->slug ?? $project->category->name ?? '')) }}">
-         
-         <!-- Sisa kode card ke bawah tetap sama... -->
-
+            @foreach($projects as $project)
+            <div class="project-card bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden flex flex-col justify-between hover:shadow-md transition group"
+                data-nama="{{ strtolower(trim(auto_translate($project->title ?? ''))) }}"
+                data-kategori="{{ strtolower(trim($project->category->slug ?? $project->category->name ?? '')) }}">
+             
                 <div>
                     {{-- IMAGE / THUMBNAIL --}}
                     <div class="bg-slate-800 h-48 flex items-center justify-center relative overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-t from-slate-900 via-transparent to-transparent opacity-80 z-10"></div>
 
-                        {{-- Toleransi penamaan field database image / image_path --}}
                         @if($project->image_path || $project->image)
-                            <img src="{{ asset('storage/' . ($project->image_path ?? $project->image)) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <img src="{{ asset('storage/' . ($project->image_path ?? $project->image)) }}" 
+                                 class="w-full h-full object-cover group-hover:scale-105 transition duration-500" 
+                                 alt="{{ auto_translate($project->title) }}"
+                                 onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=Format+Storage+Error';">
                         @else
                             <i class="fa-solid fa-building text-5xl text-blue-500/30 group-hover:scale-110 transition duration-300"></i>
                         @endif
 
-                        {{-- PERBAIKAN UTAMA: Menggunakan $project->category->name agar tidak memunculkan String JSON --}}
                         <span class="absolute bottom-4 left-4 z-20 bg-blue-600 text-white text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded">
-                            {{ $project->category->name ?? __('portfolio.default_category') }}
+                            {{ auto_translate($project->category->name ?? __('portfolio.default_category')) }}
                         </span>
                     </div>
 
                     <div class="p-6 space-y-3">
                         <h3 class="text-lg font-bold text-gray-900 group-hover:text-blue-600 transition min-h-[3.5rem] line-clamp-2">
-                            {{ $project->title }}
+                            {{ auto_translate($project->title) }}
                         </h3>
                         <p class="text-xs text-gray-600 leading-relaxed line-clamp-3">
-                            {{ Str::limit(strip_tags($project->description), 180) }}
+                            {{ auto_translate(Str::limit(strip_tags($project->description), 180)) }}
                         </p>
                     </div>
                 </div>
@@ -92,11 +86,12 @@
                     <div class="flex flex-wrap gap-1.5 border-t border-gray-100 pt-4">
                         <span class="bg-slate-100 text-slate-700 text-[10px] font-mono px-2 py-0.5 rounded border border-slate-200">
                             <i class="fa-solid fa-layer-group text-blue-500 mr-1"></i>
-                            {{ $project->software_used ?? $project->software ?? __('portfolio.default_software') }}
+                            {{ auto_translate($project->software_used ?? $project->software ?? __('portfolio.default_software')) }}
                         </span>
                     </div>
 
-                    <a href="{{ route('proyek.detailed-engineering-design', ['from' => 'all']) }}" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">
+                    {{-- PERBAIKAN: Menggunakan rute dinamis yang sesuai berdasarkan slug kategori --}}
+                    <a href="{{ route('proyek.category', $project->category->slug ?? 'detailed-engineering-design') }}" class="block text-center bg-gray-50 text-gray-700 border border-gray-200 py-2 rounded-lg text-xs font-semibold hover:bg-blue-600 hover:text-white hover:border-blue-600 transition">
                         {{ __('portfolio.view_detail') }}
                     </a>
                 </div>
@@ -104,7 +99,6 @@
             </div>
             @endforeach
 
-            <!-- Elemen Notifikasi Jika Hasil Filter Kosong -->
             <div id="noProjectsFoundMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-magnifying-glass text-3xl text-slate-300 mb-2 block"></i>
                 Tidak ada proyek yang sesuai dengan kata kunci atau kategori tersebut.
@@ -170,10 +164,7 @@
             const cardNama = card.getAttribute('data-nama') || '';
             const cardKategori = card.getAttribute('data-kategori') || '';
 
-            // Cocokkan teks pencarian nama
             const matchSearch = searchText === '' || cardNama.includes(searchText);
-            
-            // Cocokkan kategori (menggunakan partial match teks slug/kategori agar fleksibel)
             const matchCategory = currentCategory === 'all' || cardKategori.includes(currentCategory);
 
             if (matchSearch && matchCategory) {
@@ -184,14 +175,12 @@
             }
         });
 
-        // Sembunyikan pagination bawaan jika sedang memfilter data secara aktif agar data tidak membingungkan
         if (searchText !== '' || currentCategory !== 'all') {
             if(pagination) pagination.style.display = 'none';
         } else {
             if(pagination) pagination.style.display = 'flex';
         }
 
-        // Tampilkan pesan kosong jika tidak ditemukan hasil
         if (visibleCount === 0) {
             noMessage.classList.remove('hidden');
         } else {
@@ -199,10 +188,8 @@
         }
     }
 
-    // Event saat tombol kategori diklik
     filterButtons.forEach(btn => {
         btn.addEventListener('click', function() {
-            // Atur ulang tombol aktif
             filterButtons.forEach(b => {
                 b.classList.remove('bg-blue-600', 'text-white', 'shadow-sm');
                 b.classList.add('bg-gray-100', 'text-gray-600');
@@ -215,10 +202,5 @@
         });
     });
 
-    // Event saat mengetik di kolom pencarian
     searchInput.addEventListener('keyup', applyFilters);
 </script>
-
-@livewireScripts
-</body>
-</html>

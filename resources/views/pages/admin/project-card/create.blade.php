@@ -50,13 +50,27 @@
         </form>
     </div>
 
-    {{-- TinyMCE Text Editor Setup --}}
-    <script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/6/tinymce.min.js" referrerpolicy="origin"></script>
+    {{-- Mengubah CDN ke Cloudflare cdnjs agar benar-benar lepas dari deteksi Cloud API Key TinyMCE --}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
-        tinymce.init({
-            selector: '#editor',
-            plugins: 'lists link table code wordcount',
-            toolbar: 'undo redo | bold italic | bullist numlist | removeformat'
-        });
+        document.addEventListener("DOMContentLoaded", function() {
+            // Inisialisasi TinyMCE Premium-Look (Clean Version)
+            tinymce.init({
+                selector: '#description',
+                height: 420,
+                
+                // KUNCI UTAMA: Menghilangkan tombol "Upgrade" & Watermark teks TinyMCE di bawah
+                promotion: false,
+                branding: false,
+                
+                plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist list wordcount help emoticons',
+                menubar: 'file edit view insert format tools table help',
+                toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview | insertfile image media link codesample | code',
+                toolbar_sticky: true,
+                image_title: true,
+                automatic_uploads: true,
+                file_picker_types: 'image',
+                content_style: 'body { font-family:Plus Jakarta Sans,Helvetica,Arial,sans-serif; font-size:14px }'
+            });
     </script>
 </x-app-layout>

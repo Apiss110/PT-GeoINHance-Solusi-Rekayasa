@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -41,14 +41,6 @@
         }
         [x-cloak] { display: none !important; }
 
-            @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -57,13 +49,6 @@
             animation: marquee 30s linear infinite;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 25s linear infinite;
-        }
         /* Pause jalan logo saat kursor user menempel di atasnya */
         .animate-marquee:hover {
             animation-play-state: paused;
@@ -81,10 +66,10 @@
             Resources
         </span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
-            Video Library
+            {{ __('video.hero_title') ?? 'Video Library' }}
         </h1>
         <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-            A collection of field project video documentation, 3D simulation animation visualizations, laboratory testing records, and tutorials on geotechnical and structural numerical analysis.
+            {{ __('video.hero_desc') ?? 'A collection of field project video documentation, 3D simulation animation visualizations, laboratory testing records, and tutorials on geotechnical and structural numerical analysis.' }}
         </p>
     </div>
 </section>
@@ -121,8 +106,9 @@
 
             @foreach($videos as $video)
                 @php
-                    // Membuat slug kategori agar sinkron dengan value pada <select> kategori di atas
-                    $slugKategori = Str::slug($video->category);
+                    // Menerjemahkan kategori video dan melakukan slugging agar sinkron dengan JS
+                    $translatedCategory = auto_translate($video->category);
+                    $slugKategori = Str::slug($translatedCategory);
 
                     // Ambil ID Youtube jika link menggunakan format share/full URL
                     $videoId = '';
@@ -132,15 +118,15 @@
                 @endphp
 
                 <div class="video-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200/80 hover:shadow-md transition duration-200"
-                     data-nama="{{ strtolower($video->title) }}"
+                     data-nama="{{ strtolower(auto_translate($video->title)) }}"
                      data-kategori="{{ $slugKategori }}"
                      data-tahun="{{ $video->production_year }}">
                     
                     <div class="relative aspect-video bg-slate-900 overflow-hidden group">
                         @if($video->thumbnail_path)
-                            <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="{{ $video->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <img src="{{ asset('storage/' . $video->thumbnail_path) }}" alt="{{ auto_translate($video->title) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         @elseif($videoId)
-                            <img src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg" alt="{{ $video->title }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
+                            <img src="https://img.youtube.com/vi/{{ $videoId }}/hqdefault.jpg" alt="{{ auto_translate($video->title) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-300">
                         @else
                             <div class="w-full h-full flex items-center justify-center bg-slate-800 text-slate-600">
                                 <i class="fa-solid fa-video text-3xl"></i>
@@ -162,15 +148,15 @@
 
                     <div class="p-5">
                         <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md mb-3">
-                            {{ $video->category }}
+                            {{ auto_translate($video->category) }}
                         </span>
                         
                         <h3 class="text-base font-bold text-slate-900 line-clamp-2 mb-2 hover:text-blue-600 transition">
-                            <a href="{{ $video->video_url }}" target="_blank">{{ $video->title }}</a>
+                            <a href="{{ $video->video_url }}" target="_blank">{{ auto_translate($video->title) }}</a>
                         </h3>
                         
                         <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
-                            {{ $video->description ?? 'Tidak ada deskripsi.' }}
+                            {{ $video->description ? auto_translate($video->description) : __('video.no_description') ?? 'Tidak ada deskripsi.' }}
                         </p>
 
                         <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-400 font-medium">
@@ -201,6 +187,7 @@
         </div>
     </div>
 </section>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     // 1. Inisialisasi Elemen DOM khusus Halaman Video
@@ -307,8 +294,8 @@ document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault(); // Mengunci default submit form agar tidak memicu reload halaman
 
         const searchKeyword = inputNama.value.toLowerCase().trim();
-        const selectedKategori = selectKategori.value;
-        const selectedTahun = selectTahun.value;
+        const selectedKategori = selectKategori ? selectKategori.value : '';
+        const selectedTahun = selectTahun ? selectTahun.value : '';
 
         // Proses eliminasi data berbasis pencocokan kecocokan string atribut data-
         filteredCards = allCards.filter(card => {
@@ -334,3 +321,6 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 @include('partials.footer')
+
+</body>
+</html>

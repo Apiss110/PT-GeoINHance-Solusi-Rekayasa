@@ -9,20 +9,20 @@ class Sector extends Model
 {
     use HasFactory;
 
-    // Menentukan nama tabel (opsional, jika mengikuti aturan plural Laravel)
-    protected $table = 'sectors';
-
-    // Daftarkan field yang boleh diisi secara massal (Mass Assignment)
     protected $fillable = [
         'name',
         'slug',
+        'banner_image',
+        'description',
     ];
 
     /**
-     * Relasi ke StrategicProject (Satu sektor memiliki banyak proyek)
+     * RELASI: Satu Sektor memiliki banyak Proyek Strategis
      */
     public function projects()
     {
+        // DIUBAH: Menggunakan StrategicProject::class agar sesuai dengan 
+        // nama model dari tabel "strategic_projects" Anda
         return $this->hasMany(StrategicProject::class, 'sector_id');
     }
 }

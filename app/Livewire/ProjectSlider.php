@@ -15,8 +15,24 @@ class ProjectSlider extends Component
      */
     public function mount()
     {
-        // Ambil data proyek dari database dan simpan ke properti publik
-        $this->projects = StrategicProject::latest()->get();
+        // Ambil data proyek dari database
+        $dbProjects = StrategicProject::with('category')->latest()->get();
+
+        // Proses translasi otomatis pada baris koleksi data sebelum dimasukkan ke array publik
+        $this->projects = $dbProjects->map(function ($project) {
+            // Deteksi data kategori bawaan
+            $categoryName = $project->category->name ?? ($project->category->NAME ?? 'Project');
+
+            return [
+                'id' => $project->id,
+                'image_path' => $project->image_path,
+                'category_name' => auto_translate($categoryName),
+                'title' => auto_translate($project->title),
+                'description' => auto_translate(strip_tags($project->description)),
+                'location' => auto_translate($project->location),
+                'year' => $project->year,
+            ];
+        })->toArray();
     }
 
     /**
@@ -42,25 +58,28 @@ class ProjectSlider extends Component
                     @forelse($projects as $project)
                         <div class="w-full md:w-1/3 flex-shrink-0 px-3">
                             
-                            <a href="{{ route('proyek.detail', $project->id) }}" class="block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-slate-300 transition duration-200 group">
+                            <a href="{{ route('proyek.detail', $project['id']) }}" class="block bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-md hover:border-slate-300 transition duration-200 group">
                                 
                                 <div class="overflow-hidden">
-                                    <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" alt="{{ $project->title }}">
+                                    <img src="{{ asset('storage/' . $project['image_path']) }}" class="w-full h-48 object-cover group-hover:scale-105 transition duration-300" alt="{{ $project['title'] }}">
                                 </div>
 
                                 <div class="p-6">
-                                    {{-- PERBAIKAN DI SINI: Memanggil properti name / NAME agar tidak keluar JSON mentah --}}
                                     <span class="text-xs font-bold text-red-800 uppercase block mb-1">
-                                        {{ $project->category->name ?? ($project->category->NAME ?? 'Project') }}
+                                        {{ $project['category_name'] }}
                                     </span>
                                     
-                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition mb-2">{{ $project->title }}</h3>
+                                    <h3 class="text-xl font-bold text-slate-900 group-hover:text-blue-600 transition mb-2">
+                                        {{ $project['title'] }}
+                                    </h3>
                                     
-                                    <p class="text-sm text-slate-600 mb-4 line-clamp-2">{{ strip_tags($project->description) }}</p>
+                                    <p class="text-sm text-slate-600 mb-4 line-clamp-2">
+                                        {{ $project['description'] }}
+                                    </p>
                                     
                                     <div class="flex justify-between text-xs text-slate-400 font-medium pt-2 border-t border-slate-100">
-                                        <span>📍 {{ $project->location }}</span>
-                                        <span>📅 Th. {{ $project->year }}</span>
+                                        <span>📍 {{ $project['location'] }}</span>
+                                        <span>📅 {{ app()->getLocale() == 'en' ? 'Yr.' : 'Th.' }} {{ $project['year'] }}</span>
                                     </div>
                                 </div>
 
@@ -69,7 +88,7 @@ class ProjectSlider extends Component
                         </div>
                     @empty
                         <div class="w-full px-3 text-center text-slate-500 py-12">
-                            Belum ada proyek strategis yang ditambahkan.
+                            {{ auto_translate('Belum ada proyek strategis yang ditambahkan.') }}
                         </div>
                     @endforelse
                 </div>

@@ -42,9 +42,6 @@
 
 <section id="services" class="w-full py-24 px-12 md:px-20 bg-white">
     <div class="text-center mb-24" data-aos="fade-up">
-        <span class="inline-block px-4 py-1.5 rounded-full border border-red-100 bg-red-50 text-red-800 text-[11px] font-extrabold uppercase tracking-[0.3em] shadow-sm mb-4">
-            {{ __('home.service_badge') }}
-        </span>
         <h2 class="text-3xl md:text-4xl font-black uppercase text-slate-900 tracking-tight">
             {{ __('home.service_title_1') }}
         </h2>
@@ -85,7 +82,6 @@
 
 <section class="w-full bg-white py-24 border-t border-b border-slate-100">
     <div class="max-w-7xl mx-auto px-6 text-center mb-16" data-aos="fade-up">
-        <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('home.net_badge') }}</span>
         <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('home.net_title') }}</h2>
         <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
         <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">{{ __('home.net_desc') }}</p>
@@ -99,7 +95,7 @@
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 1. KUNCI PETA AGAR STATIS
+        // 1. INSIALISASI PETA
         var map = L.map('map-operasional', {
             dragging: false,         
             zoomControl: false,      
@@ -111,7 +107,7 @@
             zoomSnap: 0.1,           
             minZoom: 5.5,            
             maxZoom: 5.5             
-        }).setView([-1.9, 117.5], 5.6); 
+        }).setView([-2.5, 118.0], 5.5); 
 
         // 2. LOAD DESAIN PETA
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -119,105 +115,149 @@
             subdomains: 'abcd'
         }).addTo(map);
 
-        // 3. Ambil data otomatis dari Database
-        var branches = @json($branchesData ?? []); 
+        // 3. MENGAMBIL DATA DARI LARAVEL 
+        // 🟢 PERBAIKAN: Kita langsung bersihkan & translasikan datanya di sisi PHP sebelum di-decode ke JSON
+        // Ini taktik paling aman agar tidak merusak struktur kurung kurawal Blade compiler
+        var branches = {!! json_encode(collect($branches ?? $branchesData ?? [])->map(function($item) {
+            // Cek jika data berupa object atau array, lalu sesuaikan penamaannya
+            $title = $item->title ?? $item['title'] ?? $item->name ?? $item['name'] ?? 'Project';
+            $desc = $item->description ?? $item['description'] ?? $item->desc ?? $item['desc'] ?? '';
+            $daerah = $item->daerah ?? $item['daerah'] ?? 'LOKASI';
+
+            // Ubah properti internal object sebelum dilempar ke Javascript
+            if (is_object($item)) {
+                $item->title = auto_translate($title);
+                $item->desc = auto_translate($desc);
+                $item->daerah = auto_translate($daerah);
+            } else {
+                $item['title'] = auto_translate($title);
+                $item['desc'] = auto_translate($desc);
+                $item['daerah'] = auto_translate($daerah);
+            }
+            return $item;
+        })) !!}; 
+        
+        console.log("Data Cabang Multi Bahasa Terdeteksi:", branches);
+
         var placedCoordinates = [];
 
-        // 4. Looping data Pin otomatis
-        branches.forEach(function(branch) {
-            if (branch.lat && branch.lng) {
-                var lat = parseFloat(branch.lat);
-                var lng = parseFloat(branch.lng);
-                
-                // Algoritma Anti-Tumpuk Koordinat
-                placedCoordinates.forEach(function(coord) {
-                    var distance = Math.sqrt(Math.pow(coord.lat - lat, 2) + Math.pow(coord.lng - lng, 2));
-                    if (distance < 0.18) { 
-                        lat += 0.12; 
-                        lng += 0.12; 
+        // 4. LOOPING DATA PIN
+        if (Array.isArray(branches) && branches.length > 0) {
+            branches.forEach(function(branch) {
+                var rawLat = branch.latitude || branch.lat;
+                var rawLng = branch.longitude || branch.lng;
+
+                if (rawLat && rawLng) {
+                    var lat = parseFloat(rawLat);
+                    var lng = parseFloat(rawLng);
+                    
+                    if (isNaN(lat) || isNaN(lng)) return;
+
+                    // Algoritma Anti-Tumpuk Koordinat
+                    placedCoordinates.forEach(function(coord) {
+                        var distance = Math.sqrt(Math.pow(coord.lat - lat, 2) + Math.pow(coord.lng - lng, 2));
+                        if (distance < 0.18) { 
+                            lat += 0.12; 
+                            lng += 0.12; 
+                        }
+                    });
+                    placedCoordinates.push({lat: lat, lng: lng});
+
+                    // Custom Pin Shape dengan Tailwind
+                    var customIcon = L.divIcon({
+                        className: 'corporate-micro-pin',
+                        html: `
+                            <div class="relative flex items-center justify-center w-5 h-7">
+                                <span class="animate-ping absolute top-0.5 inline-flex h-4 w-4 rounded-full bg-blue-400 opacity-30"></span>
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32" class="w-5 h-7 drop-shadow-[0_2px_4px_rgba(15,23,42,0.3)]">
+                                    <path d="M12 32 L2 18 L2 6 L12 1 L22 6 L22 18 Z" fill="#0f172a" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
+                                    <circle cx="12" cy="11" r="3" fill="#ffffff"/>
+                                </svg>
+                            </div>
+                        `,
+                        iconSize: [20, 28],       
+                        iconAnchor: [10, 28],     
+                        popupAnchor: [0, -28]     
+                    });
+                    
+                    var marker = L.marker([lat, lng], { icon: customIcon, riseOnHover: true }).addTo(map);
+
+                    // Jalur Gambar
+                    var rawImg = branch.image || branch.img || branch.foto || '';
+                    var defaultPlaceholder = 'https://placehold.co/600x400/e2e8f0/0f172a?text=GeoINHance';
+                    var finalImgUrl = defaultPlaceholder;
+
+                    if (rawImg) {
+                        rawImg = rawImg.toString().trim();
+                        if (rawImg.startsWith('http://') || rawImg.startsWith('https://')) {
+                            finalImgUrl = rawImg;
+                        } else {
+                            var cleanedPath = rawImg.replace(/\\/g, '/').replace(/^(public\/|storage\/)/i, '');
+                            finalImgUrl = '/storage/' + cleanedPath;
+                        }
                     }
-                });
-                placedCoordinates.push({lat: lat, lng: lng});
 
-                // Custom Pin Shape
-                var customIcon = L.divIcon({
-                    className: 'corporate-micro-pin',
-                    html: `
-                        <div class="relative flex items-center justify-center w-5 h-7">
-                            <span class="animate-ping absolute top-0.5 inline-flex h-4 w-4 rounded-full bg-blue-400 opacity-30"></span>
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 32" class="w-5 h-7 drop-shadow-[0_2px_4px_rgba(15,23,42,0.3)]">
-                                <path d="M12 32 L2 18 L2 6 L12 1 L22 6 L22 18 Z" fill="#0f172a" stroke="#ffffff" stroke-width="1.5" stroke-linejoin="round"/>
-                                <circle cx="12" cy="11" r="3" fill="#ffffff"/>
-                            </svg>
-                        </div>
-                    `,
-                    iconSize: [20, 28],       
-                    iconAnchor: [10, 28],     
-                    popupAnchor: [0, -28]     
-                });
-                
-                var marker = L.marker([lat, lng], { icon: customIcon, riseOnHover: true }).addTo(map);
-
-                // Algoritma Jalur URL Gambar
-                var rawImg = branch.img ? branch.img.toString().trim() : '';
-                var defaultPlaceholder = 'https://placehold.co/600x400/e2e8f0/0f172a?text=GeoINHance';
-                var finalImgUrl = defaultPlaceholder;
-
-                if (rawImg) {
-                    if (rawImg.startsWith('http://') || rawImg.startsWith('https://')) {
-                        finalImgUrl = rawImg;
-                    } else {
-                        rawImg = rawImg.replace(/\\/g, '/').replace(/^public\//i, '').replace(/^storage\//i, '').replace(/^branches\//i, '');
-                        finalImgUrl = `/storage/branches/${rawImg}`;
+                    // Tautan Proyek Dinamis
+                    var projectLink = '#';
+                    if (branch.project_id) {
+                        projectLink = '/proyek/' + branch.project_id;
+                    } else if (branch.link || branch.url) {
+                        projectLink = branch.link || branch.url;
                     }
-                }
 
-                // --- LOGIKA BARU: LINK DIREKSI PROYEK ---
-                // Jika data link di database kosong, fallback otomatis akan mengarah ke '#'
-                var projectLink = branch.link ? branch.link : '#';
-                
-                // Jendela Popup Card (Sekarang dibungkus Tag <a> agar bisa diklik)
-                var popupContent = `
-                    <a href="${projectLink}" class="block w-64 font-sans p-1 group no-underline text-inherit cursor-pointer">
-                        <div class="h-28 w-full overflow-hidden rounded-xl bg-slate-100 relative mb-3 ring-1 ring-slate-200/50 group-hover:ring-blue-500 transition-all duration-300">
-                            <img src="${finalImgUrl}" 
-                                 onerror="this.onerror=null; this.src='${defaultPlaceholder}';" 
-                                 class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
-                                 alt="${branch.title}">
-                            <span class="absolute bottom-2 left-2 bg-red-800 text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded shadow">
-                                ${branch.daerah ? branch.daerah.toUpperCase() : 'LOKASI'}
-                            </span>
-                        </div>
-                        
-                        <h3 class="text-xs font-black text-slate-950 uppercase tracking-wide mb-1 leading-tight group-hover:text-blue-600 transition-colors duration-200 flex items-center justify-between">
-                            <span>${branch.title}</span>
-                        </h3>
-                        
-                        <p class="text-slate-500 text-[10px] leading-relaxed mb-2">${branch.desc}</p>
-                        
-                        <div class="flex items-center justify-between border-t border-slate-100 pt-2 mt-1">
-                            <span class="flex items-center gap-1 text-[8px] font-bold text-emerald-600 uppercase tracking-wider">
-                                <span class="h-1.5 w-1.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span> {{ __('home.net_active') }}
-                            </span>
-                            
-                            ${branch.link ? `
+                    // Data di bawah ini otomatis sudah berstatus multi bahasa karena proses mapping PHP di atas
+                    var branchTitle = branch.title;
+                    var branchDesc = branch.desc || branch.description || '';
+                    var branchDaerah = branch.daerah ? branch.daerah.toUpperCase() : 'LOKASI';
+                    
+                    var linkButtonHtml = '';
+                    if (projectLink && projectLink !== '#') {
+                        linkButtonHtml = `
                             <span class="text-[9px] font-bold text-blue-600 flex items-center gap-0.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
-                                Lihat Proyek <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5" stroke="currentColor" class="w-2.5 h-2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" /></svg>
+                                Lihat Proyek &rarr;
                             </span>
-                            ` : ''}
-                        </div>
-                    </a>
-                `;
-                
-                marker.bindPopup(popupContent, { maxWidth: 300 });
-            }
-        });
+                        `;
+                    }
+
+                    // Jendela Popup Card
+                    var popupContent = `
+                        <a href="${projectLink}" class="block w-64 font-sans p-1 group no-underline text-inherit cursor-pointer">
+                            <div class="h-28 w-full overflow-hidden rounded-xl bg-slate-100 relative mb-3 ring-1 ring-slate-200/50 group-hover:ring-blue-500 transition-all duration-300">
+                                <img src="${finalImgUrl}" 
+                                     onerror="this.onerror=null; this.src='${defaultPlaceholder}';" 
+                                     class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
+                                     alt="${branchTitle}">
+                                <span class="absolute bottom-2 left-2 bg-red-800 text-white text-[8px] font-bold uppercase tracking-widest px-2 py-0.5 rounded shadow">
+                                    ${branchDaerah}
+                                </span>
+                            </div>
+                            
+                            <h3 class="text-xs font-black text-slate-950 uppercase tracking-wide mb-1 leading-tight group-hover:text-blue-600 transition-colors duration-200 flex items-center justify-between">
+                                <span>${branchTitle}</span>
+                            </h3>
+                            
+                            <p class="text-slate-500 text-[10px] leading-relaxed mb-2">${branchDesc}</p>
+                            
+                            <div class="flex items-center justify-between border-t border-slate-100 pt-2 mt-1">
+                                ${linkButtonHtml}
+                            </div>
+                        </a>
+                    `;
+                    
+                    marker.bindPopup(popupContent, { maxWidth: 300 });
+                }
+            });
+        }
     });
 </script>
 
 <style>
     #map-operasional .leaflet-tile {
         filter: brightness(1.06) contrast(1.01) saturate(90%);
+    }
+    .corporate-micro-pin {
+        background: transparent !important;
+        border: none !important;
     }
     .leaflet-popup-content-wrapper {
         border-radius: 1rem !important;
@@ -228,7 +268,6 @@
     .leaflet-popup-tip {
         box-shadow: none !important;
     }
-    /* Menghilangkan garis bawah default bawaan browser pada link popup */
     .leaflet-popup-content a {
         text-decoration: none !important;
     }
@@ -244,7 +283,6 @@
 }">
     <div class="max-w-7xl mx-auto">
         <div class="text-center mb-16" data-aos="fade-up">
-            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('home.partners.badge') }}</span>
             <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('home.partners.title') }}</h2>
             <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
             <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">{{ __('home.partners.desc') }}</p>
@@ -318,22 +356,6 @@
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-6" data-aos="fade-up" data-aos-delay="200">
-            <template x-for="cat in categories">
-                <div class="bg-white p-6 rounded-2xl border border-slate-200/60 shadow-sm flex items-center justify-between group hover:border-red-800/40 hover:shadow-md transition-all duration-300">
-                    <div class="flex flex-col">
-                        <span class="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-1" x-text="cat.count"></span>
-                        <h4 class="text-sm font-black text-slate-800 uppercase tracking-tight group-hover:text-red-800 transition-colors" x-text="cat.name"></h4>
-                    </div>
-                    <div class="h-10 w-10 rounded-full bg-slate-50 group-hover:bg-red-50 text-slate-400 group-hover:text-red-800 flex items-center justify-center transition-colors">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                        </svg>
-                    </div>
-                </div>
-            </template>
-        </div>
-
         <style>
             @keyframes marquee {
                 0% { transform: translateX(0); }
@@ -354,8 +376,8 @@
     <div class="max-w-7xl mx-auto">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16" data-aos="fade-up">
             <div class="mb-6 md:mb-0">
-                <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">{{ __('home.portfolio.badge') }}</span>
                 <h2 class="text-5xl font-black text-slate-900 uppercase tracking-tighter">{{ __('home.portfolio.title') }}</h2>
+                <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
             </div>
             <a href="#" class="text-red-800 font-bold text-sm border-b-2 border-red-800 pb-1 hover:text-slate-900 hover:border-slate-900 transition-all">
                 {{ __('home.portfolio.link') }} &rarr;
@@ -375,11 +397,10 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         <div class="mb-10">
-            <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">Updates & Insights</span>
             <div class="flex flex-wrap justify-between items-end">
                 <div>
                     <h2 class="text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                        Artikel <span class="text-slate-900">& Berita Terbaru</span>
+                        {{ auto_translate('Artikel') }} <span class="text-slate-900">& {{ auto_translate('Berita Terbaru') }}</span>
                     </h2>
                     <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
@@ -405,10 +426,10 @@
                 <div class="w-full sm:w-1/2 md:w-[31.5%] flex-shrink-0 snap-start bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition duration-300">
                     
                     <div class="relative h-64 overflow-hidden bg-slate-900">
-                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ $blog->title }}">
+                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ auto_translate($blog->title) }}">
                         
                         <span class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm {{ $blog->tipe_konten == 'berita' ? 'bg-[#c80000]' : 'bg-slate-800' }}">
-                            {{ $blog->category }}
+                            {{ auto_translate($blog->category) }}
                         </span>
                     </div>
                     
@@ -417,16 +438,18 @@
                             <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2">
                                 {{ $blog->created_at ? $blog->created_at->format('d M Y') : '' }}
                             </span>
+                            
                             <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
-                                {{ $blog->title }}
+                                {{ auto_translate($blog->title) }}
                             </h3>
+                            
                             <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-5">
-                                {{ Str::limit(strip_tags($blog->content), 120) }}
+                                {{ Str::limit(auto_translate(strip_tags($blog->content)), 120) }}
                             </p>
                         </div>
                         
                         <a href="{{ $blog->url_detail }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition">
-                            Pelajari Selengkapnya
+                            {{ auto_translate('Pelajari Selengkapnya') }}
                             <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>

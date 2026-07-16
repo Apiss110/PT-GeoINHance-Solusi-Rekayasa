@@ -1,5 +1,5 @@
 <x-app-layout>
-    <div class="max-w-5xl mx-auto space-y-6">
+    <div class="w-full px-4 py-6 sm:px-6 lg:px-8 bg-gray-50 min-h-screen text-gray-900">
         <div>
             <h1 class="text-2xl font-black text-white tracking-tight">Edit Artikel</h1>
             <p class="text-sm text-slate-400">Perbarui informasi, kategori, atau isi konten dari artikel yang dipilih.</p>

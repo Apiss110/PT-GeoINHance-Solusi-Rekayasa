@@ -11,7 +11,6 @@
     </x-slot>
 
     <div class="py-6">
-        <!-- Notifikasi Sukses / Gagal -->
         @if(session('success'))
             <div class="mb-6 p-4 bg-green-50 border-l-4 border-green-500 rounded-r-xl text-green-700 text-sm font-medium shadow-sm flex items-center">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -23,7 +22,6 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 items-start">
             
-            <!-- 1. FORM TAMBAH VIDEO BARU (KIRI) -->
             <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 sticky top-6">
                 <h3 class="text-base font-bold text-gray-900 mb-4 pb-3 border-b border-slate-100 flex items-center">
                     <svg class="w-5 h-5 mr-2 text-[#0e1d82]" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
@@ -35,7 +33,6 @@
                 <form action="{{ route('admin.video.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
                     @csrf
 
-                    <!-- Judul Video -->
                     <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Judul Video <span class="text-red-500">*</span></label>
                         <input type="text" name="title" required value="{{ old('title') }}"
@@ -44,7 +41,6 @@
                         @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Kategori Video -->
                     <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Kategori Konten <span class="text-red-500">*</span></label>
                         <select name="category" required
@@ -57,7 +53,6 @@
                         @error('category') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Link / URL Embed Video -->
                     <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Link URL Video (YouTube/Drive) <span class="text-red-500">*</span></label>
                         <input type="url" name="video_url" required value="{{ old('video_url') }}"
@@ -66,14 +61,7 @@
                         @error('video_url') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Durasi & Tanggal Publikasi (Inline) -->
                     <div class="grid grid-cols-2 gap-4">
-                        <div>
-                            <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Durasi (Optional)</label>
-                            <input type="text" name="duration" value="{{ old('duration') }}"
-                                class="w-full px-3 py-2 text-sm border border-slate-300 rounded-lg focus:ring-2 focus:ring-blue-500/20 focus:border-blue-500 transition-all" 
-                                placeholder="Contoh: 12:45">
-                        </div>
                         <div>
                             <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Tahun Produksi <span class="text-red-500">*</span></label>
                             <input type="number" name="production_year" required min="2000" max="2030" value="{{ old('production_year', date('Y')) }}"
@@ -82,7 +70,6 @@
                             @error('production_year') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                         </div>
                     </div>
-                    <!-- File Cover / Thumbnail image -->
                     <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Gambar Thumbnail <span class="text-red-500">*</span></label>
                         <div class="mt-1 flex justify-center px-6 pt-4 pb-4 border-2 border-slate-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
@@ -102,7 +89,6 @@
                         @error('thumbnail') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    <!-- Deskripsi Singkat -->
                     <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Deskripsi Ringkas</label>
                         <textarea name="description" rows="3" 
@@ -116,7 +102,6 @@
                 </form>
             </div>
 
-            <!-- 2. DAFTAR TABEL VIDEO YANG SUDAH TERSEDIA (KANAN) -->
             <div class="lg:col-span-2 bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
                 <div class="p-6 border-b border-slate-100 flex items-center justify-between">
                     <h3 class="text-base font-bold text-gray-900 flex items-center">
@@ -139,14 +124,12 @@
                         <tbody class="divide-y divide-slate-100 text-sm text-gray-700">
                             @forelse($videos as $video)
                                 <tr class="hover:bg-slate-50/80 transition-colors">
-                                    <!-- Kolom Cover -->
                                     <td class="py-4 px-4 vertical-top">
                                         <div class="w-24 aspect-video rounded-lg overflow-hidden bg-slate-100 border border-slate-200 shadow-sm relative">
                                             <img src="{{ asset('storage/' . $video->thumbnail_path) }}" class="w-full h-full object-cover" alt="Cover">
                                         </div>
                                     </td>
                                     
-                                    <!-- Kolom Detail Keterangan -->
                                     <td class="py-4 px-4">
                                         <div class="mb-1">
                                             <span class="inline-block bg-blue-50 text-blue-700 text-[9px] font-bold px-2 py-0.5 rounded uppercase tracking-wide">
@@ -165,9 +148,16 @@
                                         </a>
                                     </td>
 
-                                    <!-- Kolom Tombol Hapus -->
-                                    <td class="py-4 px-4 text-center">
-                                        <div class="flex items-center space-x-2">
+                                    <td class="py-4 px-4">
+                                        <div class="flex items-center space-x-1">
+                                            <a href="{{ route('admin.video.edit', $video->id) }}" 
+                                               class="p-2 text-blue-600 hover:bg-blue-50 rounded-lg transition-colors cursor-pointer" 
+                                               title="Edit Konten">
+                                                <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="m16.862 4.487 1.687-1.688a1.875 1.875 0 1 1 2.652 2.652L10.582 16.07a4.5 4.5 0 0 1-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 0 1 1.13-1.897l8.932-8.931Zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0 1 15.75 21H5.25A2.25 2.25 0 0 1 3 18.75V8.25A2.25 2.25 0 0 1 5.25 6H10" />
+                                                </svg>
+                                            </a>
+
                                             <form action="{{ route('admin.video.destroy', $video->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus dokumentasi video ini?');">
                                                 @csrf
                                                 @method('DELETE')

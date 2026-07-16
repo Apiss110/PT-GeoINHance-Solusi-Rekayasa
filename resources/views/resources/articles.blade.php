@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -61,9 +61,6 @@
 <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
-            {{ __('blog.hero_badge') }}
-        </span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
             {{ __('blog.hero_title') }}
         </h1>
@@ -94,7 +91,7 @@
                     <div>
                         <div class="relative overflow-hidden h-56 bg-slate-100">
                             @if($blog->image)
-                                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ auto_translate($blog->title) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-slate-400 text-xs font-medium">
                                     {{ __('blog.no_image') }}
@@ -103,7 +100,7 @@
 
                             <div class="absolute top-4 left-4">
                                 <span class="{{ $dbCategory === 'GEOTECHNIK' || $dbCategory === 'GEOTEKNIK' ? 'bg-[#002d62]' : 'bg-red-800' }} text-white text-[10px] font-bold px-3 py-1 uppercase tracking-widest rounded-full">
-                                    {{ $blog->category }}
+                                    {{ auto_translate($blog->category) }}
                                 </span>
                             </div>
                         </div>
@@ -114,18 +111,18 @@
                             </p>
                             
                             <h3 class="text-lg font-black text-slate-900 leading-tight mb-3 group-hover:text-red-800 transition line-clamp-2">
-                                {{ $blog->title }}
+                                {{ auto_translate($blog->title) }}
                             </h3>
                             
                             <div class="text-slate-600 text-xs leading-relaxed line-clamp-3">
-                                {!! strip_tags($blog->content) !!}
+                                {!! auto_translate(strip_tags($blog->content)) !!}
                             </div>
                         </div>
                     </div>
 
                     <div class="p-6 pt-0">
                         {{-- 🟢 PERBAIKAN: Mengubah rute agar membaca ke route detail artikel baru --}}
-                        <a href="{{ route('resources.article-detail', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
+                        <a href="{{ route('article.show', $blog->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
                             {{ __('blog.read_more') }} 
                             <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>

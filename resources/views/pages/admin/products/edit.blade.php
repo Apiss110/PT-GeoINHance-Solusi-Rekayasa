@@ -11,13 +11,14 @@
     @endphp
 
     <div class="py-12">
-        <div class="max-w-4xl mx-auto sm:px-6 lg:px-8">
+        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg p-6">
                 
                 <form action="{{ route('admin.products.update', $product->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
                     @csrf
                     @method('PUT')
 
+                    {{-- 1. INFORMASI DASAR PRODUK --}}
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                         <h4 class="font-bold text-sm text-slate-700 uppercase tracking-wider">1. Informasi Dasar Produk</h4>
                         
@@ -42,6 +43,7 @@
                         </div>
                     </div>
 
+                    {{-- 2. SEKILAS TENTANG PRODUK (MENGGUNAKAN TINYMCE) --}}
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                         <h4 class="font-bold text-sm text-slate-700 uppercase tracking-wider">2. Sekilas Tentang Produk</h4>
                         
@@ -52,13 +54,8 @@
                         </div>
 
                         <div>
-                            <label class="block text-sm font-medium text-gray-700">Paragraf 1</label>
-                            <textarea name="about_p1" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{ old('about_p1', $details['about_p1'] ?? '') }}</textarea>
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-700">Paragraf 2 (Opsional)</label>
-                            <textarea name="about_p2" rows="3" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">{{ old('about_p2', $details['about_p2'] ?? '') }}</textarea>
+                            <label for="about_description" class="block text-sm font-medium text-gray-700 mb-1">Deskripsi Detail Tentang Produk</label>
+                            <textarea name="about_description" id="about_description" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" placeholder="Tuliskan rincian penjelasan produk lengkap disini...">{{ old('about_description', $details['about_description'] ?? ($details['about_p1'] ?? '')) }}</textarea>
                         </div>
 
                         <div>
@@ -68,6 +65,7 @@
                         </div>
                     </div>
 
+                    {{-- 3. DEMONSTRASI VIDEO --}}
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                         <h4 class="font-bold text-sm text-slate-700 uppercase tracking-wider">3. Demonstrasi Video (YouTube)</h4>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -84,6 +82,7 @@
                         </div>
                     </div>
 
+                    {{-- 4. PAKET LISENSI --}}
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                         <h4 class="font-bold text-sm text-slate-700 uppercase tracking-wider">4. Paket Lisensi</h4>
                         
@@ -129,6 +128,7 @@
                         </button>
                     </div>
 
+                    {{-- 5. PERTANYAAN UMUM (FAQ) --}}
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 space-y-4">
                         <h4 class="font-bold text-sm text-slate-700 uppercase tracking-wider">5. Pertanyaan Umum (FAQ)</h4>
                         
@@ -166,6 +166,7 @@
                         </button>
                     </div>
 
+                    {{-- MEDIA GAMBAR & STATUS AKTIF --}}
                     <div class="bg-slate-50 p-4 rounded-xl border border-slate-200 grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div>
                             <label class="block text-sm font-medium text-gray-700">Ganti Gambar Produk</label>
@@ -202,73 +203,92 @@
         </div>
     </div>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
 <script>
-    // === JAVASCRIPT UNTUK PAKET LISENSI ===
-    document.getElementById('btn-add-license').addEventListener('click', function() {
-        const container = document.getElementById('licenses-container');
-        const index = container.getElementsByClassName('license-item').length;
-        
-        const emptyNote = container.querySelector('.id-empty-note');
-        if(emptyNote) emptyNote.remove();
+    document.addEventListener('DOMContentLoaded', function() {
+        // Inisialisasi TinyMCE Editor untuk Deskripsi Detail
+        tinymce.init({
+            selector: '#about_description',
+            height: 420,
+            promotion: false,
+            branding: false,
+            plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist list wordcount help emoticons',
+            menubar: 'file edit view insert format tools table help',
+            toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview | insertfile image media link codesample | code',
+            toolbar_sticky: true,
+            image_title: true,
+            automatic_uploads: true,
+            file_picker_types: 'image',
+            content_style: 'body { font-family:Plus Jakarta Sans,Helvetica,Arial,sans-serif; font-size:14px }'
+        });
 
-        const html = `
-            <div class="p-4 bg-white rounded-lg border border-gray-200 relative license-item shadow-sm">
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    <div class="md:col-span-2 space-y-3">
-                        <div>
-                            <label class="text-xs font-semibold text-gray-600">Nama Paket</label>
-                            <input type="text" name="licenses[${index}][name]" required class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs">
+        // === JAVASCRIPT UNTUK PAKET LISENSI ===
+        document.getElementById('btn-add-license').addEventListener('click', function() {
+            const container = document.getElementById('licenses-container');
+            const index = container.getElementsByClassName('license-item').length;
+            
+            const emptyNote = container.querySelector('.id-empty-note');
+            if(emptyNote) emptyNote.remove();
+
+            const html = `
+                <div class="p-4 bg-white rounded-lg border border-gray-200 relative license-item shadow-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <div class="md:col-span-2 space-y-3">
+                            <div>
+                                <label class="text-xs font-semibold text-gray-600">Nama Paket</label>
+                                <input type="text" name="licenses[${index}][name]" required class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs">
+                            </div>
+                            <div>
+                                <label class="text-xs font-semibold text-gray-600">Deskripsi Paket</label>
+                                <textarea name="licenses[${index}][desc]" required rows="2" class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs"></textarea>
+                            </div>
                         </div>
-                        <div>
-                            <label class="text-xs font-semibold text-gray-600">Deskripsi Paket</label>
-                            <textarea name="licenses[${index}][desc]" required rows="2" class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs"></textarea>
+                        <div class="flex flex-col justify-between items-start md:items-end">
+                            <div class="mt-4 md:mt-0">
+                                <label class="inline-flex items-center cursor-pointer">
+                                    <input type="checkbox" name="licenses[${index}][is_popular]" value="1" class="rounded border-gray-300 text-blue-600">
+                                    <span class="ml-2 text-xs font-medium text-gray-700">Set Berlabel Populer</span>
+                                </label>
+                            </div>
+                            <button type="button" onclick="this.closest('.license-item').remove()" class="text-xs text-red-500 hover:underline mt-4 font-semibold">
+                                <i class="fa-solid fa-trash mr-1"></i> Hapus Paket
+                            </button>
                         </div>
-                    </div>
-                    <div class="flex flex-col justify-between items-start md:items-end">
-                        <div class="mt-4 md:mt-0">
-                            <label class="inline-flex items-center cursor-pointer">
-                                <input type="checkbox" name="licenses[${index}][is_popular]" value="1" class="rounded border-gray-300 text-blue-600">
-                                <span class="ml-2 text-xs font-medium text-gray-700">Set Berlabel Populer</span>
-                            </label>
-                        </div>
-                        <button type="button" onclick="this.closest('.license-item').remove()" class="text-xs text-red-500 hover:underline mt-4 font-semibold">
-                            <i class="fa-solid fa-trash mr-1"></i> Hapus Paket
-                        </button>
                     </div>
                 </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
-    });
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        });
 
-    // === JAVASCRIPT UNTUK FAQ DINAMIS ===
-    document.getElementById('btn-add-faq').addEventListener('click', function() {
-        const container = document.getElementById('faqs-container');
-        const index = container.getElementsByClassName('faq-item').length;
-        
-        const emptyNote = container.querySelector('.faq-empty-note');
-        if(emptyNote) emptyNote.remove();
+        // === JAVASCRIPT UNTUK FAQ DINAMIS ===
+        document.getElementById('btn-add-faq').addEventListener('click', function() {
+            const container = document.getElementById('faqs-container');
+            const index = container.getElementsByClassName('faq-item').length;
+            
+            const emptyNote = container.querySelector('.faq-empty-note');
+            if(emptyNote) emptyNote.remove();
 
-        const html = `
-            <div class="p-4 bg-white rounded-lg border border-gray-200 relative faq-item shadow-sm">
-                <div class="grid grid-cols-1 gap-3">
-                    <div>
-                        <label class="text-xs font-semibold text-gray-600">Pertanyaan (Question)</label>
-                        <input type="text" name="faqs[${index}][question]" required class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs">
+            const html = `
+                <div class="p-4 bg-white rounded-lg border border-gray-200 relative faq-item shadow-sm">
+                    <div class="grid grid-cols-1 gap-3">
+                        <div>
+                            <label class="text-xs font-semibold text-gray-600">Pertanyaan (Question)</label>
+                            <input type="text" name="faqs[${index}][question]" required class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs">
+                        </div>
+                        <div>
+                            <label class="text-xs font-semibold text-gray-600">Jawaban (Answer)</label>
+                            <textarea name="faqs[${index}][answer]" required rows="2" class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs"></textarea>
+                        </div>
                     </div>
-                    <div>
-                        <label class="text-xs font-semibold text-gray-600">Jawaban (Answer)</label>
-                        <textarea name="faqs[${index}][answer]" required rows="2" class="mt-1 block w-full rounded-md border-gray-300 sm:text-xs"></textarea>
-                    </div>
-                    <div class="text-right">
+                    <div class="text-right mt-2">
                         <button type="button" onclick="this.closest('.faq-item').remove()" class="text-xs text-red-500 hover:underline font-semibold">
                             <i class="fa-solid fa-trash mr-1"></i> Hapus FAQ
                         </button>
                     </div>
                 </div>
-            </div>
-        `;
-        container.insertAdjacentHTML('beforeend', html);
+            `;
+            container.insertAdjacentHTML('beforeend', html);
+        });
     });
 </script>
 </x-app-layout>

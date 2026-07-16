@@ -14,4 +14,10 @@ class ProjectCategory extends Model
     {
         return $this->hasMany(StrategicProject::class, 'project_category_id');
     }
+
+    // Tambahkan fungsi ini di dalam class Model Proyek Anda
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class, 'sector_id');
+    }
 }

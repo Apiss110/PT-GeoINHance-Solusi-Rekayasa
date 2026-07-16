@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -41,14 +41,6 @@
         }
         [x-cloak] { display: none !important; }
 
-            @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -57,13 +49,6 @@
             animation: marquee 30s linear infinite;
         }
 
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 25s linear infinite;
-        }
         /* Pause jalan logo saat kursor user menempel di atasnya */
         .animate-marquee:hover {
             animation-play-state: paused;
@@ -77,9 +62,6 @@
 <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-        <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
-            {{ __('news.hero_badge') }}
-        </span>
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
             {{ __('news.hero_title') }}
         </h1>
@@ -141,7 +123,7 @@
                     <div>
                         <div class="relative overflow-hidden h-56 bg-slate-100">
                             @if($blog->image)
-                                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ $blog->title }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                <img src="{{ asset('storage/' . $blog->image) }}" alt="{{ auto_translate($blog->title) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-slate-400 text-xs font-medium">
                                     {{ __('news.no_image') }}
@@ -161,11 +143,11 @@
                             </p>
                             
                             <h3 class="text-lg font-black text-slate-900 leading-tight mb-3 group-hover:text-red-800 transition line-clamp-2">
-                                {{ $blog->title }}
+                                {{ auto_translate($blog->title) }}
                             </h3>
                             
                             <div class="text-slate-600 text-xs leading-relaxed line-clamp-3">
-                                {!! strip_tags($blog->content) !!}
+                                {!! auto_translate(strip_tags($blog->content)) !!}
                             </div>
                         </div>
                     </div>
@@ -202,3 +184,6 @@
 </section>
 
 @include('partials.footer')
+
+</body>
+</html>

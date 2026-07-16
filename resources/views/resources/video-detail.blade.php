@@ -3,10 +3,10 @@
     <section class="relative bg-[#0b1329] text-white py-20 lg:py-24 w-full text-center">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <span class="text-xs font-bold uppercase tracking-widest text-sky-400 bg-sky-950/50 px-3 py-1.5 rounded-md border border-sky-900/50 inline-block mb-4">
-                {{ $video->category }}
+                {{ auto_translate($video->category) }}
             </span>
             <h1 class="text-2xl sm:text-3xl lg:text-4xl font-bold leading-tight tracking-tight drop-shadow-md max-w-4xl mx-auto">
-                {{ $video->title }}
+                {{ auto_translate($video->title) }}
             </h1>
         </div>
     </section>
@@ -18,7 +18,6 @@
                 <span class="flex items-center gap-1.5">📅 Tahun Produksi: <strong>{{ $video->production_year }}</strong></span>
                 @if($video->duration)
                     <span class="text-gray-300">|</span>
-                    <span class="flex items-center gap-1.5">⏱️ Durasi: <strong>{{ $video->duration }}</strong></span>
                 @endif
             </div>
 
@@ -33,7 +32,7 @@
                 @if($videoId)
                     <iframe class="w-full h-full" 
                             src="https://www.youtube.com/embed/{{ $videoId }}?rel=0" 
-                            title="{{ $video->title }}" 
+                            title="{{ auto_translate($video->title) }}" 
                             frameborder="0" 
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                             allowfullscreen>
@@ -52,7 +51,7 @@
             </div>
 
             <div class="geo-article-container mt-6">
-                <p class="text-gray-600 text-base leading-relaxed whitespace-pre-line">{{ $video->description ?? 'Tidak ada deskripsi tambahan untuk dokumentasi teknis ini.' }}</p>
+                <p class="text-gray-600 text-base leading-relaxed whitespace-pre-line">{{ auto_translate($video->description ?? 'Tidak ada deskripsi tambahan untuk dokumentasi teknis ini.') }}</p>
             </div>
 
             @if($otherVideos->count() > 0)
@@ -72,9 +71,9 @@
                             <div class="bg-white rounded-lg overflow-hidden border border-gray-200/70 hover:shadow-sm transition duration-200 flex flex-col h-full">
                                 <div class="relative aspect-video bg-gray-900 overflow-hidden">
                                     @if($item->thumbnail_path)
-                                        <img src="{{ asset('storage/' . $item->thumbnail_path) }}" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                                        <img src="{{ asset('storage/' . $item->thumbnail_path) }}" alt="{{ auto_translate($item->title) }}" class="w-full h-full object-cover">
                                     @elseif($itemVideoId)
-                                        <img src="https://img.youtube.com/vi/{{ $itemVideoId }}/mqdefault.jpg" alt="{{ $item->title }}" class="w-full h-full object-cover">
+                                        <img src="https://img.youtube.com/vi/{{ $itemVideoId }}/mqdefault.jpg" alt="{{ auto_translate($item->title) }}" class="w-full h-full object-cover">
                                     @endif
                                     <a href="{{ route('resources.video.show', $item->id) }}" class="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/30 transition">
                                         <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow text-gray-900 pl-0.5">
@@ -83,9 +82,9 @@
                                     </a>
                                 </div>
                                 <div class="p-3.5 flex flex-col flex-grow">
-                                    <span class="text-[10px] uppercase font-bold text-sky-600 tracking-wider mb-1 block">{{ $item->category }}</span>
+                                    <span class="text-[10px] uppercase font-bold text-sky-600 tracking-wider mb-1 block">{{ auto_translate($item->category) }}</span>
                                     <h4 class="text-xs font-bold text-gray-900 line-clamp-2 hover:text-sky-600 transition mb-2">
-                                        <a href="{{ route('resources.video.show', $item->id) }}">{{ $item->title }}</a>
+                                        <a href="{{ route('resources.video.show', $item->id) }}">{{ auto_translate($item->title) }}</a>
                                     </h4>
                                     <span class="text-[10px] text-gray-400 mt-auto">Tahun: <strong class="text-gray-500">{{ $item->production_year }}</strong></span>
                                 </div>

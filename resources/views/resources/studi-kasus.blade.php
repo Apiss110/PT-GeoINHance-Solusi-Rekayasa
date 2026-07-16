@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT GeoINHance Solusi Rekayasa</title>
+    <title>PT GeoINHance Solusi Rekayasa - Case Studies</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -41,14 +41,6 @@
         }
         [x-cloak] { display: none !important; }
 
-            @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -56,39 +48,24 @@
         .animate-marquee {
             animation: marquee 30s linear infinite;
         }
-
-        @keyframes marquee {
-            0% { transform: translateX(0%); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 25s linear infinite;
-        }
-        /* Pause jalan logo saat kursor user menempel di atasnya */
         .animate-marquee:hover {
             animation-play-state: paused;
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
 
 @include('partials.navbar')
 
-<section class="bg-slate-950 text-white py-20 relative overflow-hidden">
-    <div class="absolute inset-0 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-blue-900/20 via-transparent to-transparent"></div>
-    
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <nav class="flex mb-4 text-sm text-slate-400 font-medium">
-            <span class="text-slate-500">{{ __('casestudy.breadcrumb_resources') }}</span>
-            <span class="mx-2">/</span>
-            <span class="text-blue-400">{{ __('casestudy.breadcrumb_active') }}</span>
-        </nav>
-        
-        <h1 class="text-3xl md:text-4xl font-bold tracking-tight">
-            {{ __('casestudy.hero_title') }}
+{{-- HERO SECTION --}}
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
+            {{ __('casestudy.hero_title') ?? 'Technical Case Studies' }}
         </h1>
-        <p class="mt-3 text-base text-slate-300 max-w-3xl leading-relaxed">
-            {{ __('casestudy.hero_desc') }}
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+            {{ __('casestudy.hero_desc') ?? 'Explore our comprehensive archive of geotechnical engineering analyses, structural failure forensics, and structural implementation reports.' }}
         </p>
     </div>
 </section>
@@ -96,69 +73,37 @@
 <section class="py-12 bg-slate-50 min-h-[60vh]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        {{-- INPUT FILTERS --}}
+        {{-- INPUT FILTERS: Hanya search bar yang bersih --}}
         <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80 mb-10">
-            <form id="filterFormCaseStudy" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+            <form id="filterFormVideo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
                 
                 <div class="space-y-1.5">
                     <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        {{ __('casestudy.label_search') }}
+                        {{ __('video.label_search') }}
                     </label>
                     <div class="relative">
                         <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
                             <i class="fa-solid fa-magnifying-glass text-xs"></i>
                         </span>
-                        <input type="text" id="inputNamaCaseStudy" placeholder="{{ __('casestudy.placeholder_search') }}" 
+                        <input type="text" id="inputNamaVideo" placeholder="{{ __('video.placeholder_search') }}" 
                                class="w-full bg-slate-50 border border-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition">
                     </div>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        {{ __('casestudy.label_sector') }}
-                    </label>
-                    <select id="selectKategoriCaseStudy" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
-                        <option value="">{{ __('casestudy.option_sector_all') }}</option>
-                        <option value="geotechnical">{{ __('casestudy.option_sec_geo') }}</option>
-                        <option value="structural">{{ __('casestudy.option_sec_struct') }}</option>
-                        <option value="infrastructure">{{ __('casestudy.option_sec_forensic') }}</option>
-                    </select>
-                </div>
-
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        {{ __('casestudy.label_year') }}
-                    </label>
-                    <select id="selectTahunCaseStudy" class="w-full bg-slate-50 border border-gray-200 rounded-lg px-3 py-2 text-sm text-slate-600 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition cursor-pointer">
-                        <option value="">{{ __('casestudy.option_year_all') }}</option>
-                        <option value="2026">2026</option>
-                        <option value="2025">2025</option>
-                        <option value="2024">2024</option>
-                    </select>
-                </div>
-
-                <div>
-                    <button type="submit" class="w-full bg-slate-900 hover:bg-blue-700 text-white font-bold text-xs tracking-widest py-2.5 rounded-lg transition duration-200 shadow-sm uppercase text-center flex items-center justify-center gap-2">
-                        <i class="fa-solid fa-sliders text-[10px]"></i> {{ __('casestudy.btn_filter') }}
-                    </button>
                 </div>
             </form>
         </div>
 
         <div class="mb-8 flex justify-between items-center border-b border-gray-200 pb-4">
             <span class="text-sm text-slate-600 font-medium">
-                {{ __('casestudy.archive_title') }} <strong class="text-slate-900">{{ __('casestudy.archive_subtitle') }}</strong>
+                {{ __('casestudy.archive_title') ?? 'Technical Archive:' }} <strong class="text-slate-900">{{ __('casestudy.archive_subtitle') ?? 'Project Review Documents' }}</strong>
             </span>
         </div>
 
-        {{-- GRID DATA --}}
-        <div id="caseStudyGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {{-- MAIN CASE STUDY GRID CONTAINER --}}
+        <div id="caseStudyGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             @forelse($caseStudies as $study)
-                {{-- CARD DINAMIS --}}
-                <div class="case-card bg-white rounded-xl shadow-sm border border-gray-200 p-5 flex flex-col justify-between hover:shadow-md transition group"
-                     data-nama="{{ strtolower($study->title) }}"
-                     data-kategori="{{ Str::slug($study->sector) }}"
-                     data-tahun="{{ $study->year }}">
+                <div class="case-card bg-white rounded-xl shadow-sm border border-gray-200/80 p-5 flex flex-col justify-between hover:shadow-md transition duration-200 group"
+                     data-nama="{{ strtolower(auto_translate($study->title)) }}">
+                    
                     <div>
                         <div class="flex items-start justify-between gap-4 mb-4">
                             <div class="p-3 bg-red-50 rounded-lg text-red-600">
@@ -168,47 +113,53 @@
                                 PDF - {{ $study->file_size ?? 'N/A' }}
                             </span>
                         </div>
-                        <h3 class="text-sm font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
-                            {{ $study->title }}
+                        
+                        <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md mb-3">
+                            {{ str_replace('-', ' ', $study->sector) }}
+                        </span>
+
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
+                            <a href="{{ route('resources.studi-kasus.detail', $study->slug ?? $study->id) }}">
+                                {{ auto_translate($study->title) }}
+                            </a>
                         </h3>
-                        <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                            {{ $study->description ?? 'Tidak ada deskripsi.' }}
+                        <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
+                            {{ $study->description ? auto_translate($study->description) : (__('casestudy.no_description') ?? 'Tidak ada deskripsi.') }}
                         </p>
                     </div>
-                    <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400">
+
+                    <div class="border-t border-slate-100 pt-4 mt-2 flex items-center justify-between text-[11px] text-slate-400 font-medium">
                         <div>
-                            {{ __('casestudy.label_year_card') }} 
-                            <span class="font-semibold text-slate-700">{{ $study->year }}</span>
+                            {{ __('casestudy.label_year_card') ?? 'Year:' }} 
+                            <span class="font-semibold text-slate-600">{{ $study->year }}</span>
                         </div>
                         
-                        {{-- PERBAIKAN: Mengubah Tautan Download Berkas Menjadi Halaman Detail Studi Kasus --}}
-                        <a href="{{ route('resources.studi-kasus.detail', $study->slug ?? $study->id) }}" class="inline-flex items-center gap-1.5 font-bold text-blue-600 hover:text-blue-800 transition">
+                        <a href="{{ route('resources.studi-kasus.detail', $study->slug ?? $study->id) }}" class="inline-flex items-center gap-1.5 font-bold text-blue-500 hover:text-blue-700 transition">
                             <i class="fa-solid fa-book-open"></i> Baca Selengkapnya
                         </a>
                     </div>
                 </div>
             @empty
-                {{-- Tampilan jika database kosong --}}
                 <div class="col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                     <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-                    {{ __('casestudy.empty_message') }}
+                    {{ __('casestudy.empty_message') ?? 'Tidak ada data studi kasus ditemukan.' }}
                 </div>
             @endforelse
 
-            {{-- Pesan fallback murni untuk penanganan filtering Javascript --}}
             <div id="noCaseStudyMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-                {{ __('casestudy.empty_message') }}
+                {{ __('casestudy.empty_message') ?? 'Tidak ada data studi kasus ditemukan.' }}
             </div>
         </div>
 
-        {{-- PAGINATION --}}
+        {{-- SYSTEM PAGINATION TRACKING & CONTROLS --}}
         <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
             <div class="text-sm text-slate-500 font-medium">
-                {{ __('casestudy.footer_showing') }} <span id="countDisplayedCaseStudy" class="text-slate-700 font-bold">0</span> {{ __('casestudy.footer_of') }} <span id="countTotalCaseStudy" class="text-slate-700 font-bold">0</span> {{ __('casestudy.footer_records') }}
+                {{ __('casestudy.footer_showing') ?? 'Showing' }} <span id="countDisplayedCaseStudy" class="text-slate-700 font-bold">0</span> {{ __('casestudy.footer_of') ?? 'of' }} <span id="countTotalCaseStudy" class="text-slate-700 font-bold">0</span> {{ __('casestudy.footer_records') ?? 'records' }}
             </div>
             
             <div id="paginationCaseStudyControls" class="inline-flex rounded-lg bg-[#1E293B] p-0.5 text-white shadow-sm overflow-hidden">
+                {{-- Tombol navigasi dirakit otomatis secara dinamis oleh JS --}}
             </div>
         </div>
     </div>
@@ -216,12 +167,11 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Inisialisasi Elemen DOM khusus Halaman Case Study
+    // 1. Inisialisasi DOM Elemen dengan ID yang benar & sesuai HTML
     const filterForm = document.getElementById('filterFormCaseStudy');
     const inputNama = document.getElementById('inputNamaCaseStudy');
-    const selectKategori = document.getElementById('selectKategoriCaseStudy');
-    const selectTahun = document.getElementById('selectTahunCaseStudy');
     const gridContainer = document.getElementById('caseStudyGrid');
+    
     const allCards = Array.from(gridContainer.querySelectorAll('.case-card'));
     const noMatchMessage = document.getElementById('noCaseStudyMessage');
     
@@ -229,52 +179,45 @@ document.addEventListener('DOMContentLoaded', function() {
     const countTotal = document.getElementById('countTotalCaseStudy');
     const paginationControls = document.getElementById('paginationCaseStudyControls');
 
-    // 2. Konfigurasi Logika Pagination Internal
-    const itemsPerPage = 3; // Jumlah kartu per halaman yang diizinkan tampil
+    // 2. Konfigurasi Awal Logika Pagination Internal
+    const itemsPerPage = 6; // Menampilkan 6 kartu per halaman
     let currentPage = 1;
-    let filteredCards = [...allCards]; // Salinan awal kumpulan data kartu aktif
+    let filteredCards = [...allCards]; 
 
-    // 3. Fungsi Inti Sinkronisasi Tampilan UI (Filter + Pagination terintegrasi)
+    // 3. Fungsi Sinkronisasi Tampilan UI
     function renderCaseStudyUI() {
-        // Sembunyikan semua kartu terlebih dahulu sebelum kalkulasi rentang halaman
         allCards.forEach(card => card.classList.add('hidden'));
 
         const totalItems = filteredCards.length;
         const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
-        // Validasi pengunci halaman aktif agar tidak out of bounds setelah filter berubah
         if (currentPage > totalPages) {
             currentPage = totalPages;
         }
 
-        // Hitung batas indeks data yang diizinkan tampil pada halaman aktif
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-        // Ambil kartu sesuai kalkulasi halaman lalu tampilkan kembali ke layar
         const activePageCards = filteredCards.slice(startIndex, endIndex);
         activePageCards.forEach(card => card.classList.remove('hidden'));
 
-        // Kendalikan penampakan blok info data kosong
         if (totalItems === 0) {
             noMatchMessage.classList.remove('hidden');
         } else {
             noMatchMessage.classList.add('hidden');
         }
 
-        // Perbarui teks counter informasi data real-time
         countDisplayed.textContent = activePageCards.length;
         countTotal.textContent = totalItems;
 
-        // Render susunan struktur tombol navigasi halaman baru
         buildPaginationButtons(totalPages);
     }
 
-    // 4. Fungsi Pembuat Tombol Navigasi Halaman Secara Dinamis
+    // 4. Fungsi Pembuat Navigasi Tombol Secara Dinamis
     function buildPaginationButtons(totalPages) {
         paginationControls.innerHTML = '';
 
-        // Tombol Kembali / Sebelumnya (Chevron Left)
+        // Tombol Kembali (Chevron Left)
         const prevButton = document.createElement('button');
         prevButton.type = 'button';
         prevButton.className = `px-3 py-2 flex items-center text-xs transition ${currentPage === 1 ? 'text-slate-500 cursor-not-allowed' : 'text-white hover:bg-slate-700'}`;
@@ -283,11 +226,12 @@ document.addEventListener('DOMContentLoaded', function() {
             prevButton.addEventListener('click', () => {
                 currentPage--;
                 renderCaseStudyUI();
+                gridContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         }
         paginationControls.appendChild(prevButton);
 
-        // Deretan Nomor Halaman Urut
+        // Angka Halaman
         for (let i = 1; i <= totalPages; i++) {
             const pageButton = document.createElement('button');
             pageButton.type = 'button';
@@ -297,11 +241,12 @@ document.addEventListener('DOMContentLoaded', function() {
             pageButton.addEventListener('click', () => {
                 currentPage = i;
                 renderCaseStudyUI();
+                gridContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
             paginationControls.appendChild(pageButton);
         }
 
-        // Tombol Lanjut / Selanjutnya (Chevron Right)
+        // Tombol Lanjut (Chevron Right)
         const nextButton = document.createElement('button');
         nextButton.type = 'button';
         nextButton.className = `px-3 py-2 flex items-center text-xs transition ${currentPage === totalPages ? 'text-slate-500 cursor-not-allowed' : 'text-white hover:bg-slate-700'}`;
@@ -310,40 +255,39 @@ document.addEventListener('DOMContentLoaded', function() {
             nextButton.addEventListener('click', () => {
                 currentPage++;
                 renderCaseStudyUI();
+                gridContainer.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             });
         }
         paginationControls.appendChild(nextButton);
     }
 
-    // 5. Intersept Proses Submit Form Saringan
-    filterForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Mengunci default submit form agar tidak terjadi reload page
-
+    // 5. Logika Pemfilteran Berdasarkan Search Saja
+    function performSearchFilter() {
         const searchKeyword = inputNama.value.toLowerCase().trim();
-        const selectedKategori = selectKategori.value;
-        const selectedTahun = selectTahun.value;
 
-        // Eksekusi pemfilteran berbasis pencocokan atribut data-
         filteredCards = allCards.filter(card => {
-            const cardName = card.getAttribute('data-nama');
-            const cardKategori = card.getAttribute('data-kategori');
-            const cardTahun = card.getAttribute('data-tahun');
-
-            const matchSearch = !searchKeyword || cardName.includes(searchKeyword);
-            const matchKategori = !selectedKategori || cardKategori === selectedKategori;
-            const matchTahun = !selectedTahun || cardTahun === selectedTahun;
-
-            return matchSearch && matchKategori && matchTahun;
+            const cardName = card.getAttribute('data-nama') || '';
+            return !searchKeyword || cardName.includes(searchKeyword);
         });
 
-        // Kembalikan penunjuk halaman ke angka 1 setiap filter dieksekusi ulang
         currentPage = 1;
         renderCaseStudyUI();
+    }
+
+    // Jalankan pencarian instan sewaktu user mengetik keyboard
+    inputNama.addEventListener('input', performSearchFilter);
+
+    // Mencegah form reload page saat user menekan enter
+    filterForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        performSearchFilter();
     });
 
-    // 6. Jalankan eksekusi perdana saat komponen siap dimuat
+    // Inisialisasi awal
     renderCaseStudyUI();
 });
 </script>
 
 @include('partials.footer')
+</body>
+</html>

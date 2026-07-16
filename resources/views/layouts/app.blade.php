@@ -18,14 +18,8 @@
             <aside class="w-64 bg-[#0e1d82] text-white flex flex-col justify-between shrink-0 border-r border-[#0c196e] shadow-lg z-10">
                 <div class="p-5 flex flex-col h-full overflow-y-auto">
                     
-                    <div class="flex items-center space-x-3 mb-8 border-b border-white/10 pb-5">
-                        <div class="p-2 bg-white rounded-lg shadow-sm">
-                            <span class="text-[#0e1d82] font-black text-lg tracking-tighter">GIH</span>
-                        </div>
-                        <div>
-                            <span class="text-white font-bold text-sm block tracking-wide">GeoINHance</span>
-                            <span class="text-[10px] text-[#cfdde9] block uppercase tracking-widest font-medium">Sistem Kontrol</span>
-                        </div>
+                    <div class="flex items-center mb-6">
+                        <img src="{{ asset('images/logo_inh.png') }}" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
                     </div>
 
                     <nav class="flex-1 space-y-1">
@@ -54,11 +48,18 @@
                             Kelola Produk Admin
                         </a>
 
-                        <a href="{{ route('admin.project.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.project.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        <a href="{{ route('admin.project-pages.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.project-pages.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                             </svg>
                             Portofolio Proyek
+                        </a>
+
+                        <a href="{{ route('admin.sector.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.sector.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                            </svg>
+                            Kelola Sektor
                         </a>
 
                         <a href="{{ route('admin.blog.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.blog.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
@@ -76,7 +77,8 @@
                             Artikel & Insight
                         </a>
 
-                        <a href="{{ route('admin.branch.branch-manager') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.branch.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                        {{-- 🛠️ PERBAIKAN DI SINI: Mengarah ke rute admin.branches.index yang benar --}}
+                        <a href="{{ route('admin.branches.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.branches.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
                             <svg class="w-5 h-5 mr-3" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
                             </svg>
@@ -104,18 +106,34 @@
                             Kelola Silabus & Materi
                         </a>
 
-                        <a href="{{ route('admin.training.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.training.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
-                            </svg>
-                            Manajemen Training
+                        {{-- 🟢 MODIFIKASI: Menu Manajemen Training (Dengan Badge Notifikasi) --}}
+                        <a href="{{ route('admin.training.index') }}" class="flex items-center justify-between px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.training.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                            <div class="flex items-center min-w-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z" />
+                                </svg>
+                                <span class="truncate">Manajemen Training</span>
+                            </div>
+                            @if(isset($pendingTrainingsCount) && $pendingTrainingsCount > 0)
+                                <span class="ml-2 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full animate-pulse shrink-0">
+                                    {{ $pendingTrainingsCount }}
+                                </span>
+                            @endif
                         </a>
 
-                        <a href="{{ route('admin.messages.index') }}" class="flex items-center px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.messages.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                            </svg>
-                            Pesan Masuk
+                        {{-- 🟢 MODIFIKASI: Menu Pesan Masuk (Dengan Badge Notifikasi) --}}
+                        <a href="{{ route('admin.messages.index') }}" class="flex items-center justify-between px-3 py-2.5 text-sm rounded-lg {{ request()->routeIs('admin.messages.*') ? 'bg-[#cfdde9] text-[#0e1d82] font-bold' : 'text-white/80 hover:bg-white/10 hover:text-white' }}">
+                            <div class="flex items-center min-w-0">
+                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-3 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                                </svg>
+                                <span class="truncate">Pesan Masuk</span>
+                            </div>
+                            @if(isset($unreadMessagesCount) && $unreadMessagesCount > 0)
+                                <span class="ml-2 inline-flex items-center justify-center px-2 py-0.5 text-xs font-bold leading-none text-white bg-red-500 rounded-full animate-pulse shrink-0">
+                                    {{ $unreadMessagesCount }}
+                                </span>
+                            @endif
                         </a>
 
                         @if(auth()->check() && auth()->user()->role === 'superadmin')

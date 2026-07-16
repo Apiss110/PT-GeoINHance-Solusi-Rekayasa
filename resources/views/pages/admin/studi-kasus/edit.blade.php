@@ -97,4 +97,26 @@
                 </div>
 
                 <div class="flex justify-end pt-4 border-t border-gray-100 space-x-3">
-                    <a href="{{ route('
+                    <a href="{{ route('admin.studi-kasus.index') }}" class="px-4 py-2 border border-gray-200 text-gray-700 rounded-lg hover:bg-gray-50 font-medium text-sm transition">
+                        Batal
+                    </a>
+                    <button type="submit" class="px-5 py-2 bg-[#0e1d82] hover:bg-[#0c196e] text-white rounded-lg font-medium text-sm transition shadow-sm">
+                        Simpan Perubahan
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        function updateFileName(input) {
+            const preview = document.getElementById('file-name-preview');
+            if (input.files && input.files[0]) {
+                preview.textContent = "File terpilih: " + input.files[0].name;
+                preview.classList.remove('hidden');
+            } else {
+                preview.classList.add('hidden');
+            }
+        }
+    </script>
+</x-app-layout>
