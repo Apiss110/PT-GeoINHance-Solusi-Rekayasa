@@ -48,21 +48,20 @@
         .animate-marquee {
             animation: marquee 30s linear infinite;
         }
-
         /* Pause jalan logo saat kursor user menempel di atasnya */
         .animate-marquee:hover {
             animation-play-state: paused;
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
 
 @include('partials.navbar')
 
 <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
             {{ __('news.hero_title') }}
         </h1>
         <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
@@ -71,37 +70,38 @@
     </div>
 </section>
 
-<section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8" x-data="{ activeCategory: 'all' }">
-    
-    <div class="flex justify-center flex-wrap gap-4 mb-12">
-        <button @click="activeCategory = 'all'" :class="activeCategory === 'all' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('news.filter_all') }}
-        </button>
-        <button @click="activeCategory = 'project'" :class="activeCategory === 'project' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('news.filter_project') }}
-        </button>
-        <button @click="activeCategory = 'event'" :class="activeCategory === 'event' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('news.filter_event') }}
-        </button>
-        <button @click="activeCategory = 'news'" :class="activeCategory === 'news' ? 'bg-red-800 text-white' : 'bg-white text-slate-600 border border-slate-200'" class="px-6 py-2.5 rounded-full font-bold uppercase text-xs tracking-widest transition-all duration-300 shadow-sm">
-            {{ __('news.filter_company_news') }}
-        </button>
-    </div>
+    {{-- NAVIGATION BAR: SEARCH FILTER --}}
+    <section class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm py-5 transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-center">
+            
+            {{-- SEARCH BAR --}}
+            <div class="relative w-full sm:w-80">
+                <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                    <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                </span>
+                <input
+                    type="text"
+                    id="searchInput"
+                    placeholder="{{ __('news.search_placeholder') ?? 'Cari Semua Proyek Sektor...' }}"
+                    class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
+            </div>
+
+        </div>
+    </section>
+
+<section id="contentSection" class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
 
     @if($blogs->isEmpty())
         <div class="text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm">
             <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 8h6v4H7V8z"></path>
             </svg>
-            <p class="text-slate-500 font-medium">
-                {{ __('news.empty_state') }}
-            </p>
+            <p class="text-slate-500 font-medium">{{ __('news.empty_state') }}</p>
         </div>
     @else
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="blogGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($blogs as $blog)
                 @php
-                    // Konversi kategori dari database agar cocok dengan tombol filter Alpine.js
                     $dbCategory = strtoupper(trim($blog->category));
                     
                     if ($dbCategory === 'PROYEK' || $dbCategory === 'PROJECT') {
@@ -109,16 +109,13 @@
                     } elseif ($dbCategory === 'EVENT' || $dbCategory === 'EVENTS') {
                         $alpineCategory = 'event';
                     } else {
-                        $alpineCategory = 'news'; // Default untuk BERITA atau COMPANY NEWS
+                        $alpineCategory = 'news';
                     }
                 @endphp
 
-                <article 
-                    x-show="activeCategory === 'all' || activeCategory === '{{ $alpineCategory }}'"
-                    x-transition:enter="transition ease-out duration-300"
-                    x-transition:enter-start="opacity-0 scale-95"
-                    x-transition:enter-end="opacity-100 scale-100"
-                    class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]">
+                <article class="blog-card bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]"
+                         data-category="{{ $alpineCategory }}"
+                         data-title="{{ strtolower(auto_translate($blog->title)) }}">
                     
                     <div>
                         <div class="relative overflow-hidden h-56 bg-slate-100">
@@ -163,8 +160,39 @@
                 </article>
             @endforeach
         </div>
+
+        {{-- Notifikasi Data Kosong Hasil Filter --}}
+        <div id="noMatchMessage" class="hidden text-center py-20 bg-white rounded-3xl border border-slate-100 shadow-sm w-full">
+            <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+            </svg>
+            <p class="text-slate-500 font-medium">Tidak ada artikel atau berita yang cocok dengan kriteria pencarian.</p>
+        </div>
     @endif
 </section>
+
+    {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
+    <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            {{-- Teks Info Kiri --}}
+            <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
+                {{ __('pagination.showing') }} <span id="infoStart" class="font-bold text-slate-800">0</span> {{ __('pagination.to') }} <span id="infoEnd" class="font-bold text-slate-800">0</span> {{ __('pagination.of') }} <span id="infoTotal" class="font-bold text-slate-800">0</span> {{ __('pagination.records') }}
+            </div>
+            
+            {{-- Tombol Halaman Kanan --}}
+            <nav id="paginationWrapper" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
+                <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                
+                <div id="pageNumbers" class="flex items-center -space-x-px"></div>
+                
+                <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </nav>
+        </div>
+    </section>
 
 <section class="relative overflow-hidden bg-gradient-to-br from-[#002d62] via-[#001f44] to-slate-950 text-white py-20 px-6">
     <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -185,5 +213,156 @@
 
 @include('partials.footer')
 
+{{-- INTEGRATED JAVASCRIPT FOR MULTI-FILTER & PAGINATION --}}
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const searchInput = document.getElementById('searchInput');
+    const categoryButtons = document.querySelectorAll('.category-btn');
+    const blogGrid = document.getElementById('blogGrid');
+    const noMatchMessage = document.getElementById('noMatchMessage');
+    
+    // Pagination Controls
+    const infoStart = document.getElementById('infoStart');
+    const infoEnd = document.getElementById('infoEnd');
+    const infoTotal = document.getElementById('infoTotal');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const pageNumbersContainer = document.getElementById('pageNumbers');
+
+    if (!blogGrid) return;
+
+    const allCards = Array.from(blogGrid.querySelectorAll('.blog-card'));
+    const itemsPerPage = 6;
+    let currentPage = 1;
+    let selectedCategory = 'all';
+    let filteredCards = [...allCards];
+
+    function applyFilters() {
+        const searchKeyword = searchInput.value.toLowerCase().trim();
+
+        filteredCards = allCards.filter(card => {
+            const cardCategory = card.getAttribute('data-category') || '';
+            const cardTitle = card.getAttribute('data-title') || '';
+            
+            const matchCategory = (selectedCategory === 'all' || cardCategory === selectedCategory);
+            const matchSearch = cardTitle.includes(searchKeyword);
+
+            return matchCategory && matchSearch;
+        });
+
+        currentPage = 1; // Reset halaman ke-1 setiap filter berubah
+        updatePaginationUI();
+    }
+
+    function updatePaginationUI() {
+        // Sembunyikan semua item
+        allCards.forEach(card => card.classList.add('hidden'));
+
+        const totalItems = filteredCards.length;
+        const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
+
+        if (currentPage > totalPages) currentPage = totalPages;
+        if (currentPage < 1) currentPage = 1;
+
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
+
+        // Munculkan data halaman aktif
+        const activeCards = filteredCards.slice(startIndex, endIndex);
+        activeCards.forEach(card => card.classList.remove('hidden'));
+
+        // Kelola status jika pencarian/filter kosong
+        if (totalItems === 0) {
+            blogGrid.classList.add('hidden');
+            noMatchMessage.classList.remove('hidden');
+            infoStart.textContent = '0';
+            infoEnd.textContent = '0';
+        } else {
+            blogGrid.classList.remove('hidden');
+            noMatchMessage.classList.add('hidden');
+            infoStart.textContent = startIndex + 1;
+            infoEnd.textContent = endIndex;
+        }
+        
+        infoTotal.textContent = totalItems;
+
+        btnPrev.disabled = (currentPage === 1);
+        btnNext.disabled = (currentPage === totalPages);
+
+        buildNumericButtons(totalPages);
+    }
+
+    function buildNumericButtons(totalPages) {
+        pageNumbersContainer.innerHTML = '';
+        
+        for (let i = 1; i <= totalPages; i++) {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = i;
+            
+            if (i === currentPage) {
+                btn.className = "px-4 py-2 text-xs font-bold text-white bg-[#002d62] transition";
+            } else {
+                btn.className = "px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 transition border-r border-slate-100";
+            }
+
+            btn.addEventListener('click', () => {
+                currentPage = i;
+                updatePaginationUI();
+                scrollToContent();
+            });
+
+            pageNumbersContainer.appendChild(btn);
+        }
+    }
+
+    function scrollToContent() {
+        const target = document.getElementById('contentSection');
+        if (target) {
+            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }
+
+    // Listener input pencarian teks
+    searchInput.addEventListener('input', applyFilters);
+
+    // Listener tombol kategori
+    categoryButtons.forEach(button => {
+        button.addEventListener('click', function () {
+            // Reset active style classes pada semua tombol kategori
+            categoryButtons.forEach(btn => {
+                btn.className = "category-btn px-5 py-2 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all duration-300 shadow-sm bg-white text-slate-600 border border-slate-200";
+            });
+
+            // Set styling aktif pada tombol yang dipilih
+            this.className = "category-btn px-5 py-2 rounded-full font-bold uppercase text-[10px] tracking-widest transition-all duration-300 shadow-sm bg-red-800 text-white";
+            
+            selectedCategory = this.getAttribute('data-category');
+            applyFilters();
+        });
+    });
+
+    // Listener navigasi pagination prev/next
+    btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            updatePaginationUI();
+            scrollToContent();
+        }
+    });
+
+    btnNext.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            updatePaginationUI();
+            scrollToContent();
+        }
+    });
+
+    // Inisialisasi awal
+    updatePaginationUI();
+});
+</script>
 </body>
 </html>

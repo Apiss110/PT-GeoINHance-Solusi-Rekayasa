@@ -33,11 +33,23 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div class="grid lg:grid-cols-12 gap-12 items-center">
             <div class="lg:col-span-7 space-y-6">
+                
+                {{-- 🟢 Label Kecil Dinamis --}}
+                @if(isset($product->hero_badge) && !empty($product->hero_badge))
+                    <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30 inline-block">
+                        {{ auto_translate($product->hero_badge) }}
+                    </span>
+                @elseif(isset($hero_badge) && !empty($hero_badge))
+                    <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30 inline-block">
+                        {{ auto_translate($hero_badge) }}
+                    </span>
+                @endif
+
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none uppercase">
                     {{ auto_translate($product->name) }}
                 </h1>
-                <p class="text-lg sm:text-xl text-slate-300 max-w-2xl font-light leading-relaxed">
-                    {{ auto_translate($hero_description) }}
+                <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
+                    {{ auto_translate($hero_description ?? $product->hero_description ?? '') }}
                 </p>
                 <div class="flex flex-wrap gap-4 pt-2">
                     <a href="#pricing" class="bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-400 transition shadow-lg shadow-blue-500/20">
@@ -55,42 +67,91 @@
 <section id="benefits" class="py-20 bg-white border-b border-gray-100">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="grid lg:grid-cols-12 gap-12 items-center mb-16">
+            
             <div class="lg:col-span-7 space-y-4">
-                <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl uppercase">{{ auto_translate($about_title) }}</h2>
-                <div class="w-12 h-1 bg-blue-600 rounded-full"></div>
-                <p class="text-gray-600 leading-relaxed text-justify">{{ auto_translate($about_p1) }}</p>
-                @if(!empty($about_p2))
-                <p class="text-gray-600 leading-relaxed text-justify">{{ auto_translate($about_p2) }}</p>
-                @endif
-                @if(!empty($about_partner_note))
-                <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 italic text-sm text-slate-500 leading-relaxed">{{ auto_translate($about_partner_note) }}</div>
+                
+                @php
+                    // 1. Lakukan decode data JSON yang tersimpan di $product->description
+                    $jsonData = null;
+                    if (isset($product->description) && is_string($product->description) && str_starts_with(trim($product->description), '{')) {
+                        $jsonData = json_decode($product->description, true);
+                    } elseif (isset($product) && is_array($product)) {
+                        $jsonData = $product;
+                    }
+
+                    // 2. Ambil nilai data teks pendukung
+                    $aboutTitle = $jsonData['about_title'] ?? $product->about_title ?? 'Tentang Produk';
+                    $aboutPartnerNote = $jsonData['about_partner_note'] ?? $product->about_partner_note ?? null;
+                    
+                    // 🟢 PERBAIKAN UTAMA: Sistem Multi-Key. Mendukung data lama ('about_p1') dan data baru ('about_description')
+                    $aboutRichText = $jsonData['about_p1'] ?? $jsonData['about_description'] ?? $product->about_description ?? null;
+                    
+                    // Fallback pengaman array features jika belum di-passing dari controller
+                    if (!isset($features) || empty($features)) {
+                        $features = $jsonData['features_list'] ?? [];
+                    }
+                @endphp
+
+                {{-- Judul Bagian Tentang --}}
+                <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl uppercase">
+                    {{ auto_translate($aboutTitle) }}
+                </h2>
+                <div class="w-12 h-1 bg-blue-600 rounded-full mb-6"></div>
+                
+                {{-- Detail Deskripsi Utama (Menampilkan Output HTML TinyMCE) --}}
+                <div class="prose max-w-none text-gray-600 leading-relaxed text-base 
+                            prose-headings:text-slate-900 prose-headings:font-bold 
+                            prose-h3:text-lg prose-p:mb-4 prose-p:leading-relaxed prose-p:text-justify
+                            prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5">
+                    
+                    @if(!empty($aboutRichText))
+                        {{-- Menggunakan {!! ... !!} agar format teks HTML TinyMCE dirender sempurna --}}
+                        {!! auto_translate($aboutRichText) !!}
+                    @else
+                        {{-- Fallback jika deskripsi detail kosong total, tampilkan deskripsi banner sebagai cadangan --}}
+                        <p class="text-gray-600 text-justify">
+                            {{ auto_translate($jsonData['hero_description'] ?? $product->hero_description ?? 'Deskripsi detail produk belum tersedia.') }}
+                        </p>
+                    @endif
+                </div>
+                
+                {{-- Catatan kaki / Note abu-abu --}}
+                @if(!empty($aboutPartnerNote))
+                <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 italic text-sm text-slate-500 leading-relaxed mt-6">
+                    {{ auto_translate($aboutPartnerNote) }}
+                </div>
                 @endif
             </div>
+
+            {{-- Bagian Gambar Kanan --}}
             <div class="lg:col-span-5 relative">
                 <div class="rounded-3xl overflow-hidden shadow-2xl relative border border-gray-200 bg-slate-900 group">
-                    @if($product->image_path)
-                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->name) }}" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
+                    @if(isset($product->image_path) && $product->image_path)
+                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->name ?? 'Product Image') }}" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
                     @else
                         <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800" alt="Default Product Banner" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
                     @endif
                 </div>
             </div>
+
         </div>
 
         <div class="grid md:grid-cols-2 gap-8 border-t border-gray-100 pt-12">
-            @foreach($features as $feature)
-                @if(!empty($feature['title']))
-                <div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
-                    <div class="bg-blue-50 p-3 rounded-lg text-blue-600 w-12 h-12 flex items-center justify-center shrink-0">
-                        <i class="fa-solid fa-layer-group text-xl"></i>
+            @if(!empty($features))
+                @foreach($features as $feature)
+                    @if(!empty($feature['title']))
+                    <div class="flex gap-4 p-4 rounded-xl hover:bg-slate-50 transition">
+                        <div class="bg-blue-50 p-3 rounded-lg text-blue-600 w-12 h-12 flex items-center justify-center shrink-0">
+                            <i class="fa-solid fa-layer-group text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold text-lg text-gray-900">{{ auto_translate($feature['title']) }}</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mt-1">{{ isset($feature['desc']) ? auto_translate($feature['desc']) : '' }}</p>
+                        </div>
                     </div>
-                    <div>
-                        <h3 class="font-bold text-lg text-gray-900">{{ auto_translate($feature['title']) }}</h3>
-                        <p class="text-sm text-gray-600 leading-relaxed mt-1">{{ isset($feature['desc']) ? auto_translate($feature['desc']) : '' }}</p>
-                    </div>
-                </div>
-                @endif
-            @endforeach
+                    @endif
+                @endforeach
+            @endif
         </div>
     </div>
 </section>
@@ -130,12 +191,13 @@
         @endif
     </div>
 </section>
+
 <main class="py-12 bg-white">
     <div class="max-w-4xl mx-auto px-6 sm:px-8">
         
         <div class="mb-4">
             <span class="text-blue-600 font-bold uppercase text-xs tracking-wider block mb-1">{{ __('Video Demonstration') }}</span>
-            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ auto_translate($video->title ?? $video_title) }}</h1>
+            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ auto_translate($video->title ?? $video_title ?? '') }}</h1>
         </div>
 
         <div class="geo-article-container mt-6">
@@ -162,7 +224,7 @@
             @if($videoId)
                 <iframe class="w-full h-full" 
                         src="https://www.youtube.com/embed/{{ $videoId }}?rel=0" 
-                        title="{{ auto_translate($video->title ?? $video_title) }}" 
+                        title="{{ auto_translate($video->title ?? $video_title ?? '') }}" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowfullscreen>
@@ -185,7 +247,7 @@
         @if(isset($otherVideos) && $otherVideos->count() > 0)
             <div class="mt-16 pt-10 border-t border-gray-100">
                 <h3 class="text-md font-bold uppercase tracking-wider text-gray-900 mb-6 flex items-center gap-2">
-                    🎥 {{ __('Other Recent Publication Videos') }}
+                     {{ __('Other Recent Publication Videos') }}
                 </h3>
 
                 <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 text-left">
@@ -223,17 +285,19 @@
         <h2 class="text-3xl font-bold text-gray-900">{{ __('FAQ') }}</h2>
     </div>
     <div class="divide-y divide-gray-200 border-t border-b border-gray-200">
-        @foreach($faqs as $faq)
-            @if(!empty($faq['question']))
-            <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
-                <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
-                    <span>{{ auto_translate($faq['question']) }}</span>
-                    <span class="transition group-open:rotate-180 text-gray-400"><i class="fa fa-chevron-down"></i></span>
-                </summary>
-                <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify">{{ isset($faq['answer']) ? auto_translate($faq['answer']) : '' }}</p>
-            </details>
-            @endif
-        @endforeach
+        @if(!empty($faqs))
+            @foreach($faqs as $faq)
+                @if(!empty($faq['question']))
+                <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
+                    <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
+                        <span>{{ auto_translate($faq['question']) }}</span>
+                        <span class="transition group-open:rotate-180 text-gray-400"><i class="fa fa-chevron-down"></i></span>
+                    </summary>
+                    <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify">{{ isset($faq['answer']) ? auto_translate($faq['answer']) : '' }}</p>
+                </details>
+                @endif
+            @endforeach
+        @endif
     </div>
 </section>
 

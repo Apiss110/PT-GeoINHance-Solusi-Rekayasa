@@ -26,6 +26,7 @@ use App\Http\Controllers\Admin\MessageController;
 use App\Http\Controllers\Admin\SectorController as AdminSectorController;
 use App\Http\Controllers\PublicSectorController;
 use App\Http\Controllers\WelcomeController; 
+use App\Http\Controllers\Admin\ProductController;
 use App\Models\Product;
 use App\Models\ProjectPage;
 use App\Models\Sector;
@@ -33,6 +34,7 @@ use App\Models\CaseStudy; // 🟢 Import model tambahan Anda
 use App\Models\Article;   // 🟢 Import model tambahan Anda
 use App\Models\ContactMessage;        // <--- Pastikan ini ada
 use App\Models\TrainingRegistration;  // <--- Pastikan ini juga ada
+
 
 
 
@@ -84,6 +86,8 @@ Route::get('/product/{idOrSlug}', [AdminProductController::class, 'show'])->name
 */
 Route::prefix('sektor')->group(function () {
     Route::get('/semua-sektor', [ProjectController::class, 'showAllSectorsPublic'])->name('sektor.semua-sektor');
+    
+    // Cukup gunakan satu rute ini saja agar tidak terjadi tumpang tindih (override)
     Route::get('/{slug}', [PublicSectorController::class, 'show'])->name('front.sector.show');
 });
 
@@ -230,6 +234,17 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     
     Route::delete('/project/bulk-delete', [ProjectController::class, 'bulkDestroy'])->name('project.destroy.bulk');
     Route::delete('/slider/bulk-delete', [SliderController::class, 'bulkDestroy'])->name('slider.destroy.bulk');
+    Route::delete('/products/bulk-delete', [ProductController::class, 'bulkDelete'])->name('products.destroy.bulk');
+    Route::delete('/project-pages/bulk-delete', [ProjectPageController::class, 'bulkDelete'])->name('project-pages.destroy.bulk');
+    Route::delete('/sector/bulk-delete', [AdminSectorController::class, 'bulkDelete'])->name('sector.destroy.bulk');
+    Route::delete('/blog/bulk-delete', [BlogController::class, 'bulkDelete'])->name('blog.destroy.bulk');
+    Route::delete('/articles/bulk-delete', [ArticleController::class, 'bulkDelete'])->name('articles.destroy.bulk');
+    Route::delete('/branches/bulk-delete', [ProyekController::class, 'bulkDelete'])->name('branches.destroy.bulk');
+    Route::delete('/video/bulk-delete', [AdminVideoController::class, 'bulkDelete'])->name('video.destroy.bulk');
+    Route::delete('/studi-kasus/bulk-delete', [CaseStudyController::class, 'bulkDelete'])->name('studi-kasus.destroy.bulk');
+    Route::delete('/syllabus/bulk-delete', [SyllabusController::class, 'bulkDelete'])->name('syllabus.destroy.bulk');
+    Route::delete('/training/bulk-delete', [TrainingAdminController::class, 'bulkDelete'])->name('training.destroy.bulk');
+    Route::delete('/messages/bulk-delete', [MessageController::class, 'bulkDelete'])->name('messages.destroy.bulk');
     
     Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');     
     Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');    
@@ -257,6 +272,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::resource('video', AdminVideoController::class);
 
     // Jalur Rute Peta Proyek Admin 
+    Route::get('/branches', [ProyekController::class, 'branchesAdmin'])->name('branches.index');
     Route::get('/branches', [App\Http\Controllers\ProyekController::class, 'branchesAdmin'])->name('branches.index');
     Route::post('/branches', [App\Http\Controllers\ProyekController::class, 'storeBranch'])->name('branches.store');
     Route::get('/branches/{id}/edit', [App\Http\Controllers\ProyekController::class, 'editBranch'])->name('branches.edit');

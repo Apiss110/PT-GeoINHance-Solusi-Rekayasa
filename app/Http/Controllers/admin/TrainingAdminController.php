@@ -39,4 +39,20 @@ class TrainingAdminController extends Controller
     // Ubah dari 'pages.admin.training.index' menjadi 'admin.training.index'
     return redirect()->route('admin.training.index')->with('success', 'Peserta berhasil dihapus.');
 }
+
+public function bulkDelete(Request $request)
+    {
+        // Mengambil kumpulan array ID yang dikirim dari checkbox
+        $ids = $request->input('ids', []);
+
+        if (empty($ids)) {
+            return redirect()->route('admin.training.index')->with('error', 'Tidak ada data peserta yang dipilih untuk dihapus.');
+        }
+
+        // Eksekusi penghapusan baris data terpilih secara massal
+        TrainingRegistration::whereIn('id', $ids)->delete();
+
+        // Redirect aman kembali ke index
+        return redirect()->route('admin.training.index')->with('success', count($ids) . ' data pendaftar training berhasil dihapus massal!');
+    }
 }

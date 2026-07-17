@@ -116,4 +116,29 @@ class CaseStudyController extends Controller
                              ->with('error', 'Gagal menghapus data: ' . $e->getMessage());
         }
     }
+
+    public function bulkDelete(Request $request)
+    {
+        $ids = $request->input('ids', []);
+
+        if (empty($ids)) {
+            return redirect()->route('admin.studi-kasus.index')->with('error', 'Tidak ada data studi kasus yang dipilih untuk dihapus.');
+        }
+
+        // 1. Ambil data studi kasus untuk penghapusan file pdf/dokumen fisiknya jika ada
+        $caseStudies = CaseStudy::whereIn('id', $ids)->get();
+
+        foreach ($caseStudies as $case) {
+            // Ubah 'file_path' sesuai nama kolom penyimpanan berkas asli di tabel Anda
+            if ($case->file_path && Storage::disk('public')->exists($case->file_path)) {
+                Storage::disk('public')->delete($case->file_path);
+            }
+        }
+
+        // 2. Hapus data massal sekaligus dari database
+        CaseStudy::whereIn('id', $ids)->delete();
+
+        // 3. Kembalikan ke halaman utama agar terhindar dari siklus error MethodNotAllowedHttpException
+        return redirect()->route('admin.studi-kasus.index')->with('success', count($ids) . ' data studi kasus berhasil dihapus massal!');
+    }
 }

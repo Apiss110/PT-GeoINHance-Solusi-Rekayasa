@@ -18,7 +18,6 @@
         }
     }" x-init="allIds = [ @foreach($projects as $p) '{{ $p->id }}', @endforeach ]">
         
-        <!-- 📁 PERBAIKAN UTAMA: Mengubah max-w-7xl menjadi w-full agar melebar maksimal ke samping -->
         <div class="w-full px-4 sm:px-6 lg:px-8 space-y-6">
             
             @if(session('success'))
@@ -27,7 +26,7 @@
                 </div>
             @endif
 
-            {{-- FORM TAMBAH PROYEK BARU (Lebar Maksimal) --}}
+            {{-- FORM TAMBAH PROYEK BARU --}}
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 w-full">
                 <h2 class="text-xl font-semibold mb-4 text-gray-700 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">
                     Tambah Proyek Baru
@@ -87,7 +86,6 @@
                         </div>
                     </div>
 
-                    <!-- Wadah Live Preview Mengikuti Lebar Penuh -->
                     <div id="projectPreviewContainer" class="mt-3 p-4 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl hidden flex justify-center items-center">
                         <img id="projectImagePreview" src="#" class="w-full max-h-[450px] object-contain rounded-lg shadow-sm">
                     </div>
@@ -100,16 +98,19 @@
                 </form>
             </div>
 
-            {{-- DAFTAR PROYEK AKTIF (Ikut Melebar Otomatis) --}}
+            {{-- DAFTAR PROYEK AKTIF --}}
             <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 w-full">
-                <form id="bulkDeleteForm" action="{{ route('admin.project.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')">
+                {{-- Form Utama Aksi Hapus Massal --}}
+                <form id="bulkDeleteForm" action="{{ route('admin.project.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data proyek yang dipilih?')">
                     @csrf
                     @method('DELETE')
 
                     <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center border-b border-gray-100 dark:border-gray-700 pb-3 mb-4 gap-2">
                         <h2 class="text-xl font-semibold text-gray-700 dark:text-white">Daftar Proyek Aktif</h2>
-                        <div x-show="selectedIds.length > 0" x-cloak>
-                            <button type="submit" class="text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition shadow-sm">
+                        
+                        {{-- Muncul otomatis jika ada checkbox terpilih --}}
+                        <div x-show="selectedIds.length > 0" x-cloak x-transition>
+                            <button type="submit" class="text-xs font-bold text-white bg-red-600 hover:bg-red-700 px-4 py-2 rounded-lg transition shadow-sm cursor-pointer">
                                 Hapus Terpilih (<span x-text="selectedIds.length"></span>)
                             </button>
                         </div>
@@ -124,7 +125,7 @@
                                     </th>
                                     <th scope="col" class="px-4 py-3 w-44">Preview</th>
                                     <th scope="col" class="px-4 py-3">Detail Proyek</th>
-                                    <th scope="col" class="px-4 py-3 text-center w-32">Aksi</th>
+                                    <th scope="col" class="px-4 py-3 text-center w-40">Aksi</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -148,10 +149,25 @@
                                             <div class="text-base font-bold text-gray-900 dark:text-white mt-1 uppercase">{{ $project->title }}</div>
                                             <p class="text-xs text-gray-400 mt-1 line-clamp-2">{!! strip_tags($project->description) !!}</p>
                                         </td>
+                                        
+                                        {{-- Kolom Aksi Harmonis (Edit & Hapus Satuan Berdampingan) --}}
                                         <td class="px-4 py-3 text-center whitespace-nowrap align-middle">
-                                            <a href="{{ route('admin.project.edit', $project->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
-                                                Edit
-                                            </a>
+                                            <div class="flex items-center justify-center space-x-3">
+                                                <a href="{{ route('admin.project.edit', $project->id) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
+                                                    Edit
+                                                </a>
+                                                
+                                                <span class="text-gray-300 dark:text-gray-600">|</span>
+                                                
+                                                {{-- Form Penghapusan Satuan Per Baris Data --}}
+                                                <form action="{{ route('admin.project.destroy', $project->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus proyek ini?')" class="inline">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="font-medium text-red-600 dark:text-red-500 hover:text-red-700 dark:hover:text-red-400 transition cursor-pointer bg-transparent border-0 p-0">
+                                                        Hapus
+                                                    </button>
+                                                </form>
+                                            </div>
                                         </td>
                                     </tr>
                                 @empty
@@ -175,10 +191,9 @@
                 height: 350,
                 promotion: false,
                 branding: false,
-                plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist list wordcount help emoticons',
+                plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist list wordcount help emoticons',
                 menubar: 'file edit view insert format tools table help',
                 toolbar: 'undo redo | bold italic underline | numlist bullist | fullscreen preview | code',
-                // Tetap mempertahankan kanvas putih bersih sesuai screenshot referensi kamu
                 content_style: 'body { font-family:Plus Jakarta Sans,Arial,sans-serif; font-size:14px; background-color: #ffffff; color: #111827; }'
             });
 

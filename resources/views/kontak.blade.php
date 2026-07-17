@@ -74,20 +74,20 @@
 
 @include('partials.navbar')
         
-<section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
-            <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-            <div class="relative z-10" data-aos="zoom-in">
-                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">{{ __('contact.hero_sub') }}</span>
-                <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">{{ __('contact.hero_title') }}</h1>
-                <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
-            </div>
-        </section>
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">{{ __('contact.hero_sub') }}</span>
+            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">{{ __('contact.hero_title') }}</h1>
+            <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
+        </div>
+</section>
 
 <section class="bg-white py-20 px-4 overflow-x-auto">
     <div class="max-w-6xl mx-auto min-w-[1000px]">
         
         <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl font-black text-[#002d62] uppercase tracking-tight mb-3">{{ __('contact.team_title') }}</h2>
+            <h2 class="text-3xl font-black uppercase tracking-tight mb-3">{{ __('contact.team_title') }}</h2>
             <p class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto">
                 {{ __('contact.team_desc') }}
             </p>
@@ -102,7 +102,7 @@
                     </div>
                     <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
                         <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">{{ __('contact.role_advisor') }}</span>
-                        <h3 class="text-[#002d62] font-extrabold text-xs leading-snug">Dr.techn. Indra Noer Hamdhan, S.T., M.T.</h3>
+                        <h3 class="text-black font-extrabold text-xs leading-snug">Dr.techn. Indra Noer Hamdhan, S.T., M.T.</h3>
                     </div>
                 </div>
                 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-10 bg-[#002d62]/30"></div>
@@ -115,7 +115,7 @@
                     </div>
                     <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
                         <span class="text-red-800 font-black uppercase text-[9px] tracking-widest block mb-1">{{ __('contact.role_director') }}</span>
-                        <h3 class="text-[#002d62] font-extrabold text-xs leading-snug">Rinaldi Alamsyah, S.T.</h3>
+                        <h3 class="text-black font-extrabold text-xs leading-snug">Rinaldi Alamsyah, S.T.</h3>
                     </div>
                 </div>
                 <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-12 bg-[#002d62]/30"></div>

@@ -149,4 +149,19 @@ class ProjectPageController extends Controller
 
         return redirect()->route('admin.project-pages.index')->with('success', 'Halaman proyek berhasil dihapus!');
     }
+
+    public function bulkDelete(Request $request)
+{
+    // 1. Validasi request data ID yang dikirim
+    $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:project_pages,id', // Sesuaikan nama tabel database Anda jika berbeda
+    ]);
+
+    // 2. Eksekusi hapus massal
+    ProjectPage::destroy($request->ids);
+
+    // 3. Kembali ke halaman sebelumnya dengan feedback sukses
+    return redirect()->back()->with('success', count($request->ids) . ' halaman kategori berhasil dihapus massal.');
+}
 }

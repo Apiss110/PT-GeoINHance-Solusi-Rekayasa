@@ -135,4 +135,29 @@ class BranchManager extends Component
             'projects' => StrategicProject::orderBy('title', 'asc')->get()
         ]);
     }
+
+    public function bulkDelete(Request $request)
+{
+    // 1. Validasi masukan data array ID terpilih
+    $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:branches,id', // Sesuaikan dengan nama tabel database cabang Anda
+    ]);
+
+    // 2. Ambil seluruh record cabang berdasarkan array ID
+    $branches = Branch::whereIn('id', $request->ids)->get();
+
+    // 3. Iterasi untuk menghapus file fisik gambar cabang dari storage (jika ada), lalu hapus datanya
+    foreach ($branches as $branch) {
+        if ($branch->img) {
+            // Bersihkan teks path dari prefix public/ atau storage/ jika ada
+            $cleanedPath = preg_replace('#^(public/|storage/)#i', '', trim($branch->img));
+            Storage::disk('public')->delete($cleanedPath);
+        }
+        $branch->delete();
+    }
+
+    // 4. Kembali ke halaman sebelumnya dengan pesan sukses
+    return redirect()->back()->with('success', count($request->ids) . ' titik lokasi cabang berhasil dihapus massal.');
+}
 }

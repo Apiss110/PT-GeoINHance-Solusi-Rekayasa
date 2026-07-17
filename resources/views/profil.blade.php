@@ -74,10 +74,10 @@
 
 @include('partials.navbar')
     
-<section class="bg-[#002d62] text-white py-24 px-6 tracking-tight text-center relative overflow-hidden">
-        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-        <div class="relative z-10" data-aos="zoom-in">
-            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3 animate-pulse">
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
                 {{ __('profile.hero_sub') }}
             </span>
             <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">

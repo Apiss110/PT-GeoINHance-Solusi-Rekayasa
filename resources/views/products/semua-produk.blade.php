@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Katalog Produk & Solusi - PT GeoINHance</title>
+    <title>{{ __('product.page_title') }}</title>
 
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
@@ -52,13 +52,13 @@
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
                 <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
-                    Instrumen & Teknologi
+                    {{ __('product.hero_badge') }}
                 </span>
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
-                    Katalog Produk Solusi Geoteknik
+                    {{ __('product.hero_title') }}
                 </h1>
                 <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-                    Kami menyediakan berbagai instrumen pemantauan, perangkat keras rekayasa, dan perangkat lunak analisis mutakhir untuk menjamin keberhasilan dan keamanan proyek infrastruktur Anda.
+                    {{ __('product.hero_desc') }}
                 </p>
             </div>
         </section>
@@ -75,7 +75,7 @@
                     <input
                         type="text"
                         id="searchInput"
-                        placeholder="Cari instrumen atau produk..."
+                        placeholder="{{ __('product.search_placeholder') }}"
                         class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
                 </div>
 
@@ -132,9 +132,8 @@
 
                         {{-- Action Button Area --}}
                         <div class="p-6 pt-0 space-y-4">
-                            
                             <a href="{{ route('produk.detail', $product->id) }}" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
-                                LIHAT SPESIFIKASI
+                                {{ __('product.view_specs') }}
                                 <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                                 </svg>
@@ -146,45 +145,44 @@
                 {{-- DATA EMPTY STATE PRODUK --}}
                 <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
                     <i class="fa-solid fa-box-open text-slate-300 text-5xl mb-3"></i>
-                    <p class="text-sm text-slate-500 font-medium">Belum ada data produk instrumen yang tersedia saat ini.</p>
+                    <p class="text-sm text-slate-500 font-medium">{{ __('product.empty_state') }}</p>
                 </div>
                 @endforelse
 
             </div>
         </section>
 
-        {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
-        <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                {{-- Teks Info Kiri --}}
-                <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
-                    Menampilkan <span id="infoStart" class="font-bold text-slate-800">0</span> sampai <span id="infoEnd" class="font-bold text-slate-800">0</span> dari <span id="infoTotal" class="font-bold text-slate-800">0</span> rekaman produk
-                </div>
-                
-                {{-- Tombol Halaman Kanan --}}
-                <nav id="paginationControls" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
-                    <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                        <i class="fa-solid fa-chevron-left text-xs"></i>
-                    </button>
-                    
-                    <div id="pageNumbers" class="flex items-center -space-x-px"></div>
-                    
-                    <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                        <i class="fa-solid fa-chevron-right text-xs"></i>
-                    </button>
-                </nav>
+    {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
+    <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            {{-- Teks Info Kiri --}}
+            <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
+                {{ __('pagination.showing') }} <span id="infoStart" class="font-bold text-slate-800">0</span> {{ __('pagination.to') }} <span id="infoEnd" class="font-bold text-slate-800">0</span> {{ __('pagination.of') }} <span id="infoTotal" class="font-bold text-slate-800">0</span> {{ __('pagination.records') }}
             </div>
-        </section>
+            
+            {{-- Tombol Halaman Kanan --}}
+            <nav id="paginationWrapper" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
+                <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                    <i class="fa-solid fa-chevron-left text-xs"></i>
+                </button>
+                
+                <div id="pageNumbers" class="flex items-center -space-x-px"></div>
+                
+                <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
+                    <i class="fa-solid fa-chevron-right text-xs"></i>
+                </button>
+            </nav>
+        </div>
+    </section>
     </main>
 
     {{-- FOOTER --}}
     @include('partials.footer')
 
-{{-- JAVASCRIPT LOGIC: COMBINED SYNCHRONIZED SEARCH & PAGINATION KELIPATAN 6 --}}
+{{-- JAVASCRIPT LOGIC --}}
 <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
     document.addEventListener('DOMContentLoaded', () => {
-        // Inisialisasi AOS Animasi
         AOS.init({ duration: 800, once: true });
 
         const searchInput = document.getElementById('searchInput');
@@ -195,17 +193,15 @@
         let currentSearchQuery = '';
         let filteredItems = [...items]; 
 
-        // Kontrol terpadu Input Pencarian
         function applySearch() {
             filteredItems = items.filter(item => {
                 return item.dataset.name.includes(currentSearchQuery);
             });
 
-            currentPage = 1; // Reset halaman ke 1 setiap kali query pencarian berubah
+            currentPage = 1;
             updatePagination();
         }
 
-        // Fungsi Sinkronisasi Logika Render Grid Card & Pagination Angka Kontrol
         function updatePagination() {
             const totalItems = filteredItems.length;
             const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
@@ -216,29 +212,23 @@
             const startIndex = (currentPage - 1) * itemsPerPage;
             const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-            // Sembunyikan seluruh elemen item bawaan terlebih dahulu
             items.forEach(item => item.style.display = 'none');
 
-            // Tampilkan hanya item yang masuk dalam rentang indeks halaman aktif
             filteredItems.slice(startIndex, endIndex).forEach(item => {
                 item.style.display = 'block';
             });
 
-            // Perbarui Teks Informasi Rekam Data Produk di Kiri Bawah
             document.getElementById('infoStart').textContent = totalItems === 0 ? 0 : startIndex + 1;
             document.getElementById('infoEnd').textContent = endIndex;
             document.getElementById('infoTotal').textContent = totalItems;
 
-            // Render Komponen Navigasi Angka Halaman Kanan Secara Dinamis
             const pageNumbersContainer = document.getElementById('pageNumbers');
             pageNumbersContainer.innerHTML = '';
 
-            // --- LOGIKA SMART TRUNCATION (TITIK-TITIK) ---
-            const range = 1; // Jumlah angka yang tampil di kiri & kanan halaman aktif
+            const range = 1;
             let pagesToRender = [];
 
             for (let i = 1; i <= totalPages; i++) {
-                // Selalu tampilkan halaman pertama, terakhir, dan jarak dekat di sekitar currentPage
                 if (i === 1 || i === totalPages || (i >= currentPage - range && i <= currentPage + range)) {
                     pagesToRender.push(i);
                 }
@@ -246,7 +236,6 @@
 
             let lastPageAdded = null;
             pagesToRender.forEach(page => {
-                // Jika ada lompatan angka halaman, sisipkan elemen titik-titik "..."
                 if (lastPageAdded !== null && page - lastPageAdded > 1) {
                     const dots = document.createElement('span');
                     dots.textContent = '...';
@@ -254,7 +243,6 @@
                     pageNumbersContainer.appendChild(dots);
                 }
 
-                // Render tombol halaman
                 const btn = document.createElement('button');
                 btn.textContent = page;
                 btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
@@ -271,14 +259,11 @@
                 
                 lastPageAdded = page;
             });
-            // ----------------------------------------------
 
-            // Kelola Status Validasi Aktif/Mati Tombol Panah Prev & Next
             document.getElementById('btnPrev').disabled = (currentPage === 1);
             document.getElementById('btnNext').disabled = (currentPage === totalPages);
         }
 
-        // Event Handler: Tombol Klik Panah Kiri (Prev)
         document.getElementById('btnPrev').addEventListener('click', () => {
             if (currentPage > 1) {
                 currentPage--;
@@ -286,7 +271,6 @@
             }
         });
 
-        // Event Handler: Tombol Klik Panah Kanan (Next)
         document.getElementById('btnNext').addEventListener('click', () => {
             const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
             if (currentPage < totalPages) {
@@ -295,16 +279,14 @@
             }
         });
 
-        // Event Handler: Sinkronisasi Input Teks Pencarian Real-time
         searchInput.addEventListener('input', function() {
             currentSearchQuery = this.value.toLowerCase().trim();
             applySearch();
         });
 
-        // Inisialisasi awal pemanggilan sistem render pagination saat load halaman pertama kali
         applySearch();
     });
 </script>
-    @livewireScripts
+    @livewireStyles
 </body>
 </html>

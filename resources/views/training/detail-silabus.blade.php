@@ -1,40 +1,59 @@
 @include('partials.navbar')
 
-<div class="bg-slate-900 text-white py-12 border-b border-slate-800">
+<div class="bg-slate-900 text-white pt-28 pb-16 border-b border-slate-800">
     <div class="container mx-auto px-4 max-w-6xl">
-        <div class="flex flex-wrap items-center gap-3 mb-4">
-            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded">{{ auto_translate($syllabus->software_category) }}</span>
-            <span class="bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded">Level: {{ auto_translate($syllabus->level) }}</span>
-        </div>
-        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight max-w-4xl">{{ auto_translate($syllabus->title) }}</h1>
-        <p class="text-slate-400 mt-3 text-base md:text-lg max-w-3xl leading-relaxed">{{ auto_translate($syllabus->description) }}</p>
         
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mt-8 pt-6 border-t border-slate-800 text-sm">
-            <div>
+        <div class="flex flex-wrap items-center gap-3 mb-5">
+            <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded">
+                {{ auto_translate($syllabus->software_category) }}
+            </span>
+            <span class="bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded">
+                Level: {{ auto_translate($syllabus->level) }}
+            </span>
+        </div>
+        
+        <h1 class="text-3xl md:text-4xl font-bold text-white leading-tight max-w-4xl mb-4">
+            {{ auto_translate($syllabus->title) }}
+        </h1>
+        
+        <p class="text-slate-400 text-base md:text-lg max-w-3xl leading-relaxed">
+            {{ auto_translate($syllabus->description) }}
+        </p>
+        
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 md:gap-10 mt-10 pt-8 border-t border-slate-800 text-sm">
+            <div class="flex flex-col justify-start">
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Durasi Kelas</span>
-                <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-regular fa-clock text-red-500"></i> {{ $syllabus->durasi ? auto_translate($syllabus->durasi) : '-' }}
+                <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
+                    <i class="fa-regular fa-clock text-red-500 mt-1 flex-shrink-0"></i> 
+                    <span>{{ $syllabus->durasi ? auto_translate($syllabus->durasi) : '-' }}</span>
                 </span>
             </div>
-            <div>
+
+            <div class="flex flex-col justify-start">
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Jadwal Terdekat</span>
-                <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-regular fa-calendar text-red-500"></i> {{ $syllabus->jadwal_terdekat ? auto_translate($syllabus->jadwal_terdekat) : '-' }}
+                <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
+                    <i class="fa-regular fa-calendar text-red-500 mt-1 flex-shrink-0"></i> 
+                    <span class="leading-snug">{{ $syllabus->jadwal_terdekat ? auto_translate($syllabus->jadwal_terdekat) : '-' }}</span>
                 </span>
             </div>
-            <div>
+
+            <div class="flex flex-col justify-start">
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Format Pembelajaran</span>
-                <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-solid fa-video text-red-500"></i> {{ auto_translate($syllabus->format_kelas) }}
+                <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
+                    <i class="fa-solid fa-video text-red-500 mt-1 flex-shrink-0"></i> 
+                    <span>{{ auto_translate($syllabus->format_kelas) }}</span>
                 </span>
             </div>
-            <div>
+
+            <div class="flex flex-col justify-start">
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">Sertifikasi CPD</span>
-                <span class="text-slate-200 font-medium text-base flex items-center gap-1 mt-1">
-                    <i class="fa-solid fa-award text-red-500"></i> {{ $syllabus->poin_cpd ?? '0' }} Poin PDH
+                <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
+                    <i class="fa-solid fa-award text-red-500 mt-1 flex-shrink-0"></i> 
+                    <span>{{ $syllabus->poin_cpd ?? '0' }} Poin PDH</span>
                 </span>
             </div>
         </div>
+        
     </div>
 </div>
 

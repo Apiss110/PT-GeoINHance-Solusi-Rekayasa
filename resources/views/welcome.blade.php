@@ -116,22 +116,28 @@
         }).addTo(map);
 
         // 3. MENGAMBIL DATA DARI LARAVEL 
-        // 🟢 PERBAIKAN: Kita langsung bersihkan & translasikan datanya di sisi PHP sebelum di-decode ke JSON
-        // Ini taktik paling aman agar tidak merusak struktur kurung kurawal Blade compiler
+        // 🟢 PERBAIKAN: Bersihkan data, batasi kata (max 20 kata), dan translasikan di sisi PHP
         var branches = {!! json_encode(collect($branches ?? $branchesData ?? [])->map(function($item) {
             // Cek jika data berupa object atau array, lalu sesuaikan penamaannya
             $title = $item->title ?? $item['title'] ?? $item->name ?? $item['name'] ?? 'Project';
             $desc = $item->description ?? $item['description'] ?? $item->desc ?? $item['desc'] ?? '';
             $daerah = $item->daerah ?? $item['daerah'] ?? 'LOKASI';
 
+            // Bersihkan teks dari tag HTML (jika ada input TinyMCE) dan batasi maks 20 kata
+            $cleanDesc = strip_tags(auto_translate($desc));
+            $words = explode(' ', $cleanDesc);
+            if (count($words) > 20) {
+                $cleanDesc = implode(' ', array_slice($words, 0, 20)) . '...';
+            }
+
             // Ubah properti internal object sebelum dilempar ke Javascript
             if (is_object($item)) {
                 $item->title = auto_translate($title);
-                $item->desc = auto_translate($desc);
+                $item->desc = $cleanDesc;
                 $item->daerah = auto_translate($daerah);
             } else {
                 $item['title'] = auto_translate($title);
-                $item['desc'] = auto_translate($desc);
+                $item['desc'] = $cleanDesc;
                 $item['daerah'] = auto_translate($daerah);
             }
             return $item;
@@ -205,9 +211,9 @@
                         projectLink = branch.link || branch.url;
                     }
 
-                    // Data di bawah ini otomatis sudah berstatus multi bahasa karena proses mapping PHP di atas
+                    // Data di bawah ini otomatis sudah berstatus multi bahasa dan ringkas
                     var branchTitle = branch.title;
-                    var branchDesc = branch.desc || branch.description || '';
+                    var branchDesc = branch.desc || '';
                     var branchDaerah = branch.daerah ? branch.daerah.toUpperCase() : 'LOKASI';
                     
                     var linkButtonHtml = '';
@@ -236,7 +242,7 @@
                                 <span>${branchTitle}</span>
                             </h3>
                             
-                            <p class="text-slate-500 text-[10px] leading-relaxed mb-2">${branchDesc}</p>
+                            <p class="text-slate-500 text-[10px] leading-relaxed mb-2 text-justify">${branchDesc}</p>
                             
                             <div class="flex items-center justify-between border-t border-slate-100 pt-2 mt-1">
                                 ${linkButtonHtml}

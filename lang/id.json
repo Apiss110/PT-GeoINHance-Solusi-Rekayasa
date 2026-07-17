@@ -234,7 +234,7 @@
     "port.btn_view_project": "Detail Proyek",
 
 
-    "all_sectors.hero_sector": "Engineering Sector",
+    "all_sectors.hero_sector": "Proyek Sektor Perusahaan",
     "all_sectors.hero_title_1": "Semua Sektor",
     "all_sectors.hero_desc": "GeoINHance menyediakan layanan rekayasa teknik multidisiplin untuk berbagai sektor strategis nasional mulai dari transportasi, energi, geoteknik, hingga mitigasi geobencana.",
     "all_sectors.filter_all": "Semua",
@@ -249,10 +249,7 @@
     "news.hero_badge": "resources",
     "news.hero_title": "Berita & Acara",
     "news.hero_desc": "Menampilkan rekam jejak dedikasi kami dalam menyelesaikan tantangan infrastruktur rumit secara presisi menggunakan teknologi analisis mutakhir.",
-    "news.filter_all": "Semua",
-    "news.filter_project": "Proyek",
-    "news.filter_event": "Events",
-    "news.filter_company_news": "Company News",
+    "news.search_placeholder": "Cari Berita & Acara...",
     "news.empty_state": "Belum ada berita atau event yang dipublikasikan.",
     "news.no_image": "Gambar Tidak Tersedia",
     "news.badge_project": "Proyek",
@@ -340,7 +337,7 @@
     "home.blog.empty": "Belum ada artikel blog atau berita yang dipublikasikan.",
 
 
-    "profile.hero_sub": "Platform Solusi Geoteknik",
+    "profile.hero_sub": "Tentang GeoINHance",
     "profile.hero_title": "Profil Perusahaan",
     "profile.who_we_are_sub": "Siapa Kami",
     "profile.who_we_are_title": "Mengenal Lebih Dekat <br><span class='text-red-800'>GeoINHance</span>",
@@ -389,7 +386,7 @@
     "profile.addr_01_desc": "Jl. Cijerokaso No 94, Sarijadi, Kec. Sukasari, Kota Bandung 40151",
 
 
-    "contact.hero_sub": "Hubungi Hubungan Kerja Kami",
+    "contact.hero_sub": "Hubungi Kami",
     "contact.hero_title": "Kontak & Tim Struktur",
     "contact.team_title": "Tim Kami",
     "contact.team_desc": "Tim kami terdiri dari insinyur geoteknik yang berkualifikasi dan spesialis teknis dengan pengalaman luas di berbagai proyek.",
@@ -614,8 +611,8 @@
     "project.structural.2.desc": "Analisis mikro-elemen menggunakan pemodelan solid untuk meninjau konsentrasi tegangan (stress concentration) pada sambungan baut pelat simpul atap bentang lebar ekstrim.",
 
 
-    "portfolio.hero_badge": "Company Portfolio",
-    "portfolio.hero_title": "Portofolio Proyek Rekayasa & Konstruksi",
+    "portfolio.hero_badge": "Proyek Perusahaan",
+    "portfolio.hero_title": "Semua Proyek",
     "portfolio.hero_desc": "Menampilkan rekam jejak dedikasi kami dalam menyelesaikan tantangan infrastruktur rumit secara presisi menggunakan teknologi analisis mutakhir.",
     "portfolio.filter_all": "Semua",
     "portfolio.filter_structural": "Struktural",
@@ -628,6 +625,15 @@
     "portfolio.cta_title": "Punya rencana proyek rekayasa yang membutuhkan presisi tinggi?",
     "portfolio.cta_desc": "Tim ahli kami siap membantu Anda menyusun pemodelan, melakukan uji FEA, hingga memberikan asistensi lisensi software komputasi Bentley & Seequent terbaik.",
     "portfolio.cta_btn": "Hubungi Spesialis Kami",
+
+
+    "product.page_title": "Katalog Produk & Solusi - PT GeoINHance",
+    "product.hero_badge": "Instrumen & Teknologi",
+    "product.hero_title": "Katalog Produk",
+    "product.hero_desc": "Kami menyediakan berbagai instrumen pemantauan, perangkat keras rekayasa, dan perangkat lunak analisis mutakhir untuk menjamin keberhasilan dan keamanan proyek infrastruktur Anda.",
+    "product.search_placeholder": "Cari instrumen atau produk...",
+    "product.view_specs": "LIHAT SPESIFIKASI",
+    "product.empty_state": "Belum ada data produk instrumen yang tersedia saat ini.",
 
 
     "staad_pro.hero.badge": "Analisis & Desain Struktural",
@@ -1061,10 +1067,7 @@
     "blog.hero_badge": "Resources",
     "blog.hero_title": "Artikel & Insight Industri",
     "blog.hero_desc": "Temukan informasi terbaru mengenai proyek geoteknik, insight industri, event mendatang, serta kabar internal dari GeoINHance.",
-    "blog.filter_all": "Semua",
-    "blog.filter_project": "Proyek",
-    "blog.filter_event": "Events",
-    "blog.filter_news": "Company News",
+    "blog.search_placeholder": "Cari Artikel & Insight...",
     "blog.empty_state": "Belum ada berita atau event yang dipublikasikan.",
     "blog.no_image": "Gambar Tidak Tersedia",
     "blog.badge_project": "Proyek",
@@ -1128,11 +1131,16 @@
     "resources.records": "data",
     
 
-
+    "syllabus.meta_title": "Silabus & Materi Training | GeoINHance",
     "syllabus.hero_badge": "Training Program",
-    "syllabus.hero_title_1": "Silabus &",
-    "syllabus.hero_title_2": "Materi",
-    "syllabus.hero_desc": "Kurikulum pelatihan engineering profesional dengan materi terstruktur, studi kasus industri, dan pendekatan berbasis software engineering modern.",
+    "syllabus.hero_title_1": "Silabus & Materi",
+    "syllabus.hero_desc2": "Kurikulum pelatihan engineering profesional dengan materi terstruktur, studi kasus industri, dan pendekatan berbasis software engineering modern.",
+    "syllabus.hero_desc": "Temukan rancangan program pelatihan dan materi komprehensif yang disusun terstruktur untuk meningkatkan keahlian teknis Anda.",
+    "syllabus.catalog_title": "Katalog Program Training:",
+    "syllabus.modules_count_suffix": "Modul",
+    "syllabus.view_material": "Lihat Materi",
+    "syllabus.no_data_found": "Belum ada silabus training yang tersedia saat ini.",
+    "syllabus.label_search": "Cari Silabus",
     "syllabus.filter_all": "Semua",
     "syllabus.filter_plaxis": "PLAXIS",
     "syllabus.filter_geostudio": "GeoStudio",
@@ -1201,8 +1209,9 @@
     "facility.card3_desc": "Akses trial software engineering seperti PLAXIS, GeoStudio, dan tools numerical modeling lainnya.",
 
 
-    "register.hero_badge": "GeoINHance Professional Training",
-    "register.hero_title_1": "Pendaftaran",
+    "register.meta_title": "Pendaftaran Program Training | PT GeoINHance Solusi Rekayasa",
+    "register.hero_badge": "FORMULIR PENDAFTARAN",
+    "register.hero_title_1": "Daftar Pelatihan",
     "register.hero_title_2": "Training Engineering",
     "register.hero_desc": "Tingkatkan kompetensi profesional Anda melalui program pelatihan geoteknik, FEM analysis, PLAXIS, dan engineering design bersama tim praktisi berpengalaman.",
     "register.prog_badge": "Available Program",
@@ -1218,14 +1227,28 @@
     "register.card3_title": "Geotechnical Workshop",
     "register.card3_desc": "Workshop intensif engineering design dan interpretasi hasil FEM berdasarkan studi kasus proyek nyata Indonesia.",
     "register.card3_level": "Professional Class",
-    "register.form_badge": "Registration Form",
-    "register.form_title": "Daftar Sekarang",
+    "register.form_badge": "REGISTRASI KELAS",
+    "register.form_title": "Data Diri Peserta",
     "register.label_name": "Nama Lengkap",
     "register.label_email": "Email",
     "register.label_company": "Perusahaan / Institusi",
+    "register.label_whatsapp": "Nomor WhatsApp",
     "register.label_select": "Pilih Training",
+    "register.select_placeholder": "-- Pilih Program Training --",
+    "register.terms_part_1": "Saya menyetujui",
+    "register.terms_link_text_1": "Syarat & Ketentuan",
+    "register.terms_part_2": "serta",
+    "register.terms_link_text_2": "Kebijakan Privasi",
+    "register.terms_part_3": "yang berlaku di PT GeoINHance Solusi Rekayasa.",
+    "register.captcha_error_msg": "Silakan selesaikan verifikasi captcha.",
     "register.label_message": "Pesan Tambahan",
     "register.btn_submit": "Kirim Pendaftaran",
+
+
+    "pagination.showing": "Menampilkan",
+    "pagination.to": "sampai",
+    "pagination.of": "dari",
+    "pagination.records": "rekaman",
 
 
     "footer.desc": "Menyediakan layanan konsultasi rekayasa teknik dan geoteknik kelas dunia dengan integritas dan akurasi tinggi di seluruh Indonesia.",

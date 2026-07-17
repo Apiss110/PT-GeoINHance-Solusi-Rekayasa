@@ -150,4 +150,20 @@ class SyllabusController extends Controller
 
         return redirect()->route('admin.syllabus.index')->with('success', 'Silabus berhasil dihapus!');
     }
+
+    public function bulkDelete(Request $request)
+    {
+        // Menangkap kumpulan ID dari checkbox array form
+        $ids = $request->input('ids', []);
+
+        if (empty($ids)) {
+            return redirect()->route('admin.syllabus.index')->with('error', 'Tidak ada silabus yang dipilih untuk dihapus.');
+        }
+
+        // Eksekusi penghapusan massal data di database
+        Syllabus::whereIn('id', $ids)->delete();
+
+        // Redirect kembali ke halaman utama silabus untuk memutus daur ulang method request
+        return redirect()->route('admin.syllabus.index')->with('success', count($ids) . ' data silabus berhasil dihapus massal!');
+    }
 }

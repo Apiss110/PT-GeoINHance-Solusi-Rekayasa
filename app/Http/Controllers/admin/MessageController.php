@@ -28,4 +28,20 @@ class MessageController extends Controller
         $message->delete();
         return redirect()->route('admin.messages.index')->with('success', 'Pesan berhasil dihapus.');
     }
+
+    public function bulkDelete(Request $request)
+    {
+        // Mengambil kumpulan array ID dari checkbox yang dikirimkan
+        $ids = $request->input('ids', []);
+
+        if (empty($ids)) {
+            return redirect()->route('admin.messages.index')->with('error', 'Tidak ada pesan yang dipilih untuk dihapus.');
+        }
+
+        // Eksekusi penghapusan baris data terpilih dari tabel database
+        ContactMessage::whereIn('id', $ids)->delete();
+
+        // Redirect kembali ke index utama
+        return redirect()->route('admin.messages.index')->with('success', count($ids) . ' data pesan berhasil dihapus massal!');
+    }
 }

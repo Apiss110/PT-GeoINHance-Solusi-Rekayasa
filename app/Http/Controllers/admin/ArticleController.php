@@ -138,4 +138,27 @@ class ArticleController extends Controller
 
         return redirect()->route('admin.articles.index')->with('success', 'Artikel berhasil dihapus!');
     }
+
+    public function bulkDelete(Request $request)
+{
+    // 1. Validasi masukan array data ID artikel terpilih
+    $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:articles,id', // Sesuaikan dengan nama tabel database artikel Anda
+    ]);
+
+    // 2. Ambil seluruh record artikel berdasarkan array ID
+    $articles = Article::whereIn('id', $request->ids)->get();
+
+    // 3. Iterasi untuk menghapus file fisik foto dari storage, lalu hapus datanya
+    foreach ($articles as $article) {
+        if ($article->image) {
+            Storage::disk('public')->delete($article->image);
+        }
+        $article->delete();
+    }
+
+    // 4. Kembali ke halaman sebelumnya dengan feedback sukses
+    return redirect()->back()->with('success', count($request->ids) . ' data artikel berhasil dihapus massal.');
+}
 }

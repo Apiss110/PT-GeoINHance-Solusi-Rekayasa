@@ -40,7 +40,7 @@
             </div>
 
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <span class="bg-blue-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded mb-4 inline-block">
+                <span class="bg-red-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded mb-4 inline-block">
                     {{ auto_translate(is_object($proyek->category) ? $proyek->category->name : ($proyek->category['name'] ?? 'Strategic Project')) }}
                 </span>
                 <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight max-w-4xl">
@@ -65,8 +65,11 @@
                         </h2>
                     </div>
 
-                    <div class="prose max-w-none text-gray-700 leading-relaxed text-base space-y-4">
-                        {!! auto_translate(strip_tags($proyek->description)) !!}
+                    {{-- KODE BARU YANC SUDAH DIPERBAIKI --}}
+                    <div class="prose max-w-none text-gray-700 leading-relaxed text-base 
+                                prose-headings:text-geo-dark prose-headings:font-bold 
+                                prose-h3:text-lg prose-p:mb-4 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5">
+                        {!! auto_translate($proyek->description) !!}
                     </div>
                     
                     <div class="pt-6">
@@ -94,10 +97,19 @@
                             </div>
 
                             <div class="flex items-start gap-3">
-                                <div class="text-blue-700 mt-1"><i class="fa-solid fa-building-user"></i></div>
+                                <div class="text-blue-700 mt-1"><i class="fa-solid fa-industry"></i></div>
                                 <div>
-                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">Klien / Pemilik</h4>
-                                    <p class="text-sm font-semibold text-gray-800">{{ auto_translate($proyek->client ?? 'Rahasia / Institusi Negara') }}</p>
+                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">Sektor / Bidang</h4>
+                                    
+                                    <p class="text-sm font-semibold text-gray-800">
+                                        @if($proyek->sector)
+                                            <a href="{{ route('front.sector.show', $proyek->sector->slug) }}" class="text-black-600 hover:text-blue-800 hover:underline transition">
+                                                {{ auto_translate($proyek->sector->name) }}
+                                            </a>
+                                        @else
+                                            {{ auto_translate('Multi-Sektor / Umum') }}
+                                        @endif
+                                    </p>
                                 </div>
                             </div>
 

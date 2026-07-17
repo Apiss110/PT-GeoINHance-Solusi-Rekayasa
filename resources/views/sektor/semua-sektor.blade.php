@@ -50,7 +50,7 @@
     <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden pt-36">
         <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-            <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
                 {{ __('all_sectors.hero_sector') }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
@@ -147,16 +147,16 @@
     </div>
 </section>
 
-    {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
+{{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
     <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             {{-- Teks Info Kiri --}}
             <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
-                Menampilkan <span id="infoStart" class="font-bold text-slate-800">0</span> sampai <span id="infoEnd" class="font-bold text-slate-800">0</span> dari <span id="infoTotal" class="font-bold text-slate-800">0</span> rekaman sektor
+                {{ __('pagination.showing') }} <span id="infoStart" class="font-bold text-slate-800">0</span> {{ __('pagination.to') }} <span id="infoEnd" class="font-bold text-slate-800">0</span> {{ __('pagination.of') }} <span id="infoTotal" class="font-bold text-slate-800">0</span> {{ __('pagination.records') }}
             </div>
             
             {{-- Tombol Halaman Kanan --}}
-            <nav id="paginationControls" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
+            <nav id="paginationWrapper" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
                 <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
                     <i class="fa-solid fa-chevron-left text-xs"></i>
                 </button>

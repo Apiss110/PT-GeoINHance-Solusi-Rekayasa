@@ -319,4 +319,24 @@ class ProyekController extends Controller
         $branches = DB::table('branches')->get();
         return response()->json($branches);
     }
+
+    public function bulkDelete(Request $request)
+{
+    $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:branches,id',
+    ]);
+
+    $branches = Branch::whereIn('id', $request->ids)->get();
+
+    foreach ($branches as $branch) {
+        if ($branch->img) {
+            $cleanedPath = preg_replace('#^(public/|storage/)#i', '', trim($branch->img));
+            Storage::disk('public')->delete($cleanedPath);
+        }
+        $branch->delete();
+    }
+
+    return redirect()->back()->with('success', count($request->ids) . ' titik lokasi cabang berhasil dihapus massal.');
+}
 }

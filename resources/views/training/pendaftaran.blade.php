@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PT GeoINHance Solusi Rekayasa</title>
+    <title>{{ __('register.meta_title') }}</title>
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
@@ -50,46 +50,47 @@
         .animate-marquee {
             animation: marquee 30s linear infinite;
         }
-        /* Pause jalan logo saat kursor user menempel di atasnya */
         .animate-marquee:hover {
             animation-play-state: paused;
         }
     </style>
 </head>
 <body class="bg-slate-50 font-sans antialiased text-slate-900">
+
 @include('partials.navbar')
 
-<section class="bg-[#002d62] text-white py-24 px-6 text-center relative overflow-hidden">
-    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:16px_16px]"></div>
-    <div class="relative z-10 max-w-4xl mx-auto" data-aos="zoom-in">
-        <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-4">
+{{-- HERO SECTION --}}
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+    <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
+        <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
             {{ __('register.hero_badge') }}
         </span>
-        <h1 class="text-4xl md:text-6xl font-black uppercase tracking-tight leading-tight">
-            {{ __('register.hero_title_1') }} <br>
-            {{ __('register.hero_title_2') }}
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
+            {{ __('register.hero_title_1') }}
         </h1>
-        <p class="text-slate-300 mt-6 max-w-2xl mx-auto leading-relaxed text-sm md:text-base">
+        <p class="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
             {{ __('register.hero_desc') }}
         </p>
     </div>
 </section>
 
-<section class="bg-slate-100 py-24 px-6 border-t border-slate-200">
-    <div class="max-w-4xl mx-auto bg-white rounded-[2rem] border border-slate-200 shadow-sm p-10 md:p-14">
+{{-- FORM SECTION --}}
+<section class="bg-slate-50 py-16 px-4 sm:px-6 lg:px-8">
+    <div class="max-w-4xl mx-auto bg-white rounded-2xl border border-gray-200/80 shadow-sm p-8 md:p-12" data-aos="fade-up">
 
-        <div class="mb-12 text-center">
-            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
+        <div class="mb-10 text-center">
+            <span class="text-red-800 font-bold uppercase text-xs tracking-[0.3em] block mb-2">
                 {{ __('register.form_badge') }}
             </span>
-            <h2 class="text-4xl font-black uppercase text-slate-900">
+            <h2 class="text-2xl md:text-3xl font-black uppercase text-slate-900">
                 {{ __('register.form_title') }}
             </h2>
         </div>
 
         {{-- NOTIFIKASI SUKSES SETELAH BERHASIL DAFTAR --}}
         @if(session('success'))
-            <div class="mb-8 p-5 bg-green-50 border border-green-200 text-green-800 rounded-2xl flex items-center gap-3 text-sm font-semibold">
+            <div class="mb-8 p-5 bg-green-50 border border-green-200 text-green-800 rounded-xl flex items-center gap-3 text-sm font-semibold">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                 </svg>
@@ -106,7 +107,7 @@
                     {{ __('register.label_name') }} <span class="text-red-600">*</span>
                 </label>
                 <input type="text" name="name" value="{{ old('name') }}" required
-                       class="w-full rounded-2xl border @error('name') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                       class="w-full bg-slate-50 border @error('name') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-slate-900 @enderror rounded-lg px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:bg-white transition">
                 @error('name')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
@@ -118,7 +119,7 @@
                     {{ __('register.label_email') }} <span class="text-red-600">*</span>
                 </label>
                 <input type="email" name="email" value="{{ old('email') }}" required
-                       class="w-full rounded-2xl border @error('email') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                       class="w-full bg-slate-50 border @error('email') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-slate-900 @enderror rounded-lg px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:bg-white transition">
                 @error('email')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
@@ -127,11 +128,11 @@
             {{-- 3. NOMOR WHATSAPP --}}
             <div>
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
-                    Nomor WhatsApp <span class="text-red-600">*</span>
+                    {{ __('register.label_whatsapp') }} <span class="text-red-600">*</span>
                 </label>
                 <input type="tel" name="whatsapp_number" value="{{ old('whatsapp_number') }}" required placeholder="08123456789"
                        pattern="[0-9]{10,13}" title="Masukkan nomor ponsel yang valid (contoh: 08123456789)"
-                       class="w-full rounded-2xl border @error('whatsapp_number') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                       class="w-full bg-slate-50 border @error('whatsapp_number') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-slate-900 @enderror rounded-lg px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:bg-white transition">
                 @error('whatsapp_number')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
@@ -143,20 +144,20 @@
                     {{ __('register.label_company') }}
                 </label>
                 <input type="text" name="company" value="{{ old('company') }}"
-                       class="w-full rounded-2xl border @error('company') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">
+                       class="w-full bg-slate-50 border @error('company') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-slate-900 @enderror rounded-lg px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:bg-white transition">
                 @error('company')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
             </div>
 
-            {{-- 5. PILIH TRAINING (DIUBAH MENJADI DINAMIS BERDASARKAN DATABASE) --}}
+            {{-- 5. PILIH TRAINING --}}
             <div class="md:col-span-2">
                 <label class="block text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">
                     {{ __('register.label_select') }} <span class="text-red-600">*</span>
                 </label>
                 <select name="syllabus_id" required
-                        class="w-full rounded-2xl border @error('syllabus_id') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2 bg-white">
-                    <option value="" disabled {{ old('syllabus_id', $selectedSyllabusId) ? '' : 'selected' }}>-- Pilih Program Training --</option>
+                        class="w-full bg-slate-50 border @error('syllabus_id') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-slate-900 @enderror rounded-lg px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:bg-white transition">
+                    <option value="" disabled {{ old('syllabus_id', $selectedSyllabusId) ? '' : 'selected' }}>{{ __('register.select_placeholder') }}</option>
                     @foreach($syllabi as $sys)
                         <option value="{{ $sys->id }}" {{ old('syllabus_id', $selectedSyllabusId) == $sys->id ? 'selected' : '' }}>
                             {{ $sys->title }} ({{ $sys->software_category }})
@@ -174,7 +175,7 @@
                     {{ __('register.label_message') }}
                 </label>
                 <textarea name="message" rows="4"
-                          class="w-full rounded-2xl border @error('message') border-red-500 focus:ring-red-500 @else border-slate-200 focus:ring-red-800 @enderror px-5 py-4 focus:outline-none focus:ring-2">{{ old('message') }}</textarea>
+                          class="w-full bg-slate-50 border @error('message') border-red-500 focus:ring-red-500 @else border-gray-200 focus:ring-slate-900 @enderror rounded-lg px-4 py-3 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:bg-white transition">{{ old('message') }}</textarea>
                 @error('message')
                     <span class="text-xs text-red-600 font-semibold mt-1 block">{{ $message }}</span>
                 @enderror
@@ -184,7 +185,7 @@
             <div class="md:col-span-2 flex flex-col items-center justify-center my-2">
                 <div class="g-recaptcha" data-sitekey="{{ env('RECAPTCHA_SITE_KEY') }}"></div>
                 @error('g-recaptcha-response')
-                    <span class="text-xs text-red-600 font-semibold mt-1 block">Silakan selesaikan verifikasi captcha.</span>
+                    <span class="text-xs text-red-600 font-semibold mt-1 block">{{ __('register.captcha_error_msg') }}</span>
                 @enderror
             </div>
 
@@ -194,10 +195,10 @@
                     <input type="checkbox" id="terms" name="terms" required
                            class="mt-1 h-4 w-4 rounded border-slate-300 text-red-800 focus:ring-red-800 accent-red-800 cursor-pointer">
                     <label for="terms" class="text-xs text-slate-500 leading-relaxed cursor-pointer select-none">
-                        Saya menyetujui 
-                        <a href="{{ route('terms') }}" class="text-red-800 underline hover:text-red-700 font-medium">Syarat & Ketentuan</a> serta 
-                        <a href="{{ route('privacy') }}" class="text-red-800 underline hover:text-red-700 font-medium">Kebijakan Privasi</a> 
-                        yang berlaku di PT GeoINHance Solusi Rekayasa. <span class="text-red-600">*</span>
+                        {{ __('register.terms_part_1') }} 
+                        <a href="{{ route('terms') }}" class="text-red-800 underline hover:text-red-700 font-medium">{{ __('register.terms_link_text_1') }}</a> {{ __('register.terms_part_2') }} 
+                        <a href="{{ route('privacy') }}" class="text-red-800 underline hover:text-red-700 font-medium">{{ __('register.terms_link_text_2') }}</a> 
+                        {{ __('register.terms_part_3') }} <span class="text-red-600">*</span>
                     </label>
                 </div>
                 @error('terms')
@@ -208,7 +209,7 @@
             {{-- BUTTON SUBMIT --}}
             <div class="md:col-span-2 text-center mt-6">
                 <button type="submit"
-                        class="bg-red-800 hover:bg-red-700 text-white font-black uppercase tracking-[0.2em] px-10 py-4 rounded-2xl shadow-lg transition-all duration-300 hover:-translate-y-1 w-full sm:w-auto">
+                        class="bg-slate-900 hover:bg-slate-800 text-white font-bold uppercase tracking-wider px-8 py-3.5 rounded-lg shadow-sm transition duration-150 w-full sm:w-auto">
                     {{ __('register.btn_submit') }}
                 </button>
             </div>

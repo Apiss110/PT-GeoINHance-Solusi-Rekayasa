@@ -73,7 +73,7 @@
     <main class="py-16 bg-white">
         <div class="max-w-4xl mx-auto px-6 sm:px-8">
             
-            <div class="text-gray-500 font-medium text-sm mb-10 flex items-center justify-between border-b border-gray-100 pb-4">
+            <div class="text-gray-500 font-medium text-sm mb-10 flex items-center justify-between pb-4">
                 <div class="flex items-center gap-2">
                     📅 {{ $caseStudy->published_at ? \Carbon\Carbon::parse($caseStudy->published_at)->format('j M, Y') : $caseStudy->created_at->format('j M, Y') }}
                 </div>
@@ -82,12 +82,8 @@
                 </div>
             </div>
 
-            <div class="geo-article-container font-light">
-                {!! auto_translate($caseStudy->content) !!}
-            </div>
-
             {{-- ==================== PDF COMPONENT WINDOW (FIXED DATABASE COLUMN) ==================== --}}
-            <div class="mt-12 space-y-4 border-t border-gray-100 pt-8">
+            <div class="mt-12 space-y-4 pt-8">
                 <div class="flex items-center justify-between">
                     <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
@@ -115,7 +111,7 @@
                                         Buka Dokumen PDF Secara Langsung
                                     </a>
                                 </div>
-                            </iframe>
+                            </iframe >
                         </object>
                     @else
                         <div class="flex flex-col items-center justify-center h-full p-6 text-center bg-slate-50">
@@ -129,6 +125,15 @@
                 </div>
             </div>
             {{-- ====================================================================================== --}}
+
+            {{-- 🟢 PERBAIKAN UTAMA: Mengubah dari $caseStudy->content menjadi $caseStudy->description --}}
+            <div class="geo-article-container font-light whitespace-pre-line">
+                @if(!empty($caseStudy->description))
+                    {!! auto_translate($caseStudy->description) !!}
+                @else
+                    <p class="text-gray-400 italic">{{ __('Tidak ada ringkasan deskripsi untuk studi kasus teknik ini.') }}</p>
+                @endif
+            </div>
 
             <div class="mt-20 pt-8 border-t border-gray-100 text-center space-y-6">
                 <a href="{{ route('kontak') }}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold uppercase tracking-widest py-3.5 px-8 rounded-xl text-xs transition shadow-sm">

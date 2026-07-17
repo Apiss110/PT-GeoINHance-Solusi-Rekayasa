@@ -20,7 +20,7 @@ class BlogController extends Controller
                      ->latest()
                      ->get();
         
-        return view('pages.admin.blog.index', compact('blogs'));
+        return view('pages.admin.news.index', compact('blogs'));
     }
 
     public function create()
@@ -60,7 +60,7 @@ class BlogController extends Controller
     public function edit($id)
     {
         $blog = Blog::findOrFail($id);
-        return view('pages.admin.blog.edit', compact('blog'));
+        return view('pages.admin.news.edit', compact('blog'));
     }
 
     public function update(Request $request, $id)
@@ -118,4 +118,27 @@ class BlogController extends Controller
         }
         return response()->json(['error' => 'Gagal mengunggah gambar.'], 400);
     }
+
+    public function bulkDelete(Request $request)
+{
+    // 1. Validasi masukan array ID data berita
+    $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:blogs,id', // Sesuaikan dengan nama tabel database berita Anda
+    ]);
+
+    // 2. Tarik semua objek record yang dicentang
+    $blogs = Blog::whereIn('id', $request->ids)->get();
+
+    // 3. Hapus berkas gambar terkait di storage lokal, lalu hapus datanya
+    foreach ($blogs as $blog) {
+        if ($blog->image) {
+            Storage::disk('public')->delete($blog->image);
+        }
+        $blog->delete();
+    }
+
+    // 4. Alihkan kembali dengan notifikasi sukses
+    return redirect()->back()->with('success', count($request->ids) . ' artikel berita berhasil dihapus massal.');
+}
 }

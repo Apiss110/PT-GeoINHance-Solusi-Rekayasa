@@ -32,12 +32,12 @@ class ProductController extends Controller
             'licenses' => 'nullable|array',
         ]);
 
-        // 🟢 PERBAIKAN: Merapikan duplikasi key array & parsing otomatis ID YouTube dengan default fallback
+        // 🟢 PERBAIKAN: Mengambil data editor TinyMCE dari name="about_description" ke key 'about_p1'
         $jsonData = [
             'hero_badge'         => $request->input('hero_badge', 'Geotechnical Software'),
             'hero_description'   => $request->input('description'),
             'about_title'        => $request->input('about_title', 'Solusi Andal Analisis Geoteknik'),
-            'about_p1'           => $request->input('about_p1'),
+            'about_p1'           => $request->input('about_description'), // <- DIUBAH DARI 'about_p1' KE 'about_description'
             'about_p2'           => $request->input('about_p2'),
             'about_partner_note' => $request->input('about_partner_note'),
             'video_url'          => $request->input('video_url'), 
@@ -50,10 +50,7 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->name = $request->name;
-        
-        // 🟢 PERBAIKAN UTAMA (Solusi 1): Tambahkan string acak agar slug selalu unik di database
         $product->slug = Str::slug($request->name) . '-' . Str::lower(Str::random(5));
-        
         $product->description = json_encode($jsonData);
         $product->is_active = $request->has('is_active');
         
@@ -82,12 +79,12 @@ class ProductController extends Controller
             'licenses' => 'nullable|array',
         ]);
 
-        // 🟢 PERBAIKAN: Merapikan struktur array agar bersih dari duplikasi key
+        // 🟢 PERBAIKAN: Mengambil data editor TinyMCE dari name="about_description" ke key 'about_p1'
         $jsonData = [
             'hero_badge'         => $request->input('hero_badge', 'Geotechnical Software'),
             'hero_description'   => $request->input('description'), 
             'about_title'        => $request->input('about_title', 'Solusi Andal Analisis Geoteknik'),
-            'about_p1'           => $request->input('about_p1'),
+            'about_p1'           => $request->input('about_description'), // <- DIUBAH DARI 'about_p1' KE 'about_description'
             'about_p2'           => $request->input('about_p2'),
             'about_partner_note' => $request->input('about_partner_note'),
             'video_url'          => $request->input('video_url'), 
@@ -105,8 +102,6 @@ class ProductController extends Controller
             $product->image_path = $request->file('image')->store('products', 'public');
         }
 
-        // 🟢 PERBAIKAN AMAN: Hanya ganti slug baru jika Admin mengubah nama produknya
-        // Jika nama produk tetap sama saat disimpan, slug lama dipertahankan agar link detail tidak rusak/berubah
         if ($product->name !== $request->name) {
             $product->slug = Str::slug($request->name) . '-' . Str::lower(Str::random(5));
         }
@@ -159,5 +154,17 @@ class ProductController extends Controller
         if (empty($url)) return null;
         preg_match('/(?:youtube\.com\/(?:[^\/]+\/.+\/|(?:v|e(?:mbed)?)\/|.*[?&]v=)|youtu\.be\/)([^"&?\/ ]{11})/', $url, $matches);
         return $matches[1] ?? null;
+    }
+
+    public function bulkDelete(Request $request)
+    {
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'exists:products,id',
+        ]);
+
+        Product::destroy($request->ids);
+
+        return redirect()->back()->with('success', count($request->ids) . ' produk terpilih berhasil dihapus massal.');
     }
 }

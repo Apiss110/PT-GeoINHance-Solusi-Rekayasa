@@ -104,4 +104,27 @@ class SectorController extends Controller
 
         return redirect()->route('admin.sector.index')->with('success', 'Sektor berhasil dihapus!');
     }
+
+    public function bulkDelete(Request $request)
+{
+    // 1. Validasi kiriman array ID
+    $request->validate([
+        'ids' => 'required|array',
+        'ids.*' => 'exists:sectors,id',
+    ]);
+
+    // 2. Ambil data sektor terpilih
+    $sectors = Sector::whereIn('id', $request->ids)->get();
+
+    // 3. Hapus banner terikat di folder storage (jika ada) sebelum records dihapus
+    foreach ($sectors as $sector) {
+        if ($sector->banner_image) {
+            Storage::disk('public')->delete($sector->banner_image);
+        }
+        $sector->delete();
+    }
+
+    // 4. Kirim feedback sukses
+    return redirect()->back()->with('success', count($request->ids) . ' data sektor berhasil dihapus massal.');
+}
 }
