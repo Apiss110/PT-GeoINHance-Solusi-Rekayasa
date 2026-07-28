@@ -35,7 +35,7 @@ class ProyekController extends Controller
      */
     public function semuaProyek()
     {
-        $projects = StrategicProject::latest()->paginate(6);
+        $projects = StrategicProject::latest()->get();
         return view('proyek.semua-proyek', compact('projects'));
     }
 

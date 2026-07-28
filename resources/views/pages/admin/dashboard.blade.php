@@ -10,7 +10,7 @@
     };
 
     // Deteksi otomatis seluruh 13 route sidebar Anda
-    $sliderRoute     = $getRoute(['admin.hero-sliders.index', 'admin.hero-slider.index', 'admin.sliders.index']);
+    $sliderRoute     = $getRoute(['admin.slider.index', 'admin.slider.index', 'admin.slider.index']);
     $productRoute    = $getRoute(['admin.products.index', 'admin.product.index']);
     $projectRoute    = $getRoute(['admin.project-pages.index', 'admin.projects.index', 'admin.project.index']);
     $sectorRoute     = $getRoute(['admin.sector.index', 'admin.sectors.index']);
@@ -18,11 +18,12 @@
     $articleRoute    = $getRoute(['admin.articles.index', 'admin.article.index']);
     $branchRoute     = $getRoute(['admin.branches.index', 'admin.branch.index', 'admin.peta-proyek.index']);
     $videoRoute      = $getRoute(['admin.videos.index', 'admin.video.index']);
-    $caseStudyRoute  = $getRoute(['admin.case-studies.index', 'admin.case-study.index']);
+    $caseStudyRoute  = $getRoute(['admin.studi-kasus.index', 'admin.studi-kasus.index']);
     $syllabusRoute   = $getRoute(['admin.syllabi.index', 'admin.syllabus.index', 'admin.syllabuses.index']);
     $trainingRoute   = $getRoute(['admin.training.index', 'admin.trainings.index', 'admin.training-registrations.index']);
     $messageRoute    = $getRoute(['admin.messages.index', 'admin.message.index', 'admin.contact-messages.index']);
-    $userRoute       = $getRoute(['admin.users.index', 'admin.user.index']);
+    $userRoute       = $getRoute(['admin.kelola-admin.index', 'admin.kelola-admin.index']);
+    
 @endphp
 
 <x-app-layout>

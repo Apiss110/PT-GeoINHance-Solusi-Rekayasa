@@ -18,8 +18,18 @@
             <aside class="w-64 bg-[#0e1d82] text-white flex flex-col justify-between shrink-0 border-r border-[#0c196e] shadow-lg z-10">
                 <div class="p-5 flex flex-col h-full overflow-y-auto">
                     
-                    <div class="flex items-center mb-6">
+                    <div class="flex items-center mb-4">
                         <img src="{{ asset('images/logo_inh.png') }}" alt="GeoINHance Logo" class="h-30 w-60 object-contain">
+                    </div>
+
+                    {{-- 🟢 FITUR BARU: Tombol Cepat Menuju Halaman Welcome User --}}
+                    <div class="mb-6 px-1">
+                        <a href="{{ url('/') }}" class="flex items-center justify-center gap-2 w-full px-3 py-2 text-xs font-bold bg-[#cfdde9] text-[#0e1d82] hover:bg-white hover:scale-[1.02] active:scale-[0.98] rounded-lg transition-all duration-200 shadow-sm">
+                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                            </svg>
+                            <span>Lihat Website</span>
+                        </a>
                     </div>
 
                     <nav class="flex-1 space-y-1">

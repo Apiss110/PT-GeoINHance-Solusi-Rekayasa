@@ -51,7 +51,7 @@
         <section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden pt-36">
             <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-                <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30">
+                <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">
                     {{ __('product.hero_badge') }}
                 </span>
                 <h1 class="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight leading-none uppercase">
@@ -82,7 +82,7 @@
             </div>
         </section>
 
-        {{-- GRID PRODUK SECTION --}}
+{{-- GRID PRODUK SECTION --}}
         <section class="max-w-7xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
             
             <div id="productGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -101,38 +101,52 @@
                     $cleanedDesc = strip_tags($rawDesc);
                     
                     // Ambil kategori produk aman
-                    $categoryName = is_object($product->category) ? $product->category->name : ($product->category['name'] ?? 'Peralatan');
+                    $categoryName = is_object($product->category) ? $product->category->name : ($product->category['name'] ?? 'Perangkat Lunak');
+                    
+                    // Deteksi Brand dinamis dari JSON jika ada, jika tidak set default "BENTLEY SYSTEMS"
+                    $brandName = isset($details['brand']) ? $details['brand'] : 'BENTLEY SYSTEMS';
                 @endphp
 
                 <div class="product-item transition-all duration-300" 
                      data-name="{{ strtolower(auto_translate($product->title ?? $product->name)) }}">
                     
-                    <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[450px]">
+                    <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px] h-full">
                         <div>
                             {{-- Thumbnail / Banner Area Produk --}}
                             <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
                                 @if(isset($product->image_path) && $product->image_path)
-                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->title ?? $product->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->title ?? $product->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                 @else
-                                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
-                                    <i class="fa-solid fa-box-open text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
+                                    <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-red-950 opacity-90"></div>
+                                    <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:10px_10px]"></div>
+                                    <i class="fa-solid fa-box-open text-[60px] text-red-500/30 group-hover:scale-110 transition-transform duration-700 relative z-10"></i>
                                 @endif
                             </div>
 
                             {{-- Content Area Produk --}}
-                            <div class="p-6 space-y-3">
-                                <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
-                                    {{ auto_translate($product->title ?? $product->name) }}
+                            <div class="p-6 space-y-2">
+                                {{-- Meta Info Atas (Brand & Kategori Utama) untuk mengisi ruang yang sebelumnya kosong --}}
+                                <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
+                                    {{ strtoupper(auto_translate($brandName)) }} • {{ strtoupper(auto_translate($categoryName)) }}
+                                </p>
+
+                                {{-- Judul Produk --}}
+                                <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-red-700 transition line-clamp-2 pt-1 uppercase">
+                                    <a href="{{ route('produk.detail', $product->id) }}">
+                                        {{ auto_translate($product->title ?? $product->name) }}
+                                    </a>
                                 </h3>
-                                <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
-                                    {{ Str::limit(auto_translate($cleanedDesc), 110, '...') }}
+
+                                {{-- Deskripsi Singkat (Limit karakter dinaikkan sedikit agar proporsi tinggi card seimbang) --}}
+                                <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 pt-1">
+                                    {{ Str::limit(auto_translate($cleanedDesc), 130, '...') }}
                                 </div>
                             </div>
                         </div>
 
                         {{-- Action Button Area --}}
-                        <div class="p-6 pt-0 space-y-4">
-                            <a href="{{ route('produk.detail', $product->id) }}" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
+                        <div class="p-6 pt-0">
+                            <a href="{{ route('produk.detail', $product->id) }}" class="inline-flex items-center text-xs font-bold text-red-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
                                 {{ __('product.view_specs') }}
                                 <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
@@ -143,9 +157,11 @@
                 </div>
                 @empty
                 {{-- DATA EMPTY STATE PRODUK --}}
-                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-12 bg-white rounded-3xl border border-slate-200">
-                    <i class="fa-solid fa-box-open text-slate-300 text-5xl mb-3"></i>
-                    <p class="text-sm text-slate-500 font-medium">{{ __('product.empty_state') }}</p>
+                <div class="col-span-1 md:col-span-2 lg:col-span-3 text-center py-20 bg-white rounded-3xl border border-slate-200 shadow-sm">
+                    <svg class="w-16 h-16 text-slate-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                    </svg>
+                    <p class="text-slate-500 font-medium">{{ __('product.empty_state') }}</p>
                 </div>
                 @endforelse
 
@@ -153,27 +169,7 @@
         </section>
 
     {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
-    <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            {{-- Teks Info Kiri --}}
-            <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
-                {{ __('pagination.showing') }} <span id="infoStart" class="font-bold text-slate-800">0</span> {{ __('pagination.to') }} <span id="infoEnd" class="font-bold text-slate-800">0</span> {{ __('pagination.of') }} <span id="infoTotal" class="font-bold text-slate-800">0</span> {{ __('pagination.records') }}
-            </div>
-            
-            {{-- Tombol Halaman Kanan --}}
-            <nav id="paginationWrapper" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
-                <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                
-                <div id="pageNumbers" class="flex items-center -space-x-px"></div>
-                
-                <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-            </nav>
-        </div>
-    </section>
+    @include('partials.pagination')
     </main>
 
     {{-- FOOTER --}}
@@ -247,7 +243,7 @@
                 btn.textContent = page;
                 btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
                     page === currentPage 
-                    ? 'bg-[#002d62] text-white' 
+                    ? 'bg-red-800 text-white' 
                     : 'bg-white text-slate-700 hover:bg-slate-50'
                 }`;
                 btn.addEventListener('click', () => {

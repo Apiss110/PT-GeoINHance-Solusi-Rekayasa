@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -40,9 +40,6 @@
             </div>
 
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                <span class="bg-red-900 text-white text-xs font-bold uppercase tracking-widest px-3 py-1.5 rounded mb-4 inline-block">
-                    {{ auto_translate(is_object($proyek->category) ? $proyek->category->name : ($proyek->category['name'] ?? 'Strategic Project')) }}
-                </span>
                 <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight max-w-4xl">
                     {{ auto_translate($proyek->title) }}
                 </h1>
@@ -61,35 +58,28 @@
 
                     <div class="border-b border-gray-200 pb-3">
                         <h2 class="text-2xl font-bold text-geo-dark flex items-center gap-2">
-                            <i class="fa-solid fa-file-lines text-blue-700"></i> Deskripsi & Lingkup Kerja
+                            <i class="fa-solid fa-file-lines text-blue-700"></i> {{ __('project.description_scope') }}
                         </h2>
                     </div>
 
-                    {{-- KODE BARU YANC SUDAH DIPERBAIKI --}}
                     <div class="prose max-w-none text-gray-700 leading-relaxed text-base 
                                 prose-headings:text-geo-dark prose-headings:font-bold 
                                 prose-h3:text-lg prose-p:mb-4 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5">
                         {!! auto_translate($proyek->description) !!}
-                    </div>
-                    
-                    <div class="pt-6">
-                        <a href="{{ route('proyek.semua') }}" class="inline-flex items-center text-sm font-bold text-gray-500 hover:text-red-700 transition gap-2">
-                            <i class="fa-solid fa-arrow-left"></i> Kembali ke Semua Proyek
-                        </a>
                     </div>
                 </div>
 
                 <div class="space-y-6">
                     <div class="bg-white rounded-xl shadow-md border border-gray-200 p-6">
                         <h3 class="text-lg font-bold text-geo-dark border-b border-gray-100 pb-3 mb-4 uppercase tracking-wide">
-                            Informasi Proyek
+                            {{ __('project.project_info') }}
                         </h3>
                         
                         <div class="space-y-4">
                             <div class="flex items-start gap-3">
                                 <div class="text-blue-700 mt-1"><i class="fa-solid fa-tags"></i></div>
                                 <div>
-                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">Kategori Rekayasa</h4>
+                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.engineering_category') }}</h4>
                                     <p class="text-sm font-semibold text-gray-800">
                                         {{ auto_translate(is_object($proyek->category) ? $proyek->category->name : ($proyek->category['name'] ?? 'General Engineering')) }}
                                     </p>
@@ -99,7 +89,7 @@
                             <div class="flex items-start gap-3">
                                 <div class="text-blue-700 mt-1"><i class="fa-solid fa-industry"></i></div>
                                 <div>
-                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">Sektor / Bidang</h4>
+                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.sector_field') }}</h4>
                                     
                                     <p class="text-sm font-semibold text-gray-800">
                                         @if($proyek->sector)
@@ -107,7 +97,7 @@
                                                 {{ auto_translate($proyek->sector->name) }}
                                             </a>
                                         @else
-                                            {{ auto_translate('Multi-Sektor / Umum') }}
+                                            {{ __('project.multi_sector') }}
                                         @endif
                                     </p>
                                 </div>
@@ -116,7 +106,7 @@
                             <div class="flex items-start gap-3">
                                 <div class="text-blue-700 mt-1"><i class="fa-solid fa-map-location-dot"></i></div>
                                 <div>
-                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">Lokasi Kerja</h4>
+                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.work_location') }}</h4>
                                     <p class="text-sm font-semibold text-gray-800">{{ auto_translate($proyek->location ?? 'Indonesia') }}</p>
                                 </div>
                             </div>
@@ -124,7 +114,7 @@
                             <div class="flex items-start gap-3">
                                 <div class="text-blue-700 mt-1"><i class="fa-solid fa-calendar-days"></i></div>
                                 <div>
-                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">Tahun Selesai</h4>
+                                    <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.completion_year') }}</h4>
                                     <p class="text-sm font-semibold text-gray-800">{{ auto_translate($proyek->year ?? '2026') }}</p>
                                 </div>
                             </div>
@@ -133,12 +123,12 @@
 
                     <div class="bg-gradient-to-br from-geo-dark to-blue-950 text-white rounded-xl p-6 shadow-md text-center space-y-4">
                         <i class="fa-solid fa-headset text-4xl text-yellow-500 animate-bounce"></i>
-                        <h3 class="text-lg font-bold">Butuh Solusi Rekayasa Serupa?</h3>
+                        <h3 class="text-lg font-bold">{{ __('project.need_solution_title') }}</h3>
                         <p class="text-xs text-gray-300 leading-relaxed">
-                            Diskusikan kebutuhan proyek infrastruktur, geoteknik, maupun analisis struktur Anda bersama tim ahli teruji dari PT GeoINHance.
+                            {{ __('project.need_solution_desc') }}
                         </p>
                         <a href="{{ route('kontak') }}" class="block bg-blue-600 hover:bg-blue-700 text-white text-sm font-bold uppercase py-3 px-4 rounded transition shadow-md shadow-blue-500/20">
-                            Hubungi Tim Ahli Kami
+                            {{ __('project.contact_our_experts') }}
                         </a>
                     </div>
                 </div>
@@ -152,11 +142,11 @@
     <div class="max-w-7xl mx-auto px-6">
         
         <div class="mb-12">
-            <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">Our Track Record</span>
+            <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">{{ __('project.track_record') }}</span>
             <div class="flex flex-wrap justify-between items-end gap-4">
                 <div>
                     <h2 class="text-2xl md:text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                        Proyek <span class="text-slate-950">Terkait</span>
+                        {{ __('project.project_title') }} <span class="text-slate-950">{{ __('project.related_title') }}</span>
                     </h2>
                     <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
@@ -187,16 +177,17 @@
                         @else
                             <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ auto_translate($otherProject->title) }}">
                         @endif
-                        
-                        <span class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm bg-[#c80000]">
-                            {{ $otherProject->year ?? '2026' }}
-                        </span>
                     </div>
                     
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div class="mb-5">
+                            <p class="text-slate-400 text-[11px] font-bold tracking-widest mb-1 uppercase">
+                                {{ auto_translate($otherProject->location) }} • {{ $otherProject->year }}
+                            </p>
                             <h3 class="text-base font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
-                                {{ auto_translate($otherProject->title) }}
+                                <a href="{{ route('proyek.detail', $otherProject->id) }}" class="text-inherit no-underline">
+                                    {{ auto_translate($otherProject->title) }}
+                                </a>
                             </h3>
                             <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">
                                 {{ Str::limit(strip_tags(auto_translate($otherProject->description)), 120) }}
@@ -204,7 +195,7 @@
                         </div>
                         
                         <a href="{{ route('proyek.detail', $otherProject->id) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition mt-auto">
-                            Pelajari Detail Proyek
+                            {{ __('project.read_more') }}
                             <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>

@@ -114,7 +114,25 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Upload Foto / Avatar Instruktur</label>
-                        <input type="file" name="foto_instruktur" class="w-full p-1.5 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        <input type="file" name="foto_instruktur" id="avatar-input" accept="image/*" class="w-full p-1.5 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
+                        
+                        {{-- 🟢 ELEMEN PREVIEW AVATAR BULAT --}}
+                        <div id="avatar-preview-container" class="mt-3 hidden">
+                            <p class="text-xs text-gray-500 mb-2">Preview Avatar:</p>
+                            <div class="relative inline-block">
+                                {{-- Frame Lingkaran Avatar --}}
+                                <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-slate-200 shadow-sm bg-slate-50">
+                                    <img id="avatar-preview" src="#" alt="Preview Avatar" class="w-full h-full object-cover">
+                                </div>
+                                
+                                {{-- Tombol Batal/Hapus Avatar --}}
+                                <button type="button" id="remove-avatar" class="absolute -top-1 -right-1 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors shadow-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="mt-4">
@@ -181,6 +199,42 @@
         </div>
     </form>
 </div>
+
+{{-- 🟢 SCRIPT JAVASCRIPT UNTUK PREVIEW AVATAR --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const avatarInput = document.getElementById('avatar-input');
+        const previewContainer = document.getElementById('avatar-preview-container');
+        const previewImage = document.getElementById('avatar-preview');
+        const removeButton = document.getElementById('remove-avatar');
+
+        avatarInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                resetAvatarPreview();
+            }
+        });
+
+        removeButton.addEventListener('click', function() {
+            resetAvatarPreview();
+        });
+
+        function resetAvatarPreview() {
+            avatarInput.value = ''; // Reset input file
+            previewImage.src = '#';
+            previewContainer.classList.add('hidden');
+        }
+    });
+</script>
 
 <script>
     // Dinamis Tambah Form Baris Modul

@@ -56,9 +56,24 @@
                                 <label for="about_partner_note" class="block text-sm font-medium text-gray-700">Catatan/Note Kaki Kotak Abu-Abu</label>
                                 <input type="text" name="about_partner_note" id="about_partner_note" value="{{ old('about_partner_note') }}" class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm" placeholder="Contoh: PT GeoINHance Solusi Rekayasa adalah mitra resmi...">
                             </div>
+
                             <div>
                                 <label for="image" class="block text-sm font-medium text-gray-700">Gambar Banner Produk (Samping Teks Tentang)</label>
-                                <input type="file" name="image" id="image" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                <input type="file" name="image" id="image" accept="image/*" class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
+                                
+                                {{-- 🟢 ELEMEN PREVIEW GAMBAR --}}
+                                <div id="image-preview-container" class="mt-3 hidden">
+                                    <p class="text-xs text-gray-500 mb-1">Preview Gambar:</p>
+                                    <div class="relative inline-block border rounded-lg overflow-hidden bg-white shadow-sm max-w-xs">
+                                        <img id="image-preview" src="#" alt="Preview" class="h-40 w-auto object-cover">
+                                        {{-- Tombol Batal Pilih Gambar --}}
+                                        <button type="button" id="remove-image" class="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors shadow-md">
+                                            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                            </svg>
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -165,6 +180,42 @@
     </div>
 
     {{-- Kumpulan Script --}}
+    {{-- 🟢 SCRIPT JAVASCRIPT UNTUK MEMPROSES PREVIEW --}}
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const imageInput = document.getElementById('image');
+            const previewContainer = document.getElementById('image-preview-container');
+            const previewImage = document.getElementById('image-preview');
+            const removeButton = document.getElementById('remove-image');
+
+            imageInput.addEventListener('change', function() {
+                const file = this.files[0];
+                if (file) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        previewImage.src = e.target.result;
+                        previewContainer.classList.remove('hidden');
+                    }
+
+                    reader.readAsDataURL(file);
+                } else {
+                    resetPreview();
+                }
+            });
+
+            // Event saat tombol 'silang/hapus' di-klik
+            removeButton.addEventListener('click', function() {
+                resetPreview();
+            });
+
+            function resetPreview() {
+                imageInput.value = ''; // Reset file input
+                previewImage.src = '#';
+                previewContainer.classList.add('hidden');
+            }
+        });
+    </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
     document.addEventListener('DOMContentLoaded', function() {
@@ -297,6 +348,7 @@
                 checkFaqDeleteButtons();
             });
         });
+    
     });
     </script>
 </x-app-layout>

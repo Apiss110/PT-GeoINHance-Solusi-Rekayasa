@@ -87,19 +87,40 @@
                     </div>
                     <div>
                         <label class="block text-xs font-bold text-gray-700 uppercase tracking-wide mb-1">Gambar Thumbnail <span class="text-red-500">*</span></label>
-                        <div class="mt-1 flex justify-center px-6 pt-4 pb-4 border-2 border-slate-300 border-dashed rounded-lg hover:border-blue-500 transition-colors">
-                            <div class="space-y-1 text-center">
+                        
+                        <div class="mt-1 flex justify-center px-6 pt-4 pb-4 border-2 border-slate-300 border-dashed rounded-lg hover:border-blue-500 transition-colors relative bg-white">
+                            
+                            {{-- 1. AREA UTAMA: TAMPILAN SEBELUM UPLOAD --}}
+                            <div id="upload-placeholder" class="space-y-1 text-center">
                                 <svg class="mx-auto h-8 w-8 text-slate-400" stroke="currentColor" fill="none" viewBox="0 0 48 48">
                                     <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4-4m6-6h10" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                                 </svg>
-                                <div class="flex text-xs text-slate-600">
+                                <div class="flex justify-center text-xs text-slate-600">
                                     <label class="relative cursor-pointer bg-white rounded-md font-bold text-blue-600 hover:text-blue-500 focus-within:outline-none">
                                         <span>Unggah File</span>
-                                        <input type="file" name="thumbnail" required class="sr-only" accept="image/*">
+                                        <input type="file" name="thumbnail" id="thumbnail-input" required class="sr-only" accept="image/*">
                                     </label>
                                 </div>
-                                <p class="text-[10px] text-slate-400">PNG, JPG up to 2MB</p>
+                                <p class="text-[10px] text-slate-400">PNG, JPG up to 5MB</p>
                             </div>
+
+                            {{-- 2. AREA PREVIEW: AKAN MUNCUL SETELAH GAMBAR DIPILIH --}}
+                            <div id="thumbnail-preview-container" class="hidden w-full flex flex-col items-center justify-center">
+                                <div class="relative border rounded-lg overflow-hidden bg-slate-50 shadow-sm max-w-xs">
+                                    <img id="thumbnail-preview" src="#" alt="Preview" class="h-40 w-auto object-cover">
+                                    
+                                    {{-- Tombol Hapus/Batal Pilihan --}}
+                                    <button type="button" id="remove-thumbnail" class="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors shadow-md z-10">
+                                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p class="text-[10px] text-blue-600 font-semibold mt-2 cursor-pointer hover:underline" id="change-thumbnail-text">
+                                    Klik tombol merah untuk mengganti gambar
+                                </p>
+                            </div>
+
                         </div>
                         @error('thumbnail') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
                     </div>
@@ -225,6 +246,46 @@
 
         </div>
     </div>
+
+    {{-- 🟢 SCRIPT JAVASCRIPT UNTUK PREVIEW THUMBNAIL --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const fileInput = document.getElementById('thumbnail-input');
+        const placeholder = document.getElementById('upload-placeholder');
+        const previewContainer = document.getElementById('thumbnail-preview-container');
+        const previewImg = document.getElementById('thumbnail-preview');
+        const removeBtn = document.getElementById('remove-thumbnail');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImg.src = e.target.result;
+                    placeholder.classList.add('hidden'); // Sembunyikan ikon & teks bawaan
+                    previewContainer.classList.remove('hidden'); // Tampilkan gambar preview
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                resetThumbnailPreview();
+            }
+        });
+
+        // Event saat tombol silang merah di-klik
+        removeBtn.addEventListener('click', function() {
+            resetThumbnailPreview();
+        });
+
+        function resetThumbnailPreview() {
+            fileInput.value = ''; // Reset input file kembali kosong
+            previewImg.src = '#';
+            previewContainer.classList.add('hidden'); // Sembunyikan preview
+            placeholder.classList.remove('hidden'); // Tampilkan kembali teks instruksi awal
+        }
+    });
+</script>
 
     {{-- Kumpulan Form Bayangan Khusus Pengeksekuian Hapus Satuan --}}
     @foreach($videos as $video)

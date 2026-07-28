@@ -48,12 +48,6 @@
                                 @else
                                     <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ auto_translate($project->title) }}">
                                 @endif
-                                
-                                @if($project->year)
-                                    <span class="absolute top-4 right-4 bg-slate-900/80 backdrop-blur-sm text-white text-[11px] font-bold px-2.5 py-1 rounded-md shadow-sm">
-                                        {{ $project->year }}
-                                    </span>
-                                @endif
                             </div>
 
                             {{-- Konten Informasi Proyek --}}
@@ -61,15 +55,13 @@
                                 <div class="mb-5">
                                     @if($project->location)
                                         <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2 flex items-center">
-                                            <svg class="w-3.5 h-3.5 mr-1 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                            </svg>
-                                            {{ auto_translate($project->location) }}
+                                            {{ auto_translate($project->location) }} • {{ $project->year }}
                                         </span>
                                     @endif
                                     <h3 class="text-base font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-2">
-                                        {{ auto_translate($project->title) }}
+                                        <a href="/proyek/{{ $project->id }}" class="text-inherit no-underline">
+                                            {{ auto_translate($project->title) }}
+                                        </a>
                                     </h3>
                                     <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">
                                         {{ auto_translate(Str::limit(strip_tags($project->description), 110)) }}
@@ -152,10 +144,6 @@
                         @else
                             <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ auto_translate($otherSector->name) }}">
                         @endif
-                        
-                        <span class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm bg-[#c80000]">
-                            {{ auto_translate('SOLUSI TEKNIK') }}
-                        </span>
                     </div>
                     
                     {{-- Detail Deskripsi Singkat Sektor --}}

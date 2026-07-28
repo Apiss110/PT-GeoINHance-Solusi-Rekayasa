@@ -72,16 +72,36 @@
                         @error('project_id') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
                     </div>
 
-                    {{-- Input Berkas Gambar --}}
+                   {{-- Input Berkas Gambar --}}
                     <div>
-                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Foto Berkas / Cabang</label>
-                        <input type="file" name="img" class="w-full text-sm px-4 py-2 rounded-xl border border-slate-200 focus:border-red-800 outline-none transition file:mr-4 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-red-800 hover:file:bg-red-100">
+                        <label class="block text-xs font-bold text-slate-700 uppercase mb-1">Foto Proyek</label>
+                        <input type="file" name="img" id="project-img-input" accept="image/*" class="w-full text-sm px-4 py-2 rounded-xl border border-slate-200 focus:border-red-800 outline-none transition file:mr-4 file:py-1 file:px-3 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-red-50 file:text-red-800 hover:file:bg-red-100">
+                        
                         @if(isset($isEdit) && $isEdit && !empty($branch->img))
                             <p class="mt-1 text-[11px] text-slate-400">💡 Biarkan kosong jika tidak ingin mengubah foto cabang lama.</p>
                         @endif
                         @error('img') <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span> @enderror
-                    </div>
 
+                        {{-- 🟢 ELEMEN PREVIEW GAMBAR --}}
+                        <div id="project-preview-container" class="mt-3 {{ (isset($isEdit) && $isEdit && !empty($branch->img)) ? '' : 'hidden' }}">
+                            <p class="text-xs text-gray-500 mb-1">Preview Gambar:</p>
+                            <div class="relative inline-block border rounded-lg overflow-hidden bg-white shadow-sm max-w-xs">
+                                {{-- Jika sedang edit dan ada gambar lama, jadikan src default-nya --}}
+                                <img id="project-preview-image" 
+                                    src="{{ (isset($isEdit) && $isEdit && !empty($branch->img)) ? asset('storage/' . $branch->img) : '#' }}" 
+                                    alt="Preview Foto Proyek" 
+                                    class="h-40 w-auto object-cover"
+                                    data-old-src="{{ (isset($isEdit) && $isEdit && !empty($branch->img)) ? asset('storage/' . $branch->img) : '#' }}">
+                                
+                                {{-- Tombol Batal/Hapus Pilihan --}}
+                                <button type="button" id="remove-project-img" class="absolute top-1 right-1 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors shadow-md">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                     {{-- Input Koordinat --}}
                     <div class="grid grid-cols-2 gap-3">
                         <div>
@@ -213,6 +233,53 @@
 
         </div>
     </div>
+
+    {{-- 🟢 SCRIPT JAVASCRIPT UNTUK PREVIEW FOTO PROYEK --}}
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const imgInput = document.getElementById('project-img-input');
+        const previewContainer = document.getElementById('project-preview-container');
+        const previewImage = document.getElementById('project-preview-image');
+        const removeButton = document.getElementById('remove-project-img');
+        
+        // Simpan url gambar lama (jika ada) untuk fallback
+        const oldSrc = previewImage.getAttribute('data-old-src');
+
+        imgInput.addEventListener('change', function() {
+            const file = this.files[0];
+            if (file) {
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    previewImage.src = e.target.result;
+                    previewContainer.classList.remove('hidden');
+                }
+
+                reader.readAsDataURL(file);
+            } else {
+                resetToDefault();
+            }
+        });
+
+        removeButton.addEventListener('click', function() {
+            resetToDefault();
+        });
+
+        function resetToDefault() {
+            imgInput.value = ''; // Kosongkan input file
+            
+            if (oldSrc && oldSrc !== '#') {
+                // Jika ada gambar lama saat edit, kembalikan tampilannya ke gambar lama
+                previewImage.src = oldSrc;
+                previewContainer.classList.remove('hidden');
+            } else {
+                // Jika data baru (bukan edit), sembunyikan preview sepenuhnya
+                previewImage.src = '#';
+                previewContainer.classList.add('hidden');
+            }
+        }
+    });
+</script>
 
     {{-- Kumpulan Form Bayangan khusus untuk Eksekusi Hapus Satuan --}}
     @foreach($branches as $b)

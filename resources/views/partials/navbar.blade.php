@@ -113,7 +113,7 @@
                         @endforeach
 
                         {{-- Tombol "All Sectors" --}}
-                        <a href="{{ route('sektor.semua-sektor') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition border-t border-slate-50 mt-1">
+                        <a href="{{ route('sektor.semua-sektor') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">
                             {{ __('nav.sectors.all') }}
                         </a>
                     </div>
@@ -265,9 +265,11 @@
                             class="absolute right-0 mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-xl overflow-hidden py-1 z-50 normal-case font-semibold text-slate-700 tracking-normal" 
                             x-cloak>
                             
-                            <a href="{{ route('admin.project.index') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
-                                Dashboard Panel
-                            </a>
+                            @if(auth()->check() && in_array(auth()->user()->role, ['admin', 'superadmin']))
+                                <a href="{{ route('dashboard') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                    Dashboard Panel
+                                </a>
+                            @endif
 
                             <hr class="border-slate-100 my-1">
 

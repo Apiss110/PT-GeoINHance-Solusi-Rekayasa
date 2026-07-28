@@ -24,7 +24,7 @@ class VideoController extends Controller
             'category'        => 'required|string',
             'video_url'       => 'required|url',
             'production_year' => 'required|integer|min:2000|max:' . (date('Y') + 5),
-            'thumbnail'       => 'required|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'thumbnail'       => 'required|image|mimes:jpeg,png,jpg,webp|max:5120',
             'description'     => 'nullable|string',
         ]);
 

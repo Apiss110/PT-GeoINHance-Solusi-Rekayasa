@@ -172,27 +172,7 @@
 </section>
 
     {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
-    <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            {{-- Teks Info Kiri --}}
-            <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
-                {{ __('pagination.showing') }} <span id="infoStart" class="font-bold text-slate-800">0</span> {{ __('pagination.to') }} <span id="infoEnd" class="font-bold text-slate-800">0</span> {{ __('pagination.of') }} <span id="infoTotal" class="font-bold text-slate-800">0</span> {{ __('pagination.records') }}
-            </div>
-            
-            {{-- Tombol Halaman Kanan --}}
-            <nav id="paginationWrapper" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
-                <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                
-                <div id="pageNumbers" class="flex items-center -space-x-px"></div>
-                
-                <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-            </nav>
-        </div>
-    </section>
+    @include('partials.pagination')
 
 <section class="relative overflow-hidden bg-gradient-to-br from-[#002d62] via-[#001f44] to-slate-950 text-white py-20 px-6">
     <div class="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,#808080_1px,transparent_1px),linear-gradient(to_bottom,#808080_1px,transparent_1px)] bg-[size:24px_24px]"></div>
@@ -301,7 +281,7 @@ document.addEventListener('DOMContentLoaded', function () {
             btn.textContent = i;
             
             if (i === currentPage) {
-                btn.className = "px-4 py-2 text-xs font-bold text-white bg-[#002d62] transition";
+                btn.className = "px-4 py-2 text-xs font-bold text-white bg-red-800 transition";
             } else {
                 btn.className = "px-4 py-2 text-xs font-medium text-slate-600 hover:bg-slate-50 transition border-r border-slate-100";
             }

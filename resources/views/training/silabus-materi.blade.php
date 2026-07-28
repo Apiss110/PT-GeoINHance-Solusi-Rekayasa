@@ -108,7 +108,7 @@
                      data-name="{{ strtolower(auto_translate($item->title)) }}">
                     <div>
                         <div class="flex justify-between items-start mb-4">
-                            <div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-blue-900">
+                            <div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-red-900">
                                 @if($item->icon)
                                     <i class="{{ $item->icon }} text-xl"></i>
                                 @else
@@ -117,12 +117,12 @@
                                     </svg>
                                 @endif
                             </div>
-                            <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded bg-blue-50 text-blue-600 border border-blue-100">
+                            <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded bg-blue-50 text-red-600 border border-red-100">
                                 {{ auto_translate($item->software_category) }}
                             </span>
                         </div>
 
-                        <h3 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
+                        <h3 class="text-base font-bold text-slate-900 group-hover:text-red-600 transition line-clamp-2 mb-2">
                             <a href="{{ route('training.syllabus.show', $item->id) }}">{{ auto_translate($item->title) }}</a>
                         </h3>
                         <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4 font-light">
@@ -132,7 +132,7 @@
 
                     <div class="border-t border-slate-100 pt-4 mt-2">
                         <div class="flex items-center space-x-3 mb-4">
-                            <span class="text-[10px] font-bold px-2.5 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded">
+                            <span class="text-[10px] font-bold px-2.5 py-0.5 bg-blue-50 text-red-600 border border-red-200 rounded">
                                 {{ auto_translate($item->level) }}
                             </span>
                             <span class="text-xs text-slate-400 font-medium">
@@ -140,7 +140,7 @@
                             </span>
                         </div>
                         <div class="flex justify-end">
-                            <a href="{{ route('training.syllabus.show', $item->id) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-blue-700 hover:text-blue-900 transition">
+                            <a href="{{ route('training.syllabus.show', $item->id) }}" class="inline-flex items-center gap-1.5 text-xs font-bold text-red-700 hover:text-red-900 transition">
                                 {{ __('syllabus.view_material') ?? 'Lihat Materi' }} <i class="fa-solid fa-arrow-right text-[10px]"></i>
                             </a>
                         </div>

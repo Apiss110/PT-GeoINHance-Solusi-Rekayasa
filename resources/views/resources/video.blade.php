@@ -55,7 +55,7 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
+<body class="bg-slate-50 font-sans antialiased text-slate-900">
 
 @include('partials.navbar')
 
@@ -74,23 +74,24 @@
 <section class="py-12 bg-slate-50 min-h-[60vh]">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
-        <div class="bg-white p-6 rounded-xl shadow-sm border border-gray-200/80 mb-10">
-            <form id="filterFormVideo" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-end">
+        {{-- NAVIGATION BAR: SEARCH FILTER --}}
+        <section class="sticky top-0 z-40 bg-white border-b border-slate-200 shadow-sm py-5 transition-all duration-300 rounded-2xl mb-6">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-end items-center">
                 
-                <div class="space-y-1.5">
-                    <label class="block text-xs font-semibold text-slate-500 uppercase tracking-wider">
-                        {{ __('video.label_search') }}
-                    </label>
-                    <div class="relative">
-                        <span class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none text-slate-400">
-                            <i class="fa-solid fa-magnifying-glass text-xs"></i>
-                        </span>
-                        <input type="text" id="inputNamaVideo" placeholder="{{ __('video.placeholder_search') }}" 
-                               class="w-full bg-slate-50 border border-gray-200 rounded-lg pl-9 pr-4 py-2 text-sm text-slate-700 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:bg-white transition">
-                    </div>
+                {{-- SEARCH BAR --}}
+                <div class="relative w-full sm:w-80">
+                    <span class="absolute inset-y-0 left-0 flex items-center pl-4 text-slate-400">
+                        <i class="fa-solid fa-magnifying-glass text-xs"></i>
+                    </span>
+                    <input
+                        type="text"
+                        id="searchInput"
+                        placeholder="{{ __('video.placeholder_search') ?? 'Search Video...' }}"
+                        class="w-full bg-slate-50 border border-slate-200 rounded-xl pl-11 pr-4 py-2.5 text-xs focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white transition-all duration-300">
                 </div>
-            </form>
-        </div>
+
+            </div>
+        </section>
 
         <div class="mb-8 flex justify-between items-center border-b border-gray-200 pb-4">
             <span class="text-sm text-slate-600 font-medium">
@@ -99,7 +100,7 @@
         </div>
 
         {{-- CONTAINER UTAMA KARTU VIDEO --}}
-        <div id="videoGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div id="videoGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
 
             @foreach($videos as $video)
                 @php
@@ -115,7 +116,7 @@
                 @endphp
 
                 <div class="video-card bg-white rounded-xl overflow-hidden shadow-sm border border-gray-200/80 hover:shadow-md transition duration-200"
-                     data-nama="{{ strtolower(auto_translate($video->title)) }}"
+                     data-nama="{{ strtolower(trim(auto_translate($video->title))) }}"
                      data-kategori="{{ $slugKategori }}"
                      data-tahun="{{ $video->production_year }}">
                     
@@ -130,7 +131,7 @@
                             </div>
                         @endif
                         
-                        <a href="{{ $video->video_url }}" target="_blank" class="absolute inset-0 flex items-center justify-center bg-slate-950/40 opacity-100 group-hover:bg-slate-950/50 transition">
+                        <a href="{{ route('resources.video.show', $video->id) }}" class="absolute inset-0 flex items-center justify-center bg-slate-950/40 opacity-100 group-hover:bg-slate-950/50 transition">
                             <div class="w-12 h-12 rounded-full bg-white/90 flex items-center justify-center shadow-md group-hover:scale-110 transition text-slate-900 pl-1">
                                 <i class="fa-solid fa-play text-lg"></i>
                             </div>
@@ -143,23 +144,23 @@
                         @endif
                     </div>
 
-                    <div class="p-5">
-                        <span class="inline-block text-[10px] font-bold uppercase tracking-wider text-blue-600 bg-blue-50 px-2.5 py-1 rounded-md mb-3">
+                    <div class="p-6 space-y-2">
+                        <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
                             {{ auto_translate($video->category) }}
-                        </span>
+                        </p>
                         
-                        <h3 class="text-base font-bold text-slate-900 line-clamp-2 mb-2 hover:text-blue-600 transition">
-                            <a href="{{ $video->video_url }}" target="_blank">{{ auto_translate($video->title) }}</a>
+                        <h3 class="text-base font-bold text-slate-900 line-clamp-2 mb-2 hover:text-red-600 transition">
+                            <a href="{{ route('resources.video.show', $video->id) }}">{{ auto_translate($video->title) }}</a>
                         </h3>
                         
                         <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
-                            {{ $video->description ? auto_translate($video->description) : __('video.no_description') ?? 'Tidak ada deskripsi.' }}
+                            {{ $video->description ? auto_translate($video->description) : (__('video.no_description') ?? 'Tidak ada deskripsi.') }}
                         </p>
 
                         <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-400 font-medium">
                             <span>Year: <strong class="text-slate-600">{{ $video->production_year }}</strong></span>
-                            <a href="{{ route('resources.video.show', $video->id) }}" class="text-blue-500 hover:text-blue-700">
-                                View Details
+                            <a href="{{ route('resources.video.show', $video->id) }}" class="text-red-500 hover:text-red-700">
+                                {{ __('video.btn_view_more') ?? 'View Details' }}
                             </a>
                         </div>
                     </div>
@@ -169,150 +170,135 @@
             {{-- Pesan Error Jika Hasil Pencarian/Filter Kosong --}}
             <div id="noVideoMessage" class="hidden col-span-full text-center py-12 text-slate-500 font-medium bg-white rounded-xl border border-gray-200">
                 <i class="fa-solid fa-folder-open text-3xl text-slate-300 mb-2 block"></i>
-                {{ __('video.empty_message') }}
+                {{ __('video.empty_message') ?? 'Tidak ada video yang cocok dengan pencarian Anda.' }}
             </div>
 
         </div>
 
-        <div class="mt-16 flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-0 sm:justify-between border-t border-gray-200 pt-6">
-            <div class="text-sm text-slate-500 font-medium">
-                {{ __('video.footer_showing') }} <span id="countDisplayedVideo" class="text-slate-700 font-bold">0</span> {{ __('video.footer_of') }} <span id="countTotalVideo" class="text-slate-700 font-bold">0</span> {{ __('video.footer_records') }}
-            </div>
-            
-            <div id="paginationVideoControls" class="inline-flex rounded-lg bg-[#1E293B] p-0.5 text-white shadow-sm overflow-hidden">
-            </div>
-        </div>
+        {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
+        @include('partials.pagination')
     </div>
 </section>
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // 1. Inisialisasi Elemen DOM khusus Halaman Video
-    const filterForm = document.getElementById('filterFormVideo');
-    const inputNama = document.getElementById('inputNamaVideo');
-    const selectKategori = document.getElementById('selectKategoriVideo');
-    const selectTahun = document.getElementById('selectTahunVideo');
-    const gridContainer = document.getElementById('videoGrid');
-    const allCards = Array.from(gridContainer.querySelectorAll('.video-card'));
+    // 1. Inisialisasi Elemen DOM Berdasarkan ID Real di HTML
+    const searchInput = document.getElementById('searchInput');
+    const videoGrid = document.getElementById('videoGrid');
+    const allCards = Array.from(videoGrid.querySelectorAll('.video-card'));
     const noMatchMessage = document.getElementById('noVideoMessage');
+    const paginationSection = document.getElementById('paginationSection');
     
-    const countDisplayed = document.getElementById('countDisplayedVideo');
-    const countTotal = document.getElementById('countTotalVideo');
-    const paginationControls = document.getElementById('paginationVideoControls');
+    const infoStart = document.getElementById('infoStart');
+    const infoEnd = document.getElementById('infoEnd');
+    const infoTotal = document.getElementById('infoTotal');
+    const btnPrev = document.getElementById('btnPrev');
+    const btnNext = document.getElementById('btnNext');
+    const pageNumbersContainer = document.getElementById('pageNumbers');
 
-    // 2. Konfigurasi Logika Pagination Internal
-    const itemsPerPage = 3; // Jumlah kartu video per halaman yang diizinkan tampil
+    // 2. Konfigurasi Kelipatan 6 Item Per Halaman
+    const itemsPerPage = 6; 
     let currentPage = 1;
-    let filteredCards = [...allCards]; // Menyalin default penampung seluruh data kartu awal
+    let filteredCards = [...allCards];
 
-    // 3. Fungsi Inti Sinkronisasi Tampilan UI (Filter + Pagination terintegrasi)
+    // 3. Fungsi Sinkronisasi Utama UI (Filter Teks + Pagination)
     function renderVideoUI() {
-        // Sembunyikan semua kartu terlebih dahulu tanpa terkecuali
-        allCards.forEach(card => card.classList.add('hidden'));
+        const searchText = searchInput.value.toLowerCase().trim();
+
+        // Proses Pemfilteran Berdasarkan Atribut Judul Video (data-nama)
+        filteredCards = allCards.filter(card => {
+            const cardNama = card.getAttribute('data-nama') || '';
+            return searchText === '' || cardNama.includes(searchText);
+        });
 
         const totalItems = filteredCards.length;
         const totalPages = Math.ceil(totalItems / itemsPerPage) || 1;
 
-        // Validasi pengunci halaman aktif agar tidak melompat keluar setelah filter berubah
+        // Amankan penunjuk halaman agar tidak out-of-bounds setelah pencarian menyusut
         if (currentPage > totalPages) {
             currentPage = totalPages;
         }
 
-        // Hitung batas indeks porsi data yang valid untuk ditampilkan di halaman aktif
+        // Sembunyikan semua kartu secara default terlebih dahulu
+        allCards.forEach(card => card.classList.add('hidden'));
+
+        // Hitung batasan porsi indeks data halaman aktif
         const startIndex = (currentPage - 1) * itemsPerPage;
         const endIndex = Math.min(startIndex + itemsPerPage, totalItems);
 
-        // Ambil elemen kartu sesuai kalkulasi halaman lalu munculkan kembali
-        const activePageCards = filteredCards.slice(startIndex, endIndex);
-        activePageCards.forEach(card => card.classList.remove('hidden'));
+        // Tampilkan kartu yang masuk irisan lembar halaman ini
+        filteredCards.slice(startIndex, endIndex).forEach(card => card.classList.remove('hidden'));
 
-        // Kendalikan visibilitas pesan notifikasi pencarian nihil
+        // Kendalikan info teks counter dan visibilitas alert kosong
         if (totalItems === 0) {
+            infoStart.textContent = 0;
+            infoEnd.textContent = 0;
+            infoTotal.textContent = 0;
             noMatchMessage.classList.remove('hidden');
+            if(paginationSection) paginationSection.classList.add('hidden');
         } else {
+            infoStart.textContent = startIndex + 1;
+            infoEnd.textContent = endIndex;
+            infoTotal.textContent = totalItems;
             noMatchMessage.classList.add('hidden');
+            if(paginationSection) paginationSection.classList.remove('hidden');
         }
 
-        // Perbarui komponen teks counter info data real-time
-        countDisplayed.textContent = activePageCards.length;
-        countTotal.textContent = totalItems;
-
-        // Rakit susunan ulang blok navigasi tombol pagination dinamis
-        buildPaginationButtons(totalPages);
+        // Gambar ulang baris angka halaman & kelola status disabled tombol chevron
+        buildPageNumbers(totalPages);
+        btnPrev.disabled = currentPage === 1;
+        btnNext.disabled = currentPage === totalPages;
     }
 
-    // 4. Fungsi Pembuat Tombol Navigasi Halaman Secara Dinamis
-    function buildPaginationButtons(totalPages) {
-        paginationControls.innerHTML = '';
+    // 4. Fungsi Pembuat Deretan Angka Halaman Dinamis
+    function buildPageNumbers(totalPages) {
+        pageNumbersContainer.innerHTML = '';
 
-        // Tombol Kembali / Sebelumnya (Chevron Left)
-        const prevButton = document.createElement('button');
-        prevButton.type = 'button';
-        prevButton.className = `px-3 py-2 flex items-center text-xs transition ${currentPage === 1 ? 'text-slate-500 cursor-not-allowed' : 'text-white hover:bg-slate-700'}`;
-        prevButton.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-        if (currentPage > 1) {
-            prevButton.addEventListener('click', () => {
-                currentPage--;
-                renderVideoUI();
-            });
-        }
-        paginationControls.appendChild(prevButton);
-
-        // Deretan Nomor Indeks Halaman Urut
         for (let i = 1; i <= totalPages; i++) {
-            const pageButton = document.createElement('button');
-            pageButton.type = 'button';
-            pageButton.className = `px-4 py-2 text-xs font-bold transition ${currentPage === i ? 'bg-slate-700 text-white' : 'text-slate-400 hover:bg-slate-700/50'}`;
-            pageButton.textContent = i;
-            
-            pageButton.addEventListener('click', () => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.textContent = i;
+            btn.className = `px-3.5 py-2 text-xs font-semibold border-r border-slate-200 transition last:border-r-0`;
+
+            if (i === currentPage) {
+                btn.className += ` bg-red-800 text-white`;
+            } else {
+                btn.className += ` text-slate-600 hover:bg-slate-50`;
+            }
+
+            btn.addEventListener('click', () => {
                 currentPage = i;
                 renderVideoUI();
+                videoGrid.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
-            paginationControls.appendChild(pageButton);
-        }
 
-        // Tombol Lanjut / Selanjutnya (Chevron Right)
-        const nextButton = document.createElement('button');
-        nextButton.type = 'button';
-        nextButton.className = `px-3 py-2 flex items-center text-xs transition ${currentPage === totalPages ? 'text-slate-500 cursor-not-allowed' : 'text-white hover:bg-slate-700'}`;
-        nextButton.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-        if (currentPage < totalPages) {
-            nextButton.addEventListener('click', () => {
-                currentPage++;
-                renderVideoUI();
-            });
+            pageNumbersContainer.appendChild(btn);
         }
-        paginationControls.appendChild(nextButton);
     }
 
-    // 5. Intersept Proses Submit Form Saringan data video
-    filterForm.addEventListener('submit', function(e) {
-        e.preventDefault(); // Mengunci default submit form agar tidak memicu reload halaman
+    // 5. Event Listeners Kontrol Navigasi
+    btnPrev.addEventListener('click', () => {
+        if (currentPage > 1) {
+            currentPage--;
+            renderVideoUI();
+        }
+    });
 
-        const searchKeyword = inputNama.value.toLowerCase().trim();
-        const selectedKategori = selectKategori ? selectKategori.value : '';
-        const selectedTahun = selectTahun ? selectTahun.value : '';
+    btnNext.addEventListener('click', () => {
+        const totalPages = Math.ceil(filteredCards.length / itemsPerPage);
+        if (currentPage < totalPages) {
+            currentPage++;
+            renderVideoUI();
+        }
+    });
 
-        // Proses eliminasi data berbasis pencocokan kecocokan string atribut data-
-        filteredCards = allCards.filter(card => {
-            const cardName = card.getAttribute('data-nama');
-            const cardKategori = card.getAttribute('data-kategori');
-            const cardTahun = card.getAttribute('data-tahun');
-
-            const matchSearch = !searchKeyword || cardName.includes(searchKeyword);
-            const matchKategori = !selectedKategori || cardKategori === selectedKategori;
-            const matchTahun = !selectedTahun || cardTahun === selectedTahun;
-
-            return matchSearch && matchKategori && matchTahun;
-        });
-
-        // Setel penunjuk penanggalan indeks ke halaman 1 di awal setiap pemfilteran dilakukan
+    // Jalankan pencarian otomatis sewaktu user mengetik teks tanpa submit form
+    searchInput.addEventListener('input', () => {
         currentPage = 1;
         renderVideoUI();
     });
 
-    // 6. Eksekusi fungsi pertama kali saat file skrip siap dimuat
+    // Jalankan kompilasi awal saat halaman pertama kali termuat
     renderVideoUI();
 });
 </script>

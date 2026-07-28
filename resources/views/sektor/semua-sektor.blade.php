@@ -106,10 +106,7 @@
 
                     {{-- Content Area Sektor --}}
                     <div class="p-6 space-y-3">
-                        <p class="text-blue-600 text-[11px] font-bold tracking-widest uppercase flex items-center">
-                            <i class="fa-solid fa-layer-group mr-1.5"></i> Sektor Layanan
-                        </p>
-                        <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-blue-700 transition line-clamp-2 min-h-[3rem] uppercase">
+                        <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-red-700 transition line-clamp-2 min-h-[3rem] uppercase">
                             {{ auto_translate($sector->name) }}
                         </h3>
                         <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
@@ -121,13 +118,13 @@
                 {{-- Action Button & Informasi Jumlah Proyek --}}
                 <div class="p-6 pt-0 space-y-4">
                     <div class="flex flex-wrap gap-1.5 border-t border-slate-100 pt-4">
-                        <span class="bg-blue-50 text-blue-700 text-[10px] font-bold px-2.5 py-1 rounded-md border border-blue-100 uppercase tracking-wider">
+                        <span class="bg-red-50 text-red-700 text-[10px] font-bold px-2.5 py-1 rounded-md border border-red-100 uppercase tracking-wider">
                             {{ $sector->projects->count() ?? 0 }} Proyek Terintegrasi
                         </span>
                     </div>
                     
                     {{-- PERBAIKAN: Mengubah teks tombol secara langsung agar tidak tertulis PROJECT DETAILS --}}
-                    <a href="/sektor/{{ $sector->slug ?? $sector->id }}" class="inline-flex items-center text-xs font-bold text-blue-600 hover:translate-x-1 transition-transform uppercase tracking-wider">
+                    <a href="/sektor/{{ $sector->slug ?? $sector->id }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
                         SECTOR DETAILS
                         <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
@@ -148,27 +145,7 @@
 </section>
 
 {{-- NATIVE PAGINATION INTERFACE KELIPATAN 6 --}}
-    <section class="max-w-7xl mx-auto pb-16 px-4 sm:px-6 lg:px-8 border-t border-slate-200 pt-6">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            {{-- Teks Info Kiri --}}
-            <div id="paginationInfo" class="text-xs text-slate-500 font-medium">
-                {{ __('pagination.showing') }} <span id="infoStart" class="font-bold text-slate-800">0</span> {{ __('pagination.to') }} <span id="infoEnd" class="font-bold text-slate-800">0</span> {{ __('pagination.of') }} <span id="infoTotal" class="font-bold text-slate-800">0</span> {{ __('pagination.records') }}
-            </div>
-            
-            {{-- Tombol Halaman Kanan --}}
-            <nav id="paginationWrapper" class="inline-flex items-center -space-x-px rounded-lg bg-white border border-slate-200 shadow-sm overflow-hidden">
-                <button id="btnPrev" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-r border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                    <i class="fa-solid fa-chevron-left text-xs"></i>
-                </button>
-                
-                <div id="pageNumbers" class="flex items-center -space-x-px"></div>
-                
-                <button id="btnNext" class="px-3 py-2 text-slate-500 hover:bg-slate-50 transition border-l border-slate-200 disabled:opacity-40 disabled:hover:bg-transparent">
-                    <i class="fa-solid fa-chevron-right text-xs"></i>
-                </button>
-            </nav>
-        </div>
-    </section>
+    @include('partials.pagination')
 
     {{-- FOOTER --}}
     @include('partials.footer')
@@ -252,7 +229,7 @@
                 btn.textContent = page;
                 btn.className = `px-3.5 py-2 text-xs font-bold border-r border-slate-200 transition ${
                     page === currentPage 
-                    ? 'bg-[#002d62] text-white' 
+                    ? 'bg-red-800 text-white' 
                     : 'bg-white text-slate-700 hover:bg-slate-50'
                 }`;
                 btn.addEventListener('click', () => {
