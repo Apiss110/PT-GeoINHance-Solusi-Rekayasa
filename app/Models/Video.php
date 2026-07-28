@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasAutoTranslation;
 
 class Video extends Model
 {
-    use HasFactory;
+    use HasFactory, HasAutoTranslation; // 2. Pasang Trait di dalam class
 
     /**
      * Nama tabel yang terkait dengan model.
@@ -26,11 +27,13 @@ class Video extends Model
      */
     protected $fillable = [
         'title',
+        'title_en', // 3. Tambahkan kolom _en di $fillable
         'category',
         'video_url',
         'duration',
         'production_year',
         'description',
+        'description_en', // 3. Tambahkan kolom _en di $fillable
         'thumbnail_path',
         'published_at',
     ];

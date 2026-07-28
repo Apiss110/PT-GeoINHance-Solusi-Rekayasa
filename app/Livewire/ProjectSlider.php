@@ -26,10 +26,10 @@ class ProjectSlider extends Component
             return [
                 'id' => $project->id,
                 'image_path' => $project->image_path,
-                'category_name' => auto_translate($categoryName),
-                'title' => auto_translate($project->title),
-                'description' => auto_translate(strip_tags($project->description)),
-                'location' => auto_translate($project->location),
+                'category_name' => ($categoryName),
+                'title' => ($project->title),
+                'description' => (strip_tags($project->description)),
+                'location' => ($project->location),
                 'year' => $project->year,
             ];
         })->toArray();
@@ -114,7 +114,7 @@ class ProjectSlider extends Component
                                 {{-- Action Call-to-Action Footer --}}
                                 <div class="p-6 pt-0">
                                     <a href="{{ route('proyek.detail', $project['id']) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
-                                        {{ auto_translate('Pelajari Selengkapnya') }} 
+                                        {{ ('Pelajari Selengkapnya') }} 
                                         <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                                         </svg>
@@ -125,7 +125,7 @@ class ProjectSlider extends Component
                         </div>
                     @empty
                         <div class="w-full px-3 text-center text-slate-500 py-12">
-                            {{ auto_translate('Belum ada proyek strategis yang ditambahkan.') }}
+                            {{ ('Belum ada proyek strategis yang ditambahkan.') }}
                         </div>
                     @endforelse
                 </div>

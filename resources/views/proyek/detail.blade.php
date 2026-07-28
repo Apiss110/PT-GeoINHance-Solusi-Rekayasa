@@ -35,13 +35,13 @@
             
             <div class="absolute inset-0 z-0">
             <img src="{{ $proyek->image_path ? asset('storage/' . $proyek->image_path) : asset('images/default-banner.jpg') }}" 
-                alt="{{ auto_translate($proyek->title) }}" 
+                alt="{{ ($proyek->title) }}" 
                 class="w-full h-full object-cover opacity-40">
             </div>
 
             <div class="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <h1 class="text-3xl md:text-5xl font-extrabold leading-tight tracking-tight max-w-4xl">
-                    {{ auto_translate($proyek->title) }}
+                    {{ ($proyek->title) }}
                 </h1>
             </div>
         </section>
@@ -65,7 +65,7 @@
                     <div class="prose max-w-none text-gray-700 leading-relaxed text-base 
                                 prose-headings:text-geo-dark prose-headings:font-bold 
                                 prose-h3:text-lg prose-p:mb-4 prose-ul:list-disc prose-ul:pl-5 prose-ol:list-decimal prose-ol:pl-5">
-                        {!! auto_translate($proyek->description) !!}
+                        {!! ($proyek->description) !!}
                     </div>
                 </div>
 
@@ -81,7 +81,7 @@
                                 <div>
                                     <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.engineering_category') }}</h4>
                                     <p class="text-sm font-semibold text-gray-800">
-                                        {{ auto_translate(is_object($proyek->category) ? $proyek->category->name : ($proyek->category['name'] ?? 'General Engineering')) }}
+                                        {{ (is_object($proyek->category) ? $proyek->category->name : ($proyek->category['name'] ?? 'General Engineering')) }}
                                     </p>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                                     <p class="text-sm font-semibold text-gray-800">
                                         @if($proyek->sector)
                                             <a href="{{ route('front.sector.show', $proyek->sector->slug) }}" class="text-black-600 hover:text-blue-800 hover:underline transition">
-                                                {{ auto_translate($proyek->sector->name) }}
+                                                {{ ($proyek->sector->name) }}
                                             </a>
                                         @else
                                             {{ __('project.multi_sector') }}
@@ -173,24 +173,24 @@
                     
                     <div class="relative h-64 overflow-hidden bg-slate-900">
                         @if($otherProject->image_path)
-                            <img src="{{ asset('storage/' . $otherProject->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ auto_translate($otherProject->title) }}">
+                            <img src="{{ asset('storage/' . $otherProject->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ ($otherProject->title) }}">
                         @else
-                            <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ auto_translate($otherProject->title) }}">
+                            <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ ($otherProject->title) }}">
                         @endif
                     </div>
                     
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div class="mb-5">
                             <p class="text-slate-400 text-[11px] font-bold tracking-widest mb-1 uppercase">
-                                {{ auto_translate($otherProject->location) }} • {{ $otherProject->year }}
+                                {{ ($otherProject->location) }} • {{ $otherProject->year }}
                             </p>
                             <h3 class="text-base font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
                                 <a href="{{ route('proyek.detail', $otherProject->id) }}" class="text-inherit no-underline">
-                                    {{ auto_translate($otherProject->title) }}
+                                    {{ ($otherProject->title) }}
                                 </a>
                             </h3>
                             <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">
-                                {{ Str::limit(strip_tags(auto_translate($otherProject->description)), 120) }}
+                                {{ Str::limit(strip_tags(($otherProject->description)), 120) }}
                             </p>
                         </div>
                         

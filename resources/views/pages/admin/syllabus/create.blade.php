@@ -29,30 +29,26 @@
                         <label class="block text-sm font-medium text-gray-600 mb-1">Judul Silabus</label>
                         <input type="text" name="title" value="{{ old('title') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: PLAXIS 2D Basic" required>
                     </div>
+                    
+                    {{-- DIUBAH: Dari Select Dropdown ke Input Text --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Kategori Software</label>
-                        <select name="software_category" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                            <option value="PLAXIS" {{ old('software_category') == 'PLAXIS' ? 'selected' : '' }}>PLAXIS</option>
-                            <option value="GeoStudio" {{ old('software_category') == 'GeoStudio' ? 'selected' : '' }}>GeoStudio (SLOPE/W)</option>
-                            <option value="FLAC3D" {{ old('software_category') == 'FLAC3D' ? 'selected' : '' }}>FLAC3D</option>
-                        </select>
+                        <input type="text" name="software_category" value="{{ old('software_category') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: PLAXIS, GeoStudio, FLAC3D" required>
                     </div>
+
+                    {{-- DIUBAH: Dari Select Dropdown ke Input Text --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Tingkatan (Level)</label>
-                        <select name="level" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                            <option value="Basic" {{ old('level') == 'Basic' ? 'selected' : '' }}>Basic</option>
-                            <option value="Intermediate" {{ old('level') == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
-                            <option value="Advanced" {{ old('level') == 'Advanced' ? 'selected' : '' }}>Advanced</option>
-                        </select>
+                        <input type="text" name="level" value="{{ old('level') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Basic, Intermediate, Advanced" required>
                     </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Jumlah Modul</label>
                         <input type="number" name="modules_count" value="{{ old('modules_count') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: 12" required>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 mb-1">Nama Icon (FontAwesome)</label>
-                        <input type="text" name="icon" value="{{ old('icon') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: fa-solid fa-layer-group">
-                    </div>
+
+                    {{-- INPUT NAMA ICON (FONTAWESOME) SUDAH DIHAPUS DI SINI --}}
+
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Durasi Kursus</label>
                         <input type="text" name="durasi" value="{{ old('durasi') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: 40 Jam">
@@ -61,14 +57,14 @@
                         <label class="block text-sm font-medium text-gray-600 mb-1">Jadwal Terdekat</label>
                         <input type="text" name="jadwal_terdekat" value="{{ old('jadwal_terdekat') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Setiap Sabtu, Jam 09.00">
                     </div>
+
+                    {{-- DIUBAH: Dari Select Dropdown ke Input Text --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Format Kelas</label>
-                        <select name="format_kelas" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                            <option value="Live Zoom" {{ old('format_kelas') == 'Live Zoom' ? 'selected' : '' }}>Live Zoom</option>
-                            <option value="Self-paced" {{ old('format_kelas') == 'Self-paced' ? 'selected' : '' }}>Self-paced Learning</option>
-                        </select>
+                        <input type="text" name="format_kelas" value="{{ old('format_kelas') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Live Zoom / Self-paced Learning" required>
                     </div>
-                    <div class="md:col-span-2">
+
+                    <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Poin CPD/PDH</label>
                         <input type="number" name="poin_cpd" value="{{ old('poin_cpd') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: 25">
                     </div>
@@ -116,16 +112,13 @@
                         <label class="block text-sm font-medium text-gray-600 mb-1">Upload Foto / Avatar Instruktur</label>
                         <input type="file" name="foto_instruktur" id="avatar-input" accept="image/*" class="w-full p-1.5 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
                         
-                        {{-- 🟢 ELEMEN PREVIEW AVATAR BULAT --}}
                         <div id="avatar-preview-container" class="mt-3 hidden">
                             <p class="text-xs text-gray-500 mb-2">Preview Avatar:</p>
                             <div class="relative inline-block">
-                                {{-- Frame Lingkaran Avatar --}}
                                 <div class="w-24 h-24 rounded-full overflow-hidden border-2 border-slate-200 shadow-sm bg-slate-50">
                                     <img id="avatar-preview" src="#" alt="Preview Avatar" class="w-full h-full object-cover">
                                 </div>
                                 
-                                {{-- Tombol Batal/Hapus Avatar --}}
                                 <button type="button" id="remove-avatar" class="absolute -top-1 -right-1 bg-red-600 text-white p-1 rounded-full hover:bg-red-700 transition-colors shadow-md">
                                     <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
                                         <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
@@ -137,7 +130,6 @@
                 </div>
                 <div class="mt-4">
                     <label class="block text-sm font-medium text-gray-600 mb-1">Pengalaman / Riwayat Proyek Instruktur</label>
-                    {{-- 🟢 PERBAIKAN: Menambahkan old() agar input teks pengalaman proyek tidak hilang saat eror --}}
                     <textarea name="proyek_instruktur" rows="3" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Tuliskan pengalaman atau proyek geoteknik besar yang pernah ditangani...">{{ old('proyek_instruktur') }}</textarea>
                 </div>
             </div>
@@ -163,7 +155,6 @@
                 </div>
                 <div id="module-container" class="space-y-3">
                     <div class="flex gap-2 items-center">
-                        {{-- 🟢 PERBAIKAN UX: Menggunakan old() untuk mempertahankan data modul indeks pertama jika validasi gagal --}}
                         <input type="text" name="modul_materi[]" value="{{ old('modul_materi.0') }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Modul 1: Penyelidikan Tanah & Uji Lapangan (SPT, CPTu)">
                         <button type="button" class="remove-btn text-red-600 font-bold px-2 hover:text-red-800">X</button>
                     </div>
@@ -180,12 +171,10 @@
                         <button type="button" class="remove-btn absolute top-2 right-3 text-red-600 font-bold hover:text-red-800">X</button>
                         <div>
                             <label class="block text-xs font-semibold text-gray-500 mb-1">Pertanyaan</label>
-                            {{-- 🟢 PERBAIKAN UX: Menggunakan old() untuk mempertahankan data FAQ indeks pertama --}}
                             <input type="text" name="faq_list[0][pertanyaan]" value="{{ old('faq_list.0.pertanyaan') }}" class="w-full p-2 border rounded bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Apakah kelas ini menyediakan rekaman?">
                         </div>
                         <div>
                             <label class="block text-xs font-semibold text-gray-500 mb-1">Jawaban</label>
-                            {{-- 🟢 PERBAIKAN UX: Menggunakan old() untuk mempertahankan data FAQ indeks pertama --}}
                             <textarea name="faq_list[0][jawaban]" rows="2" class="w-full p-2 border rounded bg-white focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Ya, rekaman resolusi tinggi disediakan dan bisa diakses selamanya.">{{ old('faq_list.0.jawaban') }}</textarea>
                         </div>
                     </div>
@@ -200,7 +189,7 @@
     </form>
 </div>
 
-{{-- 🟢 SCRIPT JAVASCRIPT UNTUK PREVIEW AVATAR --}}
+{{-- SCRIPT JAVASCRIPT UNTUK PREVIEW AVATAR --}}
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const avatarInput = document.getElementById('avatar-input');
@@ -229,7 +218,7 @@
         });
 
         function resetAvatarPreview() {
-            avatarInput.value = ''; // Reset input file
+            avatarInput.value = '';
             previewImage.src = '#';
             previewContainer.classList.add('hidden');
         }

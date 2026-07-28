@@ -4,15 +4,20 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\HasAutoTranslation;
 
 class Syllabus extends Model
 {
     // Menentukan nama tabel secara eksplisit karena plural dari Syllabus dalam bahasa Inggris adalah syllabi
     protected $table = 'syllabi';
 
+    use HasAutoTranslation; // 2. Pasang Trait di dalam class
+
     protected $fillable = [
     'title',
+    'title_en', // 3. Tambahkan kolom _en di $fillable
     'description',
+    'description_en', // 3. Tambahkan kolom _en di $fillable
     'software_category',
     'level',
     'modules_count',

@@ -406,7 +406,7 @@
             <div class="flex flex-wrap justify-between items-end">
                 <div>
                     <h2 class="text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                        {{ auto_translate('Artikel') }} <span class="text-slate-900">& {{ auto_translate('Berita Terbaru') }}</span>
+                        {{ ('Artikel') }} <span class="text-slate-900">& {{ ('Berita Terbaru') }}</span>
                     </h2>
                     <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
@@ -432,10 +432,10 @@
                 <div class="w-full sm:w-1/2 md:w-[31.5%] flex-shrink-0 snap-start bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition duration-300">
                     
                     <div class="relative h-64 overflow-hidden bg-slate-900">
-                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ auto_translate($blog->title) }}">
+                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ ($blog->title) }}">
                         
                         <span class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm {{ $blog->tipe_konten == 'berita' ? 'bg-[#c80000]' : 'bg-slate-800' }}">
-                            {{ auto_translate($blog->category) }}
+                            {{ ($blog->category) }}
                         </span>
                     </div>
                     
@@ -446,16 +446,16 @@
                             </span>
                             
                             <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
-                                {{ auto_translate($blog->title) }}
+                                {{ ($blog->title) }}
                             </h3>
                             
                             <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-5">
-                                {{ Str::limit(auto_translate(strip_tags($blog->content)), 120) }}
+                                {{ Str::limit((strip_tags($blog->content)), 120) }}
                             </p>
                         </div>
                         
                         <a href="{{ $blog->url_detail }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition">
-                            {{ auto_translate('Pelajari Selengkapnya') }}
+                            {{ ('Pelajari Selengkapnya') }}
                             <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>

@@ -30,30 +30,26 @@
                         <label class="block text-sm font-medium text-gray-600 mb-1">Judul Silabus</label>
                         <input type="text" name="title" value="{{ old('title', $syllabus->title) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                     </div>
+
+                    {{-- DIUBAH: Dari Select Dropdown ke Input Text --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Kategori Software</label>
-                        <select name="software_category" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                            <option value="PLAXIS" {{ old('software_category', $syllabus->software_category) == 'PLAXIS' ? 'selected' : '' }}>PLAXIS</option>
-                            <option value="GeoStudio" {{ old('software_category', $syllabus->software_category) == 'GeoStudio' ? 'selected' : '' }}>GeoStudio (SLOPE/W)</option>
-                            <option value="FLAC3D" {{ old('software_category', $syllabus->software_category) == 'FLAC3D' ? 'selected' : '' }}>FLAC3D</option>
-                        </select>
+                        <input type="text" name="software_category" value="{{ old('software_category', $syllabus->software_category) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: PLAXIS, GeoStudio, FLAC3D" required>
                     </div>
+
+                    {{-- DIUBAH: Dari Select Dropdown ke Input Text --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Tingkatan (Level)</label>
-                        <select name="level" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                            <option value="Basic" {{ old('level', $syllabus->level) == 'Basic' ? 'selected' : '' }}>Basic</option>
-                            <option value="Intermediate" {{ old('level', $syllabus->level) == 'Intermediate' ? 'selected' : '' }}>Intermediate</option>
-                            <option value="Advanced" {{ old('level', $syllabus->level) == 'Advanced' ? 'selected' : '' }}>Advanced</option>
-                        </select>
+                        <input type="text" name="level" value="{{ old('level', $syllabus->level) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Basic, Intermediate, Advanced" required>
                     </div>
+
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Jumlah Modul</label>
                         <input type="number" name="modules_count" value="{{ old('modules_count', $syllabus->modules_count) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
                     </div>
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 mb-1">Nama Icon (FontAwesome)</label>
-                        <input type="text" name="icon" value="{{ old('icon', $syllabus->icon) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
-                    </div>
+
+                    {{-- INPUT NAMA ICON (FONTAWESOME) SUDAH DIHAPUS DI SINI --}}
+
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Durasi Kursus</label>
                         <input type="text" name="durasi" value="{{ old('durasi', $syllabus->durasi) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -62,13 +58,13 @@
                         <label class="block text-sm font-medium text-gray-600 mb-1">Jadwal Terdekat</label>
                         <input type="text" name="jadwal_terdekat" value="{{ old('jadwal_terdekat', $syllabus->jadwal_terdekat) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
                     </div>
+
+                    {{-- DIUBAH: Dari Select Dropdown ke Input Text --}}
                     <div>
                         <label class="block text-sm font-medium text-gray-600 mb-1">Format Kelas</label>
-                        <select name="format_kelas" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-                            <option value="Live Zoom" {{ old('format_kelas', $syllabus->format_kelas) == 'Live Zoom' ? 'selected' : '' }}>Live Zoom</option>
-                            <option value="Self-paced" {{ old('format_kelas', $syllabus->format_kelas) == 'Self-paced' ? 'selected' : '' }}>Self-paced Learning</option>
-                        </select>
+                        <input type="text" name="format_kelas" value="{{ old('format_kelas', $syllabus->format_kelas) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none" placeholder="Contoh: Live Zoom / Self-paced Learning" required>
                     </div>
+
                     <div class="md:col-span-2">
                         <label class="block text-sm font-medium text-gray-600 mb-1">Poin CPD/PDH</label>
                         <input type="number" name="poin_cpd" value="{{ old('poin_cpd', $syllabus->poin_cpd) }}" class="w-full p-2 border rounded focus:ring-2 focus:ring-blue-500 focus:outline-none">
@@ -253,5 +249,5 @@
             e.target.parentElement.remove();
         }
     });
-</script>v
+</script>
 </x-app-layout>

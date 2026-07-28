@@ -5,49 +5,76 @@ use Illuminate\Support\Facades\Cache;
 
 if (!function_exists('auto_translate')) {
     /**
-     * Menerjemahkan teks secara otomatis berdasarkan locale aktif saat ini dengan sistem Smart Cache.
+     * Menerjemahkan teks secara otomatis berdasarkan locale aktif saat ini
+     * dengan sistem Smart Cache, Strict Timeout, dan Circuit Breaker.
      *
      * @param string|null $text Teks asli (Bahasa Indonesia)
      * @return string
      */
     function auto_translate($text)
     {
-        if (empty($text)) {
+        // 1. Validasi input
+        if (empty($text) || !is_string($text)) {
             return '';
         }
 
-        // Ambil bahasa aktif saat ini dari session/laravel ('id' atau 'en')
-        $locale = app()->getLocale();
-
-        // Jika bahasa aktif adalah Inggris ('en'), lakukan translasi otomatis
-        if ($locale === 'en') {
-            // 1. Buat key cache yang aman & unik berdasarkan isi teks (menggunakan md5)
-            $cacheKey = 'translate_' . md5($text) . '_en';
-
-            // 2. Jika hasil terjemahan sudah ada di cache, langsung kembalikan (Sangat cepat, ~0.001 detik!)
-            if (Cache::has($cacheKey)) {
-                return Cache::get($cacheKey);
-            }
-
-            // 3. Jika belum di-cache, panggil API Google Translate
-            try {
-                // Set target bahasa ke 'en' (English), deteksi otomatis bahasa asal
-                $tr = new GoogleTranslate('en');
-                $translatedText = $tr->translate($text);
-
-                // Jika proses translate berhasil, simpan di cache selamanya
-                if (!empty($translatedText)) {
-                    Cache::forever($cacheKey, $translatedText);
-                    return $translatedText;
-                }
-            } catch (\Exception $e) {
-                // Jika API limit/error, kembalikan teks asli (tanpa disimpan di cache)
-                // agar sistem bisa mencoba menerjemahkan ulang lagi di kemudian hari
-                return $text;
-            }
+        $text = trim($text);
+        if ($text === '') {
+            return '';
         }
 
-        // Jika bahasa aktif adalah Indonesia ('id'), kembalikan teks asli langsung
+        // Ambil bahasa aktif dari Laravel ('id' atau 'en')
+        $locale = app()->getLocale();
+
+        // Jika bahasa aktif adalah Indonesia ('id'), langsung kembalikan teks asli tanpa panggil Cache/API
+        if ($locale === 'id') {
+            return $text;
+        }
+
+        // Key cache utama untuk hasil terjemahan sukses
+        $cacheKey = 'trans_' . md5($text . '_' . $locale);
+
+        // 2. Jika hasil terjemahan yang sukses sudah ada di Cache, langsung kembalikan (~0.0005 detik)
+        if (Cache::has($cacheKey)) {
+            return Cache::get($cacheKey);
+        }
+
+        // Key cache sementara untuk menandai jika API pernah error/timeout (Circuit Breaker)
+        $errorCacheKey = 'trans_err_' . md5($text . '_' . $locale);
+
+        // 3. Jika API Google baru saja error/timeout/rate-limit dalam 10 menit terakhir,
+        //    langsung kembalikan teks asli agar website TIDAK LEMOT/HANGING!
+        if (Cache::has($errorCacheKey)) {
+            return $text;
+        }
+
+        // 4. Panggil API Google Translate dengan Strict Timeout Guard
+        try {
+            $tr = new GoogleTranslate();
+            $tr->setTarget($locale);
+
+            // SET TIMEOUT KETAT:
+            // Maksimal tunggu respon 1.5 detik & koneksi 1.0 detik.
+            // Ini mencegah website hanging berpuluh-puluh detik jika Google memblokir IP/rate-limit.
+            $tr->setOptions([
+                'timeout' => 1.5,
+                'connect_timeout' => 1.0,
+            ]);
+
+            $translatedText = $tr->translate($text);
+
+            if (!empty($translatedText)) {
+                // Simpan hasil terjemahan di cache SELAMANYA
+                Cache::forever($cacheKey, $translatedText);
+                return $translatedText;
+            }
+        } catch (\Throwable $e) {
+            // Jika terjadi error / timeout / IP diblokir Google:
+            // Simpan penanda error selama 10 menit agar request berikutnya
+            // TIDAK PERLU menunggu timeout API lagi.
+            Cache::put($errorCacheKey, true, now()->addMinutes(10));
+        }
+
         return $text;
     }
 }

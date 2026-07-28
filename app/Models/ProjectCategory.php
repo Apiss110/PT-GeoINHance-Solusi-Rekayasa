@@ -4,10 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use App\Traits\HasAutoTranslation;
 
 class ProjectCategory extends Model
 {
-    protected $fillable = ['name', 'slug'];
+    use HasAutoTranslation;
+     // 2. Pasang Trait di dalam class
+    protected $fillable = ['name', 'name_en', 'slug'];
 
     // Relasi ke tabel isi proyek
     public function strategicProjects(): HasMany

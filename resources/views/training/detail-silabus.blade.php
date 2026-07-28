@@ -77,14 +77,9 @@
                 <div class="space-y-3">
                     @if($syllabus->modul_materi && is_array($syllabus->modul_materi))
                         @foreach($syllabus->modul_materi as $index => $modul)
-                            <details class="group border border-gray-200 rounded-lg" {{ $index == 0 ? 'open' : '' }}>
-                                <summary class="flex justify-between items-center font-semibold p-4 text-slate-700 bg-slate-50 hover:bg-slate-100 cursor-pointer list-none transition [&::-webkit-details-marker]:hidden">
-                                    <span>{{ auto_translate($modul) }}</span>
-                                    <span class="transition group-open:rotate-180 text-slate-400">
-                                        <i class="fa-solid fa-chevron-down text-xs"></i>
-                                    </span>
-                                </summary>
-                            </details>
+                            <div class="border border-gray-200 rounded-lg p-4 font-semibold text-slate-700 bg-slate-50">
+                                <span>{{ auto_translate($modul) }}</span>
+                            </div>
                         @endforeach
                     @else
                         <p class="text-sm text-slate-400 italic">Detail susunan modul belum diinputkan.</p>

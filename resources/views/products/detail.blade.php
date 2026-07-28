@@ -145,8 +145,8 @@
                             <i class="fa-solid fa-layer-group text-xl"></i>
                         </div>
                         <div>
-                            <h3 class="font-bold text-lg text-gray-900">{{ auto_translate($feature['title']) }}</h3>
-                            <p class="text-sm text-gray-600 leading-relaxed mt-1">{{ isset($feature['desc']) ? auto_translate($feature['desc']) : '' }}</p>
+                            <h3 class="font-bold text-lg text-gray-900">{{ ($feature['title']) }}</h3>
+                            <p class="text-sm text-gray-600 leading-relaxed mt-1">{{ isset($feature['desc']) ? ($feature['desc']) : '' }}</p>
                         </div>
                     </div>
                     @endif
@@ -171,9 +171,9 @@
                             @if(isset($license['is_popular']) && $license['is_popular'] == '1')
                                 <span class="text-[10px] font-bold uppercase bg-blue-500 px-2 py-1 rounded text-white">{{ __('POPULAR') }}</span>
                             @endif
-                            <h3 class="font-bold text-lg">{{ isset($license['name']) ? auto_translate($license['name']) : __('Package Name') }}</h3>
+                            <h3 class="font-bold text-lg">{{ isset($license['name']) ? ($license['name']) : __('Package Name') }}</h3>
                             <p class="text-xs {{ isset($license['is_popular']) && $license['is_popular'] == '1' ? 'opacity-80' : 'text-gray-600' }} leading-relaxed">
-                                {{ isset($license['desc']) ? auto_translate($license['desc']) : __('Package description has not been set.') }}
+                                {{ isset($license['desc']) ? ($license['desc']) : __('Package description has not been set.') }}
                             </p>
                         </div>
                         <div class="pt-6">
@@ -290,7 +290,7 @@
                 @if(!empty($faq['question']))
                 <details class="group py-5 [&_summary::-webkit-details-marker]:hidden">
                     <summary class="flex justify-between items-center font-bold text-gray-900 cursor-pointer list-none text-base md:text-lg hover:text-blue-600 transition">
-                        <span>{{ auto_translate($faq['question']) }}</span>
+                        <span>{{ ($faq['question']) }}</span>
                         <span class="transition group-open:rotate-180 text-gray-400"><i class="fa fa-chevron-down"></i></span>
                     </summary>
                     <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify">{{ isset($faq['answer']) ? auto_translate($faq['answer']) : '' }}</p>

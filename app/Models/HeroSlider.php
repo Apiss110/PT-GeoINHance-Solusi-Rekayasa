@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasAutoTranslation;
 
 class HeroSlider extends Model
 {
@@ -17,7 +18,9 @@ class HeroSlider extends Model
      */
     protected $fillable = [
     'title',
+    'title_en', // 3. Tambahkan kolom _en di $fillable
     'subtitle',
+    'subtitle_en', // 3. Tambahkan kolom _en di $fillable
     'image_path',
     'link_url', // Tambahkan ini
     ];

@@ -4,10 +4,11 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Traits\HasAutoTranslation;
 
 class Branch extends Model
 {
-    use HasFactory;
+    use HasFactory, HasAutoTranslation; // 2. Pasang Trait di dalam class
 
     /**
      * Nama tabel yang terhubung dengan model ini.
@@ -19,7 +20,7 @@ class Branch extends Model
      * Kolom-kolom yang diizinkan untuk diisi secara massal oleh Admin.
      */
     protected $fillable = [
-    'daerah', 'title', 'desc', 'lat', 'lng', 'link', 'img', 'project_id'
+    'daerah', 'title', 'title_en', 'desc', 'desc_en', 'lat', 'lng', 'link', 'img', 'project_id'
 ];
 
     /**

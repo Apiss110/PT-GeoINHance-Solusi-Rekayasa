@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
+use App\Traits\HasAutoTranslation;
 
 class Product extends Model
 {
@@ -13,8 +14,10 @@ class Product extends Model
     // Menentukan kolom mana saja yang boleh diisi secara massal (Mass Assignment)
     protected $fillable = [
         'name',
+        'name_en', // 3. Tambahkan kolom _en di $fillable
         'slug',
         'description',
+        'description_en', // 3. Tambahkan kolom _en di $fillable
         'image_path',
         'is_active',
     ];
