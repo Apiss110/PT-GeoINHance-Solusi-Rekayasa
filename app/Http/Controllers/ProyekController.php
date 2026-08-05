@@ -59,17 +59,116 @@ class ProyekController extends Controller
         return view('proyek.detail', compact('proyek', 'otherProjects'));
     }
 
-    /**
-     * Halaman menampilkan daftar proyek berdasarkan Jenis / Kategori lewat Slug (Publik)
-     */
-    public function showByCategory($slug)
-    {
-        $category = ProjectCategory::where('slug', $slug)->firstOrFail();
-        $projects = $category->strategicProjects()->latest()->get();
-        $categories = ProjectCategory::all();
+public function show($slug)
+{
+    // ------------------------------------------------------------------
+    // 1. CARI DI TABEL project_pages (Halaman Kategori Proyek)
+    // ------------------------------------------------------------------
+    if (\Illuminate\Support\Facades\Schema::hasTable('project_pages')) {
+        $page = \Illuminate\Support\Facades\DB::table('project_pages')
+            ->where('slug', $slug)
+            ->orWhere('slug', 'LIKE', "%{$slug}%")
+            ->first();
 
-        return view('proyek.index-category', compact('category', 'projects', 'categories'));
+        if ($page) {
+            $category = $page;
+            $categories = \Illuminate\Support\Facades\DB::table('project_pages')->get();
+
+            $fkCol = \Illuminate\Support\Facades\Schema::hasColumn('strategic_projects', 'projects_category_id') 
+                ? 'projects_category_id' 
+                : 'project_page_id';
+
+            $projects = \Illuminate\Support\Facades\DB::table('strategic_projects')
+                ->where($fkCol, $page->id)
+                ->get();
+
+            // UBAH KE 'proyek.category' SESUAI NAMA FILE BLADE ANDA
+            return view('proyek.category', compact('category', 'page', 'projects', 'categories'));
+        }
     }
+
+    // ------------------------------------------------------------------
+    // 2. CARI DI TABEL strategic_projects (Proyek Spesifik)
+    // ------------------------------------------------------------------
+    if (\Illuminate\Support\Facades\Schema::hasTable('strategic_projects')) {
+        $project = null;
+
+        if (\Illuminate\Support\Facades\Schema::hasColumn('strategic_projects', 'slug')) {
+            $project = \Illuminate\Support\Facades\DB::table('strategic_projects')
+                ->where('slug', $slug)
+                ->first();
+        }
+
+        if (!$project) {
+            $allProjects = \Illuminate\Support\Facades\DB::table('strategic_projects')->get();
+            foreach ($allProjects as $sp) {
+                if (!empty($sp->title) && \Illuminate\Support\Str::slug($sp->title) === $slug) {
+                    $project = $sp;
+                    break;
+                }
+            }
+        }
+
+        if (!$project) {
+            $cleanTitle = str_replace('-', ' ', $slug);
+            $shortTitle = substr($cleanTitle, 0, 25);
+
+            $project = \Illuminate\Support\Facades\DB::table('strategic_projects')
+                ->where('title', 'LIKE', "%{$shortTitle}%")
+                ->first();
+        }
+
+        if ($project) {
+            // Setting Properti Category
+            $catId = $project->projects_category_id 
+                ?? $project->project_category_id 
+                ?? $project->project_page_id 
+                ?? null;
+
+            $categoryObj = null;
+            if ($catId && \Illuminate\Support\Facades\Schema::hasTable('project_pages')) {
+                $categoryObj = \Illuminate\Support\Facades\DB::table('project_pages')->where('id', $catId)->first();
+            }
+
+            if (!$categoryObj) {
+                $categoryObj = (object) [
+                    'id'    => null,
+                    'title' => 'Proyek Strategis',
+                    'name'  => 'Proyek Strategis',
+                    'slug'  => 'semua-proyek'
+                ];
+            }
+
+            // Setting Properti Sector
+            $sectorId = $project->sector_id ?? null;
+            $sectorObj = null;
+
+            if ($sectorId && \Illuminate\Support\Facades\Schema::hasTable('sectors')) {
+                $sectorObj = \Illuminate\Support\Facades\DB::table('sectors')->where('id', $sectorId)->first();
+            }
+
+            if (!$sectorObj) {
+                $sectorObj = (object) [
+                    'id'    => null,
+                    'name'  => 'Sektor Umum',
+                    'title' => 'Sektor Umum',
+                    'slug'  => 'umum'
+                ];
+            }
+
+            $project->category = $categoryObj;
+            $project->sector   = $sectorObj;
+            $proyek            = $project;
+
+            return view('proyek.detail', compact('project', 'proyek'));
+        }
+    }
+
+    // ------------------------------------------------------------------
+    // 3. JIKA DATA TIDAK DITEMUKAN
+    // ------------------------------------------------------------------
+    abort(404, 'Proyek tidak ditemukan.');
+}
 
     /**
      * Halaman menampilkan daftar seluruh Articles (Publik)
@@ -94,10 +193,24 @@ class ProyekController extends Controller
      */
     public function showBlog($slug)
     {
-        $blog = Blog::where('slug', $slug)->firstOrFail();
+        // 1. Cari exact match slug
+        $blog = Blog::where('slug', $slug)->first();
+
+        // 2. Fallback: Cari kemiripan slug jika tidak exact match
+        if (!$blog) {
+            $blog = Blog::where('slug', 'LIKE', "%{$slug}%")->first();
+            if ($blog) {
+                return redirect()->to('/blog/' . $blog->slug);
+            }
+        }
+
+        // 3. Jika tidak ditemukan
+        if (!$blog) {
+            abort(404, 'Artikel atau Berita tidak ditemukan.');
+        }
+
         return view('resources.article-detail', compact('blog'));
     }
-
     /*
     |--------------------------------------------------------------------------
     | PANEL ADMIN METHOD (MANAJEMEN PROYEK)
@@ -192,6 +305,25 @@ class ProyekController extends Controller
             'strategicProjects', 
             'projects', 
             'sectors', 
+            'isEdit'
+        ));
+    }
+
+    /**
+     * Tampilan Form Tambah Titik Peta Baru (/admin/branches/create)
+     */
+    public function createBranch()
+    {
+        $strategicProjects = StrategicProject::all();
+        $projects = $strategicProjects;
+        $sectors = Sector::orderBy('name')->get();
+        $isEdit = false;
+
+        // Pastikan path view sesuai tempat Anda menyimpan create.blade.php
+        return view('pages.admin.Branch.create', compact(
+            'strategicProjects',
+            'projects',
+            'sectors',
             'isEdit'
         ));
     }

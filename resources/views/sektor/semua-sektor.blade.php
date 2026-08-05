@@ -89,7 +89,7 @@
         {{-- LOOPING DATA SEKTOR DARI DATABASE --}}
         @forelse($sectors as $sector)
         <div class="sector-item transition-all duration-300" 
-             data-name="{{ strtolower(auto_translate($sector->name)) }}">
+             data-name="{{ strtolower(($sector->name)) }}">
             
             <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[450px]">
                 <div>
@@ -97,7 +97,7 @@
                     <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
                         {{-- PERBAIKAN: Menggunakan banner_image sesuai database Sektor --}}
                         @if($sector->banner_image)
-                            <img src="{{ asset('storage/' . $sector->banner_image) }}" alt="{{ auto_translate($sector->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
+                            <img src="{{ asset('storage/' . $sector->banner_image) }}" alt="{{ ($sector->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-700">
                         @else
                             <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-80 z-10"></div>
                             <i class="fa-solid fa-folder-open text-[70px] text-blue-500/20 group-hover:scale-110 transition duration-700"></i>
@@ -107,10 +107,10 @@
                     {{-- Content Area Sektor --}}
                     <div class="p-6 space-y-3">
                         <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-red-700 transition line-clamp-2 min-h-[3rem] uppercase">
-                            {{ auto_translate($sector->name) }}
+                            {{ ($sector->name) }}
                         </h3>
                         <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 min-h-[3.3rem]">
-                            {!! auto_translate(strip_tags($sector->description)) !!}
+                            {!! (strip_tags($sector->description)) !!}
                         </div>
                     </div>
                 </div>

@@ -80,34 +80,37 @@
     </div>
 </section>
 
-<section class="w-full bg-white py-24 border-t border-b border-slate-100">
-    <div class="max-w-7xl mx-auto px-6 text-center mb-16" data-aos="fade-up">
-        <h2 class="text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('home.net_title') }}</h2>
-        <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
-        <p class="text-slate-500 text-sm max-w-xl mx-auto mt-4">{{ __('home.net_desc') }}</p>
+<section class="w-full bg-white py-12 md:py-24 border-t border-b border-slate-100">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 text-center mb-8 md:mb-16" data-aos="fade-up">
+        <h2 class="text-2xl sm:text-3xl font-black text-slate-900 uppercase tracking-tight">{{ __('home.net_title') }}</h2>
+        <div class="w-16 h-1 bg-red-800 mx-auto mt-3 md:mt-4 rounded-full"></div>
+        <p class="text-slate-500 text-xs sm:text-sm max-w-xl mx-auto mt-3 md:mt-4">{{ __('home.net_desc') }}</p>
     </div>
 
     <div class="w-full z-0 overflow-hidden relative border-t border-b border-slate-100" data-aos="fade-up">
-        {{-- Tinggi peta diatur h-[550px], w-full memastikan ujung ke ujung --}}
-        <div id="map-operasional" class="w-full h-[550px] bg-slate-50"></div>
+        {{-- 🟢 PERBAIKAN: Tinggi peta disesuaikan (340px di HP, 450px di Tablet, 550px di Desktop) --}}
+        <div id="map-operasional" class="w-full h-[340px] sm:h-[450px] md:h-[550px] bg-slate-50"></div>
     </div>
 </section>
 
 <script>
     document.addEventListener('DOMContentLoaded', function () {
-        // 1. INSIALISASI PETA
+        // 🟢 Detect apakah device pengguna adalah Mobile (HP)
+        var isMobile = window.innerWidth < 768;
+
+        // 1. INSIALISASI PETA DENGAN SETTINGAN RESPONSIF
         var map = L.map('map-operasional', {
-            dragging: false,         
-            zoomControl: false,      
-            scrollWheelZoom: false,  
-            doubleClickZoom: false,  
+            dragging: true,                   // Boleh di-drag agar user HP bisa melihat pulau lain
+            zoomControl: !isMobile,           // Tombol zoom + / - muncul di laptop, disembunyikan di HP
+            scrollWheelZoom: false,           // Cegah zoom tak sengaja saat scroll halaman web
+            doubleClickZoom: true,            
             boxZoom: false,          
-            touchZoom: false,        
+            touchZoom: true,                  // Izinkan zoom menggunakan 2 jari di HP
             keyboard: false,         
             zoomSnap: 0.1,           
-            minZoom: 5.5,            
-            maxZoom: 5.5             
-        }).setView([-2.5, 118.0], 5.5); 
+            minZoom: isMobile ? 3.8 : 5.0,    // Min zoom lebih kecil di HP agar seluruh Indonesia muat
+            maxZoom: 10              
+        }).setView(isMobile ? [-2.5, 118.0] : [-2.5, 118.0], isMobile ? 4.2 : 5.5); 
 
         // 2. LOAD DESAIN PETA
         L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
@@ -116,21 +119,17 @@
         }).addTo(map);
 
         // 3. MENGAMBIL DATA DARI LARAVEL 
-        // 🟢 PERBAIKAN: Bersihkan data, batasi kata (max 20 kata), dan translasikan di sisi PHP
         var branches = {!! json_encode(collect($branches ?? $branchesData ?? [])->map(function($item) {
-            // Cek jika data berupa object atau array, lalu sesuaikan penamaannya
             $title = $item->title ?? $item['title'] ?? $item->name ?? $item['name'] ?? 'Project';
             $desc = $item->description ?? $item['description'] ?? $item->desc ?? $item['desc'] ?? '';
             $daerah = $item->daerah ?? $item['daerah'] ?? 'LOKASI';
 
-            // Bersihkan teks dari tag HTML (jika ada input TinyMCE) dan batasi maks 20 kata
             $cleanDesc = strip_tags(auto_translate($desc));
             $words = explode(' ', $cleanDesc);
             if (count($words) > 20) {
                 $cleanDesc = implode(' ', array_slice($words, 0, 20)) . '...';
             }
 
-            // Ubah properti internal object sebelum dilempar ke Javascript
             if (is_object($item)) {
                 $item->title = auto_translate($title);
                 $item->desc = $cleanDesc;
@@ -142,8 +141,6 @@
             }
             return $item;
         })) !!}; 
-        
-        console.log("Data Cabang Multi Bahasa Terdeteksi:", branches);
 
         var placedCoordinates = [];
 
@@ -188,7 +185,6 @@
                     
                     var marker = L.marker([lat, lng], { icon: customIcon, riseOnHover: true }).addTo(map);
 
-                    // Jalur Gambar
                     var rawImg = branch.image || branch.img || branch.foto || '';
                     var defaultPlaceholder = 'https://placehold.co/600x400/e2e8f0/0f172a?text=GeoINHance';
                     var finalImgUrl = defaultPlaceholder;
@@ -203,7 +199,6 @@
                         }
                     }
 
-                    // Tautan Proyek Dinamis
                     var projectLink = '#';
                     if (branch.project_id) {
                         projectLink = '/proyek/' + branch.project_id;
@@ -211,7 +206,6 @@
                         projectLink = branch.link || branch.url;
                     }
 
-                    // Data di bawah ini otomatis sudah berstatus multi bahasa dan ringkas
                     var branchTitle = branch.title;
                     var branchDesc = branch.desc || '';
                     var branchDaerah = branch.daerah ? branch.daerah.toUpperCase() : 'LOKASI';
@@ -219,16 +213,16 @@
                     var linkButtonHtml = '';
                     if (projectLink && projectLink !== '#') {
                         linkButtonHtml = `
-                            <span class="text-[9px] font-bold text-blue-600 flex items-center gap-0.5 opacity-70 group-hover:opacity-100 group-hover:translate-x-0.5 transition-all duration-200">
+                            <span class="text-[9px] font-bold text-blue-600 flex items-center gap-0.5 opacity-70 group-hover:opacity-100 transition-all duration-200">
                                 Lihat Proyek &rarr;
                             </span>
                         `;
                     }
 
-                    // Jendela Popup Card
+                    // 🟢 Popup Card Responsif (max-w disesuaikan agar tidak overflow di HP kecil)
                     var popupContent = `
-                        <a href="${projectLink}" class="block w-64 font-sans p-1 group no-underline text-inherit cursor-pointer">
-                            <div class="h-28 w-full overflow-hidden rounded-xl bg-slate-100 relative mb-3 ring-1 ring-slate-200/50 group-hover:ring-blue-500 transition-all duration-300">
+                        <a href="${projectLink}" class="block w-52 sm:w-64 font-sans p-1 group no-underline text-inherit cursor-pointer">
+                            <div class="h-24 sm:h-28 w-full overflow-hidden rounded-xl bg-slate-100 relative mb-2 sm:mb-3 ring-1 ring-slate-200/50 group-hover:ring-blue-500 transition-all duration-300">
                                 <img src="${finalImgUrl}" 
                                      onerror="this.onerror=null; this.src='${defaultPlaceholder}';" 
                                      class="w-full h-full object-cover group-hover:scale-105 transition-all duration-500" 
@@ -250,7 +244,7 @@
                         </a>
                     `;
                     
-                    marker.bindPopup(popupContent, { maxWidth: 300 });
+                    marker.bindPopup(popupContent, { maxWidth: 280 });
                 }
             });
         }
@@ -406,7 +400,7 @@
             <div class="flex flex-wrap justify-between items-end">
                 <div>
                     <h2 class="text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                        {{ ('Artikel') }} <span class="text-slate-900">& {{ ('Berita Terbaru') }}</span>
+                        {{ __('Artikel') }} <span class="text-slate-900">& {{ __('Berita Terbaru') }}</span>
                     </h2>
                     <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
@@ -432,10 +426,10 @@
                 <div class="w-full sm:w-1/2 md:w-[31.5%] flex-shrink-0 snap-start bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md transition duration-300">
                     
                     <div class="relative h-64 overflow-hidden bg-slate-900">
-                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ ($blog->title) }}">
+                        <img src="{{ asset('storage/' . $blog->image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ $blog->title }}">
                         
                         <span class="absolute top-4 left-4 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md shadow-sm {{ $blog->tipe_konten == 'berita' ? 'bg-[#c80000]' : 'bg-slate-800' }}">
-                            {{ ($blog->category) }}
+                            {{ $blog->category }}
                         </span>
                     </div>
                     
@@ -446,16 +440,16 @@
                             </span>
                             
                             <h3 class="text-lg font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
-                                {{ ($blog->title) }}
+                                {{ $blog->title }}
                             </h3>
                             
                             <p class="text-sm text-slate-500 leading-relaxed line-clamp-3 mb-5">
-                                {{ Str::limit((strip_tags($blog->content)), 120) }}
+                                {{ Str::limit(strip_tags($blog->content), 120) }}
                             </p>
                         </div>
                         
                         <a href="{{ $blog->url_detail }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition">
-                            {{ ('Pelajari Selengkapnya') }}
+                            {{ __('Pelajari Selengkapnya') }}
                             <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>

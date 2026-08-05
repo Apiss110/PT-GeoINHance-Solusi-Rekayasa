@@ -52,7 +52,7 @@
                 <div class="lg:col-span-2 space-y-8">
                     <div class="bg-white p-2 rounded-xl shadow-md border border-gray-100 overflow-hidden group">
                     <img src="{{ $proyek->image_path ? asset('storage/' . $proyek->image_path) : asset('images/default-banner.jpg') }}" 
-                        alt="{{ auto_translate($proyek->title) }}" 
+                        alt="{{ ($proyek->title) }}" 
                         class="w-full h-[300px] md:h-[450px] object-cover rounded-lg group-hover:scale-[1.01] transition-transform duration-300">
                     </div>
 
@@ -107,7 +107,7 @@
                                 <div class="text-blue-700 mt-1"><i class="fa-solid fa-map-location-dot"></i></div>
                                 <div>
                                     <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.work_location') }}</h4>
-                                    <p class="text-sm font-semibold text-gray-800">{{ auto_translate($proyek->location ?? 'Indonesia') }}</p>
+                                    <p class="text-sm font-semibold text-gray-800">{{ ($proyek->location ?? 'Indonesia') }}</p>
                                 </div>
                             </div>
 
@@ -115,7 +115,7 @@
                                 <div class="text-blue-700 mt-1"><i class="fa-solid fa-calendar-days"></i></div>
                                 <div>
                                     <h4 class="text-xs font-bold text-gray-400 uppercase leading-none mb-1">{{ __('project.completion_year') }}</h4>
-                                    <p class="text-sm font-semibold text-gray-800">{{ auto_translate($proyek->year ?? '2026') }}</p>
+                                    <p class="text-sm font-semibold text-gray-800">{{ ($proyek->year ?? '2026') }}</p>
                                 </div>
                             </div>
                         </div>

@@ -4,7 +4,7 @@
      style="background-image: linear-gradient(rgba(14, 29, 50, 0.75), rgba(14, 29, 50, 0.75)), url('{{ $category->banner_image ? asset('storage/' . $category->banner_image) : asset('images/default-banner.jpg') }}');">
     <div class="container mx-auto px-6 max-w-7xl">
         <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-wide leading-tight max-w-4xl mx-auto">
-            {{ auto_translate($category->name ?? 'Detail Kategori') }}
+            {{ ($category->name ?? 'Detail Kategori') }}
         </h1>
     </div>
 </div>
@@ -16,7 +16,7 @@
         {{-- Box Deskripsi Utama Kategori --}}
         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 max-w-5xl mx-auto mb-16">
             <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed font-normal text-sm md:text-base">
-                {!! auto_translate(strip_tags($category->description ?? $category->content)) !!}
+                {!! (strip_tags($category->description ?? $category->content)) !!}
             </div>
         </div>
 
@@ -44,7 +44,7 @@
         {{-- Info List Title --}}
         <div class="mb-8 flex flex-wrap justify-between items-center border-b border-slate-200 pb-4 max-w-7xl mx-auto gap-2">
             <span class="text-sm text-slate-600 font-medium">
-                {{ __('portfolio.list_title') }} <strong class="text-slate-900">{{ auto_translate($category->name) }}</strong>
+                {{ __('portfolio.list_title') }} <strong class="text-slate-900">{{ ($category->name) }}</strong>
             </span>
             
             @if(request('from') == 'all')
@@ -60,7 +60,7 @@
                 
                 @foreach($projects as $project)
                     <div class="project-card bg-white rounded-3xl border border-slate-100 shadow-sm overflow-hidden flex flex-col group hover:shadow-md hover:-translate-y-1 transition duration-300"
-                         data-nama="{{ strtolower(trim(auto_translate($project->title))) }}"
+                         data-nama="{{ strtolower(trim($project->title)) }}"
                          data-tahun="{{ $project->year }}"
                          data-kategori="{{ $category->slug }}"
                          data-lokasi="{{ strtolower(trim($project->location)) }}">
@@ -68,7 +68,7 @@
                         {{-- Foto Cover Proyek --}}
                         <div class="relative h-56 overflow-hidden bg-slate-900">
                             @if($project->image_path)
-                                <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ auto_translate($project->title) }}">
+                                <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ ($project->title) }}">
                             @else
                                 <div class="w-full h-full flex items-center justify-center bg-slate-800">
                                     <i class="fa-solid fa-helmet-safety text-5xl text-red-500/20 group-hover:scale-110 transition duration-300"></i>
@@ -81,15 +81,15 @@
                             <div class="mb-5">
                                 @if($project->location)
                                     <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2 flex items-center">
-                                        {{ auto_translate($project->location) }} • {{ $project->year }}
+                                        {{ ($project->location) }} • {{ $project->year }}
                                     </span>
                                 @endif
                                 <h3 class="text-base font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-2">
-                                    {{ auto_translate($project->title) }}
+                                    {{ ($project->title) }}
                                 </h3>
 
                                 <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">
-                                    {{ auto_translate(strip_tags($project->description)) }}
+                                    {{ (strip_tags($project->description)) }}
                                 </p>
                             </div>
 

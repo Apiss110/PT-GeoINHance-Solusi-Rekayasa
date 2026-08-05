@@ -1,90 +1,137 @@
 <x-app-layout>
-    <div class="w-full px-4 py-6 sm:px-6 lg:px-8 bg-gray-50 min-h-screen text-gray-900">
+    <div class="container mx-auto px-6 py-8">
+
+    {{-- Header & Tombol Kembali --}}
+    <div class="mb-6 flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-black text-white tracking-tight">Edit Artikel</h1>
-            <p class="text-sm text-slate-400">Perbarui informasi, kategori, atau isi konten dari artikel yang dipilih.</p>
+            <h3 class="text-gray-700 text-3xl font-medium">
+                Edit Artikel
+            </h3>
+            <p class="text-gray-500 text-sm mt-1">
+                Perbarui informasi, kategori, atau isi konten dari artikel yang dipilih
+            </p>
+        </div>
+        <a href="{{ route('admin.articles.index') }}" 
+           class="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition shadow-sm">
+            &larr; Kembali
+        </a>
+    </div>
+
+    {{-- Alert Error jika Validasi Gagal --}}
+    @if ($errors->any())
+        <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl shadow-sm mb-6">
+            <p class="text-sm font-semibold mb-1">Terdapat kesalahan input:</p>
+            <ul class="list-disc list-inside text-xs space-y-0.5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
+    {{-- Card Form Edit Artikel --}}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-semibold text-gray-700">Formulir Edit Artikel</h3>
+            <p class="text-gray-500 text-sm mt-1">Ubah konten artikel publikasi perusahaan.</p>
         </div>
 
-        {{-- 🟢 PERBAIKAN: Mengubah $blog->id menjadi $article->id --}}
-        <form action="{{ route('admin.articles.update', $article->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+        <form action="{{ route('admin.articles.update', $article->id) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
             @method('PUT')
 
+            {{-- Judul Artikel --}}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">
+                    Nama / Judul Artikel <span class="text-red-500">*</span>
+                </label>
+                <input type="text" name="title" value="{{ old('title', $article->title) }}" required
+                       placeholder="Tuliskan judul artikel..."
+                       class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition">
+                @error('title')
+                    <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
+                @enderror
+            </div>
+
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Kiri: Pengaturan Kategori & Tag --}}
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
+                {{-- Kategori & Tag --}}
+                <div class="space-y-4">
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">Kategori Artikel *</label>
-                        {{-- 🟢 PERBAIKAN: Mengembalikan ke input text agar kategori bersifat bebas/fleksibel seperti form store --}}
-                        <input 
-                            type="text" 
-                            name="category" 
-                            value="{{ old('category', $article->category) }}" 
-                            placeholder="Masukkan kategori artikel (misal: Proyek, Events, Geoteknik)" 
-                            class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" 
-                            required
-                        >
-                        @error('category') 
-                            <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> 
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">
+                            Kategori Artikel <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="category" value="{{ old('category', $article->category) }}" required
+                               placeholder="Masukkan kategori artikel (misal: Proyek, Events, Geoteknik)"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition">
+                        @error('category')
+                            <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">Tag *</label>
-                        {{-- 🟢 PERBAIKAN: Mengubah $blog->tag menjadi $article->tag --}}
-                        <input type="text" name="tag" value="{{ old('tag', $article->tag) }}" placeholder="Contoh: Event, Proyek, Internal" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" required>
-                        @error('tag') 
-                            <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> 
+                        <label class="block text-sm font-semibold text-gray-700 mb-1">
+                            Tag <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="tag" value="{{ old('tag', $article->tag) }}" required
+                               placeholder="Contoh: Event, Proyek, Internal"
+                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition">
+                        @error('tag')
+                            <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
                         @enderror
                     </div>
                 </div>
 
-                {{-- Kanan: Pengaturan Gambar --}}
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
-                    <label class="block text-sm font-medium text-slate-300">Foto Artikel</label>
-                    
-                    {{-- 🟢 PERBAIKAN: Mengubah $blog->image menjadi $article->image --}}
+                {{-- Gambar Artikel --}}
+                <div>
+                    <label class="block text-sm font-semibold text-gray-700 mb-2">
+                        Foto Artikel <span class="text-gray-400 font-normal text-xs">(Pilih file baru jika ingin mengganti)</span>
+                    </label>
+
                     @if($article->image)
-                        <div class="w-32 h-20 bg-slate-800 rounded-lg overflow-hidden border border-slate-700">
-                            <img src="{{ asset('storage/' . $article->image) }}" class="w-full h-full object-cover">
+                        <div class="mb-3 p-3 bg-gray-50 border border-gray-200 rounded-xl inline-block">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Gambar Saat Ini:</p>
+                            <div class="w-36 h-24 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
+                                <img src="{{ asset('storage/' . $article->image) }}" class="w-full h-full object-cover">
+                            </div>
                         </div>
                     @endif
 
-                    <input type="file" name="image" class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer">
-                    <p class="text-[11px] text-slate-500">Biarkan kosong jika tidak ingin mengubah gambar. Format: JPG, JPEG, PNG, WEBP (Maks 5MB)</p>
-                    @error('image') 
-                        <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> 
+                    <input type="file" name="image" accept="image/*"
+                           class="w-full text-sm border border-gray-200 bg-white rounded-lg p-2 cursor-pointer text-gray-500 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#0e1d82] file:text-white hover:file:bg-[#0e1d82]/90">
+                    <p class="mt-1.5 text-xs text-gray-500">Format: JPG, JPEG, PNG, WEBP (Maks 5MB)</p>
+                    @error('image')
+                        <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
                     @enderror
                 </div>
             </div>
 
-            {{-- Bagian Judul --}}
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <label class="block text-sm font-medium text-slate-300 mb-1">Nama / Judul Artikel *</label>
-                {{-- 🟢 PERBAIKAN: Mengubah $blog->title menjadi $article->title --}}
-                <input type="text" name="title" value="{{ old('title', $article->title) }}" placeholder="Tuliskan judul artikel..." class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" required>
-                @error('title') 
-                    <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> 
+            {{-- Deskripsi / Isi Konten --}}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Deskripsi / Isi Konten <span class="text-red-500">*</span>
+                </label>
+                <textarea name="content" id="editor" rows="12"
+                          placeholder="Tuliskan isi artikel..."
+                          class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition min-h-[300px]">{{ old('content', $article->content) }}</textarea>
+                @error('content')
+                    <span class="text-xs text-red-600 mt-1 block">{{ $message }}</span>
                 @enderror
             </div>
 
-            {{-- Bagian Konten --}}
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <label class="block text-sm font-medium text-slate-300 mb-2">Deskripsi / Isi Konten *</label>
-                {{-- 🟢 PERBAIKAN: Mengubah $blog->content menjadi $article->content --}}
-                <textarea name="content" id="editor" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-4 text-white min-h-[300px]">{{ old('content', $article->content) }}</textarea>
-                @error('content') 
-                    <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> 
-                @enderror
-            </div>
-
-            {{-- Tombol Aksi --}}
-            <div class="flex justify-end gap-4">
-                <a href="{{ route('admin.articles.index') }}" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-5 py-2.5 rounded-lg text-sm font-medium transition">Batal</a>
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">Perbarui Artikel</button>
+            {{-- Footer Button --}}
+            <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100">
+                <a href="{{ route('admin.articles.index') }}" 
+                   class="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition">
+                    Batal
+                </a>
+                <button type="submit" 
+                        class="px-5 py-2.5 bg-[#0e1d82] text-white rounded-lg text-sm font-medium hover:bg-[#0e1d82]/90 shadow-sm transition cursor-pointer">
+                    Perbarui Artikel
+                </button>
             </div>
         </form>
     </div>
+</div>
 
     <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
     <script>

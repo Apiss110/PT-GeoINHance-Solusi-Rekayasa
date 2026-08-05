@@ -137,7 +137,7 @@
                             <a href="{{ route('article.show', $news->slug ?? '#') }}">{{ auto_translate($news->title) }}</a>
                         </h3>
                         <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4">
-                            {{ auto_translate(strip_tags($news->content)) }}
+                            {{ (strip_tags($news->content)) }}
                         </p>
                     </div>
                     <div class="border-t border-slate-100 pt-4 mt-2 flex justify-end">
@@ -162,10 +162,10 @@
                             </span>
                         </div>
                         <h3 class="text-base font-bold text-slate-900 group-hover:text-red-600 transition line-clamp-2 mb-2">
-                            <a href="{{ route('article.show', $article->slug ?? '#') }}">{{ auto_translate($article->title) }}</a>
+                            <a href="{{ route('article.show', $article->slug ?? '#') }}">{{ ($article->title) }}</a>
                         </h3>
                         <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4">
-                            {{ auto_translate(strip_tags($article->content)) }}
+                            {{ (strip_tags($article->content)) }}
                         </p>
                     </div>
                     <div class="border-t border-slate-100 pt-4 mt-2 flex justify-end">
@@ -195,10 +195,10 @@
                             </div>
                         @endif
                         <h3 class="text-base font-bold text-slate-900 group-hover:text-red-600 transition line-clamp-2 mb-2">
-                            {{ auto_translate($video->title) }}
+                            {{ ($video->title) }}
                         </h3>
                         <p class="text-xs text-slate-500 line-clamp-2 mb-4">
-                            {{ $video->description ? auto_translate($video->description) : 'Tonton simulasi dan explanation teknis dari tim ahli kami.' }}
+                            {{ $video->description ? ($video->description) : 'Tonton simulasi dan explanation teknis dari tim ahli kami.' }}
                         </p>
                     </div>
                     <div class="border-t border-slate-100 pt-4 mt-2 flex justify-end">
@@ -228,11 +228,11 @@
                         </span>
 
                         <h3 class="text-base font-bold text-slate-900 group-hover:text-red-600 transition line-clamp-2 mb-2">
-                            {{ auto_translate($study->title) }}
+                            {{ ($study->title) }}
                         </h3>
-                        <span class="text-[11px] text-slate-400 block mb-2">{{ __('resources.field_sector') }}: <strong>{{ auto_translate($study->sector) }}</strong></span>
+                        <span class="text-[11px] text-slate-400 block mb-2">{{ __('resources.field_sector') }}: <strong>{{ ($study->sector) }}</strong></span>
                         <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
-                            {{ $study->description ? auto_translate($study->description) : 'Tidak ada deskripsi berkas studi kasus.' }}
+                            {{ $study->description ? ($study->description) : 'Tidak ada deskripsi berkas studi kasus.' }}
                         </p>
                     </div>
 

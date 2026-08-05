@@ -48,7 +48,7 @@
                 @endphp
 
                 <div class="project-card bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px]"
-                    data-nama="{{ strtolower(trim(auto_translate($project->title ?? ''))) }}"
+                    data-nama="{{ strtolower(trim($project->title ?? '')) }}"
                     data-kategori="{{ strtolower(trim($project->category->slug ?? $project->category->name ?? '')) }}">
                  
                     <div>
@@ -57,7 +57,7 @@
                             @if($project->image_path || $project->image)
                                 <img src="{{ asset('storage/' . ($project->image_path ?? $project->image)) }}" 
                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" 
-                                     alt="{{ auto_translate($project->title) }}"
+                                     alt="{{ ($project->title) }}"
                                      onerror="this.onerror=null; this.src='https://placehold.co/600x400?text=Format+Storage+Error';">
                             @else
                                 <div class="w-full h-full bg-gradient-to-br from-slate-900 to-blue-950 flex flex-col items-center justify-center gap-2 group-hover:scale-105 transition-transform duration-700 relative">
@@ -70,17 +70,17 @@
                         {{-- CONTENT AREA --}}
                         <div class="p-6 space-y-2">
                             <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                                {{ auto_translate($project->location) }} • {{ $project->year }}
+                                {{ ($project->location) }} • {{ $project->year }}
                             </p>
 
                             <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-red-800 transition line-clamp-2 pt-1">
                                 <a href="{{ route('proyek.detail', $project->id) }}">
-                                    {{ auto_translate($project->title) }}
+                                    {{ ($project->title) }}
                                 </a>
                             </h3>
 
                             <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 pt-1">
-                                {!! auto_translate(Str::limit(strip_tags($project->description), 180)) !!}
+                                {!! (Str::limit(strip_tags($project->description), 180)) !!}
                             </div>
                         </div>
                     </div>

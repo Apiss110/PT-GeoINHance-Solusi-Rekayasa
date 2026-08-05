@@ -105,7 +105,7 @@
             @foreach($videos as $video)
                 @php
                     // Menerjemahkan kategori video dan melakukan slugging agar sinkron dengan JS
-                    $translatedCategory = auto_translate($video->category);
+                    $translatedCategory = ($video->category);
                     $slugKategori = Str::slug($translatedCategory);
 
                     // Ambil ID Youtube jika link menggunakan format share/full URL
@@ -146,15 +146,15 @@
 
                     <div class="p-6 space-y-2">
                         <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                            {{ auto_translate($video->category) }}
+                            {{ ($video->category) }}
                         </p>
                         
                         <h3 class="text-base font-bold text-slate-900 line-clamp-2 mb-2 hover:text-red-600 transition">
-                            <a href="{{ route('resources.video.show', $video->id) }}">{{ auto_translate($video->title) }}</a>
+                            <a href="{{ route('resources.video.show', $video->id) }}">{{ ($video->title) }}</a>
                         </h3>
                         
                         <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
-                            {{ $video->description ? auto_translate($video->description) : (__('video.no_description') ?? 'Tidak ada deskripsi.') }}
+                            {{ $video->description ? ($video->description) : (__('video.no_description') ?? 'Tidak ada deskripsi.') }}
                         </p>
 
                         <div class="flex items-center justify-between border-t border-slate-100 pt-3 text-[11px] text-slate-400 font-medium">

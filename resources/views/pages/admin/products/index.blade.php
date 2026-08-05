@@ -1,111 +1,187 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Kelola Produk Admin') }}
-        </h2>
-    </x-slot>
+    <div class="container mx-auto px-6 py-8">
+        
+        {{-- 1. Session Notifications --}}
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg text-sm flex items-center justify-between">
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="mb-4 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-lg text-sm flex items-center justify-between">
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg p-6 border border-gray-100 dark:border-gray-700">
-                
-                {{-- Bagian Atas: Judul & Tombol Tambah --}}
-                <div class="flex justify-between items-center mb-6">
-                    <h3 class="text-lg font-medium text-gray-900 dark:text-white">Daftar Semua Produk</h3>
-                    <a href="{{ route('admin.products.create') }}" class="bg-[#0e1d82] text-white px-4 py-2 rounded-lg text-sm font-semibold hover:bg-[#0c196e] transition">
-                        + Tambah Produk Baru
-                    </a>
-                </div>
+        {{-- 2. Page Header & Top Action Buttons --}}
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+            <div>
+                <h3 class="text-gray-700 text-3xl font-medium">Kelola Produk</h3>
+                <p class="text-gray-500 text-sm mt-1">Daftar seluruh produk dan layanan aktif GeoINHance.</p>
+            </div>
+            
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                {{-- Bulk Delete Button --}}
+                <button type="submit" form="bulk-delete-form" id="btn-bulk-delete" 
+                    class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 font-medium text-sm flex items-center shadow-sm transition opacity-50 cursor-not-allowed" disabled>
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                    </svg>
+                    Hapus Terpilih (<span id="selected-count">0</span>)
+                </button>
 
-                {{-- Notifikasi Sukses --}}
-                @if(session('success'))
-                    <div class="mb-4 p-4 text-sm text-green-700 bg-green-100 rounded-lg dark:bg-green-900/30 dark:text-green-400">
-                        {{ session('success') }}
-                    </div>
-                @endif
-
-                {{-- 🟢 SEKARANG TABEL PRODUK DIBUNGKUS DI SINI --}}
-                <x-admin.bulk-delete :route="route('admin.products.destroy.bulk')" :items="$products">
-    
-                    {{-- Judul Komponen (Akan muncul di sebelah kiri tombol hapus massal) --}}
-                    <x-slot:header>
-                        <h2 class="text-sm font-bold text-gray-700 dark:text-gray-300 uppercase tracking-wider">
-                            Data Produk Aktif
-                        </h2>
-                    </x-slot:header>
-
-                    {{-- Bagian Head Tabel (Kolom Checkbox Master otomatis dibuat oleh komponen) --}}
-                    <x-slot:thead>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">No</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nama Produk</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Deskripsi</th>
-                        <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Aksi</th>
-                    </x-slot:thead>
-
-                    {{-- Bagian Body Tabel --}}
-                    <x-slot:tbody>
-                        @forelse($products as $key => $product)
-                            @php
-                                // Decode JSON description
-                                $details = json_decode($product->description, true);
-                                
-                                // Ambil hero_description jika formatnya JSON, jika teks biasa langsung gunakan description
-                                $displayDesc = isset($details['hero_description']) ? $details['hero_description'] : $product->description;
-                                
-                                // Bersihkan dari tag HTML/Spasi
-                                $cleanedDesc = strip_tags($displayDesc);
-                            @endphp
-                            
-                            <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                                
-                                {{-- 1. PENTING: Checkbox data untuk Hapus Massal (Wajib pakai x-model="selectedIds") --}}
-                                <td class="p-4 text-center align-middle">
-                                    <input type="checkbox" name="ids[]" value="{{ $product->id }}" x-model="selectedIds" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
-                                </td>
-
-                                {{-- 2. Kolom Nomor --}}
-                                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 align-middle">
-                                    {{ $products->firstItem() + $key }}
-                                </td>
-
-                                {{-- 3. Kolom Nama Produk --}}
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-white align-middle">
-                                    {{ $product->name }}
-                                </td>
-
-                                {{-- 4. Kolom Deskripsi --}}
-                                <td class="px-6 py-4 text-sm text-gray-500 dark:text-gray-400 max-w-xs truncate align-middle" title="{{ $cleanedDesc }}">
-                                    {{ $cleanedDesc }}
-                                </td>
-
-                                {{-- 5. Kolom Aksi Edit / Hapus Satuan --}}
-                                <td class="px-6 py-4 whitespace-nowrap text-sm font-medium align-middle">
-                                    <a href="{{ route('admin.products.edit', $product->id) }}" class="text-indigo-600 dark:text-indigo-400 hover:text-indigo-900 dark:hover:text-indigo-300 mr-3">Edit</a>
-                                    
-                                    <form action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="inline" onsubmit="return confirm('Yakin ingin menghapus produk ini?')">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="text-red-600 dark:text-red-400 hover:text-red-900 dark:hover:text-red-300">Hapus</button>
-                                    </form>
-                                </td>
-                            </tr>
-                        @empty
-                            <tr>
-                                <td colspan="5" class="px-6 py-6 whitespace-nowrap text-sm text-gray-500 dark:text-gray-400 text-center">
-                                    Belum ada data produk.
-                                </td>
-                            </tr>
-                        @endforelse
-                    </x-slot:tbody>
-
-                </x-admin.bulk-delete>
-
-                {{-- Pagination (Tetap di paling bawah setelah komponen selesai) --}}
-                <div class="mt-4">
-                    {{ $products->links() }}
-                </div>
-
+                {{-- Add New Product Button --}}
+                <a href="{{ route('admin.products.create') }}" 
+                    class="px-4 py-2 bg-[#0e1d82] text-white rounded-lg hover:bg-[#0e1d82]/90 font-medium text-sm flex items-center shadow-sm transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tambah Produk Baru
+                </a>
             </div>
         </div>
+
+        {{-- 3. Bulk Delete Form Wrapper & Data Table --}}
+        <form id="bulk-delete-form" action="{{ route('admin.products.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus produk yang dipilih?')">
+            @csrf
+            @method('DELETE')
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mt-6">
+                <div class="p-6 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between">
+                    <span class="text-sm font-semibold text-gray-700">Data Produk Aktif</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 text-left text-sm text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-medium text-gray-500 tracking-wider">
+                            <tr>
+                                <th scope="col" class="px-6 py-3.5 w-10">
+                                    <input type="checkbox" id="checkbox-all" class="rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
+                                </th>
+                                <th scope="col" class="px-6 py-3.5 w-12">No</th>
+                                <th scope="col" class="px-6 py-3.5">Nama Produk</th>
+                                <th scope="col" class="px-6 py-3.5">Deskripsi</th>
+                                <th scope="col" class="px-6 py-3.5 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            @forelse($products as $key => $product)
+                                @php
+                                    // Decode JSON description
+                                    $details = json_decode($product->description, true);
+                                    
+                                    // Ambil hero_description jika formatnya JSON, jika teks biasa langsung gunakan description
+                                    $displayDesc = isset($details['hero_description']) ? $details['hero_description'] : $product->description;
+                                    
+                                    // Bersihkan dari tag HTML/Spasi
+                                    $cleanedDesc = strip_tags($displayDesc);
+                                @endphp
+                                <tr class="hover:bg-gray-50/50 transition">
+                                    {{-- Checkbox Multi-select --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <input type="checkbox" name="ids[]" value="{{ $product->id }}" class="item-checkbox rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
+                                    </td>
+                                    
+                                    {{-- Nomor Paginasi --}}
+                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                                        {{ $products->firstItem() + $key }}
+                                    </td>
+                                    
+                                    {{-- Nama Produk --}}
+                                    <td class="px-6 py-4 font-semibold text-gray-800 whitespace-nowrap">
+                                        {{ $product->name }}
+                                    </td>
+                                    
+                                    {{-- Deskripsi Produk --}}
+                                    <td class="px-6 py-4 text-gray-500 max-w-xs truncate" title="{{ $cleanedDesc }}">
+                                        {{ $cleanedDesc }}
+                                    </td>
+                                    
+                                    {{-- Tombol Aksi --}}
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="inline-flex space-x-2">
+                                            {{-- Edit --}}
+                                            <a href="{{ route('admin.products.edit', $product->id) }}" class="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-lg transition" title="Edit Produk">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                            
+                                            {{-- Hapus Satuan --}}
+                                            <button type="button" onclick="if(confirm('Yakin ingin menghapus produk ini?')) { document.getElementById('delete-product-{{ $product->id }}').submit(); }" class="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-lg transition" title="Hapus Produk">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="5" class="px-6 py-10 text-center text-sm text-gray-500">
+                                        Belum ada data produk yang tersedia. Klik tombol "+ Tambah Produk Baru" untuk menambahkan data.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+
+        {{-- Hidden Form Single Delete untuk setiap produk --}}
+        @foreach($products as $product)
+            <form id="delete-product-{{ $product->id }}" action="{{ route('admin.products.destroy', $product->id) }}" method="POST" class="hidden">
+                @csrf
+                @method('DELETE')
+            </form>
+        @endforeach
+
+        {{-- Paginasi Tabel --}}
+        <div class="mt-6">
+            {{ $products->links() }}
+        </div>
     </div>
+
+    {{-- Script JavaScript untuk Checkbox All & Counter Bulk Delete --}}
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxAll = document.getElementById('checkbox-all');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const btnBulkDelete = document.getElementById('btn-bulk-delete');
+            const selectedCount = document.getElementById('selected-count');
+
+            function updateBulkDeleteStatus() {
+                const checkedCount = document.querySelectorAll('.item-checkbox:checked').length;
+                selectedCount.textContent = checkedCount;
+
+                if (checkedCount > 0) {
+                    btnBulkDelete.removeAttribute('disabled');
+                    btnBulkDelete.classList.remove('opacity-50', 'cursor-not-allowed');
+                } else {
+                    btnBulkDelete.setAttribute('disabled', 'disabled');
+                    btnBulkDelete.classList.add('opacity-50', 'cursor-not-allowed');
+                }
+            }
+
+            if(checkboxAll) {
+                checkboxAll.addEventListener('change', function () {
+                    checkboxes.forEach(cb => { cb.checked = checkboxAll.checked; });
+                    updateBulkDeleteStatus();
+                });
+            }
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    if (!this.checked) {
+                        checkboxAll.checked = false;
+                    } else {
+                        const allChecked = document.querySelectorAll('.item-checkbox:checked').length === checkboxes.length;
+                        checkboxAll.checked = allChecked;
+                    }
+                    updateBulkDeleteStatus();
+                });
+            });
+        });
+    </script>
 </x-app-layout>

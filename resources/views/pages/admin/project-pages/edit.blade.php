@@ -1,76 +1,111 @@
 <x-app-layout>
-    <div class="max-w-5xl mx-auto space-y-6">
+    <div class="container mx-auto px-6 py-8">
+
+    {{-- Header & Tombol Kembali --}}
+    <div class="mb-6 flex items-center justify-between">
         <div>
-            <h1 class="text-2xl font-black text-white tracking-tight">Edit Halaman Utama Portofolio</h1>
-            <p class="text-sm text-slate-400">Ubah informasi kategori, deskripsi halaman, atau ganti gambar banner utama.</p>
+            <h3 class="text-gray-700 text-3xl font-medium">
+                Edit Halaman Utama Portofolio
+            </h3>
+            <p class="text-gray-500 text-sm mt-1">
+                Ubah informasi kategori, deskripsi halaman, atau ganti gambar banner utama.
+            </p>
         </div>
+        <a href="{{ route('admin.project-pages.index') }}" 
+           class="px-4 py-2.5 bg-white border border-gray-200 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition shadow-sm">
+            &larr; Kembali
+        </a>
+    </div>
 
-        {{-- Menampilkan Error Validasi jika Ada --}}
-        @if ($errors->any())
-            <div class="bg-red-500/10 border border-red-500/20 text-red-400 p-4 rounded-xl text-sm">
-                <ul class="list-disc pl-5 space-y-1">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+    {{-- Alert Error jika Validasi Gagal --}}
+    @if ($errors->any())
+        <div class="bg-red-50 border border-red-200 text-red-700 p-4 rounded-xl shadow-sm mb-6">
+            <p class="text-sm font-semibold mb-1">Terdapat kesalahan input:</p>
+            <ul class="list-disc list-inside text-xs space-y-0.5">
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
-        {{-- Form Edit Halaman Proyek --}}
-        <form action="{{ route('admin.project-pages.update', $projectPage->id) }}" method="POST" enctype="multipart/form-data" class="space-y-6">
+    {{-- Card Form Edit --}}
+    <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mb-8">
+        <div class="p-6 border-b border-gray-100">
+            <h3 class="text-xl font-semibold text-gray-700">Formulir Edit Halaman Portofolio</h3>
+            <p class="text-gray-500 text-sm mt-1">Perbarui informasi halaman kategori portofolio.</p>
+        </div>
+        
+        <form action="{{ route('admin.project-pages.update', $projectPage->id) }}" method="POST" enctype="multipart/form-data" class="p-6 space-y-6">
             @csrf
             @method('PUT')
 
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                {{-- Kiri: Informasi Nama Halaman & Kategori --}}
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-4">
-                    <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-1">Nama Halaman Kategori *</label>
-                        <input type="text" name="name" value="{{ old('name', $projectPage->name) }}" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-blue-500" required>
-                        <p class="text-xs text-slate-500 mt-1.5">Slug saat ini: <code class="text-blue-400 font-mono">{{ $projectPage->slug }}</code></p>
-                    </div>
-                </div>
+            {{-- Nama Halaman Kategori --}}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Halaman Kategori *</label>
+                <input type="text" name="name" value="{{ old('name', $projectPage->name) }}" required
+                       placeholder="Masukkan nama halaman kategori..."
+                       class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition">
+                <p class="text-xs text-gray-500 mt-1.5">Slug saat ini: <code class="text-[#0e1d82] font-mono font-semibold">{{ $projectPage->slug }}</code></p>
+            </div>
 
-                {{-- Kanan: Gambar Banner Halaman --}}
-                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6 space-y-3">
-                    <label class="block text-sm font-medium text-slate-300">Banner Image Sekarang</label>
-                    
-                    <div class="flex items-center gap-4">
-                        @if($projectPage->banner_image)
-                            <div class="w-32 h-20 bg-slate-800 rounded-lg overflow-hidden border border-slate-700 flex-shrink-0">
+            {{-- Banner Image --}}
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">
+                    Banner Image <span class="text-gray-400 font-normal text-xs">(Biarkan kosong jika tidak ingin mengubah)</span>
+                </label>
+
+                {{-- Gambar Saat Ini & Preview Baru --}}
+                <div class="flex flex-wrap items-center gap-4 mb-4">
+                    @if($projectPage->banner_image)
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Banner Saat Ini:</p>
+                            <div class="w-40 h-24 bg-gray-100 rounded-lg overflow-hidden border border-gray-200">
                                 <img src="{{ asset('storage/' . $projectPage->banner_image) }}" class="w-full h-full object-cover" id="oldBannerView">
                             </div>
-                        @else
-                            <div class="w-32 h-20 bg-slate-800 rounded-lg border border-slate-700 border-dashed flex items-center justify-center text-slate-500 text-xs flex-shrink-0">
+                        </div>
+                    @else
+                        <div class="p-3 bg-gray-50 border border-gray-200 rounded-xl">
+                            <p class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Banner Saat Ini:</p>
+                            <div class="w-40 h-24 bg-gray-100 rounded-lg border border-gray-300 border-dashed flex items-center justify-center text-gray-400 text-xs">
                                 No Banner
                             </div>
-                        @endif
+                        </div>
+                    @endif
 
-                        {{-- Wadah Live Preview jika user memilih file baru --}}
-                        <div id="newPreviewWrapper" class="w-32 h-20 bg-slate-800 rounded-lg overflow-hidden border border-blue-500/50 hidden">
+                    {{-- Live Preview Gambar Baru --}}
+                    <div id="newPreviewWrapper" class="p-3 bg-gray-50 border border-blue-200 rounded-xl hidden">
+                        <p class="text-xs font-semibold text-[#0e1d82] uppercase tracking-wider mb-2">Preview Baru:</p>
+                        <div class="w-40 h-24 bg-gray-100 rounded-lg overflow-hidden border border-[#0e1d82]/30">
                             <img id="editBannerPreview" src="#" class="w-full h-full object-cover">
                         </div>
                     </div>
-
-                    <input type="file" name="banner_image" id="editBannerInput" class="w-full text-sm text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-600 file:text-white hover:file:bg-blue-700 cursor-pointer" accept="image/*">
-                    <p class="text-[11px] text-slate-500">Biarkan kosong jika tidak ingin mengubah banner halaman kategori.</p>
                 </div>
+
+                <input type="file" name="banner_image" id="editBannerInput" accept="image/*"
+                       class="w-full text-sm border border-gray-200 bg-white rounded-lg p-2 cursor-pointer text-gray-500 file:mr-4 file:py-1 file:px-3 file:rounded-md file:border-0 file:text-xs file:font-semibold file:bg-[#0e1d82] file:text-white hover:file:bg-[#0e1d82]/90">
             </div>
 
             {{-- Deskripsi Singkat Halaman --}}
-            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-6">
-                <label class="block text-sm font-medium text-slate-300 mb-2">Deskripsi Singkat Halaman *</label>
-                {{-- PERBAIKAN: id diganti ke 'description' agar dibaca oleh inisialisasi TinyMCE baru --}}
-                <textarea name="description" id="description" class="w-full bg-slate-800 border border-slate-700 rounded-lg p-4 text-white min-h-[200px]">{{ old('description', $projectPage->description) }}</textarea>
+            <div>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi Singkat Halaman *</label>
+                <textarea name="description" id="description" class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition min-h-[200px]">{{ old('description', $projectPage->description) }}</textarea>
             </div>
 
-            {{-- Tombol Aksi --}}
-            <div class="flex justify-end gap-4">
-                <a href="{{ route('admin.project-pages.index') }}" class="bg-slate-800 hover:bg-slate-700 text-slate-300 px-5 py-2.5 rounded-lg text-sm font-medium transition">Batal</a>
-                <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2.5 rounded-lg text-sm font-medium transition">Perbarui Halaman</button>
+            {{-- Footer Button --}}
+            <div class="flex justify-end space-x-3 pt-4 border-t border-gray-100">
+                <a href="{{ route('admin.project-pages.index') }}" 
+                   class="px-5 py-2.5 bg-gray-100 text-gray-700 rounded-lg text-sm font-medium hover:bg-gray-200 transition">
+                    Batal
+                </a>
+                <button type="submit" 
+                        class="px-5 py-2.5 bg-[#0e1d82] text-white rounded-lg text-sm font-medium hover:bg-[#0e1d82]/90 shadow-sm transition cursor-pointer">
+                    Perbarui Halaman
+                </button>
             </div>
         </form>
     </div>
+</div>
 
     {{-- Mengubah CDN ke Cloudflare cdnjs agar benar-benar lepas dari deteksi Cloud API Key TinyMCE --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>

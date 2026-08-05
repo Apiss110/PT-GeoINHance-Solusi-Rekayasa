@@ -21,6 +21,12 @@ class ProjectPageController extends Controller
         return view('pages.admin.project-pages.index', compact('projectPages'));
     }
 
+    // 🟢 Method untuk menampilkan halaman form tambah
+    public function create()
+    {
+        return view('pages.admin.project-pages.create');
+    }
+
     /**
      * Menyimpan halaman proyek baru ke database
      */

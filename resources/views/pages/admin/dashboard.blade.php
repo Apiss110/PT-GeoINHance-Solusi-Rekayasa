@@ -22,7 +22,9 @@
     $syllabusRoute   = $getRoute(['admin.syllabi.index', 'admin.syllabus.index', 'admin.syllabuses.index']);
     $trainingRoute   = $getRoute(['admin.training.index', 'admin.trainings.index', 'admin.training-registrations.index']);
     $messageRoute    = $getRoute(['admin.messages.index', 'admin.message.index', 'admin.contact-messages.index']);
-    $userRoute       = $getRoute(['admin.kelola-admin.index', 'admin.kelola-admin.index']);
+    // Khusus Kelola Admin: Hanya aktif jika role user persis 'admin' (bukan 'superadmin')
+    $isAdmin        = auth()->check() && auth()->user()->role === 'admin';
+    $userRoute      = $isAdmin ? $getRoute(['admin.kelola-admin.index']) : null;
     
 @endphp
 

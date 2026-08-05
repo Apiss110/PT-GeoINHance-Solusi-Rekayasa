@@ -5,7 +5,7 @@
      style="background-image: linear-gradient(rgba(14, 29, 50, 0.75), rgba(14, 29, 50, 0.75)), url('{{ $sector->banner_image ? asset('storage/' . $sector->banner_image) : asset('images/default-banner.jpg') }}');">
     <div class="container mx-auto px-6 max-w-7xl">
         <h1 class="text-3xl md:text-5xl font-extrabold text-white tracking-wide leading-tight max-w-4xl mx-auto">
-            {{ auto_translate($sector->name) }}
+            {{ ($sector->name) }}
         </h1>
     </div>
 </div>
@@ -17,7 +17,7 @@
         {{-- Box Deskripsi Utama Sektor --}}
         <div class="bg-white p-8 md:p-12 rounded-3xl shadow-sm border border-slate-100 max-w-5xl mx-auto mb-20">
             <div class="prose prose-slate max-w-none text-slate-700 leading-relaxed font-normal text-sm md:text-base">
-                {!! auto_translate(strip_tags($sector->description)) !!}
+                {!! (strip_tags($sector->description)) !!}
             </div>
         </div>
 
@@ -28,10 +28,10 @@
             
             <div class="mb-10 text-left">
                 <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">
-                    {{ auto_translate('Track Record') }}
+                    {{ ('Track Record') }}
                 </span>
                 <h2 class="text-2xl md:text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                    {{ auto_translate('Proyek Terkait') }} <span class="text-slate-500">{{ auto_translate('di Sektor Ini') }}</span>
+                    {{ ('Proyek Terkait') }} <span class="text-slate-500">{{ ('di Sektor Ini') }}</span>
                 </h2>
                 <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
             </div>
@@ -44,9 +44,9 @@
                             {{-- Foto Cover Proyek --}}
                             <div class="relative h-56 overflow-hidden bg-slate-900">
                                 @if($project->image_path)
-                                    <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ auto_translate($project->title) }}">
+                                    <img src="{{ asset('storage/' . $project->image_path) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" alt="{{ ($project->title) }}">
                                 @else
-                                    <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ auto_translate($project->title) }}">
+                                    <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ ($project->title) }}">
                                 @endif
                             </div>
 
@@ -55,21 +55,21 @@
                                 <div class="mb-5">
                                     @if($project->location)
                                         <span class="text-[11px] font-bold text-slate-400 uppercase tracking-wider block mb-2 flex items-center">
-                                            {{ auto_translate($project->location) }} • {{ $project->year }}
+                                            {{ ($project->location) }} • {{ $project->year }}
                                         </span>
                                     @endif
                                     <h3 class="text-base font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-2">
                                         <a href="/proyek/{{ $project->id }}" class="text-inherit no-underline">
-                                            {{ auto_translate($project->title) }}
+                                            {{ ($project->title) }}
                                         </a>
                                     </h3>
                                     <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">
-                                        {{ auto_translate(Str::limit(strip_tags($project->description), 110)) }}
+                                        {{ (Str::limit(strip_tags($project->description), 110)) }}
                                     </p>
                                 </div>
 
                                 <a href="/proyek/{{ $project->id }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition mt-auto">
-                                    {{ auto_translate('Pelajari Detail Proyek') }}
+                                    {{ ('Pelajari Detail Proyek') }}
                                     <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                                     </svg>
@@ -87,10 +87,10 @@
                         </svg>
                     </div>
                     <h4 class="text-sm font-bold text-slate-800 mb-1">
-                        {{ auto_translate('Belum Ada Proyek') }}
+                        {{ ('Belum Ada Proyek') }}
                     </h4>
                     <p class="text-xs text-slate-500 max-w-sm mx-auto">
-                        {{ auto_translate('Saat ini belum ada data proyek strategis yang didaftarkan untuk sektor ini.') }}
+                        {{ ('Saat ini belum ada data proyek strategis yang didaftarkan untuk sektor ini.') }}
                     </p>
                 </div>
             @endif
@@ -105,12 +105,12 @@
         
         <div class="mb-12">
             <span class="text-xs font-bold tracking-widest text-[#c80000] uppercase block mb-2">
-                {{ auto_translate('Our Engineering Expertise') }}
+                {{ ('Our Engineering Expertise') }}
             </span>
             <div class="flex flex-wrap justify-between items-end gap-4">
                 <div>
                     <h2 class="text-2xl md:text-3xl font-extrabold text-[#0e1d32] tracking-tight uppercase">
-                        {{ auto_translate('Sektor') }} <span class="text-slate-950">{{ auto_translate('Lainnya') }}</span>
+                        {{ ('Sektor') }} <span class="text-slate-950">{{ ('Lainnya') }}</span>
                     </h2>
                     <div class="w-12 h-1 bg-[#c80000] mt-3"></div>
                 </div>
@@ -140,9 +140,9 @@
                     {{-- Foto Banner Sektor --}}
                     <div class="relative h-64 overflow-hidden bg-slate-900">
                         @if($otherSector->banner_image)
-                            <img src="{{ asset('storage/' . $otherSector->banner_image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ auto_translate($otherSector->name) }}">
+                            <img src="{{ asset('storage/' . $otherSector->banner_image) }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-90" alt="{{ ($otherSector->name) }}">
                         @else
-                            <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ auto_translate($otherSector->name) }}">
+                            <img src="{{ asset('images/default-banner.jpg') }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500 opacity-40" alt="{{ ($otherSector->name) }}">
                         @endif
                     </div>
                     
@@ -150,15 +150,15 @@
                     <div class="p-6 flex-1 flex flex-col justify-between">
                         <div class="mb-5">
                             <h3 class="text-base font-bold text-slate-900 group-hover:text-[#c80000] transition duration-200 line-clamp-2 mb-3">
-                                {{ auto_translate($otherSector->name) }}
+                                {{ ($otherSector->name) }}
                             </h3>
                             <p class="text-xs text-slate-500 leading-relaxed line-clamp-3">
-                                {{ Str::limit(auto_translate(strip_tags($otherSector->description)), 120) }}
+                                {{ Str::limit((strip_tags($otherSector->description)), 120) }}
                             </p>
                         </div>
                         
                         <a href="{{ route('front.sector.show', $otherSector->slug) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:text-slate-900 uppercase tracking-wider transition mt-auto">
-                            {{ auto_translate('Pelajari Sektor Ini') }}
+                            {{ ('Pelajari Sektor Ini') }}
                             <svg class="w-3.5 h-3.5 ml-1.5 transform group-hover:translate-x-1 transition duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                             </svg>

@@ -37,19 +37,19 @@
                 {{-- 🟢 Label Kecil Dinamis --}}
                 @if(isset($product->hero_badge) && !empty($product->hero_badge))
                     <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30 inline-block">
-                        {{ auto_translate($product->hero_badge) }}
+                        {{ ($product->hero_badge) }}
                     </span>
                 @elseif(isset($hero_badge) && !empty($hero_badge))
                     <span class="bg-blue-500/20 text-blue-300 px-3 py-1 rounded-full text-xs font-semibold tracking-wider uppercase border border-blue-500/30 inline-block">
-                        {{ auto_translate($hero_badge) }}
+                        {{ ($hero_badge) }}
                     </span>
                 @endif
 
                 <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight leading-none uppercase">
-                    {{ auto_translate($product->name) }}
+                    {{ ($product->name) }}
                 </h1>
                 <p class="text-lg sm:text-xl text-slate-300 max-w-2xl mx-auto font-light leading-relaxed">
-                    {{ auto_translate($hero_description ?? $product->hero_description ?? '') }}
+                    {{ ($hero_description ?? $product->hero_description ?? '') }}
                 </p>
                 <div class="flex flex-wrap gap-4 pt-2">
                     <a href="#pricing" class="bg-blue-500 text-white px-6 py-3 rounded-md font-semibold hover:bg-blue-400 transition shadow-lg shadow-blue-500/20">
@@ -94,7 +94,7 @@
 
                 {{-- Judul Bagian Tentang --}}
                 <h2 class="text-3xl font-bold text-gray-900 tracking-tight sm:text-4xl uppercase">
-                    {{ auto_translate($aboutTitle) }}
+                    {{ ($aboutTitle) }}
                 </h2>
                 <div class="w-12 h-1 bg-blue-600 rounded-full mb-6"></div>
                 
@@ -106,11 +106,11 @@
                     
                     @if(!empty($aboutRichText))
                         {{-- Menggunakan {!! ... !!} agar format teks HTML TinyMCE dirender sempurna --}}
-                        {!! auto_translate($aboutRichText) !!}
+                        {!! ($aboutRichText) !!}
                     @else
                         {{-- Fallback jika deskripsi detail kosong total, tampilkan deskripsi banner sebagai cadangan --}}
                         <p class="text-gray-600 text-justify">
-                            {{ auto_translate($jsonData['hero_description'] ?? $product->hero_description ?? 'Deskripsi detail produk belum tersedia.') }}
+                            {{ ($jsonData['hero_description'] ?? $product->hero_description ?? 'Deskripsi detail produk belum tersedia.') }}
                         </p>
                     @endif
                 </div>
@@ -118,7 +118,7 @@
                 {{-- Catatan kaki / Note abu-abu --}}
                 @if(!empty($aboutPartnerNote))
                 <div class="bg-slate-50 p-5 rounded-xl border-l-4 border-blue-600 italic text-sm text-slate-500 leading-relaxed mt-6">
-                    {{ auto_translate($aboutPartnerNote) }}
+                    {{ ($aboutPartnerNote) }}
                 </div>
                 @endif
             </div>
@@ -127,7 +127,7 @@
             <div class="lg:col-span-5 relative">
                 <div class="rounded-3xl overflow-hidden shadow-2xl relative border border-gray-200 bg-slate-900 group">
                     @if(isset($product->image_path) && $product->image_path)
-                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->name ?? 'Product Image') }}" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
+                        <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ ($product->name ?? 'Product Image') }}" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
                     @else
                         <img src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?w=800" alt="Default Product Banner" class="w-full h-[380px] object-cover group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-75">
                     @endif
@@ -197,11 +197,11 @@
         
         <div class="mb-4">
             <span class="text-blue-600 font-bold uppercase text-xs tracking-wider block mb-1">{{ __('Video Demonstration') }}</span>
-            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ auto_translate($video->title ?? $video_title ?? '') }}</h1>
+            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">{{ ($video->title ?? $video_title ?? '') }}</h1>
         </div>
 
         <div class="geo-article-container mt-6">
-            <p class="text-gray-600 text-base leading-relaxed whitespace-pre-line">{{ auto_translate($video->description ?? __('No additional description for this technical documentation.')) }}</p>
+            <p class="text-gray-600 text-base leading-relaxed whitespace-pre-line">{{ ($video->description ?? __('No additional description for this technical documentation.')) }}</p>
         </div>
 
         <div class="text-gray-500 font-medium text-sm mb-8 flex flex-wrap items-center gap-4 border-b border-gray-100 pb-4">
@@ -224,7 +224,7 @@
             @if($videoId)
                 <iframe class="w-full h-full" 
                         src="https://www.youtube.com/embed/{{ $videoId }}?rel=0" 
-                        title="{{ auto_translate($video->title ?? $video_title ?? '') }}" 
+                        title="{{ ($video->title ?? $video_title ?? '') }}" 
                         frameborder="0" 
                         allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                         allowfullscreen>
@@ -261,9 +261,9 @@
                         <div class="bg-white rounded-xl overflow-hidden border border-gray-200/70 hover:shadow-md transition duration-200 flex flex-col h-full">
                             <div class="relative aspect-video bg-gray-900 overflow-hidden">
                                 @if($item->thumbnail_path)
-                                    <img src="{{ asset('storage/' . $item->thumbnail_path) }}" alt="{{ auto_translate($item->title) }}" class="w-full h-full object-cover">
+                                    <img src="{{ asset('storage/' . $item->thumbnail_path) }}" alt="{{ ($item->title) }}" class="w-full h-full object-cover">
                                 @elseif($itemVideoId)
-                                    <img src="https://img.youtube.com/vi/{{ $itemVideoId }}/mqdefault.jpg" alt="{{ auto_translate($item->title) }}" class="w-full h-full object-cover">
+                                    <img src="https://img.youtube.com/vi/{{ $itemVideoId }}/mqdefault.jpg" alt="{{ ($item->title) }}" class="w-full h-full object-cover">
                                 @endif
                                 <a href="{{ route('resources.video.show', $item->id) }}" class="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/30 transition">
                                     <div class="w-8 h-8 rounded-full bg-white flex items-center justify-center shadow text-gray-900 pl-0.5">
@@ -293,7 +293,7 @@
                         <span>{{ ($faq['question']) }}</span>
                         <span class="transition group-open:rotate-180 text-gray-400"><i class="fa fa-chevron-down"></i></span>
                     </summary>
-                    <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify">{{ isset($faq['answer']) ? auto_translate($faq['answer']) : '' }}</p>
+                    <p class="text-gray-600 mt-4 text-sm md:text-base leading-relaxed text-justify">{{ isset($faq['answer']) ? ($faq['answer']) : '' }}</p>
                 </details>
                 @endif
             @endforeach

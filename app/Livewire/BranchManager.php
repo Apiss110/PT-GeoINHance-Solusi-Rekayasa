@@ -19,6 +19,10 @@ class BranchManager extends Component
     public $selectedBranchId = null;
     public $isEdit = false;
 
+    // Property untuk menampung ID checkbox yang dipilih (Bulk Delete)
+    public $selectedBranches = [];
+    public $selectAll = false;
+
     protected function rules()
     {
         return [
@@ -42,58 +46,67 @@ class BranchManager extends Component
         'link.required'   => 'Anda wajib memilih Hubungan Proyek Strategis.',
     ];
 
-    public function saveBranch()
-{
-    $this->validate();
-
-    // 1. Ambil ID Project dari link
-    $projectId = null;
-    if ($this->link) {
-        $projectId = str_replace('/proyek/', '', $this->link);
-    }
-
-    // 2. Ambil data branch lama jika Edit
-    $existingBranch = null;
-    if ($this->isEdit) {
-        $existingBranch = Branch::find($this->selectedBranchId);
-    }
-
-    // 3. Logika Gambar
-    $projectImagePath = null;
-    if ($projectId) {
-        $project = StrategicProject::find($projectId);
-        if ($project) {
-            $projectImagePath = $project->image_path ?? $project->image ?? $project->img;
+    // Automatisasi Select All Checkbox
+    public function updatedSelectAll($value)
+    {
+        if ($value) {
+            $this->selectedBranches = Branch::pluck('id')->map(fn($id) => (string) $id)->toArray();
+        } else {
+            $this->selectedBranches = [];
         }
     }
 
-    if ($this->isEdit && !$projectImagePath && $existingBranch) {
-        $projectImagePath = $existingBranch->img;
+    public function saveBranch()
+    {
+        $this->validate();
+
+        // 1. Ambil ID Project dari link
+        $projectId = null;
+        if ($this->link) {
+            $projectId = str_replace('/proyek/', '', $this->link);
+        }
+
+        // 2. Ambil data branch lama jika Edit
+        $existingBranch = null;
+        if ($this->isEdit) {
+            $existingBranch = Branch::find($this->selectedBranchId);
+        }
+
+        // 3. Logika Gambar
+        $projectImagePath = null;
+        if ($projectId) {
+            $project = StrategicProject::find($projectId);
+            if ($project) {
+                $projectImagePath = $project->image_path ?? $project->image ?? $project->img;
+            }
+        }
+
+        if ($this->isEdit && !$projectImagePath && $existingBranch) {
+            $projectImagePath = $existingBranch->img;
+        }
+
+        // 4. Masukkan data ke array
+        $data = [
+            'daerah'     => strtolower(trim($this->daerah)),
+            'title'      => str(trim($this->title))->upper()->toString(),
+            'desc'       => trim($this->desc),
+            'lat'        => $this->lat,
+            'lng'        => $this->lng,
+            'link'       => trim($this->link),
+            'project_id' => $projectId,
+            'img'        => $projectImagePath ?? '', 
+        ];
+
+        if ($this->isEdit && $existingBranch) {
+            $existingBranch->update($data);
+            session()->flash('success', 'Titik peta berhasil diperbarui!');
+        } else {
+            Branch::create($data);
+            session()->flash('success', 'Titik cabang baru berhasil ditambahkan!');
+        }
+
+        $this->resetForm();
     }
-
-    // 4. Perbaikan Utama: Masukkan 'project_id' ke dalam array $data
-    $data = [
-        'daerah'     => strtolower(trim($this->daerah)),
-        'title'      => str(trim($this->title))->upper()->toString(),
-        'desc'       => trim($this->desc),
-        'lat'        => $this->lat,
-        'lng'        => $this->lng,
-        'link'       => trim($this->link),
-        'project_id' => $projectId,
-        // Tambahkan ?? '' agar jika projectImagePath null, akan dikirim string kosong
-        'img'        => $projectImagePath ?? '', 
-    ];
-
-    if ($this->isEdit && $existingBranch) {
-        $existingBranch->update($data);
-        session()->flash('success', 'Titik peta berhasil diperbarui!');
-    } else {
-        Branch::create($data);
-        session()->flash('success', 'Titik cabang baru berhasil ditambahkan!');
-    }
-
-    $this->resetForm();
-}
 
     public function editBranch($id)
     {
@@ -122,6 +135,31 @@ class BranchManager extends Component
         $this->resetForm();
     }
 
+    // 🟢 DIBENARKAN: Fungsi Bulk Delete Standar Livewire
+    public function bulkDelete()
+    {
+        if (empty($this->selectedBranches)) {
+            session()->flash('error', 'Tidak ada titik lokasi yang dipilih.');
+            return;
+        }
+
+        $branches = Branch::whereIn('id', $this->selectedBranches)->get();
+        $count = $branches->count();
+
+        foreach ($branches as $branch) {
+            if ($branch->img) {
+                $cleanedPath = preg_replace('#^(public/|storage/)#i', '', trim($branch->img));
+                Storage::disk('public')->delete($cleanedPath);
+            }
+            $branch->delete();
+        }
+
+        $this->selectedBranches = [];
+        $this->selectAll = false;
+
+        session()->flash('success', $count . ' titik lokasi cabang berhasil dihapus massal.');
+    }
+
     public function resetForm()
     {
         $this->reset(['daerah', 'title', 'desc', 'lat', 'lng', 'link', 'selectedBranchId', 'isEdit']);
@@ -135,29 +173,4 @@ class BranchManager extends Component
             'projects' => StrategicProject::orderBy('title', 'asc')->get()
         ]);
     }
-
-    public function bulkDelete(Request $request)
-{
-    // 1. Validasi masukan data array ID terpilih
-    $request->validate([
-        'ids' => 'required|array',
-        'ids.*' => 'exists:branches,id', // Sesuaikan dengan nama tabel database cabang Anda
-    ]);
-
-    // 2. Ambil seluruh record cabang berdasarkan array ID
-    $branches = Branch::whereIn('id', $request->ids)->get();
-
-    // 3. Iterasi untuk menghapus file fisik gambar cabang dari storage (jika ada), lalu hapus datanya
-    foreach ($branches as $branch) {
-        if ($branch->img) {
-            // Bersihkan teks path dari prefix public/ atau storage/ jika ada
-            $cleanedPath = preg_replace('#^(public/|storage/)#i', '', trim($branch->img));
-            Storage::disk('public')->delete($cleanedPath);
-        }
-        $branch->delete();
-    }
-
-    // 4. Kembali ke halaman sebelumnya dengan pesan sukses
-    return redirect()->back()->with('success', count($request->ids) . ' titik lokasi cabang berhasil dihapus massal.');
-}
 }

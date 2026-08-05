@@ -120,11 +120,11 @@
 
                         <h3 class="text-base font-bold text-slate-900 group-hover:text-blue-600 transition line-clamp-2 mb-2">
                             <a href="{{ route('resources.studi-kasus.detail', $study->slug ?? $study->id) }}">
-                                {{ auto_translate($study->title) }}
+                                {{ ($study->title) }}
                             </a>
                         </h3>
                         <p class="text-xs text-slate-500 line-clamp-2 mb-4 leading-relaxed">
-                            {{ $study->description ? auto_translate($study->description) : (__('casestudy.no_description') ?? 'Tidak ada deskripsi.') }}
+                            {{ $study->description ? ($study->description) : (__('casestudy.no_description') ?? 'Tidak ada deskripsi.') }}
                         </p>
                     </div>
 

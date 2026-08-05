@@ -5,19 +5,19 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Traits\HasAutoTranslation;
+use App\Traits\HasAutoTranslation; // 1. Import Trait
 
 class Product extends Model
 {
-    use HasFactory;
+    // 2. Wajib panggil HasAutoTranslation di dalam class!
+    use HasFactory, HasAutoTranslation;
 
-    // Menentukan kolom mana saja yang boleh diisi secara massal (Mass Assignment)
     protected $fillable = [
         'name',
-        'name_en', // 3. Tambahkan kolom _en di $fillable
+        'name_en',
         'slug',
         'description',
-        'description_en', // 3. Tambahkan kolom _en di $fillable
+        'description_en',
         'image_path',
         'is_active',
     ];
@@ -25,12 +25,10 @@ class Product extends Model
     /**
      * Otomatis membuat slug dari nama produk saat data disimpan/diupdate.
      */
-    protected static function boot()
+    protected static function booted(): void
     {
-        parent::boot();
-
         static::saving(function ($product) {
-            if (empty($product->slug)) {
+            if (empty($product->slug) && !empty($product->name)) {
                 $product->slug = Str::slug($product->name);
             }
         });

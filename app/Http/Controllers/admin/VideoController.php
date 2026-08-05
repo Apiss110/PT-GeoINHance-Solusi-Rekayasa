@@ -9,14 +9,26 @@ use Illuminate\Support\Facades\Storage;
 
 class VideoController extends Controller
 {
-    // Menampilkan halaman form tambah dan tabel daftar video di admin
+    /**
+     * Menampilkan daftar koleksi video aktif (Halaman Index)
+     */
     public function index()
     {
         $videos = Video::orderBy('published_at', 'desc')->get();
         return view('pages.admin.video.index', compact('videos'));
     }
 
-    // Menyimpan video baru ke database
+    /**
+     * Menampilkan halaman form tambah video baru (Halaman Create)
+     */
+    public function create()
+    {
+        return view('pages.admin.video.create');
+    }
+
+    /**
+     * Menyimpan data video baru ke database
+     */
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -28,24 +40,36 @@ class VideoController extends Controller
             'description'     => 'nullable|string',
         ]);
 
-        // Proses upload file thumbnail
+        // Proses upload file thumbnail ke storage disk public
         $thumbnailPath = $request->file('thumbnail')->store('videos/thumbnails', 'public');
 
-        // Proses insert data ke database
+        // Proses simpan data ke database
         Video::create([
             'title'           => $validated['title'],
             'category'        => $validated['category'],
             'video_url'       => $validated['video_url'],
             'production_year' => $validated['production_year'],
-            'description'     => $validated['description'] ?? null, // Proteksi jika deskripsi kosong
+            'description'     => $validated['description'] ?? null,
             'thumbnail_path'  => $thumbnailPath,
             'published_at'    => now(),
         ]);
 
-        return redirect()->back()->with('success', 'Video dokumentasi berhasil ditambahkan!');
+        // Redirect kembali ke halaman index tabel video
+        return redirect()->route('admin.video.index')->with('success', 'Video dokumentasi baru berhasil ditambahkan!');
     }
 
-    // Memperbarui data video (proses edit)
+    /**
+     * Menampilkan halaman form edit data video
+     */
+    public function edit($id)
+    {
+        $video = Video::findOrFail($id);
+        return view('pages.admin.video.edit', compact('video'));
+    }
+
+    /**
+     * Memperbarui data video yang sudah ada di database
+     */
     public function update(Request $request, $id)
     {
         $video = Video::findOrFail($id);
@@ -60,19 +84,18 @@ class VideoController extends Controller
             'published_at'    => 'required|date',
         ]);
 
-        // 🟢 Menggunakan data yang sudah tervalidasi saja agar lebih aman
         $data = $validated;
 
         if ($request->hasFile('thumbnail')) {
-            // Hapus thumbnail lama jika ada di storage
+            // Hapus thumbnail lama dari storage jika file-nya ada
             if ($video->thumbnail_path && Storage::disk('public')->exists($video->thumbnail_path)) {
                 Storage::disk('public')->delete($video->thumbnail_path);
             }
-            // Simpan thumbnail baru
+            // Simpan file thumbnail baru
             $data['thumbnail_path'] = $request->file('thumbnail')->store('videos/thumbnails', 'public');
         }
 
-        // 🟢 Wajib di-unset agar Eloquent tidak mencari kolom bernama 'thumbnail' di DB
+        // Unset key 'thumbnail' agar tidak mengganggu query Eloquent
         unset($data['thumbnail']);
 
         $video->update($data);
@@ -80,12 +103,14 @@ class VideoController extends Controller
         return redirect()->route('admin.video.index')->with('success', 'Data video berhasil diperbarui!');
     }
 
-    // Menghapus video dari database
+    /**
+     * Menghapus 1 data video tunggal
+     */
     public function destroy($id)
     {
         $video = Video::findOrFail($id);
 
-        // Hapus file dari storage sebelum menghapus record di DB
+        // Hapus file thumbnail fisik dari storage
         if ($video->thumbnail_path && Storage::disk('public')->exists($video->thumbnail_path)) {
             Storage::disk('public')->delete($video->thumbnail_path);
         }
@@ -95,14 +120,9 @@ class VideoController extends Controller
         return redirect()->route('admin.video.index')->with('success', 'Video berhasil dihapus dari sistem!');
     }
 
-    // Menampilkan halaman form edit video
-    public function edit($id)
-    {
-        $video = Video::findOrFail($id);
-        return view('pages.admin.video.edit', compact('video'));
-    }
-
-    // Menghapus video secara massal
+    /**
+     * Menghapus beberapa video sekaligus (Massal/Bulk Delete)
+     */
     public function bulkDelete(Request $request)
     {
         $ids = $request->input('ids', []);
@@ -113,12 +133,14 @@ class VideoController extends Controller
 
         $videos = Video::whereIn('id', $ids)->get();
 
+        // Hapus seluruh gambar thumbnail dari storage
         foreach ($videos as $video) {
             if ($video->thumbnail_path && Storage::disk('public')->exists($video->thumbnail_path)) {
                 Storage::disk('public')->delete($video->thumbnail_path);
             }
         }
 
+        // Hapus baris record dari database
         Video::whereIn('id', $ids)->delete();
 
         return redirect()->route('admin.video.index')->with('success', count($ids) . ' data video berhasil dihapus massal!');

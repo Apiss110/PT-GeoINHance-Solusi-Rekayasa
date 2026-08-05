@@ -1,225 +1,186 @@
 <x-app-layout>
-    <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Manajemen Banner / Foto Halaman Utama') }}
-        </h2>
-    </x-slot>
+    <div class="container mx-auto px-6 py-8">
+        
+        {{-- 1. Session Notifications --}}
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg text-sm flex items-center justify-between">
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="mb-4 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-lg text-sm flex items-center justify-between">
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
 
-    {{-- Container utama: Sekarang hanya menyimpan state untuk Modal Edit --}}
-    <div class="py-12" x-data="{ openEdit: false, currentSlider: {} }">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8 space-y-6">
+        {{-- 2. Page Header & Top Action Buttons --}}
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+            <div>
+                <h3 class="text-gray-700 text-3xl font-medium">Manajemen Banner Front Page</h3>
+                <p class="text-gray-500 text-sm mt-1">Kelola gambar slider utama dan teks promosi pada halaman depan.</p>
+            </div>
             
-            @if(session('success'))
-                <div class="bg-green-500 text-white p-4 rounded-lg shadow mb-2">
-                    {{ session('success') }}
-                </div>
-            @endif
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                {{-- Bulk Delete Button --}}
+                <button type="submit" form="bulk-delete-form" id="btn-bulk-delete" 
+                    class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 font-medium text-sm flex items-center shadow-sm transition opacity-50 cursor-not-allowed" disabled>
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                    </svg>
+                    Hapus Terpilih (<span id="selected-count">0</span>)
+                </button>
 
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                {{-- Add New Slider Button --}}
+                <a href="{{ route('admin.slider.create') }}" 
+                    class="px-4 py-2 bg-[#0e1d82] text-white rounded-lg hover:bg-[#0e1d82]/90 font-medium text-sm flex items-center shadow-sm transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tambah Banner Baru
+                </a>
+            </div>
+        </div>
+
+        {{-- 3. Bulk Delete Form Wrapper & Data Table --}}
+        <form id="bulk-delete-form" action="{{ route('admin.slider.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus banner yang dipilih?')">
+            @csrf
+            @method('DELETE')
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mt-6">
+                <div class="p-6 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between">
+                    <span class="text-sm font-semibold text-gray-700">Daftar Banner Utama Aktif</span>
+                </div>
                 
-                {{-- SISI KIRI: Form Tambah Foto Baru --}}
-                <div class="bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700 h-fit">
-                    <h2 class="text-xl font-semibold mb-4 text-gray-700 dark:text-white border-b border-gray-100 dark:border-gray-700 pb-2">
-                        Tambah Foto Baru
-                    </h2>
-                    
-                    <form action="{{ route('admin.slider.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-                        @csrf
-                        <div>
-                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Sub-Judul (Teks Kecil Atas)</label>
-                            <input type="text" name="subtitle" value="{{ old('subtitle') }}" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: INOVASI GEOTEKNIK TERPADU">
-                            @error('subtitle') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Judul Utama (Teks Besar)</label>
-                            <input type="text" name="title" value="{{ old('title') }}" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: ANALISIS TANAH & FONDASI PRESISI">
-                            @error('title') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
-
-                        <div>
-                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Link Tujuan Tombol (URL)</label>
-                            <input type="text" name="link_url" value="{{ old('link_url') }}" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500" placeholder="Contoh: /karir atau /kontak atau #services">
-                            <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">
-                                Gunakan <strong>/karir</strong> untuk halaman internal, atau <strong>#services</strong> untuk lompat ke section bawah.
-                            </p>
-                            @error('link_url') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-                        </div>
-                        
-                        <div>
-                            <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Pilih File Gambar <span class="text-red-500">*</span></label>
-                            <input type="file" id="sliderImageInput" name="image" accept=".jpg,.jpeg,.png,.webp" class="w-full text-sm block text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:uppercase file:bg-gray-200 dark:file:bg-gray-600 file:text-gray-700 dark:file:text-white hover:file:bg-gray-300 dark:hover:file:bg-gray-500 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 outline-none transition cursor-pointer" required>
-                            <p class="text-gray-400 dark:text-gray-500 text-[11px] mt-1">Format: JPG, JPEG, PNG, WEBP (Maks 5MB).</p>
-                            @error('image') <p class="text-red-500 text-xs mt-1">{{ $message }}</p> @enderror
-
-                            {{-- Container Preview Upload --}}
-                            <div id="sliderPreviewContainer" class="mt-3 p-3 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl hidden">
-                                <p class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-2">Preview Gambar Terpilih:</p>
-                                <img id="sliderImagePreview" src="#" class="h-28 w-auto object-cover rounded-lg shadow-sm border border-gray-200 dark:border-gray-700">
-                            </div>
-                        </div>
-                        
-                        <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition shadow-sm">
-                            Upload & Terapkan Banner
-                        </button>
-                    </form>
-                </div>
-
-                {{-- 🟢 SISI KANAN: DI SINI FITUR HAPUS MASSAL SEKARANG DISIMPAN --}}
-                <div class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-lg shadow-sm border border-gray-100 dark:border-gray-700">
-                    
-                    <x-admin.bulk-delete :route="route('admin.slider.destroy.bulk')" :items="$sliders">
-                        
-                        {{-- Judul Table Header --}}
-                        <x-slot:header>
-                            <h2 class="text-xl font-semibold text-gray-700 dark:text-white">
-                                Daftar Banner Utama Aktif
-                            </h2>
-                        </x-slot:header>
-
-                        {{-- Judul Kolom Tabel --}}
-                        <x-slot:thead>
-                            <th scope="col" class="px-4 py-3">Preview</th>
-                            <th scope="col" class="px-4 py-3">Informasi Teks & Link</th>
-                            <th scope="col" class="px-4 py-3 text-center">Aksi</th>
-                        </x-slot:thead>
-
-                        {{-- Isi Data Tabel --}}
-                        <x-slot:tbody>
-                            @forelse($sliders as $slider)
-                                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600 transition-colors">
-                                    {{-- Checkbox data (Wajib menggunakan x-model="selectedIds") --}}
-                                    <td class="p-4 text-center align-middle">
-                                        <input type="checkbox" name="ids[]" value="{{ $slider->id }}" x-model="selectedIds" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600 cursor-pointer">
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 text-left text-sm text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-medium text-gray-500 tracking-wider">
+                            <tr>
+                                <th scope="col" class="px-6 py-3.5 w-10">
+                                    <input type="checkbox" id="checkbox-all" class="rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
+                                </th>
+                                <th scope="col" class="px-6 py-3.5 w-12">No</th>
+                                <th scope="col" class="px-6 py-3.5">Preview Gambar</th>
+                                <th scope="col" class="px-6 py-3.5">Informasi Teks & Link</th>
+                                <th scope="col" class="px-6 py-3.5 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            @forelse($sliders as $key => $slider)
+                                <tr class="hover:bg-gray-50/50 transition">
+                                    {{-- Checkbox Multi-select --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <input type="checkbox" name="ids[]" value="{{ $slider->id }}" class="item-checkbox rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
                                     </td>
                                     
-                                    <td class="px-4 py-3 whitespace-nowrap align-middle">
-                                        <img src="{{ asset('storage/' . $slider->image_path) }}" class="w-32 h-20 object-cover rounded-md border border-gray-200 dark:border-gray-600" alt="Preview Banner">
+                                    {{-- Nomor Paginasi --}}
+                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                                        {{ method_exists($sliders, 'firstItem') && $sliders->firstItem() ? $sliders->firstItem() + $key : $key + 1 }}
                                     </td>
                                     
-                                    <td class="px-4 py-3 align-middle">
-                                        <div class="text-xs text-gray-400 dark:text-gray-500 font-medium">{{ $slider->subtitle ?? '-' }}</div>
-                                        <div class="text-base font-bold text-gray-900 dark:text-white mt-0.5">{{ $slider->title ?? '-' }}</div>
+                                    {{-- Preview Banner --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <img src="{{ asset('storage/' . $slider->image_path) }}" class="w-28 h-16 object-cover rounded-lg border border-gray-200 shadow-sm" alt="Preview Banner">
+                                    </td>
+                                    
+                                    {{-- Informasi Teks & Link --}}
+                                    <td class="px-6 py-4">
+                                        <span class="text-[10px] font-bold text-gray-400 uppercase tracking-wider block">{{ $slider->subtitle ?? 'Tanpa Sub-judul' }}</span>
+                                        <div class="text-sm font-bold text-gray-800 mt-0.5 line-clamp-1">{{ $slider->title ?? 'Tanpa Judul' }}</div>
                                         
-                                        <div class="mt-2 flex items-center gap-1 text-xs text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-900/30 px-2 py-1 rounded w-fit">
-                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5">
+                                        <div class="mt-1.5 flex items-center gap-1.5 text-xs text-[#0e1d82] bg-blue-50/60 px-2.5 py-1 rounded-md w-fit border border-blue-100">
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-3.5 h-3.5 text-[#0e1d82]">
                                                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.19 8.688a4.5 4.5 0 0 1 1.242 7.244l-4.5 4.5a4.5 4.5 0 0 1-6.364-6.364l1.757-1.757m13.35-.622 1.757-1.757a4.5 4.5 0 0 0-6.364-6.364l-4.5 4.5a4.5 4.5 0 0 0 1.242 7.244" />
                                             </svg>
-                                            <span>Link: <code class="font-mono font-bold">{{ $slider->link_url ?? '#services' }}</code></span>
+                                            <span>Link: <code class="font-mono font-bold">{{ $slider->link_url ?? '-' }}</code></span>
                                         </div>
                                     </td>
                                     
-                                    <td class="px-4 py-3 text-center whitespace-nowrap align-middle">
-                                        <div class="flex items-center justify-center space-x-2">
-                                            {{-- Tombol Edit tetap bekerja mendeteksi state dari container paling luar --}}
-                                            <button type="button" 
-                                                    @click="openEdit = true; currentSlider = { id: '{{ $slider->id }}', subtitle: '{{ addslashes($slider->subtitle) }}', title: '{{ addslashes($slider->title) }}', link_url: '{{ addslashes($slider->link_url) }}' }"
-                                                    class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-700 dark:hover:text-blue-400 transition">
-                                                Edit
+                                    {{-- Tombol Aksi --}}
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="inline-flex space-x-2">
+                                            {{-- Edit --}}
+                                            <a href="{{ route('admin.slider.edit', $slider->id) }}" class="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-lg transition" title="Edit Banner">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                            
+                                            {{-- Hapus Satuan --}}
+                                            <button type="button" onclick="if(confirm('Yakin ingin menghapus banner ini?')) { document.getElementById('delete-slider-{{ $slider->id }}').submit(); }" class="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-lg transition" title="Hapus Banner">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                                                </svg>
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
                             @empty
                                 <tr>
-                                    <td colspan="4" class="px-4 py-6 text-center text-gray-500 dark:text-gray-400">
-                                        Belum ada foto banner yang diunggah. Tampilan di user akan kosong atau default.
+                                    <td colspan="5" class="px-6 py-10 text-center text-sm text-gray-500">
+                                        Belum ada foto banner yang diunggah. Klik tombol "+ Tambah Banner Baru" untuk menambahkan data. Tampilan di pengguna akan menggunakan slide default.
                                     </td>
                                 </tr>
                             @endforelse
-                        </x-slot:tbody>
-
-                    </x-admin.bulk-delete>
-
+                        </tbody>
+                    </table>
                 </div>
-
             </div>
-        </div>
+        </form>
 
-        {{-- MODAL WINDOW POP-UP UNTUK EDIT BANNER --}}
-        <div x-show="openEdit" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm" x-cloak x-transition>
-            <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 w-full max-w-lg rounded-2xl p-6 space-y-4" @click.away="openEdit = false">
-                <div class="flex justify-between items-center border-b border-gray-100 dark:border-gray-700 pb-3">
-                    <h3 class="text-lg font-bold text-gray-800 dark:text-white">Edit Data Banner Utama</h3>
-                    <button @click="openEdit = false" type="button" class="text-gray-400 hover:text-gray-600 dark:hover:text-white text-xl">&times;</button>
-                </div>
+        {{-- Hidden Form Single Delete untuk setiap banner --}}
+        @foreach($sliders as $slider)
+            <form id="delete-slider-{{ $slider->id }}" action="{{ route('admin.slider.destroy', $slider->id) }}" method="POST" class="hidden">
+                @csrf
+                @method('DELETE')
+            </form>
+        @endforeach
 
-                <form :action="'/admin/slider/' + currentSlider.id" method="POST" enctype="multipart/form-data" class="space-y-4">
-                    @csrf
-                    @method('PUT')
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Sub-Judul (Teks Kecil Atas)</label>
-                        <input type="text" name="subtitle" x-model="currentSlider.subtitle" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Judul Utama (Teks Besar)</label>
-                        <input type="text" name="title" x-model="currentSlider.title" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Link Tujuan Tombol (URL)</label>
-                        <input type="text" name="link_url" x-model="currentSlider.link_url" class="w-full bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white p-2.5 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-                    </div>
-
-                    <div>
-                        <label class="block text-sm font-medium text-gray-600 dark:text-gray-300 mb-1">Ganti Gambar (Biarkan kosong jika tidak diubah)</label>
-                        <input type="file" id="modalSliderImageInput" name="image" accept=".jpg,.jpeg,.png,.webp" class="w-full text-sm block text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-bold file:uppercase file:bg-gray-200 dark:file:bg-gray-600 file:text-gray-700 dark:file:text-white hover:file:bg-gray-300 dark:hover:file:bg-gray-500 border border-gray-300 dark:border-gray-600 bg-gray-50 dark:bg-gray-700 rounded-lg p-1.5 outline-none transition cursor-pointer">
-                        
-                        {{-- Container Preview untuk Gambar Baru di Modal --}}
-                        <div id="modalSliderPreviewContainer" class="mt-3 p-2 bg-gray-50 dark:bg-gray-900 border border-dashed border-gray-300 dark:border-gray-700 rounded-xl hidden">
-                            <p class="text-[10px] font-bold text-gray-400 dark:text-gray-500 uppercase tracking-wider mb-1">Preview Gambar Baru:</p>
-                            <img id="modalSliderImagePreview" src="#" class="h-24 w-auto object-cover rounded-lg shadow-sm">
-                        </div>
-                    </div>
-
-                    <div class="flex justify-end space-x-2 pt-2">
-                        <button type="button" @click="openEdit = false" class="bg-gray-200 dark:bg-gray-700 text-gray-700 dark:text-gray-300 px-4 py-2 rounded-lg text-xs font-medium hover:bg-gray-300 dark:hover:bg-gray-600 transition">Batal</button>
-                        <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded-lg text-xs font-medium hover:bg-blue-700 transition">Simpan Perubahan</button>
-                    </div>
-                </form>
+        {{-- Paginasi Tabel --}}
+        @if(method_exists($sliders, 'links'))
+            <div class="mt-6">
+                {{ $sliders->links() }}
             </div>
-        </div>
+        @endif
     </div>
 
-    {{-- JavaScript Live Preview --}}
+    {{-- Script JavaScript untuk Checkbox All & Counter Bulk Delete --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const sliderInput = document.getElementById('sliderImageInput');
-            const previewContainer = document.getElementById('sliderPreviewContainer');
-            const sliderPreview = document.getElementById('sliderImagePreview');
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxAll = document.getElementById('checkbox-all');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const btnBulkDelete = document.getElementById('btn-bulk-delete');
+            const selectedCount = document.getElementById('selected-count');
 
-            sliderInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        sliderPreview.setAttribute('src', e.target.result);
-                        previewContainer.classList.remove('hidden');
-                    }
-                    reader.readAsDataURL(file);
+            function updateBulkDeleteStatus() {
+                const checkedCount = document.querySelectorAll('.item-checkbox:checked').length;
+                selectedCount.textContent = checkedCount;
+
+                if (checkedCount > 0) {
+                    btnBulkDelete.removeAttribute('disabled');
+                    btnBulkDelete.classList.remove('opacity-50', 'cursor-not-allowed');
                 } else {
-                    previewContainer.classList.add('hidden');
+                    btnBulkDelete.setAttribute('disabled', 'disabled');
+                    btnBulkDelete.classList.add('opacity-50', 'cursor-not-allowed');
                 }
-            });
+            }
 
-            const modalInput = document.getElementById('modalSliderImageInput');
-            const modalPreviewContainer = document.getElementById('modalSliderPreviewContainer');
-            const modalImagePreview = document.getElementById('modalSliderImagePreview');
+            if(checkboxAll) {
+                checkboxAll.addEventListener('change', function () {
+                    checkboxes.forEach(cb => { cb.checked = checkboxAll.checked; });
+                    updateBulkDeleteStatus();
+                });
+            }
 
-            modalInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        modalImagePreview.setAttribute('src', e.target.result);
-                        modalPreviewContainer.classList.remove('hidden');
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    if (!this.checked) {
+                        checkboxAll.checked = false;
+                    } else {
+                        const allChecked = document.querySelectorAll('.item-checkbox:checked').length === checkboxes.length;
+                        checkboxAll.checked = allChecked;
                     }
-                    reader.readAsDataURL(file);
-                } else {
-                    modalPreviewContainer.classList.add('hidden');
-                }
+                    updateBulkDeleteStatus();
+                });
             });
         });
     </script>

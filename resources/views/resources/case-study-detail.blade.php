@@ -65,7 +65,7 @@
                 {{ $caseStudy->sector ? auto_translate($caseStudy->sector) : 'Studi Kasus' }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight drop-shadow-md uppercase">
-                {{ auto_translate($caseStudy->title) }}
+                {{ ($caseStudy->title) }}
             </h1>
         </div>
     </section>
@@ -129,7 +129,7 @@
             {{-- 🟢 PERBAIKAN UTAMA: Mengubah dari $caseStudy->content menjadi $caseStudy->description --}}
             <div class="geo-article-container font-light whitespace-pre-line">
                 @if(!empty($caseStudy->description))
-                    {!! auto_translate($caseStudy->description) !!}
+                    {!! ($caseStudy->description) !!}
                 @else
                     <p class="text-gray-400 italic">{{ __('Tidak ada ringkasan deskripsi untuk studi kasus teknik ini.') }}</p>
                 @endif

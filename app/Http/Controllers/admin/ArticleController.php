@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Article; // 🟢 Menggunakan model Article yang baru
+use App\Models\Article;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -15,10 +15,8 @@ class ArticleController extends Controller
      */
     public function publicIndex()
     {
-        // Mengambil semua data artikel dari model Article
         $blogs = Article::latest()->get();
 
-        // Pastikan melemparnya menggunakan nama 'blogs' agar cocok dengan file blade
         return view('resources.articles', compact('blogs'));
     }
 
@@ -30,6 +28,11 @@ class ArticleController extends Controller
         $articles = Article::latest()->get();
 
         return view('pages.admin.articles.index', compact('articles'));
+    }
+
+    public function create()
+    {
+        return view('pages.admin.articles.create');
     }
 
     /**
@@ -63,17 +66,27 @@ class ArticleController extends Controller
     }
 
     /**
-     * Menampilkan halaman detail satu Artikel berdasarkan slug (Halaman Publik)
+     * Menampilkan halaman detail satu Artikel berdasarkan ID atau Slug (Halaman Publik)
+     */
+    public function show($identifier)
+    {
+        // 🟢 FIX: Menggunakan variabel $blog agar sesuai dengan article-detail.blade.php
+        $blog = Article::where(function ($q) use ($identifier) {
+            if (is_numeric($identifier)) {
+                $q->where('id', $identifier);
+            }
+            $q->orWhere('slug', $identifier);
+        })->firstOrFail();
+
+        return view('resources.article-detail', compact('blog'));
+    }
+
+    /**
+     * Menampilkan halaman detail satu Artikel berdasarkan slug (Alias untuk show jika diperlukan)
      */
     public function publicShow($slug)
     {
-        // 1. Cari artikel berdasarkan slug, jika tidak ada langsung return 404
-        // 🟢 PERBAIKAN: Nama variabel diubah dari $article menjadi $blog
-        $blog = Article::where('slug', $slug)->firstOrFail();
-
-        // 2. 🟢 PERBAIKAN: Melempar variabel $blog menggunakan compact('blog') 
-        // agar terbaca dengan sempurna oleh variabel $blog di file article-detail.blade.php
-        return view('resources.article-detail', compact('blog'));
+        return $this->show($slug);
     }
 
     /**
@@ -140,25 +153,21 @@ class ArticleController extends Controller
     }
 
     public function bulkDelete(Request $request)
-{
-    // 1. Validasi masukan array data ID artikel terpilih
-    $request->validate([
-        'ids' => 'required|array',
-        'ids.*' => 'exists:articles,id', // Sesuaikan dengan nama tabel database artikel Anda
-    ]);
+    {
+        $request->validate([
+            'ids'   => 'required|array',
+            'ids.*' => 'exists:articles,id',
+        ]);
 
-    // 2. Ambil seluruh record artikel berdasarkan array ID
-    $articles = Article::whereIn('id', $request->ids)->get();
+        $articles = Article::whereIn('id', $request->ids)->get();
 
-    // 3. Iterasi untuk menghapus file fisik foto dari storage, lalu hapus datanya
-    foreach ($articles as $article) {
-        if ($article->image) {
-            Storage::disk('public')->delete($article->image);
+        foreach ($articles as $article) {
+            if ($article->image && Storage::disk('public')->exists($article->image)) {
+                Storage::disk('public')->delete($article->image);
+            }
+            $article->delete();
         }
-        $article->delete();
-    }
 
-    // 4. Kembali ke halaman sebelumnya dengan feedback sukses
-    return redirect()->back()->with('success', count($request->ids) . ' data artikel berhasil dihapus massal.');
-}
+        return redirect()->back()->with('success', count($request->ids) . ' data artikel berhasil dihapus massal.');
+    }
 }

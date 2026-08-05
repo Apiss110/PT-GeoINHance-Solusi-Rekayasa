@@ -114,7 +114,7 @@ class ProjectSlider extends Component
                                 {{-- Action Call-to-Action Footer --}}
                                 <div class="p-6 pt-0">
                                     <a href="{{ route('proyek.detail', $project['id']) }}" class="inline-flex items-center text-xs font-bold text-[#c80000] hover:translate-x-1 transition-transform uppercase tracking-wider">
-                                        {{ ('Pelajari Selengkapnya') }} 
+                                        {{ __('Pelajari Selengkapnya') }} 
                                         <svg class="w-3.5 h-3.5 ml-1.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"></path>
                                         </svg>

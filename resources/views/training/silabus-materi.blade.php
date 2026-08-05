@@ -105,7 +105,7 @@
         <div id="syllabusGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             @foreach($syllabi as $item)
                 <div class="training-card bg-white rounded-xl shadow-sm border border-gray-200/80 p-5 flex flex-col justify-between hover:shadow-md transition duration-200 group" 
-                     data-name="{{ strtolower(auto_translate($item->title)) }}">
+                     data-name="{{ strtolower(($item->title)) }}">
                     <div>
                         <div class="flex justify-between items-start mb-4">
                             <div class="w-12 h-12 rounded-xl bg-slate-50 border border-slate-100 flex items-center justify-center text-red-900">
@@ -118,22 +118,22 @@
                                 @endif
                             </div>
                             <span class="text-[10px] font-bold uppercase px-2.5 py-1 rounded bg-blue-50 text-red-600 border border-red-100">
-                                {{ auto_translate($item->software_category) }}
+                                {{ ($item->software_category) }}
                             </span>
                         </div>
 
                         <h3 class="text-base font-bold text-slate-900 group-hover:text-red-600 transition line-clamp-2 mb-2">
-                            <a href="{{ route('training.syllabus.show', $item->id) }}">{{ auto_translate($item->title) }}</a>
+                            <a href="{{ route('training.syllabus.show', $item->id) }}">{{ ($item->title) }}</a>
                         </h3>
                         <p class="text-xs text-slate-500 line-clamp-3 leading-relaxed mb-4 font-light">
-                            {{ auto_translate($item->description) }}
+                            {{ ($item->description) }}
                         </p>
                     </div>
 
                     <div class="border-t border-slate-100 pt-4 mt-2">
                         <div class="flex items-center space-x-3 mb-4">
                             <span class="text-[10px] font-bold px-2.5 py-0.5 bg-blue-50 text-red-600 border border-red-200 rounded">
-                                {{ auto_translate($item->level) }}
+                                {{ ($item->level) }}
                             </span>
                             <span class="text-xs text-slate-400 font-medium">
                                 {{ $item->modules_count }} {{ __('syllabus.modules_count_suffix') ?? 'Modul' }}

@@ -140,11 +140,11 @@
                             </p>
                             
                             <h3 class="text-lg font-black text-slate-900 leading-tight mb-3 group-hover:text-red-800 transition line-clamp-2">
-                                {{ auto_translate($blog->title) }}
+                                {{ ($blog->title) }}
                             </h3>
                             
                             <div class="text-slate-600 text-xs leading-relaxed line-clamp-3">
-                                {!! auto_translate(strip_tags($blog->content)) !!}
+                                {!! (strip_tags($blog->content)) !!}
                             </div>
                         </div>
                     </div>

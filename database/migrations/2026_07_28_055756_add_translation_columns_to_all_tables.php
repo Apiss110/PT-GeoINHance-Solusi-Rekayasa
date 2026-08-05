@@ -66,6 +66,18 @@ return new class extends Migration
         // 9. Syllabi (Silabus & Materi Training)
         $this->addTranslationColumn('syllabi', 'title', 'string');
         $this->addTranslationColumn('syllabi', 'description', 'text');
+        $this->addTranslationColumn('syllabi', 'level', 'string');
+        $this->addTranslationColumn('syllabi', 'durasi', 'string');
+        $this->addTranslationColumn('syllabi', 'jadwal_terdekat', 'string');
+        $this->addTranslationColumn('syllabi', 'format_kelas', 'string');
+        $this->addTranslationColumn('syllabi', 'manfaat_kursus', 'text');
+        $this->addTranslationColumn('syllabi', 'minimal_ram', 'string');
+        $this->addTranslationColumn('syllabi', 'lisensi_software', 'string');
+        $this->addTranslationColumn('syllabi', 'prasyarat_peserta', 'text');
+        $this->addTranslationColumn('syllabi', 'target_peserta', 'text');
+        $this->addTranslationColumn('syllabi', 'proyek_instruktur', 'text');
+        $this->addTranslationColumn('syllabi', 'modul_materi', 'text'); // menyimpan JSON
+        $this->addTranslationColumn('syllabi', 'faq_list', 'text');     // menyimpan JSON
 
         // 10. Products
         $this->addTranslationColumn('products', 'name', 'string');

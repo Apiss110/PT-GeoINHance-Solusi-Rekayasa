@@ -148,6 +148,7 @@ class ProductController extends Controller
 
         return view('products.detail', $data);
     }
+    
 
     private function getYoutubeId($url)
     {

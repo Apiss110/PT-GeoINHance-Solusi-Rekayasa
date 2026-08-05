@@ -1,217 +1,221 @@
 <x-app-layout>
-    {{-- Inisialisasi Alpine.js di elemen pembungkus untuk memantau ID artikel yang dicentang --}}
-    <div class="container-fluid px-4 py-4 space-y-6"
-         x-data="{ 
-            selectedIds: [],
-            allIds: [],
-            toggleAll() {
-                if (this.selectedIds.length === this.allIds.length) {
-                    this.selectedIds = [];
-                } else {
-                    this.selectedIds = [...this.allIds];
-                }
-            }
-         }" 
-         x-init="allIds = [ @foreach($articles as $article) '{{ $article->id }}', @endforeach ]">
-         
-        <h2 class="text-white mb-2 font-semibold text-2xl">Artikel & Insight</h2>
+    <div class="container mx-auto px-6 py-8">
+        
+        {{-- 1. Session Notifications --}}
+        @if(session('success'))
+            <div class="mb-4 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-lg text-sm flex items-center justify-between">
+                <span>{{ session('success') }}</span>
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="mb-4 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-lg text-sm flex items-center justify-between">
+                <span>{{ session('error') }}</span>
+            </div>
+        @endif
 
-        {{-- BAGIAN ATAS: Form Tambah Artikel Baru (Melebar Penuh) --}}
-        <div class="w-full bg-[#1e293b] rounded-lg p-6 shadow-lg">
-            <h3 class="text-white font-medium text-lg mb-4 border-b border-gray-700 pb-2">Tambah Artikel Baru</h3>
-            
-            <form action="{{ route('admin.articles.store') }}" method="POST" enctype="multipart/form-data" class="space-y-4">
-                @csrf
-                
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {{-- Kategori --}}
-                    <div>
-                        <div class="mb-4">
-                            <label class="block text-gray-300 text-sm mb-1 font-medium">Kategori Artikel <span class="text-red-500">*</span></label>
-                            <input 
-                                type="text" 
-                                name="category" 
-                                value="{{ old('category') }}" 
-                                placeholder="Masukkan kategori artikel (misal: Proyek, Events, Geoteknik)" 
-                                class="w-full bg-[#334155] border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" 
-                                required
-                            >
-                            @error('category') 
-                                <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> 
-                            @enderror
-                        </div>
-                    </div>
-
-                    {{-- Tag --}}
-                    <div>
-                        <label class="block text-gray-300 text-sm mb-1 font-medium">Tag <span class="text-red-500">*</span></label>
-                        <input type="text" name="tag" value="{{ old('tag') }}" class="w-full bg-[#334155] border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="Contoh: Event, Proyek, internal" required>
-                        @error('tag') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-                    </div>
-                </div>
-
-                {{-- Judul --}}
-                <div>
-                    <label class="block text-gray-300 text-sm mb-1 font-medium">Nama / Judul Artikel <span class="text-red-500">*</span></label>
-                    <input type="text" name="title" value="{{ old('title') }}" class="w-full bg-[#334155] border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="Tuliskan judul berita..." required>
-                    @error('title') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-                </div>
-
-                {{-- Konten --}}
-                <div>
-                    <label class="block text-gray-300 text-sm mb-1 font-medium">Deskripsi / Isi Konten <span class="text-red-500">*</span></label>
-                    <textarea name="content" id="editor" class="w-full bg-[#334155] border border-gray-600 rounded px-3 py-2 text-white focus:outline-none focus:border-blue-500" placeholder="Tuliskan isi konten lengkap di sini...">{{ old('content') }}</textarea>
-                    @error('content') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-                </div>
-
-                {{-- Foto Artikel --}}
-                <div>
-                    <label class="block text-gray-300 text-sm mb-1 font-medium">Foto Artikel <span class="text-red-500">*</span></label>
-                    <input type="file" name="image" id="imageInput" accept=".jpg,.jpeg,.png,.webp" class="w-full text-sm block text-slate-400 file:mr-4 file:py-2 file:px-4 file:rounded file:border-0 file:text-xs file:font-bold file:uppercase file:bg-slate-700 file:text-white hover:file:bg-slate-600 border border-gray-600 bg-[#334155] rounded p-1 outline-none transition" required>
-                    <p class="mt-1 text-[11px] text-gray-400 font-medium">Format: JPG, JPEG, PNG, WEBP (Maks 5MB).</p>
-                    @error('image') <span class="text-xs text-red-500 mt-1 block">{{ $message }}</span> @enderror
-
-                    <div id="previewContainer" class="mt-3 p-2 bg-[#334155] border border-dashed border-gray-600 rounded-lg hidden">
-                        <p class="text-[10px] font-bold text-gray-400 uppercase tracking-wider">Preview Gambar Terpilih:</p>
-                        <img id="imagePreview" src="#" class="h-24 w-auto object-cover rounded shadow-sm mt-1">
-                    </div>
-                </div>
-
-                {{-- Tombol Simpan --}}
-                <div class="pt-2 flex justify-end">
-                    <button type="submit" class="w-full md:w-auto bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 px-8 rounded transition duration-200 shadow-md cursor-pointer">
-                        Simpan & Daftarkan Artikel
-                    </button>
-                </div>
-            </form>
-        </div>
-
-        {{-- BAGIAN BAWAH: Daftar Artikel Aktif --}}
-        <div class="w-full bg-[#1e293b] rounded-lg shadow-lg overflow-hidden">
-            <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center p-6 border-b border-gray-700 bg-[#1e293b] gap-2">
-                <h3 class="text-white font-medium text-lg">Daftar Artikel Aktif</h3>
-                
-                {{-- Tombol Hapus Terpilih Muncul Otomatis Saat Ada Baris Dicentang --}}
-                <div x-show="selectedIds.length > 0" x-cloak x-transition>
-                    <button type="submit" form="bulkDeleteForm" class="bg-red-600 hover:bg-red-700 text-white text-xs font-bold py-2 px-4 rounded transition shadow-md cursor-pointer">
-                        Hapus Terpilih (<span x-text="selectedIds.length"></span>)
-                    </button>
-                </div>
+        {{-- 2. Page Header & Top Action Buttons --}}
+        <div class="flex flex-col md:flex-row md:justify-between md:items-center mb-6">
+            <div>
+                <h3 class="text-gray-700 text-3xl font-medium">Kelola Artikel</h3>
+                <p class="text-gray-500 text-sm mt-1">Daftar seluruh artikel dan wawasan aktif GeoINHance.</p>
             </div>
             
-            {{-- Form Pembungkus Utama untuk Aksi Hapus Massal --}}
-            <form id="bulkDeleteForm" action="{{ route('admin.articles.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus massal semua artikel yang dipilih?')">
-                @csrf
-                @method('DELETE')
+            <div class="mt-4 md:mt-0 flex items-center space-x-3">
+                {{-- Bulk Delete Button --}}
+                <button type="submit" form="bulk-delete-form" id="btn-bulk-delete" 
+                    class="px-4 py-2 bg-rose-600 text-white rounded-lg hover:bg-rose-700 font-medium text-sm flex items-center shadow-sm transition opacity-50 cursor-not-allowed" disabled>
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                    </svg>
+                    Hapus Terpilih (<span id="selected-count">0</span>)
+                </button>
 
-                {{-- Header List Konten --}}
-                <div class="grid grid-cols-12 gap-4 bg-[#0f172a] px-6 py-3 text-xs font-semibold text-gray-400 uppercase tracking-wider items-center">
-                    <div class="col-span-1 text-center">
-                        <input type="checkbox" @click="toggleAll()" :checked="selectedIds.length === allIds.length && allIds.length > 0" class="w-4 h-4 rounded bg-[#334155] border-gray-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
-                    </div>
-                    <div class="col-span-2 sm:col-span-2">Preview</div>
-                    <div class="col-span-6 sm:col-span-6">Detail Artikel</div>
-                    <div class="col-span-3 sm:col-span-3 text-center">Aksi</div>
-                </div>
-
-                {{-- Body List Konten --}}
-                <div class="divide-y divide-gray-700 px-6">
-                    @forelse($articles as $article)
-                        <div class="grid grid-cols-12 gap-4 py-4 items-center hover:bg-[#334155]/20 transition-colors -mx-6 px-6">
-                            
-                            {{-- Checkbox Satuan Konten --}}
-                            <div class="col-span-1 text-center">
-                                <input type="checkbox" name="ids[]" value="{{ $article->id }}" x-model="selectedIds" class="w-4 h-4 rounded bg-[#334155] border-gray-600 text-blue-600 focus:ring-blue-500 cursor-pointer">
-                            </div>
-
-                            {{-- Preview Gambar --}}
-                            <div class="col-span-2 sm:col-span-2">
-                                @if($article->image)
-                                    <img src="{{ asset('storage/' . $article->image) }}" alt="Preview" class="w-full h-16 sm:h-20 object-cover rounded border border-gray-600">
-                                @else
-                                    <div class="w-full h-16 sm:h-20 bg-gray-700 rounded flex items-center justify-center text-xs text-gray-400">No Image</div>
-                                @endif
-                            </div>
-
-                            {{-- Detail Artikel --}}
-                            <div class="col-span-6 sm:col-span-6 space-y-1">
-                                <div class="flex flex-wrap gap-2">
-                                    <span class="bg-red-600 text-white text-[10px] uppercase font-bold px-2 py-0.5 rounded">
-                                        {{ $article->category ?? 'ARTIKEL' }}
-                                    </span>
-                                    <span class="bg-gray-600 text-gray-200 text-[10px] px-2 py-0.5 rounded">
-                                        #{{ $article->tag ?? 'Umum' }}
-                                    </span>
-                                </div>
-                                <h4 class="text-white font-semibold text-base line-clamp-1 uppercase">{{ $article->title }}</h4>
-                                <p class="text-gray-400 text-xs line-clamp-2">{{ Str::limit(strip_tags($article->content), 150) }}</p>
-                                <span class="text-[11px] text-gray-500 block pt-1">
-                                    📅 {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }}
-                                </span>
-                            </div>
-
-                            {{-- Aksi --}}
-                            <div class="col-span-3 sm:col-span-3 flex flex-col sm:flex-row gap-2 justify-center items-center">
-                                <a href="{{ route('admin.articles.edit', $article->id) }}" class="text-blue-500 hover:text-blue-400 text-sm font-medium transition">
-                                    Edit
-                                </a>
-                                <span class="text-gray-600 hidden sm:inline">|</span>
-                                {{-- Eksekusi form bayangan hapus tunggal agar tidak mengganggu jalannya form bulk delete --}}
-                                <button type="button" onclick="if(confirm('Apakah Anda yakin ingin menghapus artikel ini?')) { document.getElementById('single-delete-{{ $article->id }}').submit(); }" class="text-red-500 hover:text-red-400 text-sm font-medium transition cursor-pointer bg-transparent border-0 p-0">
-                                    Hapus
-                                </button>
-                            </div>
-                        </div>
-                    @empty
-                        <div class="text-center py-8 text-gray-400 text-sm">
-                            Belum ada artikel yang terdaftar.
-                        </div>
-                    @endforelse
-                </div>
-            </form>
+                {{-- Add New Article Button --}}
+                <a href="{{ route('admin.articles.create') }}" 
+                    class="px-4 py-2 bg-[#0e1d82] text-white rounded-lg hover:bg-[#0e1d82]/90 font-medium text-sm flex items-center shadow-sm transition">
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                    </svg>
+                    Tambah Artikel Baru
+                </a>
+            </div>
         </div>
 
-        {{-- Wadah Form Tersembunyi Khusus untuk Aksi Hapus Satuan per Item --}}
+        {{-- 3. Bulk Delete Form Wrapper & Data Table --}}
+        <form id="bulk-delete-form" action="{{ route('admin.articles.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus artikel yang dipilih?')">
+            @csrf
+            @method('DELETE')
+
+            <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden mt-6">
+                <div class="p-6 bg-gray-50/50 border-b border-gray-100 flex items-center justify-between">
+                    <span class="text-sm font-semibold text-gray-700">Data Artikel Aktif</span>
+                </div>
+                
+                <div class="overflow-x-auto">
+                    <table class="min-w-full divide-y divide-gray-200 text-left text-sm text-gray-600">
+                        <thead class="bg-gray-50 text-xs uppercase font-medium text-gray-500 tracking-wider">
+                            <tr>
+                                <th scope="col" class="px-6 py-3.5 w-10">
+                                    <input type="checkbox" id="checkbox-all" class="rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
+                                </th>
+                                <th scope="col" class="px-6 py-3.5 w-12">No</th>
+                                <th scope="col" class="px-6 py-3.5 w-24">Preview</th>
+                                <th scope="col" class="px-6 py-3.5">Detail Artikel</th>
+                                <th scope="col" class="px-6 py-3.5 w-44">Kategori & Tag</th>
+                                <th scope="col" class="px-6 py-3.5 w-36">Tanggal</th>
+                                <th scope="col" class="px-6 py-3.5 text-right">Aksi</th>
+                            </tr>
+                        </thead>
+                        <tbody class="divide-y divide-gray-200 bg-white">
+                            @forelse($articles as $key => $article)
+                                @php
+                                    // Clean text from HTML tags for safe display snippet
+                                    $rawContent = $article->content ?? $article->description ?? '';
+                                    $cleanedDesc = strip_tags($rawContent);
+                                @endphp
+                                <tr class="hover:bg-gray-50/50 transition">
+                                    {{-- Checkbox Multi-select --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        <input type="checkbox" name="ids[]" value="{{ $article->id }}" class="item-checkbox rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
+                                    </td>
+                                    
+                                    {{-- Nomor Paginasi --}}
+                                    <td class="px-6 py-4 whitespace-nowrap font-medium text-gray-900">
+                                        {{ method_exists($articles, 'firstItem') ? $articles->firstItem() + $key : $key + 1 }}
+                                    </td>
+                                    
+                                    {{-- Preview Gambar --}}
+                                    <td class="px-6 py-4 whitespace-nowrap">
+                                        @if($article->image)
+                                            <img src="{{ asset('storage/' . $article->image) }}" 
+                                                 alt="{{ $article->title }}" 
+                                                 class="w-16 h-12 object-cover rounded-lg border border-gray-200 shadow-sm">
+                                        @else
+                                            <div class="w-16 h-12 bg-gray-100 rounded-lg flex flex-col items-center justify-center text-[10px] text-gray-400 border border-gray-200">
+                                                <span>No Image</span>
+                                            </div>
+                                        @endif
+                                    </td>
+                                    
+                                    {{-- Judul & Deskripsi --}}
+                                    <td class="px-6 py-4">
+                                        <h4 class="font-semibold text-gray-800 text-sm line-clamp-1">
+                                            {{ $article->title }}
+                                        </h4>
+                                        <p class="text-gray-500 text-xs line-clamp-2 mt-1 leading-relaxed" title="{{ $cleanedDesc }}">
+                                            {{ Str::limit($cleanedDesc, 110) }}
+                                        </p>
+                                    </td>
+
+                                    {{-- Kategori & Tag --}}
+                                    <td class="px-6 py-4 whitespace-nowrap space-y-1">
+                                        @if($article->category)
+                                            <div>
+                                                <span class="inline-flex items-center px-2.5 py-0.5 rounded text-[11px] font-semibold bg-blue-50 text-blue-700 border border-blue-100">
+                                                    {{ $article->category }}
+                                                </span>
+                                            </div>
+                                        @endif
+                                        @if($article->tag)
+                                            <div>
+                                                <span class="inline-flex items-center px-2 py-0.5 rounded text-[11px] font-medium bg-gray-100 text-gray-600 border border-gray-200">
+                                                    #{{ $article->tag }}
+                                                </span>
+                                            </div>
+                                        @endif
+                                    </td>
+
+                                    {{-- Tanggal Buat --}}
+                                    <td class="px-6 py-4 whitespace-nowrap text-xs text-gray-500">
+                                        {{ \Carbon\Carbon::parse($article->created_at)->format('d M Y') }}
+                                    </td>
+                                    
+                                    {{-- Tombol Aksi --}}
+                                    <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                                        <div class="inline-flex space-x-2">
+                                            {{-- Edit --}}
+                                            <a href="{{ route('admin.articles.edit', $article->id) }}" class="text-blue-600 hover:text-blue-900 bg-blue-50 p-2 rounded-lg transition" title="Edit Artikel">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+                                            
+                                            {{-- Hapus Satuan --}}
+                                            <button type="button" onclick="if(confirm('Apakah Anda yakin ingin menghapus artikel ini?')) { document.getElementById('delete-article-{{ $article->id }}').submit(); }" class="text-red-600 hover:text-red-900 bg-red-50 p-2 rounded-lg transition" title="Hapus Artikel">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @empty
+                                <tr>
+                                    <td colspan="7" class="px-6 py-10 text-center text-sm text-gray-500">
+                                        Belum ada data artikel yang tersedia. Klik tombol "+ Tambah Artikel Baru" untuk menambahkan data.
+                                    </td>
+                                </tr>
+                            @endforelse
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </form>
+
+        {{-- Hidden Form Single Delete untuk setiap artikel --}}
         @foreach($articles as $article)
-            <form id="single-delete-{{ $article->id }}" action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" class="hidden">
+            <form id="delete-article-{{ $article->id }}" action="{{ route('admin.articles.destroy', $article->id) }}" method="POST" class="hidden">
                 @csrf
                 @method('DELETE')
             </form>
         @endforeach
+
+        {{-- Paginasi Tabel --}}
+        @if(method_exists($articles, 'links'))
+            <div class="mt-6">
+                {{ $articles->links() }}
+            </div>
+        @endif
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/tinymce@6/tinymce.min.js" referrerpolicy="origin"></script>
+    {{-- Script JavaScript untuk Checkbox All & Counter Bulk Delete --}}
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            tinymce.init({
-                selector: '#editor',
-                height: 420,
-                plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist list wordcount help charmap quickbars emoticons',
-                menubar: 'file edit view insert format tools table help',
-                toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent |  numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen  preview | insertfile image media link codesample | code',
-                toolbar_sticky: true,
-                image_title: true,
-                automatic_uploads: true,
-                file_picker_types: 'image',
-                content_style: 'body { font-family:Plus Jakarta Sans,Helvetica,Arial,sans-serif; font-size:14px }'
-            });
+        document.addEventListener('DOMContentLoaded', function () {
+            const checkboxAll = document.getElementById('checkbox-all');
+            const checkboxes = document.querySelectorAll('.item-checkbox');
+            const btnBulkDelete = document.getElementById('btn-bulk-delete');
+            const selectedCount = document.getElementById('selected-count');
 
-            const imageInput = document.getElementById('imageInput');
-            const previewContainer = document.getElementById('previewContainer');
-            const imagePreview = document.getElementById('imagePreview');
+            function updateBulkDeleteStatus() {
+                const checkedCount = document.querySelectorAll('.item-checkbox:checked').length;
+                selectedCount.textContent = checkedCount;
 
-            imageInput.addEventListener('change', function() {
-                const file = this.files[0];
-                if (file) {
-                    const reader = new FileReader();
-                    reader.onload = function(e) {
-                        imagePreview.setAttribute('src', e.target.result);
-                        previewContainer.classList.remove('hidden');
-                    }
-                    reader.readAsDataURL(file);
+                if (checkedCount > 0) {
+                    btnBulkDelete.removeAttribute('disabled');
+                    btnBulkDelete.classList.remove('opacity-50', 'cursor-not-allowed');
                 } else {
-                    previewContainer.classList.add('hidden');
+                    btnBulkDelete.setAttribute('disabled', 'disabled');
+                    btnBulkDelete.classList.add('opacity-50', 'cursor-not-allowed');
                 }
+            }
+
+            if(checkboxAll) {
+                checkboxAll.addEventListener('change', function () {
+                    checkboxes.forEach(cb => { cb.checked = checkboxAll.checked; });
+                    updateBulkDeleteStatus();
+                });
+            }
+
+            checkboxes.forEach(cb => {
+                cb.addEventListener('change', function () {
+                    if (!this.checked) {
+                        checkboxAll.checked = false;
+                    } else {
+                        const allChecked = document.querySelectorAll('.item-checkbox:checked').length === checkboxes.length;
+                        checkboxAll.checked = allChecked;
+                    }
+                    updateBulkDeleteStatus();
+                });
             });
         });
     </script>

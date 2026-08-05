@@ -2,62 +2,83 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
-use App\Traits\HasAutoTranslation;
+use App\Traits\HasAutoTranslation; // 1. Import Trait
 
 class Syllabus extends Model
 {
-    // Menentukan nama tabel secara eksplisit karena plural dari Syllabus dalam bahasa Inggris adalah syllabi
+    use HasFactory, HasAutoTranslation; // 2. Pasang Trait di dalam class
+
+    // Menentukan nama tabel secara eksplisit
     protected $table = 'syllabi';
 
-    use HasAutoTranslation; // 2. Pasang Trait di dalam class
-
     protected $fillable = [
-    'title',
-    'title_en', // 3. Tambahkan kolom _en di $fillable
-    'description',
-    'description_en', // 3. Tambahkan kolom _en di $fillable
-    'software_category',
-    'level',
-    'modules_count',
-    'icon',
-    'slug',
-    
-    // PASTIKAN SEMUA FIELD DI BAWAH INI SUDAH MASUK:
-    'durasi',
-    'jadwal_terdekat',
-    'format_kelas',
-    'poin_cpd',
-    'manfaat_kursus',
-    'minimal_ram',
-    'lisensi_software',
-    'prasyarat_peserta',
-    'target_peserta',
-    'nama_instruktur',
-    'foto_instruktur',
-    'proyek_instruktur',
-    'harga_mahasiswa',
-    'harga_profesional',
-    'modul_materi',
-    'faq_list',
+        'title',
+        'title_en',
+        'description',
+        'description_en',
+        'software_category',
+        'level',
+        'level_en',
+        'modules_count',
+        'icon',
+        'slug',
+        
+        // Field Silabus & Detail Training
+        'durasi',
+        'durasi_en',
+        'jadwal_terdekat',
+        'jadwal_terdekat_en',
+        'format_kelas',
+        'format_kelas_en',
+        'poin_cpd',
+        'manfaat_kursus',
+        'manfaat_kursus_en',
+        'minimal_ram',
+        'minimal_ram_en',
+        'lisensi_software',
+        'lisensi_software_en',
+        'prasyarat_peserta',
+        'prasyarat_peserta_en',
+        'target_peserta',
+        'target_peserta_en',
+        'nama_instruktur',
+        'foto_instruktur',
+        'proyek_instruktur',
+        'proyek_instruktur_en',
+        'harga_mahasiswa',
+        'harga_profesional',
+        'modul_materi',
+        'modul_materi_en',
+        'faq_list',
+        'faq_list_en',
     ];
 
-    // Merapikan indentasi casts agar terbaca dengan baik
+    // Merapikan casts untuk field berformat JSON / Array
     protected $casts = [
         'modul_materi' => 'array',
+        'modul_materi_en' => 'array',
         'faq_list' => 'array',
+        'faq_list_en' => 'array',
     ];
     
-    // Otomatis membuat slug saat title diisi atau diubah
-    protected static function boot()
+    /**
+     * Standard Booted Laravel untuk Slug
+     */
+    protected static function booted(): void
     {
-        parent::boot();
         static::creating(function ($syllabus) {
-            $syllabus->slug = Str::slug($syllabus->title);
+            if (empty($syllabus->slug) && !empty($syllabus->title)) {
+                $syllabus->slug = Str::slug($syllabus->title);
+            }
         });
+
         static::updating(function ($syllabus) {
-            $syllabus->slug = Str::slug($syllabus->title);
+            if ($syllabus->isDirty('title')) {
+                $syllabus->slug = Str::slug($syllabus->title);
+            }
         });
     }
 }

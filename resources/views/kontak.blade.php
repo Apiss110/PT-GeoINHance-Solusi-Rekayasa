@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id" class="scroll-smooth">
+<html lang="id" class="scroll-smooth overflow-x-hidden">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,7 +7,7 @@
     
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     @livewireStyles
@@ -41,22 +41,7 @@
         }
         [x-cloak] { display: none !important; }
 
-            @keyframes marquee {
-        0% { transform: translateX(0); }
-        100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
-        @keyframes marquee {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
-        }
-        .animate-marquee {
-            animation: marquee 30s linear infinite;
-        }
-
+        /* Marquee Animation (Sudah Dirapikan & Tidak Duplikat) */
         @keyframes marquee {
             0% { transform: translateX(0%); }
             100% { transform: translateX(-50%); }
@@ -70,34 +55,36 @@
         }
     </style>
 </head>
-<body class="bg-slate-50 font-sans antialiased text-slate-900 ">
+<body class="bg-slate-50 font-sans antialiased text-slate-900 overflow-x-hidden w-full relative">
 
 @include('partials.navbar')
         
-<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-16 lg:py-24 overflow-hidden">
+<section class="relative bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white py-12 md:py-20 overflow-hidden">
     <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:16px_16px]"></div>
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-4">
-            <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-3">{{ __('contact.hero_sub') }}</span>
-            <h1 class="text-4xl md:text-5xl font-black uppercase tracking-tight">{{ __('contact.hero_title') }}</h1>
-            <div class="w-16 h-1 bg-red-800 mx-auto mt-4 rounded-full"></div>
-        </div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center space-y-3 md:space-y-4">
+        <span class="text-red-500 font-bold uppercase text-xs tracking-[0.3em] block mb-2 sm:mb-3">{{ __('contact.hero_sub') }}</span>
+        <h1 class="text-2xl sm:text-4xl md:text-5xl font-black uppercase tracking-tight">{{ __('contact.hero_title') }}</h1>
+        <div class="w-16 h-1 bg-red-800 mx-auto mt-3 md:mt-4 rounded-full"></div>
+    </div>
 </section>
 
-<section class="bg-white py-20 px-4 overflow-x-auto">
-    <div class="max-w-6xl mx-auto min-w-[1000px]">
+<section class="bg-white py-12 md:py-20 px-4 sm:px-6 lg:px-8 w-full overflow-hidden">
+    <div class="max-w-6xl mx-auto w-full">
         
-        <div class="text-center max-w-3xl mx-auto mb-16">
-            <h2 class="text-3xl font-black uppercase tracking-tight mb-3">{{ __('contact.team_title') }}</h2>
-            <p class="text-slate-600 text-sm leading-relaxed max-w-2xl mx-auto">
+        <!-- Header Section -->
+        <div class="text-center max-w-3xl mx-auto mb-10 md:mb-16">
+            <h2 class="text-2xl md:text-3xl font-black uppercase tracking-tight mb-3 text-slate-900">{{ __('contact.team_title') }}</h2>
+            <p class="text-slate-600 text-xs sm:text-sm leading-relaxed max-w-2xl mx-auto px-2">
                 {{ __('contact.team_desc') }}
             </p>
         </div>
 
-        <div class="flex flex-col items-center">
+        <div class="flex flex-col items-center w-full">
             
-            <div class="relative pb-10">
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden w-[240px] flex flex-col hover:shadow-md transition duration-300">
-                    <div class="w-full h-44 bg-slate-100 overflow-hidden relative">
+            <!-- Technical Advisor -->
+            <div class="relative pb-8 md:pb-10 w-full flex flex-col items-center">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden w-full max-w-[260px] sm:w-[240px] flex flex-col hover:shadow-md transition duration-300">
+                    <div class="w-full h-48 sm:h-44 bg-slate-100 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400" alt="Dr.techn. Indra Noer Hamdhan" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
@@ -105,12 +92,13 @@
                         <h3 class="text-black font-extrabold text-xs leading-snug">Dr.techn. Indra Noer Hamdhan, S.T., M.T.</h3>
                     </div>
                 </div>
-                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-10 bg-[#002d62]/30"></div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-8 md:h-10 bg-[#002d62]/30"></div>
             </div>
 
-            <div class="relative pt-6 pb-12">
-                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden w-[240px] flex flex-col hover:shadow-md transition duration-300">
-                    <div class="w-full h-44 bg-slate-100 overflow-hidden relative">
+            <!-- Board of Director -->
+            <div class="relative pt-4 sm:pt-6 pb-10 md:pb-12 w-full flex flex-col items-center">
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm overflow-hidden w-full max-w-[260px] sm:w-[240px] flex flex-col hover:shadow-md transition duration-300">
+                    <div class="w-full h-48 sm:h-44 bg-slate-100 overflow-hidden relative">
                         <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=400" alt="Rinaldi Alamsyah" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="bg-slate-50 border-t border-slate-150 p-3.5 text-center">
@@ -118,10 +106,36 @@
                         <h3 class="text-black font-extrabold text-xs leading-snug">Rinaldi Alamsyah, S.T.</h3>
                     </div>
                 </div>
-                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-12 bg-[#002d62]/30"></div>
+                <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-[2px] h-10 md:h-12 bg-[#002d62]/30"></div>
             </div>
 
-            <div class="w-full relative flex flex-col items-center">
+            <!-- 🟢 TAMPILAN MOBILE: Grid Kartu Divisi (Muncul di layar HP < 768px) -->
+            <div class="w-full grid grid-cols-2 gap-3 sm:hidden pt-4">
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{{ __('contact.div_engineering') }}</h4>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{!! __('contact.div_survey') !!}</h4>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{!! __('contact.div_qhse') !!}</h4>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{{ __('contact.div_finance') }}</h4>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{{ __('contact.div_marketing') }}</h4>
+                </div>
+                <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{!! __('contact.div_admin') !!}</h4>
+                </div>
+                <div class="col-span-2 bg-white border border-slate-200 rounded-xl p-3 shadow-sm flex items-center justify-center text-center min-h-[65px] border-t-2 border-t-[#002d62]">
+                    <h4 class="text-slate-800 font-black text-[10px] uppercase tracking-wide leading-tight">{{ __('contact.div_procurement') }}</h4>
+                </div>
+            </div>
+
+            <!-- 🟢 TAMPILAN DESKTOP: Bagan Hirarki Garis (Muncul di layar tablet/laptop >= 768px) -->
+            <div class="w-full relative hidden sm:flex flex-col items-center">
                 
                 <div class="absolute top-0 left-[7.14%] right-[7.14%] h-[2px] bg-[#002d62]/30"></div>
                 
@@ -129,63 +143,63 @@
                     
                     <div class="w-[14.28%] flex flex-col items-center">
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_engineering') }}</h4>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_engineering') }}</h4>
                             </div>
                         </div>
                     </div>
 
                     <div class="w-[14.28%] flex flex-col items-center">
-                        <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_survey') !!}</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w-[14.28%] flex flex-col items-center">
-                        <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_qhse') !!}</h4>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="w-[14.28%] flex flex-col items-center">
-                        <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_finance') }}</h4>
+                        <div class="w-[2px] h-20 md:h-24 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_survey') !!}</h4>
                             </div>
                         </div>
                     </div>
 
                     <div class="w-[14.28%] flex flex-col items-center">
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_marketing') }}</h4>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_qhse') !!}</h4>
                             </div>
                         </div>
                     </div>
 
                     <div class="w-[14.28%] flex flex-col items-center">
-                        <div class="w-[2px] h-24 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_admin') !!}</h4>
+                        <div class="w-[2px] h-20 md:h-24 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_finance') }}</h4>
                             </div>
                         </div>
                     </div>
 
                     <div class="w-[14.28%] flex flex-col items-center">
                         <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
-                        <div class="px-2 w-full">
-                            <div class="bg-white border border-slate-200 rounded-xl p-3 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
-                                <h4 class="text-slate-800 font-black text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_procurement') }}</h4>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_marketing') }}</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-20 md:h-24 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{!! __('contact.div_admin') !!}</h4>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="w-[14.28%] flex flex-col items-center">
+                        <div class="w-[2px] h-6 bg-[#002d62]/30 shrink-0"></div>
+                        <div class="px-1.5 w-full">
+                            <div class="bg-white border border-slate-200 rounded-xl p-2.5 shadow-sm min-h-[75px] flex items-center justify-center hover:border-red-800 hover:shadow-md transition duration-300">
+                                <h4 class="text-slate-800 font-black text-[10px] lg:text-[11px] uppercase tracking-wide leading-tight">{{ __('contact.div_procurement') }}</h4>
                             </div>
                         </div>
                     </div>

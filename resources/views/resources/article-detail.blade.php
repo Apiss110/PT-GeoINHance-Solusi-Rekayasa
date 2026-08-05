@@ -7,7 +7,7 @@
     
     <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
         <h1 class="text-3xl sm:text-4xl lg:text-5xl font-bold leading-tight tracking-tight drop-shadow-md">
-            {{ auto_translate(strip_tags($blog->title)) }}
+            {{ (strip_tags($blog->title)) }}
         </h1>
     </div>
 </section>
@@ -21,7 +21,7 @@
 
         {{-- 🟢 PENINGKATAN: Ditambahkan class 'prose prose-slate max-w-none' agar format heading, paragraf, list, dan cetak tebal dari text editor tidak hilang --}}
         <div class="geo-article-container prose prose-slate max-w-none text-slate-700 leading-relaxed">
-            {!! auto_translate($blog->content) !!}
+            {!! ($blog->content) !!}
         </div>
 
         <div class="mt-20 pt-8 border-t border-gray-100 text-center space-y-6">

@@ -61,13 +61,26 @@
                                 </span>
                             </td>
                             <td class="px-6 py-4">{{ $item->modules_count }} Modul</td>
-                            <td class="px-6 py-4 text-center space-x-2">
-                                <a href="{{ route('admin.syllabus.edit', $item->id) }}" class="text-yellow-600 hover:text-yellow-700 font-medium text-xs">Edit</a>
-                                
-                                <button type="button" onclick="if(confirm('Apakah Anda yakin ingin menghapus silabus ini?')) { document.getElementById('delete-single-{{ $item->id }}').submit(); }" class="text-red-600 hover:text-red-700 font-medium text-xs">
-                                    Hapus
-                                </button>
-                            </td>
+                                    <td class="px-6 py-4 align-middle text-right whitespace-nowrap">
+                                        <div class="flex items-center justify-center space-x-3">
+                                            <a href="{{ route('admin.syllabus.edit', $item->id) }}" class="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition" title="Edit Silabus">
+                                                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                                </svg>
+                                            </a>
+
+                                            {{-- Hapus Satuan --}}
+                                            <form action="{{ route('admin.syllabus.destroy', $item->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus silabus ini?')" class="inline">
+                                                @csrf 
+                                                @method('DELETE')
+                                                <button type="submit" class="p-2 text-rose-600 hover:text-rose-800 hover:bg-rose-50 rounded-lg transition" title="Hapus Halaman">
+                                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                                                        <path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-16v1a3 3 0 003 3h10M9 3h6m2 4h-10" />
+                                                    </svg>
+                                                </button>
+                                            </form>
+                                        </div>
+                                    </td>
                         </tr>
                     @empty
                         <tr>

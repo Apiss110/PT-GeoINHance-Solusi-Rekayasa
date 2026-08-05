@@ -108,14 +108,14 @@
                 @endphp
 
                 <div class="product-item transition-all duration-300" 
-                     data-name="{{ strtolower(auto_translate($product->title ?? $product->name)) }}">
+                     data-name="{{ strtolower(($product->title ?? $product->name)) }}">
                     
                     <article class="bg-white rounded-3xl border border-slate-200 shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col justify-between min-h-[480px] h-full">
                         <div>
                             {{-- Thumbnail / Banner Area Produk --}}
                             <div class="relative overflow-hidden h-56 bg-slate-900 flex items-center justify-center">
                                 @if(isset($product->image_path) && $product->image_path)
-                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ auto_translate($product->title ?? $product->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                    <img src="{{ asset('storage/' . $product->image_path) }}" alt="{{ ($product->title ?? $product->name) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                 @else
                                     <div class="absolute inset-0 bg-gradient-to-br from-slate-900 to-red-950 opacity-90"></div>
                                     <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#3b82f6_1px,transparent_1px)] [background-size:10px_10px]"></div>
@@ -127,19 +127,19 @@
                             <div class="p-6 space-y-2">
                                 {{-- Meta Info Atas (Brand & Kategori Utama) untuk mengisi ruang yang sebelumnya kosong --}}
                                 <p class="text-slate-400 text-[11px] font-bold tracking-widest uppercase">
-                                    {{ strtoupper(auto_translate($brandName)) }} • {{ strtoupper(auto_translate($categoryName)) }}
+                                    {{ strtoupper(($brandName)) }} • {{ strtoupper(($categoryName)) }}
                                 </p>
 
                                 {{-- Judul Produk --}}
                                 <h3 class="text-lg font-black text-slate-900 leading-tight group-hover:text-red-700 transition line-clamp-2 pt-1 uppercase">
                                     <a href="{{ route('produk.detail', $product->id) }}">
-                                        {{ auto_translate($product->title ?? $product->name) }}
+                                        {{ ($product->title ?? $product->name) }}
                                     </a>
                                 </h3>
 
                                 {{-- Deskripsi Singkat (Limit karakter dinaikkan sedikit agar proporsi tinggi card seimbang) --}}
                                 <div class="text-slate-600 text-xs leading-relaxed line-clamp-3 pt-1">
-                                    {{ Str::limit(auto_translate($cleanedDesc), 130, '...') }}
+                                    {{ Str::limit(($cleanedDesc), 130, '...') }}
                                 </div>
                             </div>
                         </div>

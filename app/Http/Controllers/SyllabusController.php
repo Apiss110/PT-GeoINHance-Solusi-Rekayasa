@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Syllabus;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str; // 🟢 TAMBAHAN: Diperlukan untuk membuat slug
 
 class SyllabusController extends Controller
 {
@@ -15,11 +16,24 @@ class SyllabusController extends Controller
         return view('training.silabus-materi', compact('syllabi'));
     }
 
-    // 🟢 BARU: Fungsi untuk halaman publik (User) - Detail Materi Silabus
+    // Fungsi untuk halaman publik (User) - Detail Materi Silabus
     public function publicShow($id)
     {
         $syllabus = Syllabus::findOrFail($id);
         return view('training.detail-silabus', compact('syllabus'));
+    }
+
+    public function show($identifier)
+    {
+        // Cari data berdasarkan ID atau Slug
+        $data = Syllabus::where(function ($query) use ($identifier) {
+            if (is_numeric($identifier)) {
+                $query->where('id', $identifier);
+            }
+            $query->orWhere('slug', $identifier);
+        })->firstOrFail();
+
+        return view('pages.training.detail', compact('data'));
     }
 
     // ==========================================
@@ -39,7 +53,7 @@ class SyllabusController extends Controller
 
     public function store(Request $request)
     {
-        // 1. Validasi Data Inputan (Lengkap dengan field baru)
+        // 1. Validasi Data Inputan
         $validated = $request->validate([
             'title'             => 'required|string|max:255',
             'description'       => 'required|string',
@@ -61,7 +75,7 @@ class SyllabusController extends Controller
             
             // Instruktur
             'nama_instruktur'   => 'nullable|string|max:255',
-            'foto_instruktur'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048', // Maksimal 2MB
+            'foto_instruktur'   => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
             'proyek_instruktur' => 'nullable|string',
             
             // Paket Harga (Investasi)
@@ -73,13 +87,25 @@ class SyllabusController extends Controller
             'faq_list'          => 'nullable|array',
         ]);
 
-        // 2. Handle Upload Foto Instruktur
+        // 🟢 2. Generate Unique Slug dari Title (Solusi Error Unique Constraint)
+        $baseSlug = Str::slug($validated['title']);
+        $slug = $baseSlug;
+        $count = 1;
+
+        // Cek jika slug sudah ada di DB, tambahkan angka dibelakangnya (-1, -2, dst)
+        while (Syllabus::where('slug', $slug)->exists()) {
+            $slug = "{$baseSlug}-{$count}";
+            $count++;
+        }
+        $validated['slug'] = $slug;
+
+        // 3. Handle Upload Foto Instruktur
         if ($request->hasFile('foto_instruktur')) {
             $path = $request->file('foto_instruktur')->store('instruktur', 'public');
             $validated['foto_instruktur'] = $path;
         }
 
-        // 3. Simpan ke Database menggunakan data yang sudah tervalidasi
+        // 4. Simpan ke Database
         Syllabus::create($validated);
 
         return redirect()->route('admin.syllabus.index')->with('success', 'Silabus berhasil ditambahkan!');
@@ -87,7 +113,6 @@ class SyllabusController extends Controller
 
     public function edit($id)
     {
-        // Dirapikan dari duplikasi sebelumnya
         $syllabus = Syllabus::findOrFail($id);
         return view('pages.admin.syllabus.edit', compact('syllabus'));
     }
@@ -122,7 +147,20 @@ class SyllabusController extends Controller
             'faq_list'          => 'nullable|array',
         ]);
 
-        // Handle Update Foto Instruktur (Hapus foto lama jika diganti baru)
+        // 🟢 Jika Judul/Title Diubah, Update Juga Slug-nya Secara Unik
+        if ($syllabus->title !== $validated['title']) {
+            $baseSlug = Str::slug($validated['title']);
+            $slug = $baseSlug;
+            $count = 1;
+
+            while (Syllabus::where('slug', $slug)->where('id', '!=', $id)->exists()) {
+                $slug = "{$baseSlug}-{$count}";
+                $count++;
+            }
+            $validated['slug'] = $slug;
+        }
+
+        // Handle Update Foto Instruktur
         if ($request->hasFile('foto_instruktur')) {
             if ($syllabus->foto_instruktur) {
                 Storage::disk('public')->delete($syllabus->foto_instruktur);
@@ -131,7 +169,7 @@ class SyllabusController extends Controller
             $validated['foto_instruktur'] = $path;
         }
 
-        // Update ke database menggunakan array $validated
+        // Update ke database
         $syllabus->update($validated);
 
         return redirect()->route('admin.syllabus.index')->with('success', 'Silabus berhasil diperbarui!');
@@ -141,7 +179,6 @@ class SyllabusController extends Controller
     {
         $syllabus = Syllabus::findOrFail($id);
         
-        // Hapus file foto instruktur dari storage jika ada sebelum menghapus data row
         if ($syllabus->foto_instruktur) {
             Storage::disk('public')->delete($syllabus->foto_instruktur);
         }
@@ -153,17 +190,14 @@ class SyllabusController extends Controller
 
     public function bulkDelete(Request $request)
     {
-        // Menangkap kumpulan ID dari checkbox array form
         $ids = $request->input('ids', []);
 
         if (empty($ids)) {
             return redirect()->route('admin.syllabus.index')->with('error', 'Tidak ada silabus yang dipilih untuk dihapus.');
         }
 
-        // Eksekusi penghapusan massal data di database
         Syllabus::whereIn('id', $ids)->delete();
 
-        // Redirect kembali ke halaman utama silabus untuk memutus daur ulang method request
         return redirect()->route('admin.syllabus.index')->with('success', count($ids) . ' data silabus berhasil dihapus massal!');
     }
 }
