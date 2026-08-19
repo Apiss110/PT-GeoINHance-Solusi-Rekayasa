@@ -1050,6 +1050,15 @@
     "video.card5_desc": "Pemetaan visual degradasi warna gradien regangan komponen sambungan kritis baja akibat kombinasi tarikan angin kencang ekstrem.",
 
 
+    "video.production_year": "Tahun Produksi",
+    "video.unsupported_format": "Format tautan video tidak didukung pemutar internal.",
+    "video.open_source_link": "Buka Tautan Sumber",
+    "video.no_description": "Tidak ada deskripsi tambahan untuk dokumentasi teknis ini.",
+    "video.other_latest_videos": "Video Publikasi Terbaru Lainnya",
+    "video.year": "Tahun",
+    "video.contact_us": "Hubungi Kami",
+
+
     "library.breadcrumb_resources": "Resources",
     "library.breadcrumb_library": "Dokumen Perpustakaan",
     "library.hero_title": "Dokumen Perpustakaan",
@@ -1127,6 +1136,18 @@
     "casestudy.card5_search": "retrofitting struktur gedung rumah sakit surabaya menggunakan fluid viscous damper",
     "casestudy.card5_title": "Studi Kasus: Peningkatan Kinerja Seismik Rumah Sakit Eksisting via Fluid Viscous Damper (FVD)",
     "casestudy.card5_desc": "Penerapan teknologi peredam gempa eksternal untuk mereduksi simpangan antar-lantai (drift ratio) tanpa perlu melakukan perkuatan selubung beton masif.",
+
+
+    "case_study.default_sector": "Studi Kasus",
+    "case_study.year": "Tahun",
+    "case_study.attached_document": "Lampiran Dokumen Terkait",
+    "case_study.pdf_preview_unavailable": "Pratinjau langsung tidak tersedia di browser Anda.",
+    "case_study.open_pdf_directly": "Buka Dokumen PDF Secara Langsung",
+    "case_study.document_not_available": "Dokumen Belum Tersedia",
+    "case_study.document_not_found_desc": "Lampiran berkas PDF untuk studi kasus ini belum diunggah atau tidak ditemukan di sistem database.",
+    "case_study.no_description": "Tidak ada ringkasan deskripsi untuk studi kasus teknik ini.",
+    "case_study.discuss_project": "Diskusikan Proyek Serupa Bersama Kami",
+
 
     "blog.hero_badge": "Resources",
     "blog.hero_title": "Artikel & Insight Industri",
@@ -1248,6 +1269,9 @@
     "syllabus.card6_title": "Slope Stability Analysis",
     "syllabus.card6_desc": "Analisis kestabilan lereng, factor of safety, circular slip, dan reinforcement engineering.",
 
+
+    "Minimum RAM": "Minimal RAM",
+    "Minimum RAM 8GB": "Minimal RAM 8GB",
 
     "facility.hero_badge": "Training Facilities",
     "facility.hero_title_1": "Fasilitas",

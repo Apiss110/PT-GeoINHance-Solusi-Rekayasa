@@ -52,7 +52,7 @@
     </div>
 
     {{-- 3. Data Table Card & Bulk Delete Form --}}
-    <form id="bulk-delete-form" action="{{ route('admin.branches.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus massal semua titik cabang yang dipilih?')">
+    <form id="bulk-delete-form" action="{{ route('admin.branches.bulk-destroy') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus massal semua titik cabang yang dipilih?')">
         @csrf
         @method('DELETE')
     </form>
@@ -95,9 +95,9 @@
                             }
                         @endphp
                         <tr class="hover:bg-gray-50/60 transition">
-                            {{-- Checkbox Multi-select dihubungkan ke bulk-delete-form menggunakan atribut form --}}
+                            {{-- Checkbox Multi-select --}}
                             <td class="px-4 py-4 text-center align-middle">
-                                <input type="checkbox" name="ids[]" value="{{ $b->id }}" form="bulk-delete-form" class="item-checkbox rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
+                                <input type="checkbox" name="selected_branches[]" value="{{ $b->id }}" form="bulk-delete-form" class="item-checkbox rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] cursor-pointer w-4 h-4">
                             </td>
                             
                             {{-- Nomor Paginasi --}}
@@ -157,7 +157,7 @@
                             {{-- Tombol Aksi --}}
                             <td class="px-6 py-4 align-middle text-right whitespace-nowrap">
                                 <div class="inline-flex items-center space-x-1.5">
-                                    {{-- Edit --}}
+                                    {{-- Edit (Diperbaiki: $b->id) --}}
                                     <a href="{{ route('admin.branches.edit', $b->id) }}" class="p-2 text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg transition" title="Edit Titik Peta">
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -198,7 +198,7 @@
         </form>
     @endforeach
 
-    {{-- Paginasi Tabel jika ada --}}
+    {{-- Paginasi Tabel --}}
     @if(method_exists($branches, 'links'))
         <div class="mt-6">
             {{ $branches->links() }}
@@ -206,7 +206,7 @@
     @endif
 </div>
 
-    {{-- Script JavaScript untuk Checkbox All & Counter Bulk Delete --}}
+    {{-- Script JavaScript --}}
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             const checkboxAll = document.getElementById('checkbox-all');

@@ -90,15 +90,42 @@
                 </div>
             </div>
 
-            <div>
-                <label class="block text-sm font-medium text-gray-700 mb-1">Ganti Foto / Lampiran Lapangan</label>
-                @if($projectProgress->image)
-                    <div class="mb-3 flex items-center gap-3 bg-gray-50 p-2 rounded-lg border border-gray-200 max-w-xs">
-                        <img src="{{ asset('storage/' . $projectProgress->image) }}" alt="Foto Progres" class="w-20 h-16 object-cover rounded-lg border">
-                        <span class="text-xs text-gray-500 font-medium">Lampiran saat ini</span>
-                    </div>
-                @endif
-                <input type="file" name="image" accept="image/*" class="w-full border border-gray-300 rounded-lg p-2 text-sm bg-gray-50">
+            <div class="space-y-4">
+                {{-- 1. Upload Foto Utama (Cover) --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Foto Utama / Cover Proyek</label>
+                    @if($projectProgress->image)
+                        <div class="mb-3 flex items-center gap-3 bg-gray-50 p-2 rounded-lg border border-gray-200 max-w-xs">
+                            <img src="{{ asset('storage/' . $projectProgress->image) }}" alt="Foto Utama" class="w-20 h-16 object-cover rounded-lg border">
+                            <span class="text-xs text-gray-500 font-medium">Foto utama saat ini</span>
+                        </div>
+                    @endif
+                    <input type="file" name="image" accept="image/*" class="w-full border border-gray-300 rounded-lg p-2 text-sm bg-gray-50">
+                </div>
+
+                {{-- 2. Upload Lampiran & Dokumentasi Tambahan (Bisa Banyak) --}}
+                <div>
+                    <label class="block text-sm font-medium text-gray-700 mb-1">Foto Lampiran / Dokumentasi Lapangan (Bisa Banyak)</label>
+                    
+                    {{-- Tampilkan Foto Lampiran Saat Ini --}}
+                    @if(!empty($projectProgress->attachments) && is_array($projectProgress->attachments) && count($projectProgress->attachments) > 0)
+                        <div class="mb-3">
+                            <span class="text-xs text-gray-500 font-medium block mb-1.5">Lampiran saat ini:</span>
+                            <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+                                @foreach($projectProgress->attachments as $index => $file)
+                                    <div class="relative rounded-lg overflow-hidden border border-gray-200 bg-gray-50 group">
+                                        <img src="{{ asset('storage/' . $file) }}" alt="Lampiran {{ $index + 1 }}" class="w-full h-20 object-cover">
+                                        <span class="absolute bottom-1 right-1 bg-black/60 text-white text-[10px] px-1.5 py-0.5 rounded font-medium">Foto {{ $index + 1 }}</span>
+                                    </div>
+                                @endforeach
+                            </div>
+                        </div>
+                    @endif
+
+                    {{-- Input File Multiple --}}
+                    <input type="file" name="attachments[]" accept="image/*" multiple class="w-full border border-gray-300 rounded-lg p-2 text-sm bg-gray-50">
+                    <p class="text-[11px] text-gray-500 mt-1">*Pilih satu atau beberapa foto sekaligus untuk menambah lampiran baru.</p>
+                </div>
             </div>
         </div>
 

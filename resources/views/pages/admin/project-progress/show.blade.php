@@ -26,6 +26,13 @@
         </div>
     @endif
 
+    @if(session('error'))
+        <div class="mb-6 p-4 bg-rose-50 border border-rose-200 text-rose-800 rounded-xl text-sm flex items-center gap-2">
+            <svg class="w-5 h-5 text-rose-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+            {{ session('error') }}
+        </div>
+    @endif
+
     {{-- Kartu Ringkasan Informasi Utama --}}
     <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-6 mb-6">
         <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -40,15 +47,15 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
                         <span class="text-xs text-gray-500 block">Klien / Pemilik Proyek</span>
-                        <span class="text-sm font-semibold text-gray-800">{{ $projectProgress->client->name ?? $projectProgress->client_name ?? '-' }}</span>
+                        <span class="text-sm font-semibold text-gray-800">{{ $projectProgress->user->name ?? $projectProgress->client->name ?? '-' }}</span>
                     </div>
 
                     <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
                         <span class="text-xs text-gray-500 block">Status Progres</span>
                         <div class="mt-1">
-                            @if($projectProgress->status == 'Selesai (Completed)' || $projectProgress->status == 'Selesai')
+                            @if($projectProgress->status == 'completed' || $projectProgress->status == 'Selesai')
                                 <span class="bg-emerald-100 text-emerald-700 text-xs font-bold px-2.5 py-1 rounded-full">Selesai</span>
-                            @elseif($projectProgress->status == 'Dalam Proses (In Progress)' || $projectProgress->status == 'Dalam Proses')
+                            @elseif($projectProgress->status == 'in_progress' || $projectProgress->status == 'Dalam Proses')
                                 <span class="bg-blue-100 text-blue-700 text-xs font-bold px-2.5 py-1 rounded-full">Dalam Proses</span>
                             @else
                                 <span class="bg-amber-100 text-amber-700 text-xs font-bold px-2.5 py-1 rounded-full">Pending</span>
@@ -77,7 +84,7 @@
                 @endif
             </div>
 
-            {{-- Kolom Kanan: Persentase Progress & Lampiran --}}
+            {{-- Kolom Kanan: Persentase Progress & Lampiran Foto --}}
             <div class="flex flex-col justify-between border-t lg:border-t-0 lg:border-l border-gray-100 pt-6 lg:pt-0 lg:pl-6 space-y-4">
                 
                 {{-- Progress Bar Card --}}
@@ -92,18 +99,107 @@
                     <p class="text-[11px] text-blue-600 mt-2 text-right">Otomatis dihitung dari poin tercentang</p>
                 </div>
 
-                {{-- Lampiran Foto jika ada --}}
-                @if($projectProgress->attachment || $projectProgress->image)
-                    <div class="bg-slate-50 p-3 rounded-xl border border-slate-100">
-                        <span class="text-xs font-semibold text-gray-500 block mb-2">Lampiran Lapangan:</span>
-                        <a href="{{ asset('storage/' . ($projectProgress->attachment ?? $projectProgress->image)) }}" target="_blank" class="block group relative rounded-lg overflow-hidden border border-gray-200">
-                            <img src="{{ asset('storage/' . ($projectProgress->attachment ?? $projectProgress->image)) }}" alt="Lampiran Proyek" class="w-full h-28 object-cover group-hover:scale-105 transition">
-                            <div class="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition flex items-center justify-center text-white text-xs font-medium">
-                                Klik untuk melihat full
-                            </div>
-                        </a>
-                    </div>
-                @endif
+                {{-- Container Lampiran & Dokumentasi Foto --}}
+                <div class="bg-slate-50 p-3.5 rounded-xl border border-slate-100 space-y-3">
+                    <span class="text-xs font-semibold text-gray-700 block">
+                        Lampiran & Dokumentasi Lapangan:
+                    </span>
+
+                    @php
+                        $hasImage = !empty($projectProgress->image);
+                        $hasAttachments = !empty($projectProgress->attachments) && is_array($projectProgress->attachments) && count($projectProgress->attachments) > 0;
+                    @endphp
+
+                    {{-- Grid Tampilan Foto-foto Saat Ini --}}
+                    @if($hasImage || $hasAttachments)
+                        <div class="grid grid-cols-2 gap-2 max-h-52 overflow-y-auto pr-1">
+                            
+                            {{-- Foto Utama (Cover) --}}
+                            @if($hasImage)
+                                <div class="group relative rounded-lg overflow-hidden border border-slate-200 bg-white shadow-sm h-20">
+                                    <a href="{{ asset('storage/' . $projectProgress->image) }}" target="_blank" class="block w-full h-full">
+                                        <img src="{{ asset('storage/' . $projectProgress->image) }}" alt="Foto Utama" class="w-full h-full object-cover group-hover:scale-105 transition duration-200">
+                                    </a>
+                                    
+                                    {{-- Badge Status Foto --}}
+                                    <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">
+                                        Utama
+                                    </span>
+
+                                    {{-- Tombol Hapus Foto Utama --}}
+                                    <form action="{{ route('admin.project-progress.delete-image', $projectProgress->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto utama ini?')" class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition z-10">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white p-1 rounded-md shadow-md transition" title="Hapus Foto Utama">
+                                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                        </button>
+                                    </form>
+                                </div>
+                            @endif
+
+                            {{-- Foto Lampiran Tambahan --}}
+                            @if($hasAttachments)
+                                @foreach($projectProgress->attachments as $index => $file)
+                                    <div class="group relative rounded-lg overflow-hidden border border-slate-200 bg-white shadow-sm h-20">
+                                        <a href="{{ asset('storage/' . $file) }}" target="_blank" class="block w-full h-full">
+                                            <img src="{{ asset('storage/' . $file) }}" alt="Lampiran {{ $index + 1 }}" class="w-full h-full object-cover group-hover:scale-105 transition duration-200">
+                                        </a>
+
+                                        {{-- Badge Label --}}
+                                        <span class="absolute bottom-1 left-1 bg-black/60 text-white text-[9px] px-1.5 py-0.5 rounded font-bold">
+                                            Foto {{ $index + 1 }}
+                                        </span>
+
+                                        {{-- Tombol Hapus Lampiran --}}
+                                        <form action="{{ route('admin.project-progress.delete-attachment', [$projectProgress->id, $index]) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus foto lampiran ini?')" class="absolute top-1 right-1 opacity-0 group-hover:opacity-100 transition z-10">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="bg-red-600 hover:bg-red-700 text-white p-1 rounded-md shadow-md transition" title="Hapus Foto Ini">
+                                                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                @endforeach
+                            @endif
+
+                        </div>
+                    @else
+                        <p class="text-xs text-slate-400 italic">Belum ada lampiran atau foto dokumentasi.</p>
+                    @endif
+
+                    {{-- Form Upload Foto Baru --}}
+                    <form action="{{ route('admin.project-progress.update', $projectProgress->id) }}" method="POST" enctype="multipart/form-data" class="pt-2 border-t border-slate-200">
+                        @csrf
+                        @method('PUT')
+
+                        {{-- Hidden Inputs --}}
+                        <input type="hidden" name="user_id" value="{{ $projectProgress->user_id }}">
+                        <input type="hidden" name="title" value="{{ $projectProgress->title }}">
+                        <input type="hidden" name="percentage" value="{{ $projectProgress->percentage }}">
+                        <input type="hidden" name="status" value="{{ $projectProgress->status }}">
+                        <input type="hidden" name="description" value="{{ $projectProgress->description }}">
+                        <input type="hidden" name="start_date" value="{{ $projectProgress->start_date ? \Carbon\Carbon::parse($projectProgress->start_date)->format('Y-m-d') : '' }}">
+                        <input type="hidden" name="target_date" value="{{ $projectProgress->target_date ? \Carbon\Carbon::parse($projectProgress->target_date)->format('Y-m-d') : '' }}">
+
+                        <label for="attachments" class="block text-[11px] font-semibold text-slate-600 mb-1">Tambah Foto Lainnya:</label>
+                        <input type="file" 
+                            id="attachments" 
+                            name="attachments[]" 
+                            accept="image/*" 
+                            multiple 
+                            class="block w-full text-[11px] text-slate-500
+                                    file:mr-2 file:py-1.5 file:px-3
+                                    file:rounded-md file:border-0
+                                    file:text-[11px] file:font-semibold
+                                    file:bg-blue-50 file:text-blue-700
+                                    hover:file:bg-blue-100 transition cursor-pointer border border-slate-200 rounded-lg bg-white">
+                        
+                        <button type="submit" class="mt-2 w-full bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold py-2 px-3 rounded-lg transition shadow-sm flex items-center justify-center gap-1.5">
+                            <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+                            Unggah Foto Baru
+                        </button>
+                    </form>
+                </div>
 
             </div>
         </div>
@@ -129,10 +225,14 @@
                 @php
                     $totalItems = 0;
                     $completedItems = 0;
-                    foreach($projectProgress->stages as $stg) {
-                        foreach($stg->items as $itm) {
-                            $totalItems++;
-                            if($itm->is_completed) $completedItems++;
+                    if($projectProgress->stages) {
+                        foreach($projectProgress->stages as $stg) {
+                            if($stg->items) {
+                                foreach($stg->items as $itm) {
+                                    $totalItems++;
+                                    if($itm->is_completed) $completedItems++;
+                                }
+                            }
                         }
                     }
                 @endphp

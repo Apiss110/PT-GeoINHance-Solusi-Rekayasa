@@ -18,6 +18,7 @@ class ProjectProgress extends Model
         'percentage',
         'status',
         'image',
+        'attachments', // 👈 Ditambahkan untuk menampung array foto (JSON)
         'start_date',
         'target_date',
     ];
@@ -26,9 +27,10 @@ class ProjectProgress extends Model
      * Casting tipe data otomatis
      */
     protected $casts = [
-        'percentage' => 'integer',
-        'start_date' => 'date',
+        'percentage'  => 'integer',
+        'start_date'  => 'date',
         'target_date' => 'date',
+        'attachments' => 'array', // 👈 Mengonversi JSON database ke Array PHP secara otomatis
     ];
 
     /**

@@ -85,26 +85,7 @@
                     {{ __('profile.who_we_are_p2') }}
                 </p>
 
-                <div class="grid grid-cols-3 gap-4 border-t border-slate-200 pt-6">
-                    <div class="group cursor-pointer">
-                        <span class="block text-2xl font-black text-[#002d62] group-hover:text-red-800 group-hover:scale-110 transition duration-300 transform origin-left">12+</span>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                            {{ __('profile.stat_exp') }}
-                        </span>
-                    </div>
-                    <div class="group cursor-pointer">
-                        <span class="block text-2xl font-black text-[#002d62] group-hover:text-red-800 group-hover:scale-110 transition duration-300 transform origin-left">250+</span>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                            {{ __('profile.stat_projects') }}
-                        </span>
-                    </div>
-                    <div class="group cursor-pointer">
-                        <span class="block text-2xl font-black text-[#002d62] group-hover:text-red-800 group-hover:scale-110 transition duration-300 transform origin-left">40+</span>
-                        <span class="text-[10px] uppercase font-bold tracking-wider text-slate-400">
-                            {{ __('profile.stat_engineers') }}
-                        </span>
-                    </div>
-                </div>
+                <div class="grid grid-cols-3 gap-4 border-t border-slate-200 pt-6"></div>
             </div>
             
             <div class="relative group" data-aos="fade-left">

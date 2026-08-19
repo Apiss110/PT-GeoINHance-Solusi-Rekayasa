@@ -113,12 +113,12 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                        class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
+                        class="absolute left-0 top-full pt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                         x-cloak>
                         
                         @foreach($globalSectors as $gs)
                             <a href="{{ route('front.sector.show', $gs->slug) }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">
-                                {{ auto_translate($gs->name) }}
+                                {{ ($gs->name) }}
                             </a>
                         @endforeach
 
@@ -144,12 +144,12 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                        class="absolute left-0 mt-4 w-64 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
+                        class="absolute left-0 top-full pt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                         x-cloak>
                         
                         @foreach($allProductsNavbar as $item)
                         <a href="{{ route('produk.detail', $item->id) }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition truncate">
-                            {{ auto_translate($item->title ?? $item->name) }}
+                            {{ ($item->title ?? $item->name) }}
                         </a>
                         @endforeach
 
@@ -175,12 +175,12 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                        class="absolute left-0 mt-4 w-64 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal max-h-96 overflow-y-auto" 
+                        class="absolute left-0 top-full pt-2 w-64 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal max-h-96 overflow-y-auto" 
                         x-cloak>
                         
                         @forelse($dynamicProjectPages as $page)
                             <a href="{{ route('proyek.category', $page->slug) }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition whitespace-normal leading-tight">
-                                {{ auto_translate($page->name) }}
+                                {{ ($page->name) }}
                             </a>
                         @empty
                             <span class="block px-4 py-2 text-xs text-gray-400 italic">Belum ada halaman proyek</span>
@@ -191,20 +191,6 @@
                         </a>
                     </div>
                 </div>
-
-                {{-- 1️⃣ UPDATE: PROGRES SAYA (NAVBAR UTAMA DESKTOP) --}}
-                @auth
-                    @if(auth()->user()->role === 'client')
-                        <a href="{{ route('client.progress.index') }}" 
-                           class="nav-link transition flex items-center space-x-1 text-blue-700 hover:text-red-800 font-extrabold
-                           {{ request()->routeIs('client.progress.index') ? 'text-red-800 active' : '' }}">
-                            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
-                            </svg>
-                            <span>PROGRES SAYA</span>
-                        </a>
-                    @endif
-                @endauth
 
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link flex items-center space-x-1
@@ -222,7 +208,7 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                        class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
+                        class="absolute left-0 top-full pt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                         x-cloak>
                         <a href="{{ route('blog.index') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.articles') }}</a>
                         <a href="{{ route('resources.news-events') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.resources.news') }}</a>
@@ -248,7 +234,7 @@
                         x-transition:leave="transition ease-in duration-150"
                         x-transition:leave-start="opacity-100 scale-100 translate-y-0"
                         x-transition:leave-end="opacity-0 scale-95 translate-y-2"
-                        class="absolute left-0 mt-4 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
+                        class="absolute left-0 top-full pt-2 w-56 bg-white rounded-xl shadow-xl border border-slate-100 py-2.5 z-50 normal-case font-medium text-slate-600 tracking-normal" 
                         x-cloak>
                         <a href="{{ route('training.silabus') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.syllabus') }}</a>
                         <a href="{{ route('training.fasilitas') }}" class="block px-4 py-2 hover:bg-slate-50 hover:text-red-800 font-semibold transition">{{ __('nav.training.facilities') }}</a>
@@ -296,7 +282,6 @@
                             @if(auth()->check() && auth()->user()->role === 'client')
                                 <a href="{{ route('client.progress.index') }}" 
                                    class="block px-4 py-2 text-xs text-blue-700 font-bold hover:bg-blue-50 transition flex items-center space-x-2">
-                                    <span class="material-symbols-outlined text-blue-600 text-base">analytics</span>
                                     <span>Progres Saya</span>
                                 </a>
                             @endif

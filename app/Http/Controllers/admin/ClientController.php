@@ -56,7 +56,7 @@ class ClientController extends Controller
         $request->validate([
             'name'     => 'required|string|max:255',
             'email'    => 'required|string|email|max:255|unique:users,email,'.$client->id,
-            'password' => 'nullable|string|min:6',
+            'password' => 'nullable|string|min:1',
         ]);
 
         $data = [

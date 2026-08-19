@@ -3,7 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ auto_translate($caseStudy->title) }} | GeoINHance</title>
+    
+    @php
+        $isEn = app()->getLocale() === 'en';
+
+        // Resolusi bahasa dinamis untuk Case Study
+        $caseTitle = $isEn && !empty($caseStudy->title_en) 
+            ? $caseStudy->title_en 
+            : (function_exists('auto_translate') ? auto_translate($caseStudy->title) : $caseStudy->title);
+
+        $caseSector = $isEn && !empty($caseStudy->sector_en) 
+            ? $caseStudy->sector_en 
+            : ($caseStudy->sector ? (function_exists('auto_translate') ? auto_translate($caseStudy->sector) : $caseStudy->sector) : __('case_study.default_sector'));
+
+        $caseDesc = $isEn && !empty($caseStudy->description_en) 
+            ? $caseStudy->description_en 
+            : $caseStudy->description;
+    @endphp
+
+    <title>{{ $caseTitle }} | GeoINHance</title>
     
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 
@@ -62,10 +80,10 @@
         
         <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <span class="inline-block bg-red-600 text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1 rounded mb-4">
-                {{ $caseStudy->sector ? auto_translate($caseStudy->sector) : 'Studi Kasus' }}
+                {{ $caseSector }}
             </span>
             <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black leading-tight tracking-tight drop-shadow-md uppercase">
-                {{ ($caseStudy->title) }}
+                {{ $caseTitle }}
             </h1>
         </div>
     </section>
@@ -73,23 +91,23 @@
     <main class="py-16 bg-white">
         <div class="max-w-4xl mx-auto px-6 sm:px-8">
             
-            <div class="text-gray-500 font-medium text-sm mb-10 flex items-center justify-between pb-4">
+            <div class="text-gray-500 font-medium text-sm mb-10 flex items-center justify-between pb-4 border-b border-gray-100">
                 <div class="flex items-center gap-2">
                     📅 {{ $caseStudy->published_at ? \Carbon\Carbon::parse($caseStudy->published_at)->format('j M, Y') : $caseStudy->created_at->format('j M, Y') }}
                 </div>
                 <div>
-                    Tahun : <span class="font-bold text-slate-800">{{ $caseStudy->publication_year ?? '-' }}</span>
+                    {{ __('case_study.year') }} : <span class="font-bold text-slate-800">{{ $caseStudy->publication_year ?? '-' }}</span>
                 </div>
             </div>
 
-            {{-- ==================== PDF COMPONENT WINDOW (FIXED DATABASE COLUMN) ==================== --}}
-            <div class="mt-12 space-y-4 pt-8">
+            {{-- ==================== PDF COMPONENT WINDOW ==================== --}}
+            <div class="mt-8 space-y-4">
                 <div class="flex items-center justify-between">
                     <h3 class="text-base font-bold text-slate-900 flex items-center gap-2">
                         <svg class="w-5 h-5 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path>
                         </svg>
-                        Lampiran Dokumen Terkait
+                        {{ __('case_study.attached_document') }}
                     </h3>
                     <span class="text-[10px] font-mono bg-slate-100 text-slate-600 px-2 py-0.5 rounded border border-slate-200 uppercase">
                         PDF - {{ $caseStudy->file_size ?? 'N/A' }}
@@ -97,7 +115,6 @@
                 </div>
                 
                 <div class="w-full h-[650px] border border-gray-300 rounded-xl overflow-hidden shadow-md bg-[#1e1e1e]">
-                    {{-- Mengecek kolom file_path sesuai dengan hasil dump database --}}
                     @if(isset($caseStudy->file_path) && $caseStudy->file_path)
                         <object 
                             data="{{ asset('storage/' . $caseStudy->file_path) }}#toolbar=1" 
@@ -106,48 +123,38 @@
                             
                             <iframe src="{{ asset('storage/' . $caseStudy->file_path) }}#toolbar=1" class="w-full h-full border-none bg-[#1e1e1e]">
                                 <div class="flex flex-col items-center justify-center h-full p-6 text-center text-white">
-                                    <p class="text-sm mb-4 font-medium">Pratinjau langsung tidak tersedia di browser Anda.</p>
+                                    <p class="text-sm mb-4 font-medium">{{ __('case_study.pdf_preview_unavailable') }}</p>
                                     <a href="{{ asset('storage/' . $caseStudy->file_path) }}" target="_blank" class="inline-flex items-center gap-2 bg-red-600 text-white text-xs font-bold uppercase py-2.5 px-5 rounded-lg shadow-sm">
-                                        Buka Dokumen PDF Secara Langsung
+                                        {{ __('case_study.open_pdf_directly') }}
                                     </a>
                                 </div>
-                            </iframe >
+                            </iframe>
                         </object>
                     @else
                         <div class="flex flex-col items-center justify-center h-full p-6 text-center bg-slate-50">
                             <svg class="w-14 h-14 text-slate-300 mb-3" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
-                            <h4 class="text-sm font-bold text-slate-700 mb-1">Dokumen Belum Tersedia</h4>
-                            <p class="text-xs text-slate-400 max-w-xs leading-relaxed">Lampiran berkas PDF untuk studi kasus ini belum diunggah atau tidak ditemukan di sistem database.</p>
+                            <h4 class="text-sm font-bold text-slate-700 mb-1">{{ __('case_study.document_not_available') }}</h4>
+                            <p class="text-xs text-slate-400 max-w-xs leading-relaxed">{{ __('case_study.document_not_found_desc') }}</p>
                         </div>
                     @endif
                 </div>
             </div>
             {{-- ====================================================================================== --}}
 
-            {{-- 🟢 PERBAIKAN UTAMA: Mengubah dari $caseStudy->content menjadi $caseStudy->description --}}
-            <div class="geo-article-container font-light whitespace-pre-line">
-                @if(!empty($caseStudy->description))
-                    {!! ($caseStudy->description) !!}
+            <div class="geo-article-container font-light whitespace-pre-line mt-10">
+                @if(!empty($caseDesc))
+                    {!! $caseDesc !!}
                 @else
-                    <p class="text-gray-400 italic">{{ __('Tidak ada ringkasan deskripsi untuk studi kasus teknik ini.') }}</p>
+                    <p class="text-gray-400 italic">{{ __('case_study.no_description') }}</p>
                 @endif
             </div>
 
-            <div class="mt-20 pt-8 border-t border-gray-100 text-center space-y-6">
+            <div class="mt-16 pt-8 border-t border-gray-100 text-center space-y-6">
                 <a href="{{ route('kontak') }}" class="inline-block bg-red-600 hover:bg-red-700 text-white font-bold uppercase tracking-widest py-3.5 px-8 rounded-xl text-xs transition shadow-sm">
-                    Diskusikan Proyek Serupa Bersama Kami
+                    {{ __('case_study.discuss_project') }}
                 </a>
-                
-                <div class="pt-4">
-                    <a href="{{ route('resources.studi-kasus') }}" class="inline-flex items-center text-xs font-bold text-gray-500 hover:text-red-600 transition uppercase tracking-widest">
-                        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                        Kembali ke Kumpulan Studi Kasus
-                    </a>
-                </div>
             </div>
 
         </div>

@@ -38,6 +38,7 @@ use App\Http\Controllers\Admin\SliderDropdownController;
 use App\Http\Controllers\Admin\ProjectProgressController;
 use App\Http\Controllers\ClientProgressController;
 use App\Http\Controllers\Admin\ClientController; // 👈 Pastikan baris ini ada
+use App\Http\Controllers\Admin\BranchController;
 
 
 
@@ -266,14 +267,14 @@ Route::get('logout', function () {
 |--------------------------------------------------------------------------
 | Admin Routes (Manajemen Konten Back-End)
 |--------------------------------------------------------------------------
-| Seluruh route di bawah wajib diproteksi oleh middleware 'auth' DAN 'is_admin'
-| agar akun bernilai 'client' TIDAK BISA mengaksesnya sama sekali.
+| Seluruh route di bawah diproteksi oleh middleware 'auth' DAN 'is_admin'
+| agar akun bernilai 'client' tidak bisa mengaksesnya.
 */
 Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
 
     // --- Dashboard ---
     Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
-    
+
     // --- Bulk Delete Routes ---
     Route::delete('/project/bulk-delete', [ProjectController::class, 'bulkDestroy'])->name('project.destroy.bulk');
     Route::delete('/slider/bulk-delete', [SliderController::class, 'bulkDestroy'])->name('slider.destroy.bulk');
@@ -288,14 +289,14 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::delete('/syllabus/bulk-delete', [SyllabusController::class, 'bulkDelete'])->name('syllabus.destroy.bulk');
     Route::delete('/training/bulk-delete', [TrainingAdminController::class, 'bulkDelete'])->name('training.destroy.bulk');
     Route::delete('/messages/bulk-delete', [MessageController::class, 'bulkDelete'])->name('messages.destroy.bulk');
-    
+
     // --- Slider Management ---
     Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');
-    Route::get('/slider/create', [SliderController::class, 'create'])->name('slider.create');     
-    Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');    
+    Route::get('/slider/create', [SliderController::class, 'create'])->name('slider.create');
+    Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');
     Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
-    Route::put('/slider/{id}', [SliderController::class, 'update'])->name('slider.update'); 
-    Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('slider.destroy'); 
+    Route::put('/slider/{id}', [SliderController::class, 'update'])->name('slider.update');
+    Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('slider.destroy');
 
     // --- Products ---
     Route::resource('products', AdminProductController::class);
@@ -304,10 +305,10 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     Route::get('/project', [ProjectController::class, 'index'])->name('project.index');
     Route::post('/project', [ProjectController::class, 'store'])->name('project.store');
     Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
-    Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update'); 
+    Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update');
     Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
 
-    // Route alias Project Card
+    // Route Alias Project Card
     Route::get('/project-card/{id}/edit', [ProjectController::class, 'edit'])->name('project-card.edit');
     Route::put('/project-card/{id}', [ProjectController::class, 'update'])->name('project-card.update');
     Route::delete('/project-card/{id}', [ProjectController::class, 'destroy'])->name('project-card.destroy');
@@ -322,19 +323,27 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
 
     // --- Project Progress ---
     Route::resource('project-progress', ProjectProgressController::class);
-    Route::patch('project-progress/{id}/checklist', [ProjectProgressController::class, 'updateChecklist'])
+    Route::patch('/project-progress/{id}/checklist', [ProjectProgressController::class, 'updateChecklist'])
         ->name('project-progress.update-checklist');
+    Route::delete('/project-progress/{id}/delete-image', [ProjectProgressController::class, 'deleteImage'])
+        ->name('project-progress.delete-image');
+    Route::delete('/project-progress/{id}/delete-attachment/{index}', [ProjectProgressController::class, 'deleteAttachment'])
+        ->name('project-progress.delete-attachment');
 
     // --- Blog & Articles ---
     Route::post('/blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.upload.image');
     Route::resource('blog', BlogController::class);
     Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
-    Route::resource('articles', ArticleController::class); 
-    
+    Route::resource('articles', ArticleController::class);
+
     // --- Video ---
     Route::resource('video', AdminVideoController::class);
 
-    // --- Jalur Rute Peta Proyek Admin ---
+    // 1. Route Bulk Delete (Wajib ditaruh sebelum route yang memakai parameter {id})
+    Route::delete('/branches/bulk-delete', [ProyekController::class, 'bulkDestroy'])
+        ->name('branches.bulk-destroy');
+
+    // 2. Route Manual untuk Branches (ProyekController)
     Route::get('/branches', [ProyekController::class, 'branchesAdmin'])->name('branches.index');
     Route::get('/branches/create', [ProyekController::class, 'createBranch'])->name('branches.create');
     Route::post('/branches', [ProyekController::class, 'storeBranch'])->name('branches.store');
@@ -349,7 +358,7 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
 
     // --- Studi Kasus ---
     Route::get('/studi-kasus', [CaseStudyController::class, 'index'])->name('studi-kasus.index');
-    Route::get('/studi-kasus/create', [CaseStudyController::class, 'create'])->name('studi-kasus.create'); 
+    Route::get('/studi-kasus/create', [CaseStudyController::class, 'create'])->name('studi-kasus.create');
     Route::post('/studi-kasus', [CaseStudyController::class, 'store'])->name('studi-kasus.store');
     Route::get('/studi-kasus/{id}/edit', [CaseStudyController::class, 'edit'])->name('studi-kasus.edit');
     Route::put('/studi-kasus/{id}', [CaseStudyController::class, 'update'])->name('studi-kasus.update');
@@ -367,6 +376,9 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     // --- Kelola Akun Klien ---
     Route::resource('clients', ClientController::class);
 
+    
+   
+
     // --- Superadmin Only ---
     Route::middleware([IsSuperadmin::class])->group(function () {
         Route::get('/kelola-admin', [AdminController::class, 'index'])->name('kelola-admin.index');
@@ -378,9 +390,9 @@ Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(
     });
 
     // --- API Dropdown Banner Slider ---
-    Route::prefix('api')->group(function () {
-        Route::get('/dropdown/sub-items/{category}', [SliderDropdownController::class, 'getSubItems']);
-        Route::get('/dropdown/detail-items/{category}/{id}', [SliderDropdownController::class, 'getDetailItems']);
+    Route::prefix('api')->name('api.')->group(function () {
+        Route::get('/dropdown/sub-items/{category}', [SliderDropdownController::class, 'getSubItems'])->name('dropdown.sub-items');
+        Route::get('/dropdown/detail-items/{category}/{id}', [SliderDropdownController::class, 'getDetailItems'])->name('dropdown.detail-items');
     });
 });
 

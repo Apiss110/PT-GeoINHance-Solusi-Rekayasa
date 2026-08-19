@@ -110,7 +110,7 @@
 
     {{-- DAFTAR PROYEK AKTIF --}}
     <div class="bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden">
-        <form id="bulkDeleteForm" action="{{ route('admin.project.bulk-destroy') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data proyek yang dipilih?')">
+        <form id="bulkDeleteForm" action="{{ route('admin.project.destroy.bulk') }}" method="POST" onsubmit="return confirm('Apakah Anda yakin ingin menghapus data proyek yang dipilih?')">
             @csrf
             @method('DELETE')
 

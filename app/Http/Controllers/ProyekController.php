@@ -310,7 +310,7 @@ public function show($slug)
         $projects = $strategicProjects; 
 
         // Tambahkan 'projects' ke dalam compact
-        return view('pages.admin.Branch.branch-manager', compact(
+        return view('pages.admin.Branch.index', compact(
             'branches', 
             'strategicProjects', 
             'projects', 
@@ -350,7 +350,7 @@ public function show($slug)
         $sectors = Sector::orderBy('name')->get();
         $isEdit = true;
 
-        return view('pages.admin.Branch.branch-manager', compact(
+        return view('pages.admin.Branch.edit', compact(
             'branch',
             'branches',
             'strategicProjects',

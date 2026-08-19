@@ -29,7 +29,7 @@
             {{-- 🟢 PENINGKATAN KEAMANAN: Memastikan route('kontak') ada di web.php agar tidak memicu Crash jika rute belum dibuat --}}
             @if(Route::has('kontak'))
                 <a href="{{ route('kontak') }}" class="inline-block bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold uppercase tracking-wider py-3 px-8 rounded text-sm transition shadow-sm">
-                    Hubungi Kami
+                    {{ __('footer.contact') }}   
                 </a>
             @else
                 <a href="#" class="inline-block bg-[#0284c7] hover:bg-[#0369a1] text-white font-bold uppercase tracking-wider py-3 px-8 rounded text-sm transition shadow-sm">
@@ -38,13 +38,6 @@
             @endif
             
             <div class="pt-4">
-                {{-- 🟢 PERBAIKAN: Diubah dari 'resources.news-events' menjadi 'blog.index' agar saat membaca ARTIKEL, ketika klik kembali akan pulang ke halaman daftar ARTIKEL --}}
-                <a href="{{ route('blog.index') }}" class="inline-flex items-center text-xs font-bold text-gray-500 hover:text-[#8b1c1c] transition uppercase tracking-widest">
-                    <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7"></path>
-                    </svg>
-                    Kembali ke Kumpulan Artikel
-                </a>
             </div>
         </div>
 

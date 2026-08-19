@@ -43,7 +43,6 @@ class ProjectProgressController extends Controller
         DB::beginTransaction();
 
         try {
-            // Ambil HANYA kolom yang sesuai dengan tabel project_progresses (agar 'stages' tidak merusak query)
             $data = $request->only([
                 'user_id',
                 'title',
@@ -54,7 +53,6 @@ class ProjectProgressController extends Controller
                 'target_date',
             ]);
 
-            // Upload foto lampiran jika ada
             if ($request->hasFile('image')) {
                 $data['image'] = $request->file('image')->store('project-progresses', 'public');
             }
@@ -62,17 +60,15 @@ class ProjectProgressController extends Controller
             // 1. Simpan Data Utama Progres Proyek
             $progress = ProjectProgress::create($data);
 
-            // 2. Simpan Tahapan & Poin Kegiatan ke Relasi (Jika Model memiliki relasi stages)
+            // 2. Simpan Tahapan & Poin Kegiatan ke Relasi
             if ($request->has('stages') && is_array($request->stages)) {
                 foreach ($request->stages as $stageData) {
                     if (!empty($stageData['title'])) {
-                        // Cek jika relasi stages() ada di Model ProjectProgress
                         if (method_exists($progress, 'stages')) {
                             $stage = $progress->stages()->create([
                                 'title' => $stageData['title'],
                             ]);
 
-                            // Simpan poin item di dalam tahap
                             if (isset($stageData['items']) && is_array($stageData['items'])) {
                                 foreach ($stageData['items'] as $itemData) {
                                     if (!empty($itemData['title'])) {
@@ -92,11 +88,11 @@ class ProjectProgressController extends Controller
             DB::commit();
 
             return redirect()->route('admin.project-progress.index')
-                ->with('success', 'Data progres proyek berhasil ditambahkan!');
+                ->with('success', 'Data progres proyek berhasil dibuat!');
 
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->with('error', 'Gagal menyimpan data: ' . $e->getMessage())->withInput();
+            return back()->with('error', 'Gagal membuat data: ' . $e->getMessage())->withInput();
         }
     }
 
@@ -109,10 +105,7 @@ class ProjectProgressController extends Controller
 
     public function edit($id)
     {
-        // WAJIB gunakan with('stages.items') agar data tahapan & poin ikut terload
         $projectProgress = ProjectProgress::with('stages.items')->findOrFail($id);
-        
-        // Ambil data user/klien
         $clients = User::where('role', 'client')->get();
 
         return view('pages.admin.project-progress.edit', compact('projectProgress', 'clients'));
@@ -122,14 +115,15 @@ class ProjectProgressController extends Controller
     public function update(Request $request, ProjectProgress $projectProgress)
     {
         $request->validate([
-            'user_id'     => 'required|exists:users,id',
-            'title'       => 'required|string|max:255',
-            'description' => 'nullable|string',
-            'percentage'  => 'required|integer|min:0|max:100',
-            'status'      => 'required|in:pending,in_progress,completed',
-            'image'       => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-            'start_date'  => 'nullable|date',
-            'target_date' => 'nullable|date',
+            'user_id'       => 'required|exists:users,id',
+            'title'         => 'required|string|max:255',
+            'description'   => 'nullable|string',
+            'percentage'    => 'required|integer|min:0|max:100',
+            'status'        => 'required|in:pending,in_progress,completed',
+            'image'         => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'attachments.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'start_date'    => 'nullable|date',
+            'target_date'   => 'nullable|date',
         ]);
 
         DB::beginTransaction();
@@ -145,7 +139,7 @@ class ProjectProgressController extends Controller
                 'target_date',
             ]);
 
-            // Ganti foto jika ada foto baru
+            // Ganti foto utama (cover) jika ada
             if ($request->hasFile('image')) {
                 if ($projectProgress->image) {
                     Storage::disk('public')->delete($projectProgress->image);
@@ -153,9 +147,21 @@ class ProjectProgressController extends Controller
                 $data['image'] = $request->file('image')->store('project-progresses', 'public');
             }
 
+            // Ambil array lampiran foto lama
+            $attachments = $projectProgress->attachments ?? [];
+
+            // Tambahkan foto lampiran baru
+            if ($request->hasFile('attachments')) {
+                foreach ($request->file('attachments') as $file) {
+                    $attachments[] = $file->store('project-progresses/attachments', 'public');
+                }
+            }
+
+            $data['attachments'] = $attachments;
+
             $projectProgress->update($data);
 
-            // Update Relasi Tahapan jika ada
+            // Update Relasi Tahapan jika dikirim dari form edit
             if ($request->has('stages') && is_array($request->stages) && method_exists($projectProgress, 'stages')) {
                 $projectProgress->stages()->delete();
 
@@ -182,8 +188,9 @@ class ProjectProgressController extends Controller
 
             DB::commit();
 
-            return redirect()->route('admin.project-progress.index')
-                ->with('success', 'Data progres proyek berhasil diperbarui!');
+            // Kembali ke halaman asal (Detail / Show)
+            return redirect()->back()
+                ->with('success', 'Data progres proyek dan foto berhasil diperbarui!');
 
         } catch (\Exception $e) {
             DB::rollBack();
@@ -196,7 +203,7 @@ class ProjectProgressController extends Controller
     {
         $projectProgress = ProjectProgress::with('stages.items')->findOrFail($id);
 
-        $checkedItemIds = $request->input('items', []); // Array ID item yang dicentang oleh admin
+        $checkedItemIds = $request->input('items', []);
 
         DB::beginTransaction();
 
@@ -213,17 +220,14 @@ class ProjectProgressController extends Controller
                         $completedItems++;
                     }
 
-                    // Update status per poin kegiatan
                     $item->update([
                         'is_completed' => $isCompleted
                     ]);
                 }
             }
 
-            // Hitung ulang persentase progres proyek
             $percentage = $totalItems > 0 ? round(($completedItems / $totalItems) * 100) : 0;
 
-            // Tentukan status otomatis berdasarkan persentase
             $status = 'pending';
             if ($percentage == 100) {
                 $status = 'completed';
@@ -246,11 +250,53 @@ class ProjectProgressController extends Controller
         }
     }
 
-    // Hapus data progres
-    public function destroy(ProjectProgress $projectProgress)
+    // Hapus foto utama (cover)
+    public function deleteImage($id)
     {
+        $projectProgress = ProjectProgress::findOrFail($id);
+
         if ($projectProgress->image) {
             Storage::disk('public')->delete($projectProgress->image);
+            $projectProgress->update(['image' => null]);
+        }
+
+        return redirect()->back()->with('success', 'Foto utama berhasil dihapus!');
+    }
+
+    // Hapus foto lampiran berdasarkan indeks array
+    public function deleteAttachment($id, $index)
+    {
+        $projectProgress = ProjectProgress::findOrFail($id);
+        $attachments = $projectProgress->attachments ?? [];
+
+        if (isset($attachments[$index])) {
+            // Hapus file fisik dari penyimpanan
+            Storage::disk('public')->delete($attachments[$index]);
+
+            // Hapus elemen array dan susun ulang indexnya
+            unset($attachments[$index]);
+            $attachments = array_values($attachments);
+
+            // Simpan pembaruan ke database
+            $projectProgress->update(['attachments' => $attachments]);
+        }
+
+        return redirect()->back()->with('success', 'Foto lampiran berhasil dihapus!');
+    }
+
+    // Hapus data progres beserta seluruh file foto
+    public function destroy(ProjectProgress $projectProgress)
+    {
+        // Hapus foto utama jika ada
+        if ($projectProgress->image) {
+            Storage::disk('public')->delete($projectProgress->image);
+        }
+
+        // Hapus seluruh file lampiran jika ada
+        if (!empty($projectProgress->attachments) && is_array($projectProgress->attachments)) {
+            foreach ($projectProgress->attachments as $attachment) {
+                Storage::disk('public')->delete($attachment);
+            }
         }
 
         $projectProgress->delete();

@@ -1050,6 +1050,15 @@
     "video.card5_desc": "Visual mapping of strain gradient color degradation on critical steel connection components due to combined extreme high wind loads.",
 
 
+    "video.production_year": "Production Year",
+    "video.unsupported_format": "Video link format is not supported by internal player.",
+    "video.open_source_link": "Open Source Link",
+    "video.no_description": "No additional description available for this technical documentation.",
+    "video.other_latest_videos": "Other Latest Publication Videos",
+    "video.year": "Year",
+    "video.contact_us": "Contact Us",
+
+
     "library.breadcrumb_resources": "Resources",
     "library.breadcrumb_library": "Document Library",
     "library.hero_title": "Document Library",
@@ -1127,6 +1136,17 @@
     "casestudy.card5_search": "seismic performance upgrade existing hospital fluid viscous dampers fvd retrofitting surabaya",
     "casestudy.card5_title": "Case Study: Seismic Performance Upgrade of an Existing Hospital via Fluid Viscous Dampers (FVD)",
     "casestudy.card5_desc": "Application of external seismic damping technology to reduce inter-story drift ratio without requiring massive concrete jacket retrofitting.",
+
+
+    "case_study.default_sector": "Case Study",
+    "case_study.year": "Year",
+    "case_study.attached_document": "Related Document Attachment",
+    "case_study.pdf_preview_unavailable": "Direct preview is not available in your browser.",
+    "case_study.open_pdf_directly": "Open PDF Document Directly",
+    "case_study.document_not_available": "Document Not Available",
+    "case_study.document_not_found_desc": "PDF attachment for this case study has not been uploaded or was not found in the database system.",
+    "case_study.no_description": "No description summary available for this engineering case study.",
+    "case_study.discuss_project": "Discuss Similar Projects With Us",
 
 
     "blog.hero_badge": "Resources",
@@ -1247,6 +1267,11 @@
     "syllabus.card6_search": "slope stability",
     "syllabus.card6_title": "Slope Stability Analysis",
     "syllabus.card6_desc": "Slope stability analysis, factor of safety, circular slip, and reinforcement engineering.",
+
+
+    "24 jam": "24 hours",
+    "24 Jam": "24 Hours",
+    "Minimal RAM 8 GB / 16 GB": "Minimum RAM 8 GB / 16 GB",
 
 
     "facility.hero_badge": "Training Facilities",

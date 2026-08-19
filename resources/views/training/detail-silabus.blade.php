@@ -5,10 +5,10 @@
         
         <div class="flex flex-wrap items-center gap-3 mb-5">
             <span class="bg-red-600 text-white text-xs font-bold px-3 py-1 rounded">
-                {{ ($syllabus->software_category) }}
+                {{ __($syllabus->software_category) }}
             </span>
             <span class="bg-slate-700 text-slate-200 text-xs font-medium px-3 py-1 rounded">
-                {{ __('Level:') }} {{ ($syllabus->level) }}
+                {{ __('Level:') }} {{ __($syllabus->level) }}
             </span>
         </div>
         
@@ -25,7 +25,7 @@
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">{{ __('Durasi Kelas') }}</span>
                 <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
                     <i class="fa-regular fa-clock text-red-500 mt-1 flex-shrink-0"></i> 
-                    <span>{{ $syllabus->durasi ? ($syllabus->durasi) : '-' }}</span>
+                    <span>{{ $syllabus->durasi ? __($syllabus->durasi) : '-' }}</span>
                 </span>
             </div>
 
@@ -33,7 +33,7 @@
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">{{ __('Jadwal Terdekat') }}</span>
                 <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
                     <i class="fa-regular fa-calendar text-red-500 mt-1 flex-shrink-0"></i> 
-                    <span class="leading-snug">{{ $syllabus->jadwal_terdekat ? ($syllabus->jadwal_terdekat) : '-' }}</span>
+                    <span class="leading-snug">{{ $syllabus->jadwal_terdekat ? __($syllabus->jadwal_terdekat) : '-' }}</span>
                 </span>
             </div>
 
@@ -41,7 +41,7 @@
                 <span class="block text-slate-500 uppercase tracking-wider text-xs font-semibold">{{ __('Format Pembelajaran') }}</span>
                 <span class="text-slate-200 font-medium text-base flex items-start gap-2 mt-2">
                     <i class="fa-solid fa-video text-red-500 mt-1 flex-shrink-0"></i> 
-                    <span>{{ ($syllabus->format_kelas) }}</span>
+                    <span>{{ __($syllabus->format_kelas) }}</span>
                 </span>
             </div>
 
@@ -78,7 +78,7 @@
                     @if($syllabus->modul_materi && is_array($syllabus->modul_materi))
                         @foreach($syllabus->modul_materi as $index => $modul)
                             <div class="border border-gray-200 rounded-lg p-4 font-semibold text-slate-700 bg-slate-50">
-                                <span>{{ ($modul) }}</span>
+                                <span>{{ __($modul) }}</span>
                             </div>
                         @endforeach
                     @else
@@ -96,14 +96,14 @@
                         @foreach($syllabus->faq_list as $faq)
                             <details class="group border-b border-gray-200 pb-3">
                                 <summary class="flex justify-between items-center font-medium py-2 text-slate-800 hover:text-red-600 cursor-pointer list-none transition [&::-webkit-details-marker]:hidden">
-                                    <span class="text-base font-semibold">{{ isset($faq['pertanyaan']) ? ($faq['pertanyaan']) : '' }}</span>
+                                    <span class="text-base font-semibold">{{ isset($faq['pertanyaan']) ? __($faq['pertanyaan']) : '' }}</span>
                                     <span class="transition group-open:rotate-180 text-slate-400">
                                         <i class="fa-solid fa-plus text-xs group-open:hidden"></i>
                                         <i class="fa-solid fa-minus text-xs hidden group-open:inline"></i>
                                     </span>
                                 </summary>
                                 <div class="mt-2 text-sm text-slate-600 leading-relaxed pl-1">
-                                    {{ isset($faq['jawaban']) ? ($faq['jawaban']) : '' }}
+                                    {{ isset($faq['jawaban']) ? __($faq['jawaban']) : '' }}
                                 </div>
                             </details>
                         @endforeach
@@ -138,14 +138,18 @@
                         <i class="fa-solid fa-laptop text-slate-400 mt-0.5"></i>
                         <div>
                             <strong class="text-slate-700 block">{{ __('Kebutuhan Hardware:') }}</strong>
-                            {{ $syllabus->minimal_ram ? ($syllabus->minimal_ram) : __('RAM Minimal 8GB') }}
+                            @if($syllabus->minimal_ram)
+                                {{ str_replace(['Minimal RAM', 'RAM Minimal', 'minimal ram', 'Minimal Ram'], __('Minimum RAM'), $syllabus->minimal_ram) }}
+                            @else
+                                {{ __('Minimum RAM 8GB') }}
+                            @endif
                         </div>
                     </div>
                     <div class="flex items-start gap-2">
                         <i class="fa-solid fa-key text-slate-400 mt-0.5"></i>
                         <div>
                             <strong class="text-slate-700 block">{{ __('Lisensi Software:') }}</strong>
-                            {{ $syllabus->lisensi_software ? ($syllabus->lisensi_software) : __('Disediakan oleh tim teknis panitia') }}
+                            {{ $syllabus->lisensi_software ? __($syllabus->lisensi_software) : __('Disediakan oleh tim teknis panitia') }}
                         </div>
                     </div>
                 </div>
@@ -162,23 +166,23 @@
                         </div>
                     @endif
                     <div>
-                        <h5 class="font-bold text-slate-800 text-sm leading-tight">{{ $syllabus->nama_instruktur ? ($syllabus->nama_instruktur) : __('Expert Trainer GeoINHance') }}</h5>
+                        <h5 class="font-bold text-slate-800 text-sm leading-tight">{{ $syllabus->nama_instruktur ? __($syllabus->nama_instruktur) : __('Expert Trainer GeoINHance') }}</h5>
                         <span class="text-xs text-red-600 font-semibold">{{ __('Geotechnical Expert') }}</span>
                     </div>
                 </div>
                 <p class="text-xs text-slate-500 leading-relaxed whitespace-pre-line border-t border-gray-100 pt-2">
-                    {{ $syllabus->proyek_instruktur ? ($syllabus->proyek_instruktur) : __('Praktisi senior dengan jam terbang tinggi di bidang pemodelan numerik elemen hingga dan rekayasa infrastruktur sipil.') }}
+                    {{ $syllabus->proyek_instruktur ? __($syllabus->proyek_instruktur) : __('Praktisi senior dengan jam terbang tinggi di bidang pemodelan numerik elemen hingga dan rekayasa infrastruktur sipil.') }}
                 </p>
             </div>
             
             <div class="bg-slate-50 p-5 rounded-xl border border-gray-200 text-xs space-y-3">
                 <div>
                     <span class="font-bold text-slate-700 block mb-1">💡 {{ __('Target Peserta:') }}</span>
-                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->target_peserta ? ($syllabus->target_peserta) : '-' }}</p>
+                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->target_peserta ? __($syllabus->target_peserta) : '-' }}</p>
                 </div>
                 <div class="border-t border-gray-200 pt-2">
                     <span class="font-bold text-slate-700 block mb-1">📘 {{ __('Prasyarat Dasar:') }}</span>
-                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->prasyarat_peserta ? ($syllabus->prasyarat_peserta) : '-' }}</p>
+                    <p class="text-slate-600 leading-relaxed">{{ $syllabus->prasyarat_peserta ? __($syllabus->prasyarat_peserta) : '-' }}</p>
                 </div>
             </div>
 
