@@ -42,7 +42,7 @@
 
             {{-- Nama Halaman Kategori --}}
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Halaman Kategori *</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-1">Nama Halaman Kategori <span class="text-red-500">*</span></label>
                 <input type="text" name="name" value="{{ old('name', $projectPage->name) }}" required
                        placeholder="Masukkan nama halaman kategori..."
                        class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition">
@@ -88,8 +88,15 @@
 
             {{-- Deskripsi Singkat Halaman --}}
             <div>
-                <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi Singkat Halaman *</label>
+                <label class="block text-sm font-semibold text-gray-700 mb-2">Deskripsi Singkat Halaman <span class="text-red-500">*</span></label>
                 <textarea name="description" id="description" class="w-full px-4 py-2.5 rounded-lg border border-gray-200 text-gray-700 focus:outline-none focus:border-[#0e1d82] focus:ring-1 focus:ring-[#0e1d82] transition min-h-[200px]">{{ old('description', $projectPage->description) }}</textarea>
+            </div>
+
+            {{-- Status Aktif --}}
+            <div class="flex items-center pt-2">
+                <input type="checkbox" name="is_active" value="1" id="is_active" {{ old('is_active', $projectPage->is_active ?? true) ? 'checked' : '' }} 
+                    class="rounded border-gray-300 text-[#0e1d82] focus:ring-[#0e1d82] h-4 w-4">
+                <label for="is_active" class="ml-2.5 text-sm font-medium text-gray-700 cursor-pointer">Aktifkan halaman di dropdown menu</label>
             </div>
 
             {{-- Footer Button --}}
@@ -107,19 +114,15 @@
     </div>
 </div>
 
-    {{-- Mengubah CDN ke Cloudflare cdnjs agar benar-benar lepas dari deteksi Cloud API Key TinyMCE --}}
+    {{-- Script TinyMCE & Preview Gambar --}}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tinymce/6.8.2/tinymce.min.js" referrerpolicy="origin"></script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            // Inisialisasi TinyMCE Premium-Look (Clean Version)
             tinymce.init({
                 selector: '#description',
                 height: 420,
-                
-                // KUNCI UTAMA: Menghilangkan tombol "Upgrade" & Watermark teks TinyMCE di bawah
                 promotion: false,
                 branding: false,
-                
                 plugins: 'preview importcss searchreplace autolink autosave save directionality code visualblocks visualchars fullscreen image link media codesample table charmap pagebreak nonbreaking anchor insertdatetime advlist list wordcount help emoticons',
                 menubar: 'file edit view insert format tools table help',
                 toolbar: 'undo redo | bold italic underline strikethrough | fontfamily fontsize blocks | alignleft aligncenter alignright alignjustify | outdent indent | numlist bullist | forecolor backcolor removeformat | pagebreak | charmap emoticons | fullscreen preview | insertfile image media link codesample | code',
@@ -130,7 +133,7 @@
                 content_style: 'body { font-family:Plus Jakarta Sans,Helvetica,Arial,sans-serif; font-size:14px }'
             });
 
-            // SINKRONISASI: Script Live Preview File Gambar Baru (Tetap Dipertahankan)
+            // Live Preview Script
             const editInput = document.getElementById('editBannerInput');
             const editPreview = document.getElementById('editBannerPreview');
             const previewWrapper = document.getElementById('newPreviewWrapper');

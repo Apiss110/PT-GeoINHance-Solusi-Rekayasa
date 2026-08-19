@@ -74,21 +74,34 @@ public function show($slug)
             $category = $page;
             $categories = \Illuminate\Support\Facades\DB::table('project_pages')->get();
 
-            $fkCol = \Illuminate\Support\Facades\Schema::hasColumn('strategic_projects', 'projects_category_id') 
-                ? 'projects_category_id' 
-                : 'project_page_id';
+            // Deteksi kolom Kategori Halaman Proyek di tabel strategic_projects
+            $fkCol = 'project_page_id';
+            if (\Illuminate\Support\Facades\Schema::hasColumn('strategic_projects', 'projects_category_id')) {
+                $fkCol = 'projects_category_id';
+            } elseif (\Illuminate\Support\Facades\Schema::hasColumn('strategic_projects', 'project_category_id')) {
+                $fkCol = 'project_category_id';
+            }
 
+            // Query proyek: Cocokkan ID Kategori, ATAU jika di-input berupa string/slug
             $projects = \Illuminate\Support\Facades\DB::table('strategic_projects')
                 ->where($fkCol, $page->id)
+                ->orWhere($fkCol, $page->slug)
                 ->get();
 
-            // UBAH KE 'proyek.category' SESUAI NAMA FILE BLADE ANDA
+            // Fallback: Jika $projects masih kosong, cari berdasarkan text/title kemiripan
+            if ($projects->isEmpty()) {
+                $projects = \Illuminate\Support\Facades\DB::table('strategic_projects')
+                    ->where('title', 'LIKE', "%{$slug}%")
+                    ->orWhere('description', 'LIKE', "%{$slug}%")
+                    ->get();
+            }
+
             return view('proyek.category', compact('category', 'page', 'projects', 'categories'));
         }
     }
 
     // ------------------------------------------------------------------
-    // 2. CARI DI TABEL strategic_projects (Proyek Spesifik)
+    // 2. CARI DI TABEL strategic_projects (Proyek Spesifik / Single Detail)
     // ------------------------------------------------------------------
     if (\Illuminate\Support\Facades\Schema::hasTable('strategic_projects')) {
         $project = null;
@@ -119,7 +132,6 @@ public function show($slug)
         }
 
         if ($project) {
-            // Setting Properti Category
             $catId = $project->projects_category_id 
                 ?? $project->project_category_id 
                 ?? $project->project_page_id 
@@ -139,7 +151,6 @@ public function show($slug)
                 ];
             }
 
-            // Setting Properti Sector
             $sectorId = $project->sector_id ?? null;
             $sectorObj = null;
 
@@ -164,9 +175,6 @@ public function show($slug)
         }
     }
 
-    // ------------------------------------------------------------------
-    // 3. JIKA DATA TIDAK DITEMUKAN
-    // ------------------------------------------------------------------
     abort(404, 'Proyek tidak ditemukan.');
 }
 
@@ -221,30 +229,32 @@ public function show($slug)
      * Menyimpan Proyek Baru dari Admin ke Database
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
-            'sector_id' => 'nullable|exists:sectors,id', 
-        ]);
+{
+    $request->validate([
+        'title' => 'required|string|max:255',
+        'description' => 'required',
+        'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:5120',
+        'sector_id' => 'nullable|exists:sectors,id', 
+    ]);
 
-        $imagePath = null;
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('projects', 'public');
-        }
-
-        StrategicProject::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $imagePath,
-            'sector_id' => $request->sector_id, 
-            'location' => $request->location,
-            'year' => $request->year,
-        ]);
-
-        return redirect()->back()->with('success', 'Proyek baru sukses didaftarkan!');
+    $imagePath = null;
+    if ($request->hasFile('image')) {
+        $imagePath = $request->file('image')->store('projects', 'public');
     }
+
+    StrategicProject::create([
+        'title'                 => $request->title,
+        'description'           => $request->description,
+        'image'                 => $imagePath,
+        'sector_id'             => $request->sector_id,
+        'project_page_id'       => $request->project_page_id ?? $request->projects_category_id ?? $request->project_category_id, // ✅ TAMBAHKAN INI
+        'projects_category_id'  => $request->projects_category_id ?? $request->project_page_id ?? $request->project_category_id, // ✅ TAMBAHKAN INI
+        'location'              => $request->location,
+        'year'                  => $request->year,
+    ]);
+
+    return redirect()->back()->with('success', 'Proyek baru sukses didaftarkan!');
+}
 
     /**
      * Memperbarui Data Proyek dari Admin

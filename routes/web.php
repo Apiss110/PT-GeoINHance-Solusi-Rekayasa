@@ -35,7 +35,9 @@ use App\Models\Article;   // 🟢 Import model tambahan Anda
 use App\Models\ContactMessage;        // <--- Pastikan ini ada
 use App\Models\TrainingRegistration;  // <--- Pastikan ini juga ada
 use App\Http\Controllers\Admin\SliderDropdownController;
-
+use App\Http\Controllers\Admin\ProjectProgressController;
+use App\Http\Controllers\ClientProgressController;
+use App\Http\Controllers\Admin\ClientController; // 👈 Pastikan baris ini ada
 
 
 
@@ -72,14 +74,20 @@ Route::get('email/verify', function () {
 | PRODUCTS (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
+
+// 🟢 1. Route Statis Khusus Produk Spesifik / Manual Blade
 Route::get('/product/plaxis-2d', function () { return view('products.plaxis-2d'); })->name('product.plaxis2d');
 Route::get('/product/plaxis-3d', function () { return view('products.plaxis-3d'); })->name('product.plaxis3d');
 Route::get('/product/staad-pro', function () { return view('products.staad-pro'); })->name('product.staadpro');
-Route::get('/product/geostudio-flow', function () { return view('products.geostudio'); })->name('product.geostudio');
-Route::get('/product/all-products', function () { return view('products.semua-produk'); })->name('product.all');
-Route::get('/product/{idOrSlug}', [AdminProductController::class, 'show'])->name('produk.detail');
-Route::get('/products/{slug}', [ProductController::class, 'show']);
+Route::get('/product/geostudio-flow', function () { return view('products.geostudio-flow'); })->name('product.geostudio');
 
+// 🟢 2. Route Halaman "Semua Produk" (Harus ditaruh SEBELUM wildcard {slug})
+Route::get('/product/all-products', [AdminProductController::class, 'publicIndex'])->name('product.all');
+Route::get('/products/semua-produk', [AdminProductController::class, 'publicIndex'])->name('products.index');
+
+// 🟢 3. Route Detail Produk Dinamis (Harus ditaruh di PALING BAWAH)
+Route::get('/products/{slug}', [AdminProductController::class, 'publicShow'])->name('products.show');
+Route::get('/product/{idOrSlug}', [AdminProductController::class, 'show'])->name('produk.detail');
 /*
 |--------------------------------------------------------------------------
 | SEKTOR (PUBLIC SIDE)
@@ -94,17 +102,29 @@ Route::prefix('sektor')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| PROYEK / PORTFOLIO (PUBLIC SIDE)
+| PROYEK / PORTFOLIO (PUBLIC)
 |--------------------------------------------------------------------------
 */
-// 1. Halaman daftar semua proyek
-Route::get('/proyek/semua-proyek', [ProyekController::class, 'semuaProyek'])->name('proyek.semua');
+Route::controller(ProyekController::class)->prefix('proyek')->as('proyek.')->group(function () {
+    // 1. Daftar semua proyek (/proyek/semua-proyek)
+    Route::get('/semua-proyek', 'semuaProyek')->name('semua');
 
-// 2. Halaman detail proyek berdasarkan ID (Angka)
-Route::get('/proyek/{id}', [ProyekController::class, 'publicShow'])->name('proyek.detail')->whereNumber('id');
+    // 2. Detail proyek berdasarkan ID angka (/proyek/1)
+    Route::get('/{id}', 'publicShow')->whereNumber('id')->name('detail');
 
-// 3. Halaman Kategori DAN Detail berdasarkan Slug (Cukup 1 Route ini saja!)
-Route::get('/proyek/{slug}', [ProyekController::class, 'show'])->name('proyek.category');
+    // 3. Kategori & Detail berdasarkan slug (/proyek/kategori-atau-slug)
+    Route::get('/{slug}', 'show')->name('category');
+});
+
+/*
+|--------------------------------------------------------------------------
+| AREA KLIEN (AUTHENTICATED)
+|--------------------------------------------------------------------------
+*/
+Route::middleware(['auth'])->group(function () {
+    // Halaman Progres Pekerjaan Klien (/progres-saya)
+    Route::get('/progres-saya', [ClientProgressController::class, 'index'])->name('client.progress.index');
+});
 
 /*
 |--------------------------------------------------------------------------
@@ -140,28 +160,35 @@ Route::get('/resources/video/{id}', [VideoController::class, 'show'])->name('res
 | TRAINING & SYLLABUS (PUBLIC SIDE)
 |--------------------------------------------------------------------------
 */
-// rute GET untuk menampilkan form
-Route::get('/training/pendaftaran', [TrainingController::class, 'pendaftaran'])->name('training.pendaftaran');
-
-Route::get('/training/{slug}', [TrainingController::class, 'show']);
-
-// rute POST untuk submit data form (Ubah namanya di sini agar sinkron dengan file Blade)
-Route::post('/training/pendaftaran', [TrainingController::class, 'storeRegistration'])->name('training.pendaftaran.store');
 
 Route::prefix('training')->group(function () {
+    // 🟢 1. Route Statis & Spesifik Ditaruh Paling Atas
     Route::get('/silabus-materi', [SyllabusController::class, 'publicIndex'])->name('training.silabus');
     Route::get('/silabus-materi/{id}', [SyllabusController::class, 'publicShow'])->name('training.syllabus.show');
+    Route::get('/pendaftaran', [TrainingController::class, 'pendaftaran'])->name('training.pendaftaran');
+    Route::post('/pendaftaran', [TrainingController::class, 'storeRegistration'])->name('training.pendaftaran.store');
     Route::view('/fasilitas', 'training.fasilitas')->name('training.fasilitas');
+
+    // 🟢 2. Route Dinamis Wildcard ({slug}) Ditaruh di Paling Bawah Kelompok
+    Route::get('/{slug}', [TrainingController::class, 'show'])->name('training.show');
 });
 
+/*
+|--------------------------------------------------------------------------
+| UTILITIES & API
+|--------------------------------------------------------------------------
+*/
 
 // Multi-language Switcher
 Route::get('/lang/{locale}', function ($locale) {
-    if (in_array($locale, ['id', 'en'])) { Session::put('locale', $locale); }
+    if (in_array($locale, ['id', 'en'])) {
+        session(['locale' => $locale]);
+        session()->save(); // Force save session
+    }
     return redirect()->back();
 })->name('lang.switch');
 
-// Route API untuk Leaflet JS dikeluarkan dari admin agar bisa diakses Publik tanpa Auth
+// Route API untuk Leaflet JS (Akses Publik)
 Route::get('/api/branches', [ProyekController::class, 'getBranchesJson'])->name('api.branches.json');
 
 
@@ -239,8 +266,13 @@ Route::get('logout', function () {
 |--------------------------------------------------------------------------
 | Admin Routes (Manajemen Konten Back-End)
 |--------------------------------------------------------------------------
+| Seluruh route di bawah wajib diproteksi oleh middleware 'auth' DAN 'is_admin'
+| agar akun bernilai 'client' TIDAK BISA mengaksesnya sama sekali.
 */
-Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () {
+Route::middleware(['auth', 'is_admin'])->prefix('admin')->name('admin.')->group(function () {
+
+    // --- Dashboard ---
+    Route::get('/dashboard', [AdminController::class, 'index'])->name('dashboard');
     
     // --- Bulk Delete Routes ---
     Route::delete('/project/bulk-delete', [ProjectController::class, 'bulkDestroy'])->name('project.destroy.bulk');
@@ -261,9 +293,9 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/slider', [SliderController::class, 'index'])->name('slider.index');
     Route::get('/slider/create', [SliderController::class, 'create'])->name('slider.create');     
     Route::post('/slider', [SliderController::class, 'store'])->name('slider.store');    
+    Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
     Route::put('/slider/{id}', [SliderController::class, 'update'])->name('slider.update'); 
     Route::delete('/slider/{id}', [SliderController::class, 'destroy'])->name('slider.destroy'); 
-    Route::get('/slider/{id}/edit', [SliderController::class, 'edit'])->name('slider.edit');
 
     // --- Products ---
     Route::resource('products', AdminProductController::class);
@@ -274,17 +306,27 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/project/{id}/edit', [ProjectController::class, 'edit'])->name('project.edit');
     Route::put('/project/{id}', [ProjectController::class, 'update'])->name('project.update'); 
     Route::delete('/project/{id}', [ProjectController::class, 'destroy'])->name('project.destroy');
-    Route::post('/blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.upload.image');
+
+    // Route alias Project Card
+    Route::get('/project-card/{id}/edit', [ProjectController::class, 'edit'])->name('project-card.edit');
+    Route::put('/project-card/{id}', [ProjectController::class, 'update'])->name('project-card.update');
+    Route::delete('/project-card/{id}', [ProjectController::class, 'destroy'])->name('project-card.destroy');
 
     // --- Project Pages ---
     Route::get('/project-pages', [ProjectPageController::class, 'index'])->name('project-pages.index');
     Route::get('/project-pages/create', [ProjectPageController::class, 'create'])->name('project-pages.create');
     Route::post('/project-pages', [ProjectPageController::class, 'store'])->name('project-pages.store');
-    Route::delete('/project-pages/{id}', [ProjectPageController::class, 'destroy'])->name('project-pages.destroy');
     Route::get('/project-pages/{id}/edit', [ProjectPageController::class, 'edit'])->name('project-pages.edit');
     Route::put('/project-pages/{id}', [ProjectPageController::class, 'update'])->name('project-pages.update');
+    Route::delete('/project-pages/{id}', [ProjectPageController::class, 'destroy'])->name('project-pages.destroy');
+
+    // --- Project Progress ---
+    Route::resource('project-progress', ProjectProgressController::class);
+    Route::patch('project-progress/{id}/checklist', [ProjectProgressController::class, 'updateChecklist'])
+        ->name('project-progress.update-checklist');
 
     // --- Blog & Articles ---
+    Route::post('/blog/upload-image', [BlogController::class, 'uploadImage'])->name('blog.upload.image');
     Route::resource('blog', BlogController::class);
     Route::get('/blog/{slug}', [BlogController::class, 'show'])->name('blog.show');
     Route::resource('articles', ArticleController::class); 
@@ -318,6 +360,13 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
     Route::get('/training/{id}', [TrainingAdminController::class, 'show'])->name('training.show');
     Route::delete('/training/{id}', [TrainingAdminController::class, 'destroy'])->name('training.destroy');
 
+    // --- Sector & Syllabus ---
+    Route::resource('syllabus', SyllabusController::class);
+    Route::resource('sector', AdminSectorController::class);
+
+    // --- Kelola Akun Klien ---
+    Route::resource('clients', ClientController::class);
+
     // --- Superadmin Only ---
     Route::middleware([IsSuperadmin::class])->group(function () {
         Route::get('/kelola-admin', [AdminController::class, 'index'])->name('kelola-admin.index');
@@ -328,11 +377,7 @@ Route::middleware(['auth'])->prefix('admin')->name('admin.')->group(function () 
         Route::delete('/kelola-admin/{id}', [AdminController::class, 'destroy'])->name('kelola-admin.destroy');
     });
 
-    // --- Resource Others ---
-    Route::resource('syllabus', SyllabusController::class);
-    Route::resource('sector', AdminSectorController::class);
-    
-    // --- API Dropdown Banner Slider (Cukup prefix 'api' karena sudah di dalam prefix 'admin') ---
+    // --- API Dropdown Banner Slider ---
     Route::prefix('api')->group(function () {
         Route::get('/dropdown/sub-items/{category}', [SliderDropdownController::class, 'getSubItems']);
         Route::get('/dropdown/detail-items/{category}/{id}', [SliderDropdownController::class, 'getDetailItems']);

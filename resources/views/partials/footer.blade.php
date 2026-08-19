@@ -23,7 +23,7 @@
                 <li><a href="/" class="hover:text-white transition">{{ __('footer.home') }}</a></li>
                 <li><a href="/profil" class="hover:text-white transition">{{ __('footer.profile') }}</a></li>
                 <li><a href="/proyek/semua-proyek" class="hover:text-white transition">{{ __('footer.projects') }}</a></li>
-                <li><a href="/product/all-product" class="hover:text-white transition">{{ __('footer.product') }}</a></li>
+                <li><a href="/products/semua-produk" class="hover:text-white transition">{{ __('footer.product') }}</a></li>
                 <li><a href="/kontak" class="hover:text-white transition">{{ __('footer.contact') }}</a></li>
             </ul>
         </div>
@@ -32,23 +32,38 @@
             <h4 class="font-bold text-red-500 uppercase text-xs tracking-widest mb-8">
                 {{ __('footer.head_office') }}
             </h4>
-            <p class="text-slate-400 text-sm leading-relaxed mb-4">
-                {!! __('footer.address') !!}
-            </p>
+            <a href="https://www.google.com/maps/search/?api=1&query=Jl.+Cijerokaso+No+94,+Sarijadi,+Sukasari,+Bandung" 
+            target="_blank" 
+            rel="noopener noreferrer" 
+            class="block group">
+                <p class="text-slate-400 text-sm leading-relaxed mb-4 group-hover:text-white transition">
+                    {!! __('footer.address') !!}
+                </p>
+            </a>
+            <!-- Link Telepon / WhatsApp -->
             <p class="text-slate-400 text-sm mb-2">
-                {{ __('footer.phone') }}: +62 851 9044 1744
+                {{ __('footer.phone') }}: 
+                <a href="tel:+6285190441744" class="hover:text-white transition">
+                    +62 851 9044 1744
+                </a>
             </p>
-            <p class="text-slate-400 text-sm text-red-500 font-bold">geoinhance.solusirekayasa@gmail.com</p>
+
+            <!-- Link Email -->
+            <p class="text-slate-400 text-sm">
+                <a href="mailto:geoinhance.solusirekayasa@gmail.com" class="text-white-500 font-bold hover:underline transition">
+                    geoinhance.solusirekayasa@gmail.com
+                </a>
+            </p>
         </div>
     </div>
     
     <div class="max-w-7xl mx-auto pt-8 flex flex-col md:flex-row justify-between items-center text-[10px] text-slate-500 uppercase tracking-[0.2em]">
         <p>{{ __('footer.copyright') }}</p>
         <div class="flex gap-4">
-            <a href="{{ url('/privacy-policy') }}" class="hover:text-red-800 transition-colors">
+            <a href="{{ route('privacy') }}" class="hover:text-red-800 transition-colors">
                 {{ __('footer.privacy_policy') }}
             </a>
-            <a href="{{ url('/terms-of-service') }}" class="hover:text-red-800 transition-colors">
+            <a href="{{ route('terms') }}" class="hover:text-red-800 transition-colors">
                 {{ __('footer.terms_of_service') }}
             </a>
         </div>

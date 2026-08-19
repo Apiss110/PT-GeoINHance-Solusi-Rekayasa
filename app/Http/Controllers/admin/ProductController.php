@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\admin;
+namespace App\Http\Controllers\Admin; // 🟢 FIX: Normalisasi PSR-4 Namespace (Admin dengan huruf kapital A)
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
@@ -10,6 +10,27 @@ use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
+    /**
+     * Menampilkan halaman semua produk untuk publik (/products/semua-produk)
+     */
+    public function publicIndex()
+    {
+        $products = Product::where('is_active', 1)->latest()->get();
+
+        return view('products.semua-produk', compact('products'));
+    }
+
+    /**
+     * Menampilkan detail produk untuk publik berdasarkan slug (/products/{slug})
+     */
+    public function publicShow($slug)
+    {
+        return $this->show($slug);
+    }
+
+    /**
+     * Menampilkan index manajemen produk di Dashboard Admin
+     */
     public function index()
     {
         $products = Product::latest()->paginate(10);
@@ -24,20 +45,19 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'features' => 'nullable|array',
-            'faqs' => 'nullable|array',
-            'licenses' => 'nullable|array',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'features'    => 'nullable|array',
+            'faqs'        => 'nullable|array',
+            'licenses'    => 'nullable|array',
         ]);
 
-        // 🟢 PERBAIKAN: Mengambil data editor TinyMCE dari name="about_description" ke key 'about_p1'
         $jsonData = [
             'hero_badge'         => $request->input('hero_badge', 'Geotechnical Software'),
             'hero_description'   => $request->input('description'),
             'about_title'        => $request->input('about_title', 'Solusi Andal Analisis Geoteknik'),
-            'about_p1'           => $request->input('about_description'), // <- DIUBAH DARI 'about_p1' KE 'about_description'
+            'about_p1'           => $request->input('about_description'),
             'about_p2'           => $request->input('about_p2'),
             'about_partner_note' => $request->input('about_partner_note'),
             'video_url'          => $request->input('video_url'), 
@@ -71,20 +91,19 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
+            'name'        => 'required|string|max:255',
             'description' => 'required|string',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
-            'features' => 'nullable|array',
-            'faqs' => 'nullable|array',
-            'licenses' => 'nullable|array',
+            'image'       => 'nullable|image|mimes:jpeg,png,jpg,webp|max:2048',
+            'features'    => 'nullable|array',
+            'faqs'        => 'nullable|array',
+            'licenses'    => 'nullable|array',
         ]);
 
-        // 🟢 PERBAIKAN: Mengambil data editor TinyMCE dari name="about_description" ke key 'about_p1'
         $jsonData = [
             'hero_badge'         => $request->input('hero_badge', 'Geotechnical Software'),
             'hero_description'   => $request->input('description'), 
             'about_title'        => $request->input('about_title', 'Solusi Andal Analisis Geoteknik'),
-            'about_p1'           => $request->input('about_description'), // <- DIUBAH DARI 'about_p1' KE 'about_description'
+            'about_p1'           => $request->input('about_description'), 
             'about_p2'           => $request->input('about_p2'),
             'about_partner_note' => $request->input('about_partner_note'),
             'video_url'          => $request->input('video_url'), 
@@ -96,7 +115,7 @@ class ProductController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            if ($product->image_path) {
+            if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
                 Storage::disk('public')->delete($product->image_path);
             }
             $product->image_path = $request->file('image')->store('products', 'public');
@@ -116,13 +135,16 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if ($product->image_path) {
+        if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
             Storage::disk('public')->delete($product->image_path);
         }
         $product->delete();
         return redirect()->route('admin.products.index')->with('success', 'Produk berhasil dihapus!');
     }
 
+    /**
+     * Menampilkan halaman detail satu produk
+     */
     public function show($idOrSlug)
     {
         $product = Product::where('id', $idOrSlug)
@@ -148,7 +170,6 @@ class ProductController extends Controller
 
         return view('products.detail', $data);
     }
-    
 
     private function getYoutubeId($url)
     {
@@ -160,11 +181,18 @@ class ProductController extends Controller
     public function bulkDelete(Request $request)
     {
         $request->validate([
-            'ids' => 'required|array',
+            'ids'   => 'required|array',
             'ids.*' => 'exists:products,id',
         ]);
 
-        Product::destroy($request->ids);
+        $products = Product::whereIn('id', $request->ids)->get();
+
+        foreach ($products as $product) {
+            if ($product->image_path && Storage::disk('public')->exists($product->image_path)) {
+                Storage::disk('public')->delete($product->image_path);
+            }
+            $product->delete();
+        }
 
         return redirect()->back()->with('success', count($request->ids) . ' produk terpilih berhasil dihapus massal.');
     }

@@ -24,6 +24,7 @@ trait HasAutoTranslation
                 foreach ($fieldsToTranslate as $field) {
                     $fieldEn = $field . '_en';
 
+                    // Hanya jalankan jika kolom ada, tidak kosong, dan sedang diubah/ditambah
                     if (
                         array_key_exists($field, $model->attributes) && 
                         !empty($model->{$field}) && 
@@ -31,17 +32,17 @@ trait HasAutoTranslation
                     ) {
                         $rawData = $model->{$field};
 
-                        // 1. JIKA DATA SUDAH DI-CAST MENJADI ARRAY ($casts = ['array'])
+                        // 1. JIKA DATA BERUPA ARRAY / JSON CAST ($casts = ['array'])
                         if (is_array($rawData)) {
                             $sampleText = self::getFirstStringFromArray($rawData);
                             $detectedLang = self::detectLanguage($sampleText);
 
                             if ($detectedLang === 'en') {
-                                // Input Bahasa Inggris: Simpan ke _en, lalu terjemahkan kolom utama ke Bahasa Indonesia
+                                // Input English -> Simpan ke _en, terjemahkan ke ID untuk kolom utama
                                 $model->{$fieldEn} = $rawData;
                                 $model->{$field} = self::translateJsonArray($rawData, 'id');
                             } else {
-                                // Input Bahasa Indonesia / Lainnya: Terjemahkan ke Bahasa Inggris untuk _en
+                                // Input Indonesia -> Simpan ke kolom utama, terjemahkan ke EN untuk _en
                                 $model->{$fieldEn} = self::translateJsonArray($rawData, 'en');
                             }
                             continue;
@@ -64,24 +65,23 @@ trait HasAutoTranslation
                             }
                         }
 
-                        // 3. JIKA DATA BERUPA STRING BIASA
+                        // 3. JIKA DATA BERUPA STRING BIASA / HTML
                         if (is_string($rawData)) {
-                            $cleanText = strip_tags($rawData);
-                            $detectedLang = self::detectLanguage($cleanText);
+                            $detectedLang = self::detectLanguage($rawData);
 
                             if ($detectedLang === 'en') {
-                                // Input Bahasa Inggris -> terjemahkan kolom utama ke Indonesia & _en dapat teks asli
+                                // Admin Input Bahasa Inggris
                                 $trId = new GoogleTranslate('id');
                                 $trId->setOptions(['timeout' => 5.0, 'connect_timeout' => 3.0]);
 
-                                $model->{$fieldEn} = $rawData;
-                                $model->{$field} = $trId->translate($cleanText);
+                                $model->{$fieldEn} = $rawData; // Simpan teks Inggris ke _en
+                                $model->{$field} = $trId->translate($rawData); // Terjemahkan ke Indonesia untuk kolom utama
                             } else {
-                                // Input Bahasa Indonesia -> terjemahkan ke Bahasa Inggris untuk _en
+                                // Admin Input Bahasa Indonesia
                                 $trEn = new GoogleTranslate('en');
                                 $trEn->setOptions(['timeout' => 5.0, 'connect_timeout' => 3.0]);
 
-                                $model->{$fieldEn} = $trEn->translate($cleanText);
+                                $model->{$fieldEn} = $trEn->translate($rawData); // Terjemahkan ke Inggris untuk _en
                             }
                         }
                     }
@@ -93,23 +93,35 @@ trait HasAutoTranslation
     }
 
     /**
-     * Helper mendeteksi bahasa dari string
+     * Helper Pintar mendeteksi bahasa dari string (dilengkapi safeguard kata dasar Indonesia)
      */
     private static function detectLanguage(string $text): string
     {
-        if (empty(trim($text))) return 'id';
+        $cleanText = trim(strip_tags($text));
+        if (empty($cleanText)) return 'id';
+
+        // Safeguard kata-kata umum Indonesia agar tidak salah terdeteksi sebagai 'en' oleh Google Translate
+        $idKeywords = ['yang', 'dan', 'di', 'ke', 'dari', 'ini', 'itu', 'untuk', 'dengan', 'atau', 'pada', 'adalah', 'sebagai', 'proyek', 'sektor', 'layanan', 'pelatihan', 'pembangunan', 'solusi'];
+        $words = preg_split('/\s+/', strtolower($cleanText));
+        foreach ($words as $word) {
+            if (in_array($word, $idKeywords)) {
+                return 'id';
+            }
+        }
+
         try {
             $tr = new GoogleTranslate();
             $tr->setOptions(['timeout' => 5.0, 'connect_timeout' => 3.0]);
-            $tr->translate(strip_tags($text));
-            return $tr->getLastDetectedSource() ?? 'id';
+            $tr->translate($cleanText);
+            
+            return ($tr->getLastDetectedSource() === 'en') ? 'en' : 'id';
         } catch (\Throwable $e) {
             return 'id';
         }
     }
 
     /**
-     * Helper mengambil sampel string pertama dari array untuk deteksi bahasa
+     * Helper mengambil sampel string pertama dari array
      */
     private static function getFirstStringFromArray(array $array): string
     {
@@ -124,7 +136,7 @@ trait HasAutoTranslation
     }
 
     /**
-     * Helper rekursif untuk menerjemahkan value di dalam array / JSON ke bahasa tujuan ('en' atau 'id')
+     * Helper rekursif untuk menerjemahkan isi array / JSON
      */
     private static function translateJsonArray(array $array, string $targetLang): array
     {
@@ -136,9 +148,9 @@ trait HasAutoTranslation
                 $array[$key] = self::translateJsonArray($val, $targetLang);
             } elseif (is_string($val) && !empty(trim($val)) && !filter_var($val, FILTER_VALIDATE_URL) && !is_numeric($val)) {
                 try {
-                    $array[$key] = $tr->translate(strip_tags($val));
+                    $array[$key] = $tr->translate($val);
                 } catch (\Throwable $e) {
-                    // Jika item gagal diterjemahkan, pertahankan teks asli
+                    // Jika gagal, gunakan teks asli
                 }
             }
         }
@@ -146,17 +158,21 @@ trait HasAutoTranslation
     }
 
     /**
-     * Otomatis mengembalikan nilai kolom _en jika locale aplikasi saat ini 'en'
+     * Otomatis mengembalikan nilai kolom _en jika locale frontend 'en'
+     * Diproteksi agar TIDAK mengganggu tampilan Form di Admin/Dashboard
      */
     public function getAttribute($key)
     {
         $value = parent::getAttribute($key);
 
-        // Hanya jalankan jika bahasa 'en' dan nama kolom tidak berakhiran '_en'
+        // Jangan ubah nilai atribut jika sedang dipanggil di halaman Admin/Dashboard
+        if (request()->is('admin*') || request()->is('dashboard*') || request()->is('*/edit')) {
+            return $value;
+        }
+
+        // Jalankan mutasi hanya di Frontend ketika switcher bahasa terset ke 'en'
         if (app()->getLocale() === 'en' && !str_ends_with($key, '_en')) {
             $keyEn = $key . '_en';
-            
-            // ✅ Gunakan parent::getAttribute agar Laravel mengeksekusi $casts (JSON -> Array)
             $valueEn = parent::getAttribute($keyEn);
 
             if (!empty($valueEn)) {

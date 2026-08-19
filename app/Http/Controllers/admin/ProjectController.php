@@ -8,10 +8,10 @@ use App\Models\ProjectPage;
 use App\Models\Sector; 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Schema;
 
 class ProjectController extends Controller
 {
-    
     /**
      * 1. Menampilkan halaman daftar proyek di dashboard admin
      */
@@ -25,7 +25,23 @@ class ProjectController extends Controller
     }
 
     /**
-     * 2. Menyimpan data proyek baru
+     * 🌟 2. Menampilkan halaman form tambah proyek baru (create.blade.php)
+     */
+    public function create()
+    {
+        $sectors = Sector::orderBy('name', 'asc')->get();
+        
+        $projectPages = Schema::hasColumn('project_pages', 'name')
+            ? ProjectPage::orderBy('name', 'asc')->get()
+            : ProjectPage::orderBy('title', 'asc')->get();
+
+        $categories = $projectPages;
+
+        return view('pages.admin.project-card.create', compact('sectors', 'projectPages', 'categories'));
+    }
+
+    /**
+     * 3. Menyimpan data proyek baru
      */
     public function store(Request $request)
     {
@@ -55,23 +71,30 @@ class ProjectController extends Controller
     }
 
     /**
-     * 🌟 3. Menampilkan halaman edit proyek (PERBAIKAN: BARU DITAMBAHKAN)
+     * 🌟 4. Menampilkan halaman edit proyek (edit.blade.php)
      */
     public function edit($id)
     {
-        // Ambil data proyek spesifik
+        // 1. Ambil data proyek spesifik
         $project = StrategicProject::findOrFail($id);
         
-        // Ambil data sektor & halaman proyek untuk isi dropdown di view lebar
+        // 2. Ambil data sektor & halaman proyek untuk dropdown
         $sectors = Sector::orderBy('name', 'asc')->get();
-        $projectPages = ProjectPage::orderBy('name', 'asc')->get(); 
+        
+        // Cek secara aman kolom nama di project_pages
+        $projectPages = Schema::hasColumn('project_pages', 'name')
+            ? ProjectPage::orderBy('name', 'asc')->get()
+            : ProjectPage::orderBy('title', 'asc')->get();
 
-        // Kirim semua data ke view edit.blade.php
-        return view('pages.admin.project-card.edit', compact('project', 'sectors', 'projectPages'));
+        // 3. Alias $categories
+        $categories = $projectPages;
+
+        // 4. Kirim data ke view di folder project-card
+        return view('pages.admin.project-card.edit', compact('project', 'sectors', 'projectPages', 'categories'));
     }
 
     /**
-     * 4. Memperbarui data proyek
+     * 5. Memperbarui data proyek
      */
     public function update(Request $request, $id)
     {
@@ -97,7 +120,7 @@ class ProjectController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            if (Storage::disk('public')->exists($project->image_path)) {
+            if ($project->image_path && Storage::disk('public')->exists($project->image_path)) {
                 Storage::disk('public')->delete($project->image_path);
             }
             $data['image_path'] = $request->file('image')->store('projects', 'public');
@@ -109,13 +132,13 @@ class ProjectController extends Controller
     }
 
     /**
-     * 5. Menghapus data proyek tunggal
+     * 6. Menghapus data proyek tunggal
      */
     public function destroy($id)
     {
         $project = StrategicProject::findOrFail($id);
 
-        if (Storage::disk('public')->exists($project->image_path)) {
+        if ($project->image_path && Storage::disk('public')->exists($project->image_path)) {
             Storage::disk('public')->delete($project->image_path);
         }
 
@@ -138,7 +161,7 @@ class ProjectController extends Controller
             $projects = StrategicProject::whereIn('id', $request->ids)->get();
 
             foreach ($projects as $project) {
-                if (Storage::disk('public')->exists($project->image_path)) {
+                if ($project->image_path && Storage::disk('public')->exists($project->image_path)) {
                     Storage::disk('public')->delete($project->image_path);
                 }
                 $project->delete();
@@ -154,7 +177,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * 6. Menampilkan daftar proyek berdasarkan kategori
+     * 7. Menampilkan daftar proyek berdasarkan kategori
      */
     public function showPublicByCategory($slug)
     {
@@ -202,7 +225,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * 7. Menampilkan daftar proyek berdasarkan SEKTOR di halaman user (Detail Sektor)
+     * 8. Menampilkan daftar proyek berdasarkan SEKTOR di halaman user (Detail Sektor)
      */
     public function showPublicBySector($slug)
     {
@@ -231,12 +254,11 @@ class ProjectController extends Controller
     }
 
     /**
-     * 8. Menampilkan katalog data seluruh Sektor Layanan di halaman depan
+     * 9. Menampilkan katalog data seluruh Sektor Layanan di halaman depan
      */
     public function showAllSectorsPublic()
     {
         $sectors = Sector::with('projects')->get();
         return view('sektor.semua-sektor', compact('sectors'));
     }
-
 }

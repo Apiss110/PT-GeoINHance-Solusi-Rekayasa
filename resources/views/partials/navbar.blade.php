@@ -56,7 +56,6 @@
 </head>
 <body class="bg-slate-50 font-sans antialiased text-slate-900 ">
 
-    {{-- 🟢 KITA TAMBAHKAN x-data mobileMenuOpen DI SINI --}}
     <nav x-data="{ mobileMenuOpen: false }" class="fixed top-0 left-0 w-full z-[100] transition-all duration-300">
         <div class="bg-[#002d62] text-white/90 py-2 px-3 sm:px-6 md:px-16 text-[11px] flex justify-between items-center tracking-wider w-full overflow-hidden">
             <div class="flex items-center space-x-3 sm:space-x-8 truncate max-w-[70%] sm:max-w-none">
@@ -66,12 +65,12 @@
                     </svg> 
                     <span class="truncate">{{ __('nav.top.location') }}</span>
                 </span>
-                <span class="hidden sm:flex items-center shrink-0">
+                <a href="tel:+6285190441744" class="hidden sm:flex items-center shrink-0 hover:text-yellow-500 transition">
                     <svg class="w-3.5 h-3.5 mr-2 text-yellow-500" fill="currentColor" viewBox="0 0 20 20">
                         <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"></path>
                     </svg> 
                     +62 851-9044-1744
-                </span>
+                </a>
             </div>
             <div class="flex space-x-2 text-xs font-bold shrink-0 ml-2">
                 <a href="{{ route('lang.switch', 'id') }}" 
@@ -93,7 +92,7 @@
                 </div>
             </div>
 
-            {{-- 🟢 MENU DESKTOP (Sembunyi di HP/Tablet lg:flex) --}}
+            {{-- 🟢 MENU DESKTOP --}}
             <div class="hidden lg:flex items-center space-x-8 text-[12px] font-bold uppercase tracking-widest text-slate-600">
                 <a href="/profil"  class="nav-link transition
                     {{ request()->is('profil') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}"> {{ __('nav.menu.profile') }}</a>
@@ -193,6 +192,20 @@
                     </div>
                 </div>
 
+                {{-- 1️⃣ UPDATE: PROGRES SAYA (NAVBAR UTAMA DESKTOP) --}}
+                @auth
+                    @if(auth()->user()->role === 'client')
+                        <a href="{{ route('client.progress.index') }}" 
+                           class="nav-link transition flex items-center space-x-1 text-blue-700 hover:text-red-800 font-extrabold
+                           {{ request()->routeIs('client.progress.index') ? 'text-red-800 active' : '' }}">
+                            <svg class="w-3.5 h-3.5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path>
+                            </svg>
+                            <span>PROGRES SAYA</span>
+                        </a>
+                    @endif
+                @endauth
+
                 <div class="relative py-2" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button class="nav-link flex items-center space-x-1
                         {{ request()->is('resources/*') ? 'text-red-800 active' : 'text-slate-600 hover:text-red-800' }}">
@@ -279,6 +292,15 @@
                                 </a>
                             @endif
 
+                            {{-- 2️⃣ UPDATE: PROGRES SAYA (DROPDOWN PROFILE DESKTOP) --}}
+                            @if(auth()->check() && auth()->user()->role === 'client')
+                                <a href="{{ route('client.progress.index') }}" 
+                                   class="block px-4 py-2 text-xs text-blue-700 font-bold hover:bg-blue-50 transition flex items-center space-x-2">
+                                    <span class="material-symbols-outlined text-blue-600 text-base">analytics</span>
+                                    <span>Progres Saya</span>
+                                </a>
+                            @endif
+
                             <hr class="border-slate-100 my-1">
 
                             <form method="POST" action="{{ route('logout') }}">
@@ -297,7 +319,7 @@
                 @endauth
             </div>
 
-            {{-- 🟢 TOMBOL GARIS TIGA (HAMBURGER) - Tampil Khusus Layar HP / Tablet (< lg) --}}
+            {{-- 🟢 TOMBOL HAMBURGER MOBILE --}}
             <div class="flex lg:hidden items-center">
                 <button @click="mobileMenuOpen = !mobileMenuOpen" type="button" class="text-slate-700 hover:text-red-800 focus:outline-none p-2 rounded-lg bg-slate-100">
                     <svg x-show="!mobileMenuOpen" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -310,7 +332,7 @@
             </div>
         </div>
 
-        {{-- 🟢 MENU DROPDOWN MOBILE (Muncul saat tombol garis tiga diklik) --}}
+        {{-- 🟢 MENU MOBILE DROPDOWN --}}
         <div x-show="mobileMenuOpen" 
              x-transition:enter="transition ease-out duration-200"
              x-transition:enter-start="opacity-0 -translate-y-2"
@@ -325,7 +347,6 @@
                 {{ __('nav.menu.profile') }}
             </a>
 
-            <!-- Accordion Sektor -->
             <div x-data="{ subOpen: false }" class="border-b border-slate-100 pb-2">
                 <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center py-2 hover:text-red-800">
                     <span>{{ __('nav.menu.sectors') }}</span>
@@ -339,7 +360,6 @@
                 </div>
             </div>
 
-            <!-- Accordion Produk -->
             <div x-data="{ subOpen: false }" class="border-b border-slate-100 pb-2">
                 <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center py-2 hover:text-red-800">
                     <span>{{ __('nav.menu.products') }}</span>
@@ -353,7 +373,6 @@
                 </div>
             </div>
 
-            <!-- Accordion Proyek -->
             <div x-data="{ subOpen: false }" class="border-b border-slate-100 pb-2">
                 <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center py-2 hover:text-red-800">
                     <span>{{ __('nav.menu.projects') }}</span>
@@ -369,7 +388,16 @@
                 </div>
             </div>
 
-            <!-- Accordion Resources -->
+            {{-- 3️⃣ UPDATE: PROGRES SAYA (NAVBAR MOBILE) --}}
+            @auth
+                @if(auth()->user()->role === 'client')
+                    <a href="{{ route('client.progress.index') }}" class="block py-2 text-blue-700 font-bold hover:text-red-800 border-b border-slate-100 uppercase flex items-center space-x-2">
+                        <svg class="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                        <span>PROGRES PROYEK SAYA</span>
+                    </a>
+                @endif
+            @endauth
+
             <div x-data="{ subOpen: false }" class="border-b border-slate-100 pb-2">
                 <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center py-2 hover:text-red-800">
                     <span>{{ __('nav.menu.resources') }}</span>
@@ -384,7 +412,6 @@
                 </div>
             </div>
 
-            <!-- Accordion Training -->
             <div x-data="{ subOpen: false }" class="border-b border-slate-100 pb-2">
                 <button @click="subOpen = !subOpen" class="w-full flex justify-between items-center py-2 hover:text-red-800">
                     <span>{{ __('nav.menu.training') }}</span>
@@ -407,6 +434,14 @@
                     @if(auth()->check() && in_array(auth()->user()->role, ['admin', 'superadmin']))
                         <a href="{{ route('dashboard') }}" class="block py-1 text-xs text-blue-600 font-bold">Dashboard Panel</a>
                     @endif
+                    
+                    {{-- 4️⃣ UPDATE: PROGRES SAYA (AREA PROFILE MOBILE) --}}
+                    @if(auth()->check() && auth()->user()->role === 'client')
+                        <a href="{{ route('client.progress.index') }}" class="block py-1 text-xs text-blue-700 font-bold flex items-center space-x-1">
+                            <span>📊 Progres Proyek Saya</span>
+                        </a>
+                    @endif
+                    
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <button type="submit" class="text-xs text-red-700 font-bold py-1">Logout</button>
@@ -414,7 +449,7 @@
                 </div>
             @else
                 <div class="pt-2">
-                    <a href="{{ route('login') }}" class="block w-full text-center bg-slate-900 text-white py-2.5 rounded-lg text-xs font-bold hover:bg-red-800 transition">
+                    <a href="{{ route('login') }}" class="block w-full text-center bg-slate-900 text-white py-2 rounded font-bold hover:bg-red-800 transition">
                         {{ __('nav.auth.login') }}
                     </a>
                 </div>
